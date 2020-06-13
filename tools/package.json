@@ -1,0 +1,6 @@
+{
+  "name": "tools",
+  "dependencies": {
+    "xml2js": "^0.4.23"
+  }
+}
