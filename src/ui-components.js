@@ -11,12 +11,78 @@ const Colors = {
  */
 const RootContainer = () => DOM.create('div', {
   display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+  margin: 0,
+  padding: 0,
+});
+
+/**
+ * ContentContainer component.
+ *
+ * @returns {HTMLElement}
+ */
+const ContentContainer = () => DOM.create('div', {
+  display: 'flex',
   flexDirection: 'row',
   width: '100%',
   height: '100%',
   margin: 0,
   padding: 0,
 });
+
+/**
+ * SiteHeader component.
+ *
+ * @returns {HTMLElement}
+ */
+const SiteHeader = () => DOM.create('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%',
+  height: '100px',
+  padding: 15,
+  borderBottom: '1px solid #111',
+});
+
+/**
+ * SiteTitleWord component.
+ *
+ * @param {Object} props - Component props.
+ * @returns {HTMLElement}
+ */
+const SiteTitleWord = (str, color, marginLeft = '16px') => {
+  const el = DOM.create('h2', {
+    display: 'block',
+    color,
+    fontFamily: 'monospace',
+    fontSize: '2.3rem',
+    marginLeft,
+  });
+  el.innerHTML = str;
+  return el;
+};
+
+/**
+ * SiteTitle component.
+ *
+ * @param {Object} props - Component props.
+ * @returns {HTMLElement}
+ */
+const SiteTitle = () => {
+  const container = DOM.create('div', {
+    display: 'flex',
+    marginLeft: '20px',
+  });
+  const awaitWord = SiteTitleWord('await', 'rgb(236 64 135)');
+  const successWord = SiteTitleWord('success', 'rgb(100, 204, 118)');
+  const rest = SiteTitleWord('();  // A blog by Chris Lewis', 'rgb(120 117 125)', '0px');
+  DOM.addChild(container, awaitWord);
+  DOM.addChild(container, successWord);
+  DOM.addChild(container, rest);
+  return container;
+};
 
 /**
  * LeftColumn component.
@@ -27,9 +93,10 @@ const LeftColumn = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: '#333',
-  flex: '0 0 180px',
+  flex: '0 0 230px',
   justifyContent: 'start',
   padding: '20px 10px',
+  borderRight: '1px solid #111',
 });
 
 /**
@@ -112,6 +179,9 @@ const SimpleRow = () => DOM.create('div', {
 
 window.UIComponents = {
   RootContainer,
+  ContentContainer,
+  SiteHeader,
+  SiteTitle,
   LeftColumn,
   CentralColumn,
   PostTitle,

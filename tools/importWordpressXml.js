@@ -6,6 +6,9 @@ const [path] = process.argv.slice(2);
 
 const parseStringAsync = promisify(parseString);
 
+/**
+ * The main function.
+ */
 const main = async () => {
   const xml = readFileSync(path, 'utf8');
   const { rss } = await parseStringAsync(xml);
