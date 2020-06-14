@@ -133,7 +133,7 @@ const SiteSocials = () => {
 const LeftColumn = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: '#333',
+  backgroundColor: '#1a1a1a',
   flex: '0 0 230px',
   justifyContent: 'start',
   padding: '20px 10px',

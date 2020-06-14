@@ -1,0 +1,18 @@
+---
+index: 58
+title: Updates
+postDate: 2013-12-15 22:44:26
+original: https://ninedof.wordpress.com/2013/12/15/updates/
+---
+
+So now the semester has finished, I can get down to some real coding and tutorial writing. Things to expect over the next few weeks:
+
+
+	- More parts of the Pebble SDK 2.0 Tutorial.
+	- Information on a basic Pebble rendering engine.
+	- A small post on my recently acquired Spark Core.
+
+
+In other news, the latest versions of Watch Trigger (2.3) and Watch Trigger + (1.5) have been sent to Google Play, fixing xx-hdpi display issues and a bug when opening the front camera on the LG Nexus 5.
+
+Stay tuned!

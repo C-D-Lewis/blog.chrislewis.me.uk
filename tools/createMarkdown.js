@@ -2,7 +2,7 @@ const { readFileSync, writeFileSync } = require('fs');
 const slugify = require('slugify');
 
 /** Path to posts JSON */
-const POSTS_PATH = '../assets/posts.json';
+const POSTS_PATH = '../assets/postImport.json';
 
 /**
  * Replace all instances with a replacement.
@@ -86,15 +86,32 @@ ${transformHTML(post.body)}
  * The main function.
  */
 const main = async () => {
-  const json = require(POSTS_PATH);
+  const posts = require(POSTS_PATH);
+  const history = {};
 
-  json.forEach((post, index) => {
+  posts.forEach((post, index) => {
     const md = generateMarkdown(post, index);
 
-    const outFile = `../posts/${index}-${slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g })}.md`;
-    writeFileSync(outFile, md, 'utf8');
-    console.log(`Wrote ${outFile}`);
+    const [year, month, day] = post.postDate.split(' ')[0].split('-');
+    if (!history[year]) {
+      history[year] = {};
+    }
+    if (!history[year][month]) {
+      history[year][month] = {};
+    }
+
+    const postFileName = `${index}-${slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g })}`;
+    const postFilePath = `../posts/${postFileName}}.md`;
+
+    history[year][month][day] = {
+      title: post.title,
+      file: `${postFileName}.html`,
+    };
+    writeFileSync(postFilePath, md, 'utf8');
+    console.log(`Wrote ${postFilePath}`);
   });
+
+  writeFileSync('../assets/history.json', JSON.stringify(history, null, 2), 'utf8');
 };
 
 main();

@@ -26,7 +26,7 @@ const main = async () => {
     }));
 
   console.log(`Extracted ${posts.length} posts`);
-  writeFileSync('../assets/posts.json', JSON.stringify(posts, null, 2), 'utf8');
+  writeFileSync('../assets/postImport.json', JSON.stringify(posts, null, 2), 'utf8');
 };
 
 main();
