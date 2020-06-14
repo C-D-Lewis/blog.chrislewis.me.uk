@@ -1,5 +1,5 @@
 ---
-id: 1801
+index: 85
 title: Streaming Pebble Accelerometer Data
 postDate: 2014-03-28 19:46:25
 original: https://ninedof.wordpress.com/2014/03/28/streaming-pebble-accelerometer-data/
@@ -8,7 +8,7 @@ original: https://ninedof.wordpress.com/2014/03/28/streaming-pebble-acceleromete
 Updates
 ## - 30/3/14 - Added links to source code
 
-It's been a long term aim of mine to try and speed up <code>AppMessage</code> as fast as I can, in order to transfer more than mere signal messages between the phone and the watch. An example of this is the long time it takes to send responses to the watch in  [Wristponder](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.wristponder) (although now that only applies when a change takes place, thanks to the  [Persistent Storage API](https://developer.getpebble.com/2/api-reference/group___storage.html)).
+It's been a long term aim of mine to try and speed up <code>AppMessage</code> as fast as I can, in order to transfer more than mere signal messages between the phone and the watch. An example of this is the long time it takes to send responses to the watch in [Wristponder](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.wristponder) (although now that only applies when a change takes place, thanks to the [Persistent Storage API](https://developer.getpebble.com/2/api-reference/group___storage.html)).
 
 An ideal use case for this is some sort of accelerometer data stream, so I set to it. I realised that the key to the fastest possible <code>AppMessage</code> speed is to send the next message as soon as possible, when the last one has been received on the other side. If a waiting period is not observed, there will be problems, such as <code>APP_MSG_BUSY</code> or <code>APP_BSG_BUFFER_OVERFLOW</code>. The solution I used uses the <code>app_message_outbox_sent()</code> callback to send the next message. This function is called as soon as the other side <code>ACK</code>nowledges the last message, signalling that it is ready for the next.
 
@@ -71,7 +71,7 @@ app_comm_set_sniff_interval(SNIFF_INTERVAL_REDUCED);
 
 And collecting accelerometer data at a faster rate than it is consumed, to avoid sending duplicate frames. This appears to be about 15 <code>AppMessage</code>s per second, each packed with 30 <code>int</code>s representing 10 time-spliced samples from the accelerometer, with a total throughput of approximately 1.6 KBps.
 
-The end result looks like this (using the excellent  [Android GraphView library](http://android-graphview.org/)):
+The end result looks like this (using the excellent [Android GraphView library](http://android-graphview.org/)):
 ![](http://ninedof.files.wordpress.com/2014/03/screenshot_2014-03-26-19-21-09.png?w=545)The next step may be to implement some sort of gesture recognition to enable movements to control some external application. We shall see!
 
 ## Source code

@@ -1,5 +1,5 @@
 ---
-id: 416
+index: 24
 title: New Pebble Watch Face: Split Horizon
 postDate: 2013-06-03 17:19:34
 original: https://ninedof.wordpress.com/2013/06/03/new-pebble-watch-face-split-horizon/
@@ -18,6 +18,6 @@ It also comes in two other editions:
 Minutes Edition (without the top 15 second markers)
 Plain Edition (just the design without any animation at all)
 
-Source code for all three editions plus install packages can  [be found here](https://www.dropbox.com/s/cyeegx9l9fsg230/Split%20Horizon%20Source%20and%20Bundle.zip).
+Source code for all three editions plus install packages can [be found here](https://www.dropbox.com/s/cyeegx9l9fsg230/Split%20Horizon%20Source%20and%20Bundle.zip).
 
 &nbsp;

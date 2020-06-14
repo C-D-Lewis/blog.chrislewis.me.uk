@@ -1,5 +1,5 @@
 ---
-id: 301
+index: 18
 title: Thoughts on the Android CMD Client
 postDate: 2013-05-03 15:33:27
 original: https://ninedof.wordpress.com/2013/05/03/thoughts-on-the-android-cmd-client/

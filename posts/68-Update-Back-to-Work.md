@@ -1,5 +1,5 @@
 ---
-id: 1492
+index: 68
 title: Update: Back to Work
 postDate: 2014-01-04 23:52:55
 original: https://ninedof.wordpress.com/2014/01/04/update-back-to-work/
@@ -10,7 +10,7 @@ Back to work! This means I'll be developing stuff in my spare time rather than a
 Things to expect eventually (in the weeks range):
 
 
-	- More Pebble SDK 2.0 Tutorial sections. A list of planned ones can  [be seen here](http://forums.getpebble.com/discussion/9459/pebble-sdk-2-0-tutorial).
+	- More Pebble SDK 2.0 Tutorial sections. A list of planned ones can [be seen here](http://forums.getpebble.com/discussion/9459/pebble-sdk-2-0-tutorial).
 	- A new UI for Watch Trigger &amp;+ that better resembles Holo, but with that distinctive red theme. I'm also working on portrait shooting, but the Camera API hates me. It works, but the layout always seems to make the Preview View stretched and distorted. Here's a sneak preview:
 
 

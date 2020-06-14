@@ -1,17 +1,17 @@
 ---
-id: 2559
+index: 138
 title: Creating a Miniature Scripting Language
 postDate: 2018-09-29 21:10:48
 original: https://ninedof.wordpress.com/2018/09/29/creating-a-miniature-scripting-language/
 ---
 
-After using a number of proper programming languages for various projects over the last several years, one couple stood out as an interesting concepts - the DCPU-16 language from  [0x10c](https://en.wikipedia.org/wiki/0x10c), used to program an in-game computer. This was sadly never fully realised beyond community emulators after the project was abandoned, but the idea was to provide a simple language that players could learn to use to advantage themselves. For example, to tell a weapon how to track another ship, given its bearing and speed.
+After using a number of proper programming languages for various projects over the last several years, one couple stood out as an interesting concepts - the DCPU-16 language from [0x10c](https://en.wikipedia.org/wiki/0x10c), used to program an in-game computer. This was sadly never fully realised beyond community emulators after the project was abandoned, but the idea was to provide a simple language that players could learn to use to advantage themselves. For example, to tell a weapon how to track another ship, given its bearing and speed.
 
 I'd like to see a game fully utilise such a concept one day, but until then, I'd thought I'd have a go at creating a very simple pseudo-language and see what would be involved.
 
 ## The Result
 
-Turns out the easiest way to go about it to is to use an existing language as a platform - a  [transpiler](https://en.wikipedia.org/wiki/Source-to-source_compiler). For example, languages like TypeScript and Dart that are transformed to JavaScript, a much more portable language (browsers, Node,  [watches](https://pebble.github.io/rockyjs/), etc.) that can easily be run in many places.
+Turns out the easiest way to go about it to is to use an existing language as a platform - a [transpiler](https://en.wikipedia.org/wiki/Source-to-source_compiler). For example, languages like TypeScript and Dart that are transformed to JavaScript, a much more portable language (browsers, Node, [watches](https://pebble.github.io/rockyjs/), etc.) that can easily be run in many places.
 
 To this end I set out (in my typically enjoyed 'do it yourself' style) to try and make a simplified language that is converted into JavaScript, line for line. The result is a project unimaginatively dubbed ' [islang](https://github.com/C-D-Lewis/islang)' (the 'is' language), so called after the simplest possible statement. The aim is to create a 'language' that is easily learned and uses as little symbols or special syntax rules as possible, which I have seen pose a barrier to new programmers who have never seriously used a programming language before, and would say something like 'why does that line only have a curly bracket in?'
 
@@ -53,7 +53,7 @@ Hello there, Chris!
 
 ## Compilation
 
-Take a look at the project on  [GitHub](https://github.com/C-D-Lewis/islang), specifically ' [transform.js](https://github.com/C-D-Lewis/islang/blob/master/src/transform.js)', which uses a sequence of conventional rules to mould the input line (and its 'tokens', the individual words in the line) into the output line of JavaScript. This function is includes by 'index.js' and processes every line in the source '.is' file into one output JavaScript files called 'build.js'. The programmer can then run their program using node as usual.
+Take a look at the project on [GitHub](https://github.com/C-D-Lewis/islang), specifically ' [transform.js](https://github.com/C-D-Lewis/islang/blob/master/src/transform.js)', which uses a sequence of conventional rules to mould the input line (and its 'tokens', the individual words in the line) into the output line of JavaScript. This function is includes by 'index.js' and processes every line in the source '.is' file into one output JavaScript files called 'build.js'. The programmer can then run their program using node as usual.
 
 [code]
 npm run compile ./my_program.is
@@ -187,4 +187,4 @@ log 'This {car.color} car has only {car.num_wheels} wheels!'
 
 This turned out to be longer than I thought it would be, but the general point is - this is a lot of run, and I hope to add more features in the future, maybe to even use it to teach or provide some more depth or extensibility to another project...
 
-If you're interested, check out some of the  [example programs](https://github.com/C-D-Lewis/islang/tree/master/examples), and give the compilation a try!
+If you're interested, check out some of the [example programs](https://github.com/C-D-Lewis/islang/tree/master/examples), and give the compilation a try!

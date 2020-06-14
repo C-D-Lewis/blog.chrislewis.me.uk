@@ -1,5 +1,5 @@
 ---
-id: 1848
+index: 88
 title: Spark Core Pins from a Webpage
 postDate: 2014-04-07 16:12:43
 original: https://ninedof.wordpress.com/2014/04/07/spark-core-pins-from-a-webpage/
@@ -11,7 +11,7 @@ And it turned out to be easier than expected! After a couple of hours, the basic
 
 ![](http://ninedof.files.wordpress.com/2014/04/jquery-core.png)Nothing too pretty to look at, but does the job well.
 
-During the aforementioned Pebble project,  [I sought help with a problem](https://community.spark.io/t/pin-argument-for-spark-function-is-always-0-solved/3794) in getting the same pin number back as I sent to the Spark Cloud. The solution to this turned out to be specifying the Spark.function() parameter string as a key-value dictionary, making the core (aha) code segment in this webpage as so:
+During the aforementioned Pebble project, [I sought help with a problem](https://community.spark.io/t/pin-argument-for-spark-function-is-always-0-solved/3794) in getting the same pin number back as I sent to the Spark Cloud. The solution to this turned out to be specifying the Spark.function() parameter string as a key-value dictionary, making the core (aha) code segment in this webpage as so:
 
 [code language="js"]
 //Send the request to the Core
@@ -36,6 +36,6 @@ var sendRequest = function(pin, on, device_id, access_token) {
 };
 [/code]
 
-The entire project (three files!) can be found on  [GitHub here](https://github.com/C-D-Lewis/core-pins-js/tree/master). I may expand it to include more functions in the future, but at the moment it provides a good platform to play around with, and I've learned a small amount about HTML forms and using jQuery. Time well spent!
+The entire project (three files!) can be found on [GitHub here](https://github.com/C-D-Lewis/core-pins-js/tree/master). I may expand it to include more functions in the future, but at the moment it provides a good platform to play around with, and I've learned a small amount about HTML forms and using jQuery. Time well spent!
 
 &nbsp;

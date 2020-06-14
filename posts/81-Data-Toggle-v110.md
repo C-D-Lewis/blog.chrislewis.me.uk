@@ -1,5 +1,5 @@
 ---
-id: 1730
+index: 81
 title: Data Toggle v1.1.0
 postDate: 2014-03-04 13:37:05
 original: https://ninedof.wordpress.com/2014/03/04/data-toggle-v1-1-0/
@@ -16,7 +16,7 @@ The Data Toggle for Pebble Android app has been updated and is now version 1.1.0
 The main motivation behind this small update is to enable Pebble SDK 2.0 Beta 10 users work around the existing sideloading bug where my current install method of a .pbw from the bundled assets folder stops working. I'm not too concerned now the Pebble Appstore link is in place, and they have assured me a fix is in the works:
 <blockquote class="twitter-tweet" lang="en"> [@Chris_DL](https://twitter.com/Chris_DL) Totally! Addressing that one is a work in progress.
 
-— Pebble Developers (@PebbleDev)  [March 2, 2014](https://twitter.com/PebbleDev/statuses/440136075370303488)</blockquote>
+— Pebble Developers (@PebbleDev) [March 2, 2014](https://twitter.com/PebbleDev/statuses/440136075370303488)</blockquote>
 If you are not already a user, here's a download link (it's free!)
 
 ![](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)

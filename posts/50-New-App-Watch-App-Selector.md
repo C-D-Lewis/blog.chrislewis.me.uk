@@ -1,5 +1,5 @@
 ---
-id: 1173
+index: 50
 title: New App: Watch App Selector
 postDate: 2013-10-16 16:47:45
 original: https://ninedof.wordpress.com/2013/10/16/new-app-watch-app-selector/
@@ -9,7 +9,7 @@ Every once in a while programming you get stuck on a problem and you think to yo
 
 My main vision was a <code>ListView</code>, but the templates for the individual item layouts were not quite right. So I looked around the internet for how to implement my own, and found conflicting, over-complex or wildly inaccurate resources on how to accomplish this. I left it to sit for a couple of weeks, as I was kept busy by other things, but then yesterday I made another attempt at it.
 
-And as such also happens sometimes when programming, a  [single lead](http://www.vogella.com/articles/AndroidListView/article.html#adapterown_example) will take you all the way as you get swept up in the creative process for a several hour marathon. And the end result is this:
+And as such also happens sometimes when programming, a [single lead](http://www.vogella.com/articles/AndroidListView/article.html#adapterown_example) will take you all the way as you get swept up in the creative process for a several hour marathon. And the end result is this:
 <h1>Watch App Selector</h1>
 <p style="text-align:center;">![](http://ninedof.files.wordpress.com/2013/10/app_logo.png?w=300)</p>
 <p style="text-align:left;">This is the first iteration on realizing the idea of a single app to distribute my watch apps and watch faces. It takes the form of a single list, with each app/face given its own title, summary and logo.</p>

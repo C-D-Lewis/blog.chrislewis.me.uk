@@ -1,5 +1,5 @@
 ---
-id: 904
+index: 44
 title: Unnamed Space Project: UI Investigation
 postDate: 2013-08-28 00:40:47
 original: https://ninedof.wordpress.com/2013/08/28/unnamed-space-project-ui-investigation/
@@ -67,4 +67,4 @@ switch(thisQuad) {
 
 The end result of all this, together with a spawning starfield of stars (who move proportionately to their size to create the illusion of depth) is this (Click to enlarge):
 
-![](http://ninedof.files.wordpress.com/2013/08/inaction.png?w=545)I realise that a simple image isn't that exciting, so if you want to play around with these UI elements and see the whole demo in action,  [here is an executable bundle](https://www.dropbox.com/s/6lzg9n61lcfyyrz/StarfieldUI%20Demo.zip)!
+![](http://ninedof.files.wordpress.com/2013/08/inaction.png?w=545)I realise that a simple image isn't that exciting, so if you want to play around with these UI elements and see the whole demo in action, [here is an executable bundle](https://www.dropbox.com/s/6lzg9n61lcfyyrz/StarfieldUI%20Demo.zip)!

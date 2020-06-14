@@ -1,5 +1,5 @@
 ---
-id: 561
+index: 30
 title: Pebble Watch Face SDK Tutorial #3: Setting up a Ubuntu Virtual Machine for Development
 postDate: 2013-06-20 19:28:03
 original: https://ninedof.wordpress.com/2013/06/20/pebble-watch-face-sdk-tutorial-3-setting-up-a-ubuntu-virtual-machine-for-development/
@@ -27,8 +27,8 @@ An advantage of using cloudpebble instead of installing your own Virtual Machine
 
 Before you start, make sure you download both these files. You'll need them!
 <ol>
-	-  [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-	-  [A DVD image file for Ubuntu OS](http://www.ubuntu.com/download/desktop). I'd recommend 12.04 LTS. Pick the architecture version that is applicable. If you're unsure, select 32-bit. If you want to donate, that's great, but you don't have to. On the next page choose 'not now, take me to the download' to go straight there.
+	- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+	- [A DVD image file for Ubuntu OS](http://www.ubuntu.com/download/desktop). I'd recommend 12.04 LTS. Pick the architecture version that is applicable. If you're unsure, select 32-bit. If you want to donate, that's great, but you don't have to. On the next page choose 'not now, take me to the download' to go straight there.
 </ol>
 ## Setting Up the Virtual Machine
 <ol>
@@ -56,7 +56,7 @@ Before you start, make sure you download both these files. You'll need them!
 
 Now you need to install the software tools and dependencies the SDK requires to work.
 
-I would go though it in detail here, but there really is only one correct way of doing it and that method is documented in fine detail  [over on the official Pebble Developer site](http://developer.getpebble.com/1/welcome). Make sure you follow the instructions to the letter and make sure you resolve any problems you encounter before you try and proceed any further, or you'll be wasting your time!
+I would go though it in detail here, but there really is only one correct way of doing it and that method is documented in fine detail [over on the official Pebble Developer site](http://developer.getpebble.com/1/welcome). Make sure you follow the instructions to the letter and make sure you resolve any problems you encounter before you try and proceed any further, or you'll be wasting your time!
 
 I'd say that only Step 1 and Step 2 on the left hand side are essential right now, then you will be ready for the next section of my tutorial, but if you're interested, a little extra reading is great.
 

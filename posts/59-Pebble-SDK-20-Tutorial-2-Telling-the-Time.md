@@ -1,5 +1,5 @@
 ---
-id: 1337
+index: 59
 title: Pebble SDK 2.0 Tutorial #2: Telling the Time.
 postDate: 2013-12-18 13:33:57
 original: https://ninedof.wordpress.com/2013/12/18/pebble-sdk-2-0-tutorial-2-telling-the-time/
@@ -38,7 +38,7 @@ You register this handler function with the tick event service using the functio
 tick_timer_service_subscribe(MINUTE_UNIT, (TickHandler) tick_handler);
 [/code]
 
-The MINUTE_UNIT specifier tells the tick service that we want an update on each new minute, and no more often. You can choose other types from the API list  [here](https://developer.getpebble.com/2/api-reference/group___wall_time.html#ga0423d00e0eb199de523a92031b5a1107).
+The MINUTE_UNIT specifier tells the tick service that we want an update on each new minute, and no more often. You can choose other types from the API list [here](https://developer.getpebble.com/2/api-reference/group___wall_time.html#ga0423d00e0eb199de523a92031b5a1107).
 
 Once again, we can undo what we set up when the watch face is unloaded, so add the corresponding unsubscribe call in <code>deinit()</code>. This is virtually redundant as nothing can happen once the watchface is closed, but is a good practice to get into:
 
@@ -65,7 +65,7 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 }
 [/code]
 
-A full listing of the modifiers can be found  [here](http://php.net/strftime). Now when the tick event service counts a new minute, it will call our handler function, which in turn updates the time shown to the user. Nifty! Go to 'Compilation' and try it.
+A full listing of the modifiers can be found [here](http://php.net/strftime). Now when the tick event service counts a new minute, it will call our handler function, which in turn updates the time shown to the user. Nifty! Go to 'Compilation' and try it.
 
 But what if we want to start the watchface with the time already showing? We can just call out tick handler (it is, after all, just a function!) and supply the current time and tick interval it is expecting. The code segment below shows how this is accomplished, placed at the end of <code>window_load()</code>:
 
@@ -128,6 +128,6 @@ void window_unload(Window *window)
 
 ## Conclusion
 
-So there you have it! A more interesting watch face, ready for any way of improvement. I'll cover a few that I've already mentioned such as images, custom fonts and animations in the next tutorial sections. In the meantime check what you have against the example project available  [on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-2), or if you got stuck.
+So there you have it! A more interesting watch face, ready for any way of improvement. I'll cover a few that I've already mentioned such as images, custom fonts and animations in the next tutorial sections. In the meantime check what you have against the example project available [on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-2), or if you got stuck.
 
 As always, let me know if you have any queries of feedback. Stay tuned for the next section!

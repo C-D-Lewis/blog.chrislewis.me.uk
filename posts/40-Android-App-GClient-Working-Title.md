@@ -1,5 +1,5 @@
 ---
-id: 819
+index: 40
 title: Android App: GClient (Working Title)
 postDate: 2013-07-25 22:08:52
 original: https://ninedof.wordpress.com/2013/07/25/android-app-gclient-working-title/
@@ -25,7 +25,7 @@ So, upon opening the app, this is what is seen:
 
 
 	- The customizable Activity title.
-	- The 'I/O Traffic' section, which contains a customized SurfaceView element (actually a subclass of my  [Android Game Engine](http://ninedof.wordpress.com/2013/07/08/android-engine-update/)), which fills up green when a connection is established and animates blue 'bits' left and right whenever data is sent or received.
+	- The 'I/O Traffic' section, which contains a customized SurfaceView element (actually a subclass of my [Android Game Engine](http://ninedof.wordpress.com/2013/07/08/android-engine-update/)), which fills up green when a connection is established and animates blue 'bits' left and right whenever data is sent or received.
 	- The 'Connection Settings' section, which contains EditText fields for host address and port number, a Spinner for language selection on the application server side, and connect/disconnect Buttons.
 	- The 'Log History' section contains a ScrollView housing a TextView that shows all events that take place, be they received data, sent commands or local events such as IOExceptions and disconnects.
 	- The 'Custom Buttons' section, which houses the three customizable Buttons that can be setup from the application server side with details I'll now detail below.
@@ -76,7 +76,7 @@ As a test case, I wrote a quick application server that accepts the GClient conn
 
 	- A much more stable and UI friendly threaded approach to networking, using four threads (UI, sending, receiving and connecting)
 	- Precise Android XML UI design including nested layouts and more features of the RelativeLayout.
-	- Setting Android UI views to use  [9-Patch images](http://developer.android.com/tools/help/draw9patch.html) and custom background styles and colours.
+	- Setting Android UI views to use [9-Patch images](http://developer.android.com/tools/help/draw9patch.html) and custom background styles and colours.
 
 
 First version source code [is available here](https://www.dropbox.com/s/2kfu6mh7xwqrv57/GClient%20Source.zip)! The GClientTestServer port is a constant field in the class file. The GClientTestServer also contains the GClientTools class in the util package, which I'll be next using for adapting current project servers and eliminating a few test apps altogether!

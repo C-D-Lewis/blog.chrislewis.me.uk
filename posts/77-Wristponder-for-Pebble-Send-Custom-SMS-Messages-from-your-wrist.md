@@ -1,5 +1,5 @@
 ---
-id: 1663
+index: 77
 title: Wristponder for Pebble: Send Custom SMS Messages from your wrist!
 postDate: 2014-02-14 17:12:35
 original: https://ninedof.wordpress.com/2014/02/14/wristponder-for-pebble-send-custom-sms-messages-from-your-wrist/

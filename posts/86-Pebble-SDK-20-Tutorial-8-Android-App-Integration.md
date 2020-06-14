@@ -1,5 +1,5 @@
 ---
-id: 1824
+index: 86
 title: Pebble SDK 2.0 Tutorial #8: Android App Integration
 postDate: 2014-04-03 23:33:53
 original: https://ninedof.wordpress.com/2014/04/03/pebble-sdk-2-0-tutorial-8-android-app-integration/
@@ -23,9 +23,9 @@ Required Reading
 
 ## Introduction
 
-## NOTE: This section requires knowledge on how to set up a new Android project in an IDE such as  [Eclipse](https://www.eclipse.org)! I will assume you are using Eclipse
+## NOTE: This section requires knowledge on how to set up a new Android project in an IDE such as [Eclipse](https://www.eclipse.org)! I will assume you are using Eclipse
 
-After a few requests and comments, it's time to revisit the Android app communication from  [the old 1.X tutorial series](http://ninedof.wordpress.com/2013/07/11/pebble-watch-face-sdk-tutorial-6-2-way-communication-with-android/) and produce an example app for the new 2.0 SDK.
+After a few requests and comments, it's time to revisit the Android app communication from [the old 1.X tutorial series](http://ninedof.wordpress.com/2013/07/11/pebble-watch-face-sdk-tutorial-6-2-way-communication-with-android/) and produce an example app for the new 2.0 SDK.
 
 For the purposes of simplicity, we will be extending the Pebble SDK <code>new-project</code> example, which starts us off with a nice button setup. To do this, create a new empty CloudPebble project, and add this code to the main <code>.c</code> file:
 
@@ -95,7 +95,7 @@ int main(void) {
 
 With that in place, test compilation to make sure all works as it should regarding button operation.
 
-To extend this to interact with an Android app, we must first add in the <code>AppMessage</code> components from the  [AppMessage for PebbleKit JS](http://ninedof.wordpress.com/2014/02/02/pebble-sdk-2-0-tutorial-6-appmessage-for-pebblekit-js/) section. First, define the <code>in_received_handler()</code> where received <code>AppMessage</code>s will be interpreted as before:
+To extend this to interact with an Android app, we must first add in the <code>AppMessage</code> components from the [AppMessage for PebbleKit JS](http://ninedof.wordpress.com/2014/02/02/pebble-sdk-2-0-tutorial-6-appmessage-for-pebblekit-js/) section. First, define the <code>in_received_handler()</code> where received <code>AppMessage</code>s will be interpreted as before:
 
 [code language="cpp"]
 static void in_received_handler(DictionaryIterator *iter, void *context) 
@@ -333,6 +333,6 @@ Recompile, install and launch BOTH the Pebble and Android apps, press a button a
 
 ## Conclusions
 
-Another long post! For more information on diving deeper and to send more complex forms of data, check out the <code>AppMessage</code>  [documentation](https://developer.getpebble.com/2/api-reference/group___app_message.html).
+Another long post! For more information on diving deeper and to send more complex forms of data, check out the <code>AppMessage</code> [documentation](https://developer.getpebble.com/2/api-reference/group___app_message.html).
 
-Source code is on GitHub for both the  [Pebble](https://github.com/C-D-Lewis/pebble-sdk2-tut-8-watch) and  [Android](https://github.com/C-D-Lewis/pebble-sdk2-tut-8-android) projects.
+Source code is on GitHub for both the [Pebble](https://github.com/C-D-Lewis/pebble-sdk2-tut-8-watch) and [Android](https://github.com/C-D-Lewis/pebble-sdk2-tut-8-android) projects.

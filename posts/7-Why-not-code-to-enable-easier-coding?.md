@@ -1,5 +1,5 @@
 ---
-id: 146
+index: 7
 title: Why not code to enable easier coding?
 postDate: 2013-04-04 00:51:35
 original: https://ninedof.wordpress.com/2013/04/04/why-not-code-to-enable-easier-coding/

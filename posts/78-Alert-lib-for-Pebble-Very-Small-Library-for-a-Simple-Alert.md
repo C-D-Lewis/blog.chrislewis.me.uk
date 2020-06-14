@@ -1,12 +1,12 @@
 ---
-id: 1681
+index: 78
 title: Alert lib for Pebble: Very Small Library for a Simple Alert
 postDate: 2014-02-20 17:52:44
 original: https://ninedof.wordpress.com/2014/02/20/alert-lib-for-pebble-very-small-library-for-a-simple-alert/
 ---
 
-In making improvements to  [Wristponder](http://ninedof.wordpress.com/2014/02/14/wristponder-for-pebble-send-custom-sms-messages-from-your-wrist/), I developed a mechanism that I've gone on to make into a small library that I'll doubtless reuse again in the future, as can you!
+In making improvements to [Wristponder](http://ninedof.wordpress.com/2014/02/14/wristponder-for-pebble-send-custom-sms-messages-from-your-wrist/), I developed a mechanism that I've gone on to make into a small library that I'll doubtless reuse again in the future, as can you!
 
 ![](http://ninedof.files.wordpress.com/2014/02/example_screenshot.png)To use, simply copy the files into your /src folder, <code>#include "alert.h"</code> and call <code>alert_show(...)</code>. You can also update an existing alert and cancel at any time.
 
-The full details as well as an example project are on the  [GitHub page here](https://github.com/C-D-Lewis/pebble-alert-lib). Enjoy!
+The full details as well as an example project are on the [GitHub page here](https://github.com/C-D-Lewis/pebble-alert-lib). Enjoy!

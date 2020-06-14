@@ -1,5 +1,5 @@
 ---
-id: 497
+index: 28
 title: Pebble Watch Face SDK Tutorial #1: Beginner's Primer to the C Language
 postDate: 2013-06-19 17:00:11
 original: https://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/
@@ -7,11 +7,11 @@ original: https://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutoria
 
 Introduction
 
-After using the  [Pebble Watch Face SDK (aka PebbleKit)](http://developer.getpebble.com/) to create a number of my own watch faces, and considering that being able to do so as an owner of one of these marvellous devices is one of it's main unique selling points, I'd like to use this position to help others get their foot on the ladder in terms of getting started creating their own watch faces.
+After using the [Pebble Watch Face SDK (aka PebbleKit)](http://developer.getpebble.com/) to create a number of my own watch faces, and considering that being able to do so as an owner of one of these marvellous devices is one of it's main unique selling points, I'd like to use this position to help others get their foot on the ladder in terms of getting started creating their own watch faces.
 
 This first part of the tutorial will focus on conveying the basics of the C language, which is the language of choice for writing watch faces, so that hopefully a non-programmer can pick them up and start using them to write a watch face.
 
-At the moment, there are two viable environments for writing a watch face that I'm aware of. If you know your way around a Linux OS, such as  [Ubuntu](http://www.ubuntu.com/) at a basic level, you can  [follow the steps provided by the Pebble Team](http://developer.getpebble.com/1/01_GetStarted/01_Step_2) to set up all the tools you'll need to write, compile and install your new watch face. The alternative method is to write the code and upload resources (images, fonts etc) to  [cloudpebble.net](https://cloudpebble.net), a site that does all this for you, if you don't want to work with Ubuntu.
+At the moment, there are two viable environments for writing a watch face that I'm aware of. If you know your way around a Linux OS, such as [Ubuntu](http://www.ubuntu.com/) at a basic level, you can [follow the steps provided by the Pebble Team](http://developer.getpebble.com/1/01_GetStarted/01_Step_2) to set up all the tools you'll need to write, compile and install your new watch face. The alternative method is to write the code and upload resources (images, fonts etc) to [cloudpebble.net](https://cloudpebble.net), a site that does all this for you, if you don't want to work with Ubuntu.
 
 In either case, the program code is entered in to a file with the extension '.c', instead of '.jpg' or '.txt' for example. This file is then used by a piece of software supplied by Pebble in the SDK called a 'compiler' that processes your program code and produces a watch install package as a '.pbw', ready for sharing and uploading, to your watch or the web.
 

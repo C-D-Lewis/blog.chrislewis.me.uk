@@ -1,5 +1,5 @@
 ---
-id: 133
+index: 6
 title: Raiders for Android Initial Release!
 postDate: 2013-03-31 23:17:45
 original: https://ninedof.wordpress.com/2013/03/31/raiders-alpha-release/
@@ -13,6 +13,6 @@ I may never get round to posting a summary of the PC version, so I'll do it here
 
 In its current form there are three enemy ship types and no possibility of player death or winning, just a seven figure score counter. After showing both my parents (who are not gamers at all), they both ended up spending a good five or so minutes shooting ships before they got bored. I consider that an achievement!
 
-Here is a  [download link](https://www.dropbox.com/s/7is07qt9ppex7zr/RaidersAndroid.apk) for a side-loadable .apk. In Android, enable 'Install from Unknown Sources', then open the .apk on the phone. Enjoy!
+Here is a [download link](https://www.dropbox.com/s/7is07qt9ppex7zr/RaidersAndroid.apk) for a side-loadable .apk. In Android, enable 'Install from Unknown Sources', then open the .apk on the phone. Enjoy!
 
 I'll continue to add more features from the PC version (player and enemy health, more ships, mines, a boss etc) and post the next release here.

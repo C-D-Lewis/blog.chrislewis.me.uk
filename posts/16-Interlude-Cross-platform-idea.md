@@ -1,5 +1,5 @@
 ---
-id: 281
+index: 16
 title: Interlude: Cross platform idea
 postDate: 2013-05-01 22:18:54
 original: https://ninedof.wordpress.com/2013/05/01/interlude-cross-platform-idea/

@@ -1,11 +1,11 @@
 ---
-id: 2161
+index: 106
 title: New Pebble Library: PGE (formerly PGame)
 postDate: 2014-10-25 19:48:24
 original: https://ninedof.wordpress.com/2014/10/25/new-pebble-library-pgame/
 ---
 
-For a couple of my existing  [watchapps](https://apps.getpebble.com/applications/529e8742d7894b189c000012) and  [watchfaces](https://apps.getpebble.com/applications/52cd48ecc296577c6c00002f) I have implemented a smooth animation using an <code>AppTimer</code>. This involves something like the snippet below:
+For a couple of my existing [watchapps](https://apps.getpebble.com/applications/529e8742d7894b189c000012) and [watchfaces](https://apps.getpebble.com/applications/52cd48ecc296577c6c00002f) I have implemented a smooth animation using an <code>AppTimer</code>. This involves something like the snippet below:
 
 [code language="c"]
 static void some_layer_update_proc(Layer *layer, GContext *ctx) {
@@ -32,7 +32,7 @@ static void start_animation() {
 
 As you can see, after the first frame is scheduled with an <code>AppTimer</code>, the timer's handler schedules the next, and so an infinite loop is born. After implementing this multiple times, it occurred to me that I could make this process easier to set up, even if it was just for myself. 
 
-The result of this is a new library called  [pge](https://github.com/C-D-Lewis/pge), which creates an object that handles this looping of game logic and rendering per-frame for you, similar to STL. It also handles button clicks with an easier abstraction for the developer. Here's a quick example of usage, from the GitHub README file:
+The result of this is a new library called [pge](https://github.com/C-D-Lewis/pge), which creates an object that handles this looping of game logic and rendering per-frame for you, similar to STL. It also handles button clicks with an easier abstraction for the developer. Here's a quick example of usage, from the GitHub README file:
 
 [code language="c"]
 #include &quot;pge.h&quot;
@@ -71,4 +71,4 @@ The GitHub repo also includes a sample app where I implemented a simple 'game' o
 
 I'm currently working on implementing an <code>Entity</code> object that can be added to a list for automatic looping and rendering by the <code>PGE</code>. This will eventually also allow collision, as well as couple of other useful features.
 
-If you are thinking of creating such a game, this library can hopefully help get you started. Let me know when you end up creating! The repo can be  [found here](https://github.com/C-D-Lewis/pge).
+If you are thinking of creating such a game, this library can hopefully help get you started. Let me know when you end up creating! The repo can be [found here](https://github.com/C-D-Lewis/pge).

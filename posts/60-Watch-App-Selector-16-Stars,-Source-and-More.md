@@ -1,5 +1,5 @@
 ---
-id: 1345
+index: 60
 title: Watch App Selector 1.6: Stars, Source & More
 postDate: 2013-12-17 01:25:23
 original: https://ninedof.wordpress.com/2013/12/17/watch-app-selector-1-6-stars-source-more/

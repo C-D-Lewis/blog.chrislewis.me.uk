@@ -1,5 +1,5 @@
 ---
-id: 243
+index: 15
 title: First Pebble Watchface Implemented
 postDate: 2013-04-20 10:52:41
 original: https://ninedof.wordpress.com/2013/04/20/first-pebble-watchface-implemented/
@@ -19,8 +19,8 @@ But in the meantime I can keep writing watchfaces, just can't use 'em.
 
 But what if we wanted to change it? Well, here's how you'd go about it:
 <ol>
-	- <span style="line-height:12px;">Load up Ubuntu Linux or a suitable VM, download the Pebble SDK (including dependencies and libraries) and set it all up  [as described here](http://developer.getpebble.com/1/welcome).</span>
-	- Write the source file, with guidance from the SDK documentation. I've already done this (and you can  [read it in full here](https://www.dropbox.com/s/yp02w4zcf6j9w5s/textTest.c)).
+	- <span style="line-height:12px;">Load up Ubuntu Linux or a suitable VM, download the Pebble SDK (including dependencies and libraries) and set it all up [as described here](http://developer.getpebble.com/1/welcome).</span>
+	- Write the source file, with guidance from the SDK documentation. I've already done this (and you can [read it in full here](https://www.dropbox.com/s/yp02w4zcf6j9w5s/textTest.c)).
 	- Change this line to whatever you want this very basic watchface to say. ![](http://ninedof.files.wordpress.com/2013/04/1.jpg)
 	- Navigate to the watchface's directory in a Terminal. For example: <code>cd ./~pebble-dev/myWatchfaces/TextTest</code> and build the watchface using <code>./waf configure build![](http://ninedof.files.wordpress.com/2013/04/2.jpg?w=545)</code>
 	- Find the resulting package file in the 'build' directory. For example: <code> ~/pebble-dev/myWatchfaces/TextTest/build</code>

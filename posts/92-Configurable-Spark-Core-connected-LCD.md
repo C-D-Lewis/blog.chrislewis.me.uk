@@ -1,11 +1,11 @@
 ---
-id: 1918
+index: 92
 title: Configurable Spark Core-connected LCD
 postDate: 2014-05-04 20:52:37
 original: https://ninedof.wordpress.com/2014/05/04/configurable-spark-core-connected-lcd/
 ---
 
-After blowing up my last LCD module  [used for a project](http://ninedof.wordpress.com/2013/07/13/raspberry-pi-ip-address-to-lcd-display/), I decided to buy a new one, and decided on this RGB back-light module  [from Sparkfun](https://www.sparkfun.com/products/10862). It shares the standard pin-out as any Arduino compatible module (the 4/8-bit parallel Hitachi HD44780 interface), and includes a back-light that can be illuminated using an RGB LED.
+After blowing up my last LCD module [used for a project](http://ninedof.wordpress.com/2013/07/13/raspberry-pi-ip-address-to-lcd-display/), I decided to buy a new one, and decided on this RGB back-light module [from Sparkfun](https://www.sparkfun.com/products/10862). It shares the standard pin-out as any Arduino compatible module (the 4/8-bit parallel Hitachi HD44780 interface), and includes a back-light that can be illuminated using an RGB LED.
 
 I made the requisite connections for use on my Spark Core, and after discovering that the LED K connection is to ground and that the contrast adjustment pin requires a voltage of more than 4.5V (So grounding on a 3.3V system such as the Core is not enough) I had the module running nicely. As an additional feature, I connected the blue LED terminal via a BC457b transistor to allow control via software. Future expansion could include RGB PWM control for some funky effects, perhaps.
 

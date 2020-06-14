@@ -1,11 +1,11 @@
 ---
-id: 1228
+index: 53
 title: Re: Pebble SDK 2.0
 postDate: 2013-11-06 20:11:49
 original: https://ninedof.wordpress.com/2013/11/06/re-pebble-sdk-2-0/
 ---
 
-Today saw the end of Team Pebble's controversial radio silence, and replaced it with an absolutely huge announcement in the form of a live stream. You can get the details  [here](http://www.youtube.com/watch?v=uoVX2ibCFXw). The salient points are:
+Today saw the end of Team Pebble's controversial radio silence, and replaced it with an absolutely huge announcement in the form of a live stream. You can get the details [here](http://www.youtube.com/watch?v=uoVX2ibCFXw). The salient points are:
 <ol>
 	- A huge overhaul of the 1.x SDK, changing a huge amount of how apps are written.
 	- New APIs for access to accelerometer and JS services.

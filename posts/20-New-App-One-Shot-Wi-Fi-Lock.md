@@ -1,5 +1,5 @@
 ---
-id: 322
+index: 20
 title: New App: One-Shot Wi-Fi Lock
 postDate: 2013-05-07 16:42:39
 original: https://ninedof.wordpress.com/2013/05/07/new-app-one-shot-wi-fi-lock/

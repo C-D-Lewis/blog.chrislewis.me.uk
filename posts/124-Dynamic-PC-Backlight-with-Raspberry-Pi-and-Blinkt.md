@@ -1,11 +1,11 @@
 ---
-id: 2423
+index: 124
 title: Dynamic PC Backlight with Raspberry Pi and Blinkt
 postDate: 2016-11-20 23:18:44
 original: https://ninedof.wordpress.com/2016/11/20/dynamic-pc-backlight-with-raspberry-pi-and-blinkt/
 ---
 
-I'm a big fan of  [Blinkt light hats](https://shop.pimoroni.com/products/blinkt) for Raspberry Pi. I have one showing me server status, rail delays, and weather conditions.
+I'm a big fan of [Blinkt light hats](https://shop.pimoroni.com/products/blinkt) for Raspberry Pi. I have one showing me server status, rail delays, and weather conditions.
 
 ![](/assets/media/2016/11/20161016_153730.jpg)
 <p style="text-align:center;">Server down!</p>

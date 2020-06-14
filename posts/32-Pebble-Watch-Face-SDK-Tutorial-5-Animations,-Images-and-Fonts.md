@@ -1,5 +1,5 @@
 ---
-id: 629
+index: 32
 title: Pebble Watch Face SDK Tutorial #5: Animations, Images and Fonts
 postDate: 2013-07-07 13:29:34
 original: https://ninedof.wordpress.com/2013/07/07/pebble-watch-face-sdk-tutorial-5-animations-images-and-fonts/
@@ -31,7 +31,7 @@ First, a key part of any watch face that uses outside resources such as bitmap i
 
 Whereas your source file lives in <code>/src/</code>, the resource map lives in <code>/resources/src/</code>. The resources themselves are easiest located along side, for example, an image might go in <code>/resources/src/images/</code> and a font in <code>/resources/src/fonts/</code>.
 
-The exact syntax of each resource referenced in this file  [can be found here](http://www.w3schools.com/json/json_syntax.asp), but the form is easy to copy or mimic for each new resource you add, with a couple of example below:
+The exact syntax of each resource referenced in this file [can be found here](http://www.w3schools.com/json/json_syntax.asp), but the form is easy to copy or mimic for each new resource you add, with a couple of example below:
 
 ![](http://ninedof.files.wordpress.com/2013/07/json-example.png)
 
@@ -47,7 +47,7 @@ This function call allows you to use the resources as named in the JSON file whe
 
 ## Animations
 
-Animations allow a static watch face to come alive and become more expressive. An example of an implementation of these can be found in my  [Split Horizon: Seconds Edition](http://www.mypebblefaces.com/view?fID=3837&amp;aName=Bonsitm&amp;pageTitle=Split+Horizon%3A+Seconds+Edition&amp;auID=3905) watch face. Blocks slide in from the top to mark the 15, 30, 45 and 60 second marks, and two half-screen-sized InverterLayers come in and out again to reveal the new time when the minute ticks over.
+Animations allow a static watch face to come alive and become more expressive. An example of an implementation of these can be found in my [Split Horizon: Seconds Edition](http://www.mypebblefaces.com/view?fID=3837&amp;aName=Bonsitm&amp;pageTitle=Split+Horizon%3A+Seconds+Edition&amp;auID=3905) watch face. Blocks slide in from the top to mark the 15, 30, 45 and 60 second marks, and two half-screen-sized InverterLayers come in and out again to reveal the new time when the minute ticks over.
 
 To do all this, you need to use a structure called PropertyAnimation. When using this to animate a Layer of your choice, you must do a number of steps in a certain order.
 <ol>
@@ -115,4 +115,4 @@ So there you have animations, images and fonts. Go wild. But not too wild, becau
 
 In the next part I will be detailing how to perform simple communications with a connected Android app. I'm afraid that due to available devices and iOS costs, Android will be the only perspective offered. Sorry!
 
-## If you are unfamiliar with Java and/or Android app development, speak up either here or on my  [General Discussion](http://forums.getpebble.com/discussion/6054/who-wants-a-pebble-watch-face-tutorial-parts-1-to-4-released) thread and I will fill in the gap with a Java and Android Primer!
+## If you are unfamiliar with Java and/or Android app development, speak up either here or on my [General Discussion](http://forums.getpebble.com/discussion/6054/who-wants-a-pebble-watch-face-tutorial-parts-1-to-4-released) thread and I will fill in the gap with a Java and Android Primer!

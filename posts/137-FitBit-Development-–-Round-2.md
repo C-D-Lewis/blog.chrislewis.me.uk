@@ -1,5 +1,5 @@
 ---
-id: 2553
+index: 137
 title: FitBit Development – Round 2
 postDate: 2018-05-19 14:36:47
 original: https://ninedof.wordpress.com/2018/05/19/fitbit-development-round-2/
@@ -20,4 +20,4 @@ These apps were the two I was most looking forward to having completed on FitBit
 
 So what's next? As mentioned in the last post, I'd like to try and get back to basics with some new watchface concepts, and also explore the possibility of beginning to bring some Dashboard functionality to FitBIt, depending on which data is available. I'm thinking web APIs for networks and battery level to get started, but sadly no actuation for the time being.
 
-As always, you can see the code for yourself  [on GitHub](http://github.com/C-D-Lewis/fitbit-dev).
+As always, you can see the code for yourself [on GitHub](http://github.com/C-D-Lewis/fitbit-dev).

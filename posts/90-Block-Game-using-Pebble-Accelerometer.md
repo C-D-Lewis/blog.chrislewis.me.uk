@@ -1,13 +1,13 @@
 ---
-id: 1884
+index: 90
 title: Block Game using Pebble Accelerometer
 postDate: 2014-04-24 16:35:38
 original: https://ninedof.wordpress.com/2014/04/24/block-game-using-pebble-accelerometer/
 ---
 
-Edit: A gist of the PebbleGestureModel.java file is  [now available](https://gist.github.com/C-D-Lewis/ba1349bb0ebdee76b0cf), but not polished.
+Edit: A gist of the PebbleGestureModel.java file is [now available](https://gist.github.com/C-D-Lewis/ba1349bb0ebdee76b0cf), but not polished.
 
-In snatches of down time over the last few weeks I  [created a stream of Pebble accelerometer data](http://ninedof.wordpress.com/2014/03/28/streaming-pebble-accelerometer-data/) and integrated it into a new version of my Android game engine, which I have plans for using over the summer for a proper implementation of a few game ideas I've toyed with over the last year or so.
+In snatches of down time over the last few weeks I [created a stream of Pebble accelerometer data](http://ninedof.wordpress.com/2014/03/28/streaming-pebble-accelerometer-data/) and integrated it into a new version of my Android game engine, which I have plans for using over the summer for a proper implementation of a few game ideas I've toyed with over the last year or so.
 
 After further small bits of work, I created a class called PebbleGestureModel, which receives new X, Y and Z data and performs threshold and duration checks (to prevent continuous firing) before executing abstract actions, implemented upon instantiation. Below is an example with no actions assigned for an acceleration threshold of 800 (g is approximately 1000), a minimum duration between firing actions and operating in the tilt mode :
 

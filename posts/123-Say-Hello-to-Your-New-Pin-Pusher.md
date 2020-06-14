@@ -1,5 +1,5 @@
 ---
-id: 2383
+index: 123
 title: Say Hello to Your New Pin Pusher!
 postDate: 2016-09-11 13:48:25
 original: https://ninedof.wordpress.com/2016/09/11/say-hello-to-your-new-pin-pusher/
@@ -12,8 +12,8 @@ Update: Added changed IP facility details.
 Two of my Pebble apps push pins to the timeline to enhance their experience beyond the apps themselves:
 
 
-	-  [News Headlines](https://apps.getpebble.com/en_US/application/5387b383f60819963900000e) - Posts the top headline (if it's new) every four hours. Used to push notifications and serve decoded PNG images, but that went away. Maybe someday they will return. But not for now.
-	-  [Tube Status](https://apps.getpebble.com/en_US/application/529e8742d7894b189c000012) - Checks the TFL feed every five minutes, and pushes a pin if there is a change in the delay status. This can be a new delay, a delay that's ended, and 'all clear' (no delays anymore).
+	- [News Headlines](https://apps.getpebble.com/en_US/application/5387b383f60819963900000e) - Posts the top headline (if it's new) every four hours. Used to push notifications and serve decoded PNG images, but that went away. Maybe someday they will return. But not for now.
+	- [Tube Status](https://apps.getpebble.com/en_US/application/529e8742d7894b189c000012) - Checks the TFL feed every five minutes, and pushes a pin if there is a change in the delay status. This can be a new delay, a delay that's ended, and 'all clear' (no delays anymore).
 
 
 Both servers also respond to <code>GET /status</code> to show app users if they're up, and this has proved useful when they occasionally went down. Thanks for a 'do node index.js forever' loop script, this is very rarely now an issue.

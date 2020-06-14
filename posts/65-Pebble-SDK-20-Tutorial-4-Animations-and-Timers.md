@@ -1,5 +1,5 @@
 ---
-id: 1442
+index: 65
 title: Pebble SDK 2.0 Tutorial #4: Animations and Timers
 postDate: 2013-12-29 15:10:47
 original: https://ninedof.wordpress.com/2013/12/29/pebble-sdk-2-0-tutorial-4-animations-and-timers/
@@ -55,7 +55,7 @@ void animate_layer(Layer *layer, GRect *start, GRect *finish, int duration, int 
 }
 [/code]
 
-## Note: If you are compiling for the  [Basalt platform](https://developer.getpebble.com/sdk/migration-guide/#using-propertyanimation), you do not need to manually destroy your animation, so leave the handler out. 
+## Note: If you are compiling for the [Basalt platform](https://developer.getpebble.com/sdk/migration-guide/#using-propertyanimation), you do not need to manually destroy your animation, so leave the handler out. 
 
 You can cast a <code>PropertyAnimation*</code> pointer to a <code>Animation*</code> pointer and vice versa where needed. In addition, for simplicity the <code>GRect</code>s describing the start and finish positions of the animated <code>Layer</code> are created on the heap, and then specified to the <code>animate_layer()</code> wrapper function as pointers using the '&amp;' operator.
 
@@ -173,4 +173,4 @@ Finally, recompile and test the resulting watch face, and see the results! A thi
 
 ## Conclusions
 
-So that's how to use <code>Animation</code>s and <code>AppTimer</code>s! If you think about it, there is a way to replace the moving square's <code>AppTimer</code> with a <code>PropertyAnimation</code>, rendering its use here void. A more robust example is my  [Starfield Demo](https://github.com/C-D-Lewis/starfield-demo/blob/master/src/starfielddemo.c), which uses such timers as the core of its operation. A link to the finished product from this section can be found  [HERE](https://www.dropbox.com/s/bl3dx9mhba5yr4r/sdktut4.zip). Enjoy! If you have queries or comments, make them below, or  [Tweet me](http://twitter.com/Chris_DL).
+So that's how to use <code>Animation</code>s and <code>AppTimer</code>s! If you think about it, there is a way to replace the moving square's <code>AppTimer</code> with a <code>PropertyAnimation</code>, rendering its use here void. A more robust example is my [Starfield Demo](https://github.com/C-D-Lewis/starfield-demo/blob/master/src/starfielddemo.c), which uses such timers as the core of its operation. A link to the finished product from this section can be found [HERE](https://www.dropbox.com/s/bl3dx9mhba5yr4r/sdktut4.zip). Enjoy! If you have queries or comments, make them below, or [Tweet me](http://twitter.com/Chris_DL).

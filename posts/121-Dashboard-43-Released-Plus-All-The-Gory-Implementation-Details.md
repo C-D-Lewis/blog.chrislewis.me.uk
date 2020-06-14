@@ -1,5 +1,5 @@
 ---
-id: 2321
+index: 121
 title: Dashboard 4.3 Released (Plus All The Gory Implementation Details)
 postDate: 2016-07-12 22:07:34
 original: https://ninedof.wordpress.com/2016/07/12/dashboard-4-3-released-plus-all-the-gory-implementation-details/
@@ -37,4 +37,4 @@ In addition, new users would not have their 'keep alive' alarms registered upon 
 
 So there we go! I've always been a vocal proponent of Android's Intent system for IPC, but after this set of complications (which has still yielded an apparently solid solution), I'm not so sure. Ah, who am I kidding? Still a big fan!
 
-Dashboard can be installed from the  [Pebble appstore](https://apps.getpebble.com/en_US/application/53ec8d840c3036447e000109) and the  [Google Play Store](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.dashboard).
+Dashboard can be installed from the [Pebble appstore](https://apps.getpebble.com/en_US/application/53ec8d840c3036447e000109) and the [Google Play Store](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.dashboard).

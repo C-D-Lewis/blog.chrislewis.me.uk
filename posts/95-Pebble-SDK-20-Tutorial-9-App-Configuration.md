@@ -1,5 +1,5 @@
 ---
-id: 1978
+index: 95
 title: Pebble SDK 2.0 Tutorial #9: App Configuration
 postDate: 2014-05-24 15:15:06
 original: https://ninedof.wordpress.com/2014/05/24/pebble-sdk-2-0-tutorial-9-app-configuration/
@@ -95,7 +95,7 @@ We will start by declaring the key we will be using to receive the option to inv
 #define KEY_INVERT 0
 [/code]
 
-Next, we create the <code>AppMessageInboxReceived</code> handler that will process any received messages. If they contain our key, we will compare the payload value <code>cstring</code> to set the colours of the app to be inverted or not, depending on the value received. We then use the  [Persistent Storage API](https://developer.getpebble.com/2/api-reference/group___storage.html) to save the result for the next time the watchapp is opened. This should be placed above <code>init()</code> as it will be called there in a moment:
+Next, we create the <code>AppMessageInboxReceived</code> handler that will process any received messages. If they contain our key, we will compare the payload value <code>cstring</code> to set the colours of the app to be inverted or not, depending on the value received. We then use the [Persistent Storage API](https://developer.getpebble.com/2/api-reference/group___storage.html) to save the result for the next time the watchapp is opened. This should be placed above <code>init()</code> as it will be called there in a moment:
 
 [code language="cpp"]
 static void in_recv_handler(DictionaryIterator *iterator, void *context)
@@ -288,4 +288,4 @@ That completes the page that will get the user's option choices and also the app
 
 So, that's the process I've adopted to set up app configuration. You can expand it by adding more <code>AppMessage</code> keys and more elements in the HTML page. Make sure to add the fields to the JSON object constructed in <code>saveOptions()</code> though. 
 
-As usual, the full code is  [available on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-9). 
+As usual, the full code is [available on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-9). 

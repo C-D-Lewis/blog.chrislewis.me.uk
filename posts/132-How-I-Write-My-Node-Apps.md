@@ -1,5 +1,5 @@
 ---
-id: 2517
+index: 132
 title: How I Write My Node Apps
 postDate: 2017-07-14 22:53:46
 original: https://ninedof.wordpress.com/2017/07/14/how-i-write-my-node-apps/
@@ -10,11 +10,11 @@ With not a lot going on in terms of my Pebble apps (still very much in a 'if it 
 Beginning with moving the backend services for News Headlines and Tube Status out of a $5 Digital Ocean Droplet to a $0 Raspberry Pi under my desk (with a few forwarded ports, of course), I've steadily refined the standard pattern used to write and maintain these apps. At the most there have been six, but today there are five:
 
 
- 	-  [<em>News Headlines Backend</em>](https://github.com/C-D-Lewis/news-headlines/tree/master/backend) - pushing headlines pins.
- 	-  [<em>Tube Status Backend</em>](https://github.com/C-D-Lewis/tube-status/tree/master/backend) - pushing delay alerts pins.
- 	-  [<em>LED Server</em>](https://github.com/C-D-Lewis/led-server) - providing a localhost RESTful interface to the Blinkt! hat on the physical Pi between apps.
- 	-  [<em>Attic</em>](https://github.com/C-D-Lewis/attic) - a new app, serving and receiving simple JSON objects for storage, backed by a Gist.
- 	-  [<em>Monitor</em>](https://github.com/C-D-Lewis/monitor) - responsible for monitoring uptime of the other services, and providing Greater Anglia and TfL Rail outage alerts to myself via my watch. Monitor actually just schedules regular invocations of its plugins' <code>update</code> interface function, making it extremely extensible.
+ 	- [<em>News Headlines Backend</em>](https://github.com/C-D-Lewis/news-headlines/tree/master/backend) - pushing headlines pins.
+ 	- [<em>Tube Status Backend</em>](https://github.com/C-D-Lewis/tube-status/tree/master/backend) - pushing delay alerts pins.
+ 	- [<em>LED Server</em>](https://github.com/C-D-Lewis/led-server) - providing a localhost RESTful interface to the Blinkt! hat on the physical Pi between apps.
+ 	- [<em>Attic</em>](https://github.com/C-D-Lewis/attic) - a new app, serving and receiving simple JSON objects for storage, backed by a Gist.
+ 	- [<em>Monitor</em>](https://github.com/C-D-Lewis/monitor) - responsible for monitoring uptime of the other services, and providing Greater Anglia and TfL Rail outage alerts to myself via my watch. Monitor actually just schedules regular invocations of its plugins' <code>update</code> interface function, making it extremely extensible.
 
 
 With my adventures in Node and discovering convenient or standardised ways of doing things like modules, data storage/sharing, soft configuration, etc. these apps have all been refined to use common file layouts, common modules, and a standard template. With its relatively stable state of maturity, I'd like to share this with readers now!
@@ -46,7 +46,7 @@ Of particular interest is the <code>config.js</code> module, which all modules t
 
 
  	- Ensuring the <code>config.json</code> file is present
- 	- Allowing modules that include it to requireKeys to be present in the <code>config.json</code> file, that they themselves require.  [Here is an example](https://github.com/C-D-Lewis/monitor/blob/master/src/modules/timeline.js#L6).
+ 	- Allowing modules that include it to requireKeys to be present in the <code>config.json</code> file, that they themselves require. [Here is an example](https://github.com/C-D-Lewis/monitor/blob/master/src/modules/timeline.js#L6).
  	- Stop app launch if any of these keys are not present
  	- Allow access to the app's launch directory context.
 

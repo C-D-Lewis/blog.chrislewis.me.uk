@@ -1,5 +1,5 @@
 ---
-id: 340
+index: 21
 title: Java to Arduino LCD Output
 postDate: 2013-05-22 22:01:40
 original: https://ninedof.wordpress.com/2013/05/22/java-to-arduino-lcd-output/
@@ -51,7 +51,7 @@ Anyway, the real fun came when I modified the Arduino sketch to accept Serial da
 
 ![](http://ninedof.files.wordpress.com/2013/05/lcdoutput2.jpg?w=545)
 
-Again, this wasn't a huge challenge, so I took it one step further, which to me was to write a Java class I could use in any general project to send text from a Java application to the LCD display. After some experimentation with the  [RXTX library](http://users.frii.com/jarvi/rxtx/) I got this to work, and it was a nice novelty to type something into the command prompt and see it appear instantaneously on the LCD display.
+Again, this wasn't a huge challenge, so I took it one step further, which to me was to write a Java class I could use in any general project to send text from a Java application to the LCD display. After some experimentation with the [RXTX library](http://users.frii.com/jarvi/rxtx/) I got this to work, and it was a nice novelty to type something into the command prompt and see it appear instantaneously on the LCD display.
 
 So far so good, the class is ready for use in a more advanced project, such as a network enabled application. Examples that come into my head right now are:
 
@@ -61,7 +61,7 @@ So far so good, the class is ready for use in a more advanced project, such as a
 	- Some sort of readout for a future project involving my Pebble watch, once I get my hands on the replacement.
 
 
-So, without further adieu, here are some more pictures, and  [source code](https://www.dropbox.com/s/r4lgnvx8y9qwykg/LCDoutput.zip?v=0mcn)!
+So, without further adieu, here are some more pictures, and [source code](https://www.dropbox.com/s/r4lgnvx8y9qwykg/LCDoutput.zip?v=0mcn)!
 
 ![](http://ninedof.files.wordpress.com/2013/05/lcdoutput4.png?w=545)
 

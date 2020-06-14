@@ -1,5 +1,5 @@
 ---
-id: 2281
+index: 118
 title: Dashboard 4.0 now available!
 postDate: 2016-05-04 18:30:55
 original: https://ninedof.wordpress.com/2016/05/04/dashboard-4-0-now-available/
@@ -21,4 +21,4 @@ It's here! The redesign I've been planning since many months ago (the previous c
 
 I also improved a lot of the Android code, added fail cases, and more logging etc. to better help me diagnose problems when a user sends me a debug log. Finally, I brought a little animation magic to the UI, and relied more heavily on system UI components instead of over-complicating things by rolling my own version of everything.
 
-Download on  [Google Play](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.dashboard) and  [Pebble appstore](https://apps.getpebble.com/en_US/application/53ec8d840c3036447e000109)!
+Download on  [Google Play](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.dashboard) and [Pebble appstore](https://apps.getpebble.com/en_US/application/53ec8d840c3036447e000109)!

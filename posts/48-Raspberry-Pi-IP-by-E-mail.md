@@ -1,17 +1,17 @@
 ---
-id: 1136
+index: 48
 title: Raspberry Pi: IP by E-mail
 postDate: 2013-09-28 00:01:38
 original: https://ninedof.wordpress.com/2013/09/28/raspberry-pi-ip-by-e-mail/
 ---
 
-I  [wrote a while ago](http://ninedof.wordpress.com/2013/07/13/raspberry-pi-ip-address-to-lcd-display/) about a mechanism to locate and connect to a  [headless](http://en.wikipedia.org/wiki/Headless_computer) Raspberry Pi over Ethernet using an LCD display and some start-up code.
+I [wrote a while ago](http://ninedof.wordpress.com/2013/07/13/raspberry-pi-ip-address-to-lcd-display/) about a mechanism to locate and connect to a [headless](http://en.wikipedia.org/wiki/Headless_computer) Raspberry Pi over Ethernet using an LCD display and some start-up code.
 
 Well today I broke it while preparing to move house (and use it in it's intended situation!), which was bad news. Listen to your GND markings, people!
 
 But a moment's search for a replacement strategy yielded another idea. Nothing original by any means, but something new to my programming adventures thus far: Get the IP address by e-mail on boot!
 
-Looking at a Raspberry Pi as it boots you will see the Ethernet port is initialized pretty early on in the boot procedure. A quick Google search revealed the existence of the ' [smtplib](http://docs.python.org/2/library/smtplib.html)' module included with Python, which I leveraged to make this happen. Here is the final code (get_ip_address() found  [here](code.activestate.com/recipes/439094-get-the-ip-address-associated-with-a-network-inter/)):
+Looking at a Raspberry Pi as it boots you will see the Ethernet port is initialized pretty early on in the boot procedure. A quick Google search revealed the existence of the ' [smtplib](http://docs.python.org/2/library/smtplib.html)' module included with Python, which I leveraged to make this happen. Here is the final code (get_ip_address() found [here](code.activestate.com/recipes/439094-get-the-ip-address-associated-with-a-network-inter/)):
 
 [code language="python"]
 import smtplib

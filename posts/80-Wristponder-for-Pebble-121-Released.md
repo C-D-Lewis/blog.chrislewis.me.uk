@@ -1,5 +1,5 @@
 ---
-id: 1706
+index: 80
 title: Wristponder for Pebble 1.2.1 Released
 postDate: 2014-02-28 16:25:46
 original: https://ninedof.wordpress.com/2014/02/28/wristponder-for-pebble-1-2-0-released/

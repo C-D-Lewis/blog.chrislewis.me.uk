@@ -1,5 +1,5 @@
 ---
-id: 1295
+index: 56
 title: Pebble SDK 2.0 Tutorial #1: Your First Watchapp
 postDate: 2013-12-02 20:50:48
 original: https://ninedof.wordpress.com/2013/12/02/pebble-sdk-2-0-tutorial-1-your-first-watchapp/
@@ -9,7 +9,7 @@ Introduction
 
 After the Pebble SDK update to version 2.0, the time has come to write a new version of my tutorial series for this new SDK.
 
-If you are not familiar with the following basic C concepts, please read  [Part 1 of the 1.X tutorial](http://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/), which is just as appropriate now:
+If you are not familiar with the following basic C concepts, please read [Part 1 of the 1.X tutorial](http://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/), which is just as appropriate now:
 <ol>
 	- Variables and variable scope (local or global?)
 	- Functions (definitions and use)
@@ -24,8 +24,8 @@ Up to speed? Good! Let's make our first SDK 2.0 watchapp. This time the tutorial
 
 In order to write and compile watchfaces there are two main options for Windows users:
 <ol>
-	- Use  [Cloud Pebble](http://cloudpebble.net).
-	-  [Install Ubuntu on a virtual machine](https://developer.getpebble.com/2/getting-started/linux/).
+	- Use [Cloud Pebble](http://cloudpebble.net).
+	- [Install Ubuntu on a virtual machine](https://developer.getpebble.com/2/getting-started/linux/).
 </ol>
 Choose whichever works for you. However, since the first draft of this tutorial section, CloudPebble now allows you to install, take screenshots and see logs from Pebble apps from the Compilation page, so for the purposes of a more simple start I'll be writing this tutorial from the Cloud Pebble perspective.
 
@@ -198,12 +198,12 @@ Now we should be ready to see the fruits of our labour!
 
 Make sure you hit 'Save', then click 'Settings' on the left. Here you can set all kinds of app-related settings, but for now just give your own values to 'Short App Name' and 'Company Name'. Hit 'Save Changes'. Next, go to 'Compilation' and hit 'Run Build'. You should be greeted with 'Successful' next to 'Status'. If not, go back and compare your code to the segments above, or check out the example download at the end of the post.
 
-Enter your phone's IP address and click 'install and run' after enabling  [Pebble Developer Connection](https://developer.getpebble.com/2/getting-started/developer-connection/) or download the .pbw file, then open the resulting file on your phone. After the Pebble app has done it's work, you should be able to see your text on the watch! Exciting!
+Enter your phone's IP address and click 'install and run' after enabling [Pebble Developer Connection](https://developer.getpebble.com/2/getting-started/developer-connection/) or download the .pbw file, then open the resulting file on your phone. After the Pebble app has done it's work, you should be able to see your text on the watch! Exciting!
 
 ## Conclusions
 
 So there you have it, a very simple watch app to show some text. Next time we'll flesh it out a bit more and make it do something really useful, like showing the time!
 
-You can find the example project that you should end up with after this tutorial section  [on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-1).
+You can find the example project that you should end up with after this tutorial section [on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-1).
 
 As always let me know if you have any questions or suggestions and stay tuned for the next section!

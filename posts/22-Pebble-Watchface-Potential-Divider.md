@@ -1,11 +1,11 @@
 ---
-id: 359
+index: 22
 title: Pebble Watchface: Potential Divider
 postDate: 2013-05-26 23:34:57
 original: https://ninedof.wordpress.com/2013/05/26/pebble-watchface-potential-divider/
 ---
 
-So, after receiving my replacement watch from the guys at  [Pebble](http://getpebble.com), I cracked on with an idea for a watch face I've had since I backed the project last May. Presenting the 'Potential Divider' watchface!
+So, after receiving my replacement watch from the guys at [Pebble](http://getpebble.com), I cracked on with an idea for a watch face I've had since I backed the project last May. Presenting the 'Potential Divider' watchface!
 
 ![](http://ninedof.files.wordpress.com/2013/05/divider.png?w=545)In electronics, the potential divider is a simple circuit that lets you take one input voltage (here seen as a static 24 volts and step it down to a smaller value by dropping it across two resistors. The salient facts are that the larger of the two resistors gets the larger share of the input voltage. By choosing correct values for the two resistors, you can change (for example) the 24 volts to 12 volts on the output (right hand side) by setting the two resistances exactly equal. Half and half.
 
@@ -43,7 +43,7 @@ return(0.0F);
 </code>
 This, in combination with the manual modulo, enabled me to slot the individual characters of the result float voltage value into the character array slots for display by the watch. Job done! Whew!
 
-So, finally, we can see the results. Here is a YouTube video, showing the watch face in action, plus a little 'electron seconds marker' that travels around the circuit. I'll leave the details on how that works for those who want to peek into the  [source code (link)](https://www.dropbox.com/s/1stdwzel26vlsxy/Divider.zip?v=0mcn), because it is nothing innovative here. The source code download also includes the watchface package incase you want to use it yourself! Enjoy!
+So, finally, we can see the results. Here is a YouTube video, showing the watch face in action, plus a little 'electron seconds marker' that travels around the circuit. I'll leave the details on how that works for those who want to peek into the [source code (link)](https://www.dropbox.com/s/1stdwzel26vlsxy/Divider.zip?v=0mcn), because it is nothing innovative here. The source code download also includes the watchface package incase you want to use it yourself! Enjoy!
 
 &nbsp;
 

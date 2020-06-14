@@ -1,5 +1,5 @@
 ---
-id: 2374
+index: 122
 title: Dash API For Easy Pebble and Android Integration
 postDate: 2016-07-20 22:44:03
 original: https://ninedof.wordpress.com/2016/07/20/dash-api-for-easy-pebble-and-android-integration/
@@ -11,9 +11,9 @@ Turns out, it can! In one of my signature coding bursts I set to work, and prot
 
 ## How does it work?
 
-The  [Dash API](https://github.com/C-D-Lewis/dash-api) (named after Dashboard)  [Pebble package](https://www.npmjs.com/package/pebble-dash-api) uses AppMessage to send requests to read data (such as WiFi network name, or phone battery level), or write to an API (such as turning off WiFi). Using a unique key to recognise Dash API messages, the Android app can respond to these by reading the data or manipulating the Android API and returning a response code. All the developer needs to do is instruct their users to install my  [Dash API Android app](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.dashapi), and then their app (and any others that use the Dash API) can take advantage of the APIs presented through the library. This approach makes the Dash API an install once, use in many apps service.
+The [Dash API](https://github.com/C-D-Lewis/dash-api) (named after Dashboard) [Pebble package](https://www.npmjs.com/package/pebble-dash-api) uses AppMessage to send requests to read data (such as WiFi network name, or phone battery level), or write to an API (such as turning off WiFi). Using a unique key to recognise Dash API messages, the Android app can respond to these by reading the data or manipulating the Android API and returning a response code. All the developer needs to do is instruct their users to install my [Dash API Android app](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.dashapi), and then their app (and any others that use the Dash API) can take advantage of the APIs presented through the library. This approach makes the Dash API an install once, use in many apps service.
 
-The upshot of all this is that a C developer making a watchface that wants to show the phone battery level (such as the demo app  [Dual Gauge](https://apps.getpebble.com/en_US/application/578cb2e31e00a6c4b3000312)) need only use the Pebble package and not write a single line of Java, let alone go to the trouble of publishing an Android app on Google Play.
+The upshot of all this is that a C developer making a watchface that wants to show the phone battery level (such as the demo app [Dual Gauge](https://apps.getpebble.com/en_US/application/578cb2e31e00a6c4b3000312)) need only use the Pebble package and not write a single line of Java, let alone go to the trouble of publishing an Android app on Google Play.
 
 But how can one companion app target them all, without knowing they exist?
 
@@ -21,7 +21,7 @@ Luckily, you can extract the UUID of an app that sends an AppMessage packet to t
 
 ## So how can I use it?
 
-Simple. As explained in the  [GitHub README.md file](https://github.com/C-D-Lewis/dash-api/blob/master/README.md#setting-up), a C developer should first install the package:
+Simple. As explained in the [GitHub README.md file](https://github.com/C-D-Lewis/dash-api/blob/master/README.md#setting-up), a C developer should first install the package:
 
 <code>
 $ pebble package install pebble-dash-api
@@ -53,7 +53,7 @@ Next, check the Android app is available and up to date:
 dash_api_check_is_available();
 [/code]
 
-The result will be passed to your <code>error_callback</code>. Once you get <code>ErrorCodeSuccess</code>, it is safe to start making queries, such as getting the battery level, etc. Code examples are included in the  [GitHub README.md file](https://github.com/C-D-Lewis/dash-api#get-data).
+The result will be passed to your <code>error_callback</code>. Once you get <code>ErrorCodeSuccess</code>, it is safe to start making queries, such as getting the battery level, etc. Code examples are included in the [GitHub README.md file](https://github.com/C-D-Lewis/dash-api#get-data).
 
 ## What else do I need to know?
 

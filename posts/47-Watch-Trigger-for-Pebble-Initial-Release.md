@@ -1,5 +1,5 @@
 ---
-id: 1086
+index: 47
 title: Watch Trigger + for Pebble: Initial Release 
 postDate: 2013-09-22 20:56:21
 original: https://ninedof.wordpress.com/2013/09/22/watch-trigger-for-pebble-initial-release/
@@ -36,7 +36,7 @@ After the success of the first Watch Trigger, and a good deal of requests, I spe
 <div>The problems start to appear if you want to do approach #2 above with video capture. Whereas the Camera API has the takePicture() method, which calls the supplied callbacks to get and save the image data to internal storage, the capturing of video data requires continuous storage functionality, which is managed with the MediaRecorder class.</div>
 <div></div>
 <div></div>
-<div>On paper ( [in the API documentation](http://developer.android.com/guide/topics/media/camera.html)), the video capture process is  [simple enough](http://developer.android.com/guide/topics/media/camera.html#capture-video), if you tread with caution. Even following this admittedly precision orientated procedure, I spent at least two days wrestling with 'setParameters failed' and 'start failed -19' errors. One thing I like about the Java language is with a suitable debugger the stack trace is nearly always informative enough to show you exactly what failed and why. But these errors were near meaningless, and according to sites such as Stack Overflow, could occur due to a wide variety of reasons.</div>
+<div>On paper ( [in the API documentation](http://developer.android.com/guide/topics/media/camera.html)), the video capture process is [simple enough](http://developer.android.com/guide/topics/media/camera.html#capture-video), if you tread with caution. Even following this admittedly precision orientated procedure, I spent at least two days wrestling with 'setParameters failed' and 'start failed -19' errors. One thing I like about the Java language is with a suitable debugger the stack trace is nearly always informative enough to show you exactly what failed and why. But these errors were near meaningless, and according to sites such as Stack Overflow, could occur due to a wide variety of reasons.</div>
 <div></div>
 <div></div>
 <div>Eventually I managed to get video capture to work after making assumptions about camera hardware, encoder options and file formats, which when considering to release to a device-fragmented ecosystem such as Android, is scary enough. A few more days work enabled me to eliminate most of these assumptions which should provide the best compatibility. In case you were led here by struggles re-creating the Camera app for video recording, here is my code which works (at least for a CM10.1 Galaxy S, stock HTC One, stock 2.3.3 Galaxy Ace and stock Galaxy Y (I still pity Galaxy Y users):</div>
@@ -163,6 +163,6 @@ After a few requests and accepting that I should support all the devices that Pe
 
 Thus, in many other places including the one shown above, the app takes a different path depending on the device platform version.
 
-So, that's the big upgrade! All that's left now is to provide a link to get your teeth into taking loony videos of yourself.  [Hopefully nothing like this](http://www.youtube.com/watch?v=4beRDIteCTM).
+So, that's the big upgrade! All that's left now is to provide a link to get your teeth into taking loony videos of yourself. [Hopefully nothing like this](http://www.youtube.com/watch?v=4beRDIteCTM).
 <p style="text-align:left;">Download</p>
 ![](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)

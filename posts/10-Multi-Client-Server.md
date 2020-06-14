@@ -1,5 +1,5 @@
 ---
-id: 193
+index: 10
 title: Multi-Client Server
 postDate: 2013-04-12 01:24:04
 original: https://ninedof.wordpress.com/2013/04/12/multi-client-server/
@@ -13,4 +13,4 @@ Here's a demo image! I'll also release some source code for this stage, as a sim
 
 The next step is to set up server sending messages from one client to another, and become a real server! At the moment its just a listener...
 
-Here's a  [link](https://www.dropbox.com/s/br5dldu1rqrejz2/Server%20and%20Client.zip) to the source code.
+Here's a [link](https://www.dropbox.com/s/br5dldu1rqrejz2/Server%20and%20Client.zip) to the source code.

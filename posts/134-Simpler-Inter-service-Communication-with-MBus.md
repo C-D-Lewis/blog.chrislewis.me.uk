@@ -1,5 +1,5 @@
 ---
-id: 2533
+index: 134
 title: Simpler Inter-service Communication with MBus
 postDate: 2017-12-24 13:33:29
 original: https://ninedof.wordpress.com/2017/12/24/simpler-inter-service-communication-with-mbus/
@@ -98,7 +98,7 @@ const MESSAGE_SCHEMA = {
 
 ## Example Implementations
 
-You can find the code for  [MBus](https://github.com/C-D-Lewis/mbus) in the GitHub repository, and also check some example clients including  [Attic](https://github.com/C-D-Lewis/attic),  [LED Server](https://github.com/C-D-Lewis/led-server), and  [Monitor](https://github.com/C-D-Lewis/monitor).
+You can find the code for [MBus](https://github.com/C-D-Lewis/mbus) in the GitHub repository, and also check some example clients including [Attic](https://github.com/C-D-Lewis/attic), [LED Server](https://github.com/C-D-Lewis/led-server), and [Monitor](https://github.com/C-D-Lewis/monitor).
 
 Barring a few client app updates (luckily no very serious user-facing apps depend on these services for core functionality right now), all the main services now use MBus to talk to each other. The image below shows these setups for the main machines they are deployed on:
 

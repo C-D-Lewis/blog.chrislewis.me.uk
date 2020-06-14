@@ -1,5 +1,5 @@
 ---
-id: 577
+index: 31
 title: Pebble Watch Face SDK Tutorial #4: Anatomy of Your First Watch Face
 postDate: 2013-06-21 21:46:34
 original: https://ninedof.wordpress.com/2013/06/21/pebble-watch-face-sdk-tutorial-4-anatomy-of-your-first-watch-face/

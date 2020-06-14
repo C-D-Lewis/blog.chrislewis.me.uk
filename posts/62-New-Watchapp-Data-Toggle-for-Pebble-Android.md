@@ -1,5 +1,5 @@
 ---
-id: 1376
+index: 62
 title: New Watchapp: Data Toggle for Pebble (Android)
 postDate: 2013-12-21 16:34:31
 original: https://ninedof.wordpress.com/2013/12/21/new-watchapp-data-toggle-for-pebble/
@@ -22,6 +22,6 @@ The Android app also doubles as an installer for the watchapp's .pbw file, as we
 Both components can be installed as one from Google Play:
 ![](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)
 
-Source code is available on  [GitHub](https://github.com/C-D-Lewis?tab=repositories).
+Source code is available on [GitHub](https://github.com/C-D-Lewis?tab=repositories).
 
 Enjoy!

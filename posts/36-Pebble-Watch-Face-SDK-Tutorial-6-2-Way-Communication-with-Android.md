@@ -1,5 +1,5 @@
 ---
-id: 700
+index: 36
 title: Pebble Watch Face SDK Tutorial #6: 2 Way Communication with Android
 postDate: 2013-07-11 21:20:47
 original: https://ninedof.wordpress.com/2013/07/11/pebble-watch-face-sdk-tutorial-6-2-way-communication-with-android/

@@ -1,15 +1,15 @@
 ---
-id: 2541
+index: 135
 title: Tests With Extra Sweetness
 postDate: 2018-02-17 22:11:28
 original: https://ninedof.wordpress.com/2018/02/17/tests-with-extra-sweetness/
 ---
 
-A quick post about moving my Node app tests to  [Mocha](https://mochajs.org/) and  [Chai](http://chaijs.com/). These are frameworks used where I work, and I figured I may as well learn something new and have more confidence in my Node apps when I deploy them, so how hard can it be?
+A quick post about moving my Node app tests to [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com/). These are frameworks used where I work, and I figured I may as well learn something new and have more confidence in my Node apps when I deploy them, so how hard can it be?
 
-Turns out, quite easy. These testing frameworks are deigned to be flexible and resemble plain-english test descriptions. In fact, the new testing code looks a lot like my home-grown test framework. Have a look below for a comparison (taken from the  [<code>led-server</code>](https://github.com/C-D-Lewis/led-server) project):
+Turns out, quite easy. These testing frameworks are deigned to be flexible and resemble plain-english test descriptions. In fact, the new testing code looks a lot like my home-grown test framework. Have a look below for a comparison (taken from the [<code>led-server</code>](https://github.com/C-D-Lewis/led-server) project):
 
-(You can see the implementation of <code>testBed</code> module in the  [<code>node-common</code>](https://github.com/C-D-Lewis/node-common/blob/master/testBed.js) project)
+(You can see the implementation of <code>testBed</code> module in the [<code>node-common</code>](https://github.com/C-D-Lewis/node-common/blob/master/testBed.js) project)
 
 ## Home-grown
 

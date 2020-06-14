@@ -1,5 +1,5 @@
 ---
-id: 1762
+index: 83
 title: Pebble SDK 2.0 Tutorial #7: MenuLayers
 postDate: 2014-03-13 01:46:27
 original: https://ninedof.wordpress.com/2014/03/13/pebble-sdk-2-0-tutorial-7-menulayers/
@@ -74,9 +74,9 @@ Now that's out the way, declare a global pointer to a <code>MenuLayer</code> at 
 MenuLayer *menu_layer;
 [/code]
 
-This <code>Layer</code> type is a bit more complex to set up than the other <code>Layers</code>, in that it requires a large amount of information about how it will look and behave before it can be instantiated. This information is given to the <code>MenuLayer</code> via the use of a number of callbacks. When the <code>MenuLayer</code> is redrawn or reloaded, it calls these functions to get the relevant data. The advantage of this approach is that the <code>MenuLayer</code> rows can be filled with data that can be changed at any time, such as with  [Wristponder](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.wristponder) or  [Pebble Tube Status](https://github.com/C-D-Lewis/pebble-tube-status/blob/master/src/main.c#L120) (shameless plugs!)
+This <code>Layer</code> type is a bit more complex to set up than the other <code>Layers</code>, in that it requires a large amount of information about how it will look and behave before it can be instantiated. This information is given to the <code>MenuLayer</code> via the use of a number of callbacks. When the <code>MenuLayer</code> is redrawn or reloaded, it calls these functions to get the relevant data. The advantage of this approach is that the <code>MenuLayer</code> rows can be filled with data that can be changed at any time, such as with [Wristponder](https://play.google.com/store/apps/details?id=com.wordpress.ninedof.wristponder) or [Pebble Tube Status](https://github.com/C-D-Lewis/pebble-tube-status/blob/master/src/main.c#L120) (shameless plugs!)
 
-The  [API documentation](https://developer.getpebble.com/2/api-reference/group___menu_layer.html#ga4dbe0980dc6d9fe2b49b778a067d6314) describes all the possible <code>MenuLayerCallbacks</code> that can be associated with a <code>MenuLayer</code>, but the ones we will be using for a simple example will be:
+The [API documentation](https://developer.getpebble.com/2/api-reference/group___menu_layer.html#ga4dbe0980dc6d9fe2b49b778a067d6314) describes all the possible <code>MenuLayerCallbacks</code> that can be associated with a <code>MenuLayer</code>, but the ones we will be using for a simple example will be:
 
 
 	- <code>.draw_row</code> - This is used to draw the layout inside a menu item
@@ -225,6 +225,6 @@ If all has gone well, after compilation you should be greeted with the screen be
 ## Conclusions
 So that's how to setup a basic <code>MenuLayer</code>. An extended application like those mentioned previously will use <code>char[]</code> buffers to store each row's text, modified in a <code>in_received</code> signature <code>AppMessage</code> callback, and calling <code>menu_layer_reload_data()</code> in that <code>AppMessage</code> callback, thus updating the <code>MenuLayer</code> with the new data.
 
-The source code can be found  [on GitHub HERE](https://github.com/C-D-Lewis/pebble-sdk2-tut-7)!
+The source code can be found [on GitHub HERE](https://github.com/C-D-Lewis/pebble-sdk2-tut-7)!
 
 Let me know any queries you have. Enjoy!

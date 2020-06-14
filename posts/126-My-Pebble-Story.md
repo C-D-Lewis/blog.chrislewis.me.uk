@@ -1,17 +1,17 @@
 ---
-id: 2438
+index: 126
 title: My Pebble Story
 postDate: 2016-12-08 22:29:48
 original: https://ninedof.wordpress.com/2016/12/08/my-pebble-story/
 ---
 
-This post was originally going to be a lot gloomier, but the  [official announcement](https://www.kickstarter.com/projects/597507018/pebble-2-time-2-and-core-an-entirely-new-3g-ultra/posts/1752929) yesterday (after a few days of utter FUD) has proven that the worst-case scenario has not come to be, and there's reason to be optimistic about Pebble's future.
+This post was originally going to be a lot gloomier, but the [official announcement](https://www.kickstarter.com/projects/597507018/pebble-2-time-2-and-core-an-entirely-new-3g-ultra/posts/1752929) yesterday (after a few days of utter FUD) has proven that the worst-case scenario has not come to be, and there's reason to be optimistic about Pebble's future.
 
 So what better time to summarise my part of the Pebble story?
 
 ## The Beginning
 
-I backed the original Pebble in the  [first Kickstarter campaign](https://www.kickstarter.com/projects/597507018/pebble-e-paper-watch-for-iphone-and-android/description), after a few weeks on the fence I was finally convinced by the promise of an open SDK. I'd had a bit of experience with C as part of my degree course, and played with Java in the second year (including prodding the Android SDK to see if I could make it do anything interesting). Why not try and make my watch do some cool things?
+I backed the original Pebble in the [first Kickstarter campaign](https://www.kickstarter.com/projects/597507018/pebble-e-paper-watch-for-iphone-and-android/description), after a few weeks on the fence I was finally convinced by the promise of an open SDK. I'd had a bit of experience with C as part of my degree course, and played with Java in the second year (including prodding the Android SDK to see if I could make it do anything interesting). Why not try and make my watch do some cool things?
 
 After the now legendary delays, I finally got my watch. It had screen tearing from the moment I turned it on, but I found that by pressing a certain part of the case I could get it to behave (Pebble replaced it within two weeks, so props to them for that). The original 1.x SDK was a bit harder to grasp than the one we have now, but even so, I eventually got my first app working:
 
@@ -35,7 +35,7 @@ At the same time I also begun work on Wristponder to allow initiating and replyi
 
 ## The SDK Tutorials
 
-It was that summer I started working on my  [SDK tutorials](https://ninedof.wordpress.com/pebble-sdk-tutorial/). Little did I know that these pieces (drafted on a notepad in Tuscany, and originally quite popular with other community members, being the only real tutorials at the time) would literally change my life.
+It was that summer I started working on my [SDK tutorials](https://ninedof.wordpress.com/pebble-sdk-tutorial/). Little did I know that these pieces (drafted on a notepad in Tuscany, and originally quite popular with other community members, being the only real tutorials at the time) would literally change my life.
 
 Not shown in the image below is the pad I was writing feverishly my ideas for structured learning content that would guide through the exciting Pebble SDK opportunities:
 
@@ -75,7 +75,7 @@ Finally, the backers started receiving watches, and the developer community resp
 
 ## Product Owner
 
-Sometime while writing the Smartstrap guides and the Design guides I began planning my own work and execution, with input from the rest of the team. This was completely new to me, but with a few well-maintained Google Sheets, project after project came together without issue. It was good to be more at the helm of the documentation, and being able to help all developers with useful guides, tutorials, and example apps. I also loved (and still do love!) chatting with the more active developer community members in the then Slack chat (now on  [Discord](https://discordapp.com/invite/aRUAYFN)) and giving one on one feedback and help as much as I could.
+Sometime while writing the Smartstrap guides and the Design guides I began planning my own work and execution, with input from the rest of the team. This was completely new to me, but with a few well-maintained Google Sheets, project after project came together without issue. It was good to be more at the helm of the documentation, and being able to help all developers with useful guides, tutorials, and example apps. I also loved (and still do love!) chatting with the more active developer community members in the then Slack chat (now on [Discord](https://discordapp.com/invite/aRUAYFN)) and giving one on one feedback and help as much as I could.
 
 It was during this time that we had the 2015 Developer Retreat in San Francisco, and I did fresh re-writes of the Big Four (Dashboard, News Headlines, Wristponder, and Beam Up) to make them more modular and maintainable. I'm glad I did now! I can can dive in, change some things, and only have to look at small parts of the app at any one time. I took great pleasure in perfecting my modular pattern and module interfaces, such as data_get_news_story(), or splash_window_reload_data(), allowing easy exchange of data and actions from anywhere in an app. I guess that was the result of getting better with each app I made, which is a natural part of software development, apparently.
 
@@ -89,7 +89,7 @@ This last huge project was completely planned and executed by me, and I consider
 
 ## Moving On
 
-In March,  [Pebble made 25% (about 40 people) redundant](http://arstechnica.com/gadgets/2016/03/pebble-to-lay-off-25-percent-of-workforce/), but it was made very clear it was not from a lack of good work. At the time it felt like a cost-saving measure, and now we can look back with full clarity. Since my visa was tied to my job, I had to leave the country, my apartment, my bills/utilities, furniture rental, etc, as soon as possible. I had the option of trying to transfer my visa by getting another job in the Valley, but I was quite put out by the shock of it all, so just decided to pack it all in and come home. I also had to say rushed goodbyes to about 100 people I'd come to know over the last two years. Hardest of all was the Developer Relations team, who I'd shared many adventures, days out, travel trips, etc. with. It was very hard to do, but had to be done.
+In March, [Pebble made 25% (about 40 people) redundant](http://arstechnica.com/gadgets/2016/03/pebble-to-lay-off-25-percent-of-workforce/), but it was made very clear it was not from a lack of good work. At the time it felt like a cost-saving measure, and now we can look back with full clarity. Since my visa was tied to my job, I had to leave the country, my apartment, my bills/utilities, furniture rental, etc, as soon as possible. I had the option of trying to transfer my visa by getting another job in the Valley, but I was quite put out by the shock of it all, so just decided to pack it all in and come home. I also had to say rushed goodbyes to about 100 people I'd come to know over the last two years. Hardest of all was the Developer Relations team, who I'd shared many adventures, days out, travel trips, etc. with. It was very hard to do, but had to be done.
 
 I came back to the UK with everything I could fit into two airport style cases, and it was all I wanted - except my beloved walnut bass guitar, which was two inches too large (and would have cost half its value to transport properly), so I left it behind.
 
@@ -99,11 +99,11 @@ After Easter (which I'd spookily already booked flights and leave for), I went b
 
 ![](/assets/media/2016/12/img_20160606_102910.jpg)
 
-Coming back from this trip I had no idea what I was going to do with my Pebble development. I'd sunk so much time, and accrued too many thousands of users to stop completely. But my sudden ejection back to the UK left me without any energy to do anything. Days blurred into weeks. Eventually I got it together and started looking for jobs. After about 12 attempts, I found an extremely warm and welcome home at EVRYTHNG. I can say with confidence that I wouldn't have this job if it weren't for Thomas taking a chance on hiring me for Pebble and giving me the credential on my CV!  I also created the  [Dash API](https://ninedof.wordpress.com/2016/07/20/dash-api-for-easy-pebble-and-android-integration/) to let C app developers use Android APIs, which was an interesting extension to the ecosystem.
+Coming back from this trip I had no idea what I was going to do with my Pebble development. I'd sunk so much time, and accrued too many thousands of users to stop completely. But my sudden ejection back to the UK left me without any energy to do anything. Days blurred into weeks. Eventually I got it together and started looking for jobs. After about 12 attempts, I found an extremely warm and welcome home at EVRYTHNG. I can say with confidence that I wouldn't have this job if it weren't for Thomas taking a chance on hiring me for Pebble and giving me the credential on my CV!  I also created the [Dash API](https://ninedof.wordpress.com/2016/07/20/dash-api-for-easy-pebble-and-android-integration/) to let C app developers use Android APIs, which was an interesting extension to the ecosystem.
 
 ## Keeping My Hand In
 
-I decided to maintain my apps, and only do improvements if I got the burst of energy and inspiration required to crack the dusty covers off monsters like Dashboard or News Headlines and gently coerce the insides into accepting new features. I reconnected with the developer community in my original role as a third party developer, but with some insight into how Pebble worked. But I still didn't see the recent acquisition coming. With so many days of just rumours to go off, the community admirably began simultaneously panicking and trying to preserve everything it could in case the servers and SDK ecosystem vanished overnight. Happily,  [it did not](https://developer.pebble.com/blog/2016/12/06/developer-community-update/), but we don't know how long it will last.
+I decided to maintain my apps, and only do improvements if I got the burst of energy and inspiration required to crack the dusty covers off monsters like Dashboard or News Headlines and gently coerce the insides into accepting new features. I reconnected with the developer community in my original role as a third party developer, but with some insight into how Pebble worked. But I still didn't see the recent acquisition coming. With so many days of just rumours to go off, the community admirably began simultaneously panicking and trying to preserve everything it could in case the servers and SDK ecosystem vanished overnight. Happily, [it did not](https://developer.pebble.com/blog/2016/12/06/developer-community-update/), but we don't know how long it will last.
 
 ## The Future
 
@@ -113,7 +113,7 @@ And that's what I intend to do. I'll still maintain my apps (since the most popu
 
 In addition to this maintenance, I will also be completing my open-source collection - including the Big Four! Well, Beam Up is already open source, so that leaves Dashboard, News Headlines, and Wristponder. Understand that this isn't because I'm abandoning them - this recent shift has put emphasis on the community carrying the torch, and this is the best way to keep contributing to the whole and helping others learn how things are done. And maybe now it'll force me to clean the code up! So look out for those in the next few weeks, when I get round to them in my free time. And I'll save time by not needing to upgrade them to Emery's display... bitter sweet.
 
-For now, you can see all my open source apps  [on my GitHub account](http://github.com/C-D-Lewis).
+For now, you can see all my open source apps [on my GitHub account](http://github.com/C-D-Lewis).
 
 ## Thanks
 

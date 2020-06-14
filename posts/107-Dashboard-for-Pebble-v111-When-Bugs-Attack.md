@@ -1,11 +1,11 @@
 ---
-id: 2175
+index: 107
 title: Dashboard for Pebble v1.11: When Bugs Attack
 postDate: 2014-11-09 05:48:43
 original: https://ninedof.wordpress.com/2014/11/09/dashboard-for-pebble-v1-11-when-bugs-attack/
 ---
 
-Over the last week, there have been have been four version of Dashboard released (9, 10, 11 and now 12) following the inclusion of the  [Wakeup API](http://pbldev.io/wakeup). I used this shiny new firmware feature to let users of Dashboard schedule daily wakeups to issue an on/off command to the Dashboard Android app, at times they would use the toggles anyway.
+Over the last week, there have been have been four version of Dashboard released (9, 10, 11 and now 12) following the inclusion of the [Wakeup API](http://pbldev.io/wakeup). I used this shiny new firmware feature to let users of Dashboard schedule daily wakeups to issue an on/off command to the Dashboard Android app, at times they would use the toggles anyway.
 
 ![](/assets/media/2014/11/pebble-screenshot_2014-11-08_21-37-47.png)    ![](/assets/media/2014/11/pebble-screenshot_2014-11-08_21-38-04.png)
 

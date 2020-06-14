@@ -1,5 +1,5 @@
 ---
-id: 2040
+index: 98
 title: Pebble SDK 2.0 Tutorial #10: Event Services
 postDate: 2014-07-15 14:16:42
 original: https://ninedof.wordpress.com/2014/07/15/pebble-sdk-2-0-tutorial-10-event-services/
@@ -143,7 +143,7 @@ The next Event Service we will be adding will be the Battery State Service, whic
 static TextLayer *bt_layer, *batt_layer;
 [/code]
 
-Then, perform the proper creation in <code>window_load()</code>. This time, the information provided by the Battery State Service comes in the form on the <code>BatteryChargeState</code> data structure, with fields  [as shown in the documentation](https://developer.getpebble.com/2/api-reference/group___battery_state_service.html#struct_battery_charge_state). It is worth noting that the Service only returns the battery charge in increments of 10. The setup of the new <code>TextLayer</code> is shown below:
+Then, perform the proper creation in <code>window_load()</code>. This time, the information provided by the Battery State Service comes in the form on the <code>BatteryChargeState</code> data structure, with fields [as shown in the documentation](https://developer.getpebble.com/2/api-reference/group___battery_state_service.html#struct_battery_charge_state). It is worth noting that the Service only returns the battery charge in increments of 10. The setup of the new <code>TextLayer</code> is shown below:
 
 [code language="cpp"]
 //Setup Battery Layer
@@ -161,7 +161,7 @@ text_layer_set_text(batt_layer, buffer);
 After re-compiling, the battery charge percentage should be shown below the Bluetooth status.
 
 ## Accelerometer Service (tap)
-The Accelerometer Service operates in a very similar manner to the previous two Event Services, but can operate in two modes: tap and raw data. The tap mode will call a handler that we subscribe when the Pebble is tapped (or wrist is shaken), whereas the raw data mode will supply X, Y and Z values at an rate we select. I'll show both of these for the sake of completeness. An application of the latter mode  [can be seen here](http://ninedof.wordpress.com/2014/04/24/block-game-using-pebble-accelerometer/).
+The Accelerometer Service operates in a very similar manner to the previous two Event Services, but can operate in two modes: tap and raw data. The tap mode will call a handler that we subscribe when the Pebble is tapped (or wrist is shaken), whereas the raw data mode will supply X, Y and Z values at an rate we select. I'll show both of these for the sake of completeness. An application of the latter mode [can be seen here](http://ninedof.wordpress.com/2014/04/24/block-game-using-pebble-accelerometer/).
 
 First, we create a further <code>TextLayer</code> to show the output data:
 
@@ -253,7 +253,7 @@ Finally, we add the new subscription, making sure we have disabled the one one i
 accel_data_service_subscribe(1, accel_raw_handler);
 [/code]
 
-Now this is all in place, re-compile and re-install the watch app to see the live values. Try tilting the watch in each axis to see the  [constant g acceleration](http://en.wikipedia.org/wiki/Standard_gravity) act on each in turn.
+Now this is all in place, re-compile and re-install the watch app to see the live values. Try tilting the watch in each axis to see the [constant g acceleration](http://en.wikipedia.org/wiki/Standard_gravity) act on each in turn.
 
 The final result should look like this:
 ![](http://ninedof.files.wordpress.com/2014/07/final.png)
@@ -261,4 +261,4 @@ The final result should look like this:
 ## Conclusion
 So, that's the new Event Services. As I mentioned, there is another called the App Focus Service which tells you when your app is covered by a notification, but it works in a very similar way to the Bluetooth Connection Service, so you should be able to figure it out!
 
-The full source code can be  [found here on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-10).
+The full source code can be [found here on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-10).

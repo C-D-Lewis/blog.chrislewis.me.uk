@@ -1,5 +1,5 @@
 ---
-id: 788
+index: 39
 title: Pebble Watch Face SDK #7: ScrollLayers
 postDate: 2013-07-21 22:01:02
 original: https://ninedof.wordpress.com/2013/07/21/pebble-watch-face-sdk-7-scrolllayers/
@@ -25,7 +25,7 @@ Lets get started!
 
 ## Using a ScrollLayer
 
-To make use of this Layer type in a watch app, you will need something to display inside it. For this example, I'll be using a snippet of text from  [getpebble.com](http://getpebble.com), in a char array as shown below (using the fiendishly hidden WordPress code tags!):
+To make use of this Layer type in a watch app, you will need something to display inside it. For this example, I'll be using a snippet of text from [getpebble.com](http://getpebble.com), in a char array as shown below (using the fiendishly hidden WordPress code tags!):
 
 [code language="cpp"]
 char scrollText[] = &quot;Pebble is the first watch built for the 21st century. It's infinitely customizable, with beautiful downloadable watchfaces and useful internet-connected apps. Pebble connects to iPhone and Android smartphones using Bluetooth, alerting you with a silent vibration to incoming calls, emails and messages. While designing Pebble, we strove to create a minimalist yet fashionable product that seamlessly blends into everyday life.&quot;;
@@ -107,6 +107,6 @@ Finally, after using <code>layer_add_child()</code> to add the ScrollLayer to th
 
 The ScrollLayer can be useful for showing a lot of information or a list. It does require some extra thinking about and setup, but it is worth it for the convenience! 
 
-Full source code for a sample watch app (derived from the 'demos' supplied with the SDK)  [can be found here.](https://www.dropbox.com/s/1k9dmm5nray70wr/ScrollLayerDemo.zip)
+Full source code for a sample watch app (derived from the 'demos' supplied with the SDK) [can be found here.](https://www.dropbox.com/s/1k9dmm5nray70wr/ScrollLayerDemo.zip)
 
 Happy scrolling!

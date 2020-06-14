@@ -1,5 +1,5 @@
 ---
-id: 2293
+index: 119
 title: SceneEngine (Java Game Engine)
 postDate: 2016-06-14 16:55:39
 original: https://ninedof.wordpress.com/2016/06/14/glsceneengine-java-game-engine/
@@ -13,6 +13,6 @@ Like many of my programming projects, I work on it less constantly, and more in 
 
 But in the meantime, I created lots of very useful sub-components that I really don't want to have been for nothing, and will probably end up reusing in my own projects. So I decided to pull out the engine, and release it on GitHub as a standalone project that can be run independently of all the other fluff that makes up the game in progress. Importing the code into Eclipse and adding LWJGL.jar (with local libraries and binaries) will let you play around with it and build a game on top of it if you want.
 
-Check out the  [GitHub repository README.md](https://github.com/C-D-Lewis/GLSceneEngine) for a full list of features and how to implement it. Once I have a working prototype of the game, I'll probably post about that as well. It's all about the journey, right?
+Check out the [GitHub repository README.md](https://github.com/C-D-Lewis/GLSceneEngine) for a full list of features and how to implement it. Once I have a working prototype of the game, I'll probably post about that as well. It's all about the journey, right?
 
 ![](/assets/media/2016/06/screenshot.png)

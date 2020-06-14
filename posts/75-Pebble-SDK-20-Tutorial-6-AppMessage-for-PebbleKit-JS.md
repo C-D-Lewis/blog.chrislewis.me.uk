@@ -1,5 +1,5 @@
 ---
-id: 1594
+index: 75
 title: Pebble SDK 2.0 Tutorial #6: AppMessage for PebbleKit JS
 postDate: 2014-02-02 18:54:40
 original: https://ninedof.wordpress.com/2014/02/02/pebble-sdk-2-0-tutorial-6-appmessage-for-pebblekit-js/
@@ -21,7 +21,7 @@ Required Reading
 
 ## Introduction
 
-Creating a simple Pebble watch app or watch face is well and fine, but adding an Internet connection to that app to fetch data/communicate with other services adds almost limitless potential. An example of this is my  [Pebble Tube Status](http://ninedof.wordpress.com/2013/11/24/ptubestatus-tfl-status-on-your-wrist/) app that fetches information on the status of the London Underground network for line info at a glance. For this tutorial section we will be getting our data from another source: The  [Openweathermap.org](http://openweathermap.org/API) APIs, a free to use and simple example of data a watch face can display from the web.
+Creating a simple Pebble watch app or watch face is well and fine, but adding an Internet connection to that app to fetch data/communicate with other services adds almost limitless potential. An example of this is my [Pebble Tube Status](http://ninedof.wordpress.com/2013/11/24/ptubestatus-tfl-status-on-your-wrist/) app that fetches information on the status of the London Underground network for line info at a glance. For this tutorial section we will be getting our data from another source: The [Openweathermap.org](http://openweathermap.org/API) APIs, a free to use and simple example of data a watch face can display from the web.
 
 Now, this is a long one, so make sure you have a good cup of tea or some other soothing beverage near you before you embark!
 
@@ -134,7 +134,7 @@ The watch app (once compiled) should look like this:
 ![](http://ninedof.files.wordpress.com/2014/02/pebble-screenshot_2014-02-02_13-16-291.png)
 
 ## Setting up <code>AppMessage</code>
-Before we fetch the data from the Internet, we will need to set up the watch app to receive <code>AppMessage</code> messages from the Pebble phone app. Remember that with PebbleKit JS, the JavaScript code runs on the phone, and the results are sent via <code>AppMessage</code> to the watch for display. A basic overview of how that messaging system works can be seen in the "AppMessage system overview" section in the  [SDK 1.X Tutorial Section](http://ninedof.wordpress.com/2013/07/11/pebble-watch-face-sdk-tutorial-6-2-way-communication-with-android/) on the subject, but the methodology has changed with SDK 2.0. With that in mind, let's add some basic <code>AppMessage</code> framework:
+Before we fetch the data from the Internet, we will need to set up the watch app to receive <code>AppMessage</code> messages from the Pebble phone app. Remember that with PebbleKit JS, the JavaScript code runs on the phone, and the results are sent via <code>AppMessage</code> to the watch for display. A basic overview of how that messaging system works can be seen in the "AppMessage system overview" section in the [SDK 1.X Tutorial Section](http://ninedof.wordpress.com/2013/07/11/pebble-watch-face-sdk-tutorial-6-2-way-communication-with-android/) on the subject, but the methodology has changed with SDK 2.0. With that in mind, let's add some basic <code>AppMessage</code> framework:
 
 ## Step 1: Declaring keys. Keys are 'labels' used to tell each side of the system what the data value means. For example, a key called 'temperature' could have it's associated value treated as a temperature value. The names of keys and how they are interpreted are entirely up to the programmer, as you will soon see. The list of keys we will use are shown in the declaration below:
 
@@ -246,7 +246,7 @@ KEY_TEMPERATURE 1
 
 Then hit 'Save changes'.
 
-We've already initialised the JavaScript file to respond when the watch app is opened, with the 'ready' event. Now we will modify it to request the weather information and parse the result. The code below will do that, and follows a process similar to that laid out in the  [Pebble weather app example](https://github.com/pebble/pebble-sdk-examples/blob/master/pebblekit-js/weather/src/js/pebble-js-app.js). First, create a method that will connect to an URL and return the response with a <code>XMLHttpRequest</code> object. Here is an example method:
+We've already initialised the JavaScript file to respond when the watch app is opened, with the 'ready' event. Now we will modify it to request the weather information and parse the result. The code below will do that, and follows a process similar to that laid out in the [Pebble weather app example](https://github.com/pebble/pebble-sdk-examples/blob/master/pebblekit-js/weather/src/js/pebble-js-app.js). First, create a method that will connect to an URL and return the response with a <code>XMLHttpRequest</code> object. Here is an example method:
 
 [code language="js"]
 function HTTPGET(url) {
@@ -364,6 +364,6 @@ And there we have it! Every five minutes the watch will ask for updated data, an
 ## Conclusions
 That was a rather long journey, but it's an important one for stretching the usefulness of your Pebble beyond telling the time and date! It also introduces a lot of new concepts at once, which may confuse some. If you have a query, post it here and I'll do my best to answer it!
 
-The full project source code that results from this Tutorial section can be found  [on GitHub here](https://github.com/C-D-Lewis/pebble-sdk2-tut-6).
+The full project source code that results from this Tutorial section can be found [on GitHub here](https://github.com/C-D-Lewis/pebble-sdk2-tut-6).
 
 Thanks for reading, and keep an eye out for more soon!

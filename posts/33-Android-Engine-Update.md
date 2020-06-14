@@ -1,11 +1,11 @@
 ---
-id: 663
+index: 33
 title: Android Engine Update
 postDate: 2013-07-08 11:50:28
 original: https://ninedof.wordpress.com/2013/07/08/android-engine-update/
 ---
 
-So,  [a while ago now](http://ninedof.wordpress.com/2013/03/28/android-engine-on-the-way/) I created an iterative Android game engine, and used it to  [port Raiders](http://ninedof.wordpress.com/2013/03/31/raiders-for-android/). It went pretty well, and I got good performance out of it. But an almost inevitable truth I have come to accept in starting a new project based off an old (This time being porting Railways to Android) is that by the time I revisit the old code, I've learned so much more that it makes me wince to even read it.
+So, [a while ago now](http://ninedof.wordpress.com/2013/03/28/android-engine-on-the-way/) I created an iterative Android game engine, and used it to [port Raiders](http://ninedof.wordpress.com/2013/03/31/raiders-for-android/). It went pretty well, and I got good performance out of it. But an almost inevitable truth I have come to accept in starting a new project based off an old (This time being porting Railways to Android) is that by the time I revisit the old code, I've learned so much more that it makes me wince to even read it.
 
 There have been occasions where I've reduced the size of a source file by three times or more, simply by applying much more precise implementation conventions. It ends up faster, more memory efficient and easier to read and tweak. This is all good!
 

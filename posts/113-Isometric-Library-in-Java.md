@@ -1,11 +1,11 @@
 ---
-id: 2226
+index: 113
 title: Isometric Library in Java
 postDate: 2015-05-03 19:44:07
 original: https://ninedof.wordpress.com/2015/05/03/isometric-library-in-java/
 ---
 
-A feverish evening spent with little else to do resulted in a quick port of my  [isometric Pebble library](http://github.com/C-D-Lewis/isometric) to Java Canvas with Graphics2D. Might prove useful for an isometric tile game or such if the mood takes me. There's something distinctly satisfying about seeing the same results on a different platform.
+A feverish evening spent with little else to do resulted in a quick port of my [isometric Pebble library](http://github.com/C-D-Lewis/isometric) to Java Canvas with Graphics2D. Might prove useful for an isometric tile game or such if the mood takes me. There's something distinctly satisfying about seeing the same results on a different platform.
 
 ![](/assets/media/2015/05/screenshot.png)
 
@@ -25,4 +25,4 @@ public void program(Graphics2D g2d) {
 }
 [/code]
 
-You can see all the applicable code  [on GitHub](https://github.com/C-D-Lewis/isometric-java).
+You can see all the applicable code [on GitHub](https://github.com/C-D-Lewis/isometric-java).

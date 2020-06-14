@@ -1,5 +1,5 @@
 ---
-id: 438
+index: 25
 title: Updates to Split Horizon Watch Faces
 postDate: 2013-06-10 13:02:13
 original: https://ninedof.wordpress.com/2013/06/10/updates-to-split-horizon-watch-faces/
@@ -15,4 +15,4 @@ I've made new versions of the Split Horizon watch faces to have a sharper, more 
 
  [Plain Edition](http://www.mypebblefaces.com/view?fID=3843&amp;aName=Bonsitm&amp;pageTitle=Split+Horizon%3A+Plain+Edition&amp;auID=3905)
 
-As always, source code can be  [found here](https://www.dropbox.com/s/4odorffmdnb00yg/Split%20Horizon%20Source%20and%20Bundle%20v2.zip)!
+As always, source code can be [found here](https://www.dropbox.com/s/4odorffmdnb00yg/Split%20Horizon%20Source%20and%20Bundle%20v2.zip)!

@@ -1,5 +1,5 @@
 ---
-id: 177
+index: 8
 title: Threaded PC Engine
 postDate: 2013-04-10 13:40:44
 original: https://ninedof.wordpress.com/2013/04/10/threaded-pc-engine/

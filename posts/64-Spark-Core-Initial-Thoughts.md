@@ -1,11 +1,11 @@
 ---
-id: 1432
+index: 64
 title: Spark Core: Initial Thoughts
 postDate: 2013-12-23 23:47:44
 original: https://ninedof.wordpress.com/2013/12/23/spark-core-initial-thoughts/
 ---
 
-As with the Pebble smartwatch, I also backed another project called  [Spark Core](http://spark.io), which promised the idea of a small, compact and easy to use Wi-Fi-enabled Arduino like device. And I must say, they certainly delivered!
+As with the Pebble smartwatch, I also backed another project called [Spark Core](http://spark.io), which promised the idea of a small, compact and easy to use Wi-Fi-enabled Arduino like device. And I must say, they certainly delivered!
 
 ![](http://ninedof.files.wordpress.com/2013/12/img_20131223_140517.jpg?w=545)
 

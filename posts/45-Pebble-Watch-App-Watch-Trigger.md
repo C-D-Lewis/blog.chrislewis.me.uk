@@ -1,5 +1,5 @@
 ---
-id: 924
+index: 45
 title: Pebble Watch App: Watch Trigger
 postDate: 2013-08-30 00:22:22
 original: https://ninedof.wordpress.com/2013/08/30/pebble-watch-app-watch-trigger/
@@ -13,7 +13,7 @@ Updates:
 
 ## NOTICE: I'm working on bringing back compatibility with Android 2.3.3 Gingerbread phones. If you own such a device and would like to test a build for me, let me know!
 
-I was on the Google Play store today and I saw that a  [search for "Pebble Camera Remote"](https://play.google.com/store/search?q=pebble%20camera%20remote&amp;hl=en_GB) returned no results. This got me thinking... <em>I can do that</em>!
+I was on the Google Play store today and I saw that a [search for "Pebble Camera Remote"](https://play.google.com/store/search?q=pebble%20camera%20remote&amp;hl=en_GB) returned no results. This got me thinking... <em>I can do that</em>!
 
 So I spent a good afternoon getting back into Android and Pebble developer kits to produce the <del>first</del> 1.8.1 version of what I have dubbed "Watch Trigger" - an app that lets you use your Pebble watch as a remote control! This means you can do what you'd normally do when taking a timed photo, but you don't have to rush back to the group in ten seconds, you can press the watch button as quickly and discreetly as you want.
 
@@ -24,7 +24,7 @@ So now it is possible to take a photo using the Pebble watch as a remote!
 
 ## Special mentions
 
-In adding a button to install the companion watch app from within the Android app, I used a method written by  [Robert Meijer, which I found on GitHub](https://github.com/SheepWillPrevail/android/blob/a8f51bb6abd8795517aa94bcc3c9f5a0c25eb081/PebbleRSS/src/com/grazz/pebblerss/MainActivity.java#L147) - an elegant solution. Thanks Robert!
+In adding a button to install the companion watch app from within the Android app, I used a method written by [Robert Meijer, which I found on GitHub](https://github.com/SheepWillPrevail/android/blob/a8f51bb6abd8795517aa94bcc3c9f5a0c25eb081/PebbleRSS/src/com/grazz/pebblerss/MainActivity.java#L147) - an elegant solution. Thanks Robert!
 
 ## Known bugs/issues
 

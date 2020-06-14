@@ -1,5 +1,5 @@
 ---
-id: 1390
+index: 63
 title: Pebble SDK 2.0 Tutorial #3: Images and Fonts
 postDate: 2013-12-22 15:12:22
 original: https://ninedof.wordpress.com/2013/12/22/pebble-sdk-2-0-tutorial-3-images-and-fonts/
@@ -15,7 +15,7 @@ Required Reading
 
 So now you've learned how to create a watchface and spice it up a bit with a well placed <code>InverterLayer</code>. But it's still pretty dull. A much better way to improve it is to use your own images and fonts. That's what this section will focus on.
 
-In a Pebble watch app or watchface, images and fonts are referred to in the app's <code>appinfo.json</code> file, which is managed automatically for you by CloudPebble, and so will not be covered in great detail right now. Of much more importance to you now is that in the C code file, images are stored in <code>GBitmap</code> structures and fonts in <code>GFont</code> structures. Just like all the <code>Layer</code> types, they are created and allocated memory dynamically, with the function names syntactically very similar, so you will hopefully find yourself looking them up in the  [API Documentation](https://developer.getpebble.com/2/api-reference/) a lot less.
+In a Pebble watch app or watchface, images and fonts are referred to in the app's <code>appinfo.json</code> file, which is managed automatically for you by CloudPebble, and so will not be covered in great detail right now. Of much more importance to you now is that in the C code file, images are stored in <code>GBitmap</code> structures and fonts in <code>GFont</code> structures. Just like all the <code>Layer</code> types, they are created and allocated memory dynamically, with the function names syntactically very similar, so you will hopefully find yourself looking them up in the [API Documentation](https://developer.getpebble.com/2/api-reference/) a lot less.
 
 ## Making a Better First Impression
 
@@ -76,7 +76,7 @@ Are you beginning to spot patterns in how the API function calls are named? This
 
 Another good way to add your own influence to your watchface is to use a custom font. The procedure for doing so it almost identical to that for images, so let's do it now.
 
-First, again, add the font as a Resource in CloudPebble. This time set the format to 'TrueType font'. The font you choose will need to the a '.ttf' font file.  [Here's a sample for you to use now](https://www.dropbox.com/s/ugxuv4tbugmvldd/imagine.zip). Once you have browsed for the file, give it an identifier such as <code>IMAGINE_42</code>. The number after the name tells the SDK what font size you want. The rest of the settings can be left alone for now, so click 'Save' and go back to the C file.
+First, again, add the font as a Resource in CloudPebble. This time set the format to 'TrueType font'. The font you choose will need to the a '.ttf' font file. [Here's a sample for you to use now](https://www.dropbox.com/s/ugxuv4tbugmvldd/imagine.zip). Once you have browsed for the file, give it an identifier such as <code>IMAGINE_42</code>. The number after the name tells the SDK what font size you want. The rest of the settings can be left alone for now, so click 'Save' and go back to the C file.
 
 The process for using the font in the watchface is <em>almost</em> the same as that for the images. First, load the resource into a <code>ResHandle</code> (Handle on the Resource, so to speak) structure BEFORE the TextLayer is created (We will be using it for the time display itself):
 
@@ -106,4 +106,4 @@ So there you have using custom images and fonts. If you want, add some more or c
 
 Next time: Animations: Tweens and Timers.
 
-The full source code the the end result of this part of the tutorial can be found  [on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-3).
+The full source code the the end result of this part of the tutorial can be found [on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-3).

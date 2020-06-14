@@ -1,11 +1,11 @@
 ---
-id: 2190
+index: 109
 title: Open Image on Pebble Time
 postDate: 2015-03-17 06:11:32
 original: https://ninedof.wordpress.com/2015/03/17/open-image-on-pebble-time/
 ---
 
-Long time no blog! There hasn't been much time for experimentation (besides creating a couple of  [color](https://github.com/pebble-hacks/isotime)  [apps](https://github.com/pebble-hacks/block-world) for Pebble Time) in the months leading up the  [Pebble Time Kickstarter](https://www.kickstarter.com/projects/597507018/pebble-time-awesome-smartwatch-no-compromises). Totally worth the effort though, after seeing the response to the  [new material](https://developer.getpebble.com/getting-started/) on the Pebble Developers site.
+Long time no blog! There hasn't been much time for experimentation (besides creating a couple of [color](https://github.com/pebble-hacks/isotime) [apps](https://github.com/pebble-hacks/block-world) for Pebble Time) in the months leading up the [Pebble Time Kickstarter](https://www.kickstarter.com/projects/597507018/pebble-time-awesome-smartwatch-no-compromises). Totally worth the effort though, after seeing the response to the [new material](https://developer.getpebble.com/getting-started/) on the Pebble Developers site.
 
 This weekend, however, I found some time to bring to reality an idea I have had since I first learned of the ability to make color apps for Pebble. Being a big fan of PebbleKit Android (used in Dashboard, Wristponder, Watch Trigger etc) to remotely control/access the connected phone. The idea is this: create an app for Android that registers as a receptor of opening image files. This app then resizes and reduces the color palette of the file before piping it to an automatically opening watchapp for viewing. This stemmed partly from a desire to avoid constantly changing resource files and recompiling a simple app for viewing PNG files every time I wanted to see how a new image looked on Pebble Time.
 

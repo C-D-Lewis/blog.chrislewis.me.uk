@@ -1,5 +1,5 @@
 ---
-id: 828
+index: 41
 title: A note on abstract methods
 postDate: 2013-07-26 00:04:13
 original: https://ninedof.wordpress.com/2013/07/26/a-note-on-abstract-methods/

@@ -1,5 +1,5 @@
 ---
-id: 1523
+index: 71
 title: Pebble SDK 2.0 Tutorial #5: Buttons and Vibrations
 postDate: 2014-01-11 00:14:47
 original: https://ninedof.wordpress.com/2014/01/11/pebble-sdk-2-0-tutorial-5-buttons-and-vibrations/
@@ -126,7 +126,7 @@ After adding some actions to the three callbacks, compile the watchapp (make sur
 So, there you have button clicks. To change the behavior, just change what happens in the callback functions. The rest can stay the same.
 
 ## Vibrations
-With buttons providing a means of user input to your app, the next main means of output, besides what is being displayed on the screen, is to use the built-in vibration motor to notify users to events. For example, in my  [Pebble Tube Status](http://ninedof.wordpress.com/2013/11/24/ptubestatus-tfl-status-on-your-wrist/) app (another shameless plug!) the watch vibrates once the updates data has been sent to the watch, so in the case of a slow data connection, the user can ignore the watch until the information is ready for viewing.
+With buttons providing a means of user input to your app, the next main means of output, besides what is being displayed on the screen, is to use the built-in vibration motor to notify users to events. For example, in my [Pebble Tube Status](http://ninedof.wordpress.com/2013/11/24/ptubestatus-tfl-status-on-your-wrist/) app (another shameless plug!) the watch vibrates once the updates data has been sent to the watch, so in the case of a slow data connection, the user can ignore the watch until the information is ready for viewing.
 
 To use this functionality is much simpler than anything else we've covered so far. You can make the watch vibrate simply with one single line:
 
@@ -161,6 +161,6 @@ vibes_enqueue_custom_pattern(pattern);
 ## Conclusion
 That's pretty much all there is to button clicks and vibrations, which wraps up this part of the tutorial.
 
-You can find a link to the full source code resulting from what we've covered here  [on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-5).
+You can find a link to the full source code resulting from what we've covered here [on GitHub](https://github.com/C-D-Lewis/pebble-sdk2-tut-5).
 
 Next up: an introduction to working with PebbleJS and AppMessage. Basic knowledge of JavaScript required!

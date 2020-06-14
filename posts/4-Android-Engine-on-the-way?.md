@@ -1,5 +1,5 @@
 ---
-id: 104
+index: 4
 title: Android Engine on the way?
 postDate: 2013-03-28 17:56:48
 original: https://ninedof.wordpress.com/2013/03/28/android-engine-on-the-way/
@@ -17,7 +17,7 @@ You can't do any other work in an Android app until the Constructor is done, unl
 
 To get round this, I found out I could extend <code>SurfaceView</code> and call my <code>update()</code> function in the <code>onDraw()</code> call to keep a cycle going. After some attempts at this, I am pleased to discover it works! Maybe I could make a port of 'dungeons' or something similar...
 
-Here is a screenshot from my AVD (Android 2.3.3 Gingerbread), next to a screenshot from my Galaxy S (Android 4.1.2 Jelly Bean, thanks to  [Cyanogenmod](http://www.cyanogenmod.org/)) running the engine:
+Here is a screenshot from my AVD (Android 2.3.3 Gingerbread), next to a screenshot from my Galaxy S (Android 4.1.2 Jelly Bean, thanks to [Cyanogenmod](http://www.cyanogenmod.org/)) running the engine:
 
 ![](http://ninedof.files.wordpress.com/2013/03/enginetestfpsemu.png?w=545)
 

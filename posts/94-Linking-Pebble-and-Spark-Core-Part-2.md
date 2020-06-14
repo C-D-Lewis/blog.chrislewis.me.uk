@@ -1,5 +1,5 @@
 ---
-id: 1957
+index: 94
 title: Linking Pebble and Spark Core (Part 2)
 postDate: 2014-05-13 21:26:32
 original: https://ninedof.wordpress.com/2014/05/13/linking-pebble-and-spark-core-part-2/
@@ -7,7 +7,7 @@ original: https://ninedof.wordpress.com/2014/05/13/linking-pebble-and-spark-core
 
 Note: The JS code may only work on Android devices.
 
-Part 1:  [Linking Pebble and Spark Core](http://ninedof.wordpress.com/2014/05/12/linking-pebble-and-spark-core/)
+Part 1: [Linking Pebble and Spark Core](http://ninedof.wordpress.com/2014/05/12/linking-pebble-and-spark-core/)
 
 ## Introduction
 
@@ -188,12 +188,12 @@ void loop() {
 }
 [/code]
 
-If you do have a push button to hand, here is how to connect it up, as  [depicted on the Arduino site](http://arduino.cc/en/tutorial/button), except instead of pin 2, we are using Core pin D0. Once this is done, ensure both watchapp and Core firmware are uploaded and running before pressing the button. The watch should vibrate within a couple of seconds!
+If you do have a push button to hand, here is how to connect it up, as [depicted on the Arduino site](http://arduino.cc/en/tutorial/button), except instead of pin 2, we are using Core pin D0. Once this is done, ensure both watchapp and Core firmware are uploaded and running before pressing the button. The watch should vibrate within a couple of seconds!
 
 ## Conclusion
 
 There we have an expansion on the original post, showing how to send asynchronous events and data from the Spare Core to the Pebble watch. A slight reduction in latency between the two can be theoretically achieved by calling <code>app_comm_set_sniff_interval(SNIFF_INTERVAL_REDUCED)</code>, although this will consume more power over a long term period.
 
-As always, the source code to this project can be found  [here on GitHub](https://github.com/C-D-Lewis/pebble-spark-link-2).
+As always, the source code to this project can be found [here on GitHub](https://github.com/C-D-Lewis/pebble-spark-link-2).
 
 Enjoy! 

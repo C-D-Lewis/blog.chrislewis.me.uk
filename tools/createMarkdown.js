@@ -24,14 +24,12 @@ const transformHTML = (html) => {
 
     // Images are inside links in Wordpress
     const link = result.substring(start, end);
-    console.log({ link });
     let src;
     let srcStart;
     if (link.includes('<img')) {
       // Just take the image
       srcStart = link.indexOf('src="') + 5;
       src = link.substring(srcStart, link.indexOf('" ', srcStart));
-      console.log({ src });
       const newSrc = src.replace('https://ninedof.files.wordpress.com', '/assets/media');
       const newImage = `![](${newSrc})`;
       result = result.replace(link, newImage);
@@ -40,20 +38,20 @@ const transformHTML = (html) => {
 
     srcStart = link.indexOf('href="') + 6;
     src = link.substring(srcStart, link.indexOf('"', srcStart));
-    console.log({ src });
     const labelStart = link.indexOf('>') + 1;
     const label = link.substring(labelStart, link.indexOf('</a', labelStart));
-    console.log({ label });
     const newLink = ` [${label.trim()}](${src})`;
     result = result.replace(link, newLink);
-    console.log(result);
   }
+
+  // Cleanup double spaces before links
+  result = replace(result, '  [', ' [');
 
   return result;
 };
 
-const generateMarkdown = (post) => `---
-id: ${post.id}
+const generateMarkdown = (post, index) => `---
+index: ${index}
 title: ${post.title}
 postDate: ${post.postDate}
 original: ${post.link}
@@ -66,7 +64,7 @@ const main = async () => {
   const json = require(POSTS_PATH);
 
   json.forEach((post, index) => {
-    const md = generateMarkdown(post);
+    const md = generateMarkdown(post, index);
 
     const outFile = `../posts/${index}-${slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g })}.md`;
     writeFileSync(outFile, md, 'utf8');

@@ -1,5 +1,5 @@
 ---
-id: 1864
+index: 89
 title: Wristponder v1.6.0 - Longer Responses, Auto-start, Notifications and more!
 postDate: 2014-04-15 14:17:23
 original: https://ninedof.wordpress.com/2014/04/15/wristponder-v1-6-0-longer-responses-auto-start-notifications-and-more/

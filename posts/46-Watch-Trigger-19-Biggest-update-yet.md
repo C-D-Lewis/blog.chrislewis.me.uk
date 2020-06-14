@@ -1,5 +1,5 @@
 ---
-id: 1066
+index: 46
 title: Watch Trigger 1.9: Biggest update yet
 postDate: 2013-09-13 01:46:52
 original: https://ninedof.wordpress.com/2013/09/13/watch-trigger-1-9-biggest-update-yet/
@@ -9,7 +9,7 @@ original: https://ninedof.wordpress.com/2013/09/13/watch-trigger-1-9-biggest-upd
 
 The latest update on it's way to the Google Play store now is the largest yet, so I thought I'd go through it in more detail.
 
-The first major change is the return of support for Android 2.3.3 Gingerbread and up. Previously this was 3.0 Honeycomb and up due to the use of the surprisingly useful  [ActionBar](http://developer.android.com/guide/topics/ui/actionbar.html) and  [PreferenceFragment](http://developer.android.com/guide/topics/ui/settings.html#Fragment) APIs, used to add buttons to the nice red stripe at the top of the viewfinder (as well as enable it's opacity) and automatic creation of the Settings menu layout from an XML file respectively.
+The first major change is the return of support for Android 2.3.3 Gingerbread and up. Previously this was 3.0 Honeycomb and up due to the use of the surprisingly useful [ActionBar](http://developer.android.com/guide/topics/ui/actionbar.html) and [PreferenceFragment](http://developer.android.com/guide/topics/ui/settings.html#Fragment) APIs, used to add buttons to the nice red stripe at the top of the viewfinder (as well as enable it's opacity) and automatic creation of the Settings menu layout from an XML file respectively.
 
 Using the above features meant I had to restrict the app to 3.0+ users, which I was uncomfortable doing, seeing as that is the benchmark set for compatibility by the official Pebble app. But since then and after requests from a few would-be users, I worked to create an app that works differently based on the user's version of Android.
 

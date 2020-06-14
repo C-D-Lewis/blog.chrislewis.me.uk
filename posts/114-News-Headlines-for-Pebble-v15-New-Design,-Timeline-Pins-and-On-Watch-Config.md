@@ -1,13 +1,13 @@
 ---
-id: 2230
+index: 114
 title: News Headlines for Pebble v1.5: New Design, Timeline Pins & On-Watch Config
 postDate: 2015-05-10 22:52:59
 original: https://ninedof.wordpress.com/2015/05/10/news-headlines-for-pebble-v1-5-new-design-timeline-pins-on-watch-config/
 ---
 
-On  [May 29th, 2014](https://ninedof.wordpress.com/2014/05/29/new-pebble-watchapp-bbc-news-headlines/) I released 'BBC News Headlines', an app I had used personally for a while to read BBC News stories on my wrist to keep up on current affairs with minimal effort. With the config page, I added some settings (category selection, font size, etc.) and it worked well.
+On [May 29th, 2014](https://ninedof.wordpress.com/2014/05/29/new-pebble-watchapp-bbc-news-headlines/) I released 'BBC News Headlines', an app I had used personally for a while to read BBC News stories on my wrist to keep up on current affairs with minimal effort. With the config page, I added some settings (category selection, font size, etc.) and it worked well.
 
-When I learned about the concept behind the timeline, one of my first thoughts was "I can use this!". I had the idea to add timeline pins to the app, as well as update it for Pebble Time to use colors, pins, as well as a new 'cards' design (as recommended by Pebble's new  [Design and Interaction](https://developer.getpebble.com/guides/design-and-interaction/) guides, which you should check out!) to replace the unnecessary menu screen. I did this, which  [you can read about](https://ninedof.wordpress.com/2015/04/05/first-pebble-timeline-app-bbc-news/) when the app was half-way through redesign.
+When I learned about the concept behind the timeline, one of my first thoughts was "I can use this!". I had the idea to add timeline pins to the app, as well as update it for Pebble Time to use colors, pins, as well as a new 'cards' design (as recommended by Pebble's new [Design and Interaction](https://developer.getpebble.com/guides/design-and-interaction/) guides, which you should check out!) to replace the unnecessary menu screen. I did this, which [you can read about](https://ninedof.wordpress.com/2015/04/05/first-pebble-timeline-app-bbc-news/) when the app was half-way through redesign.
 
 Now the re-design is finished, the timeline integration improved (reduced push interval, custom colors, aggressive de-duplication and status reporting to the watchapp), and config page moved into the app itself, removing a need for an external page entirely. I also added a whole bunch of polish behind the scenes, with persistent storage of the last downloaded news stories, timeout and disconnection handling, adaptive scrolling and subtle animations etc.
 <p style="text-align:center;">![](/assets/media/2015/05/1-5-flow.png)</p>

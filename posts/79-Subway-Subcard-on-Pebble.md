@@ -1,5 +1,5 @@
 ---
-id: 1692
+index: 79
 title: Subway Subcard on Pebble
 postDate: 2014-02-24 15:09:29
 original: https://ninedof.wordpress.com/2014/02/24/subway-subcard-on-pebble/
@@ -13,4 +13,4 @@ I then created a simple Pebble app to show this code as a BitmapLayer for the st
 
 And it worked! The points were added in the Android app but I didn't have to unlock my phone and open the Subcard app. So some time was saved, and I got a positive reaction from the cashier, which is always a bonus!
 
-If you want to use this yourself, get the code from the  [GitHub repo](https://github.com/C-D-Lewis/pebble-subcard) and replace qr.png with a 144x144 crop of your own Subcard QR code from the app or carefully from a photo of your physical card, then re-compile.
+If you want to use this yourself, get the code from the [GitHub repo](https://github.com/C-D-Lewis/pebble-subcard) and replace qr.png with a 144x144 crop of your own Subcard QR code from the app or carefully from a photo of your physical card, then re-compile.

@@ -1,5 +1,5 @@
 ---
-id: 1936
+index: 93
 title: Linking Pebble and Spark Core
 postDate: 2014-05-12 00:41:21
 original: https://ninedof.wordpress.com/2014/05/12/linking-pebble-and-spark-core/
@@ -176,7 +176,7 @@ Pebble.addEventListener(&quot;ready&quot;,
 );
 [/code]
 
-Next, we assemble the URL for the POST request and make the <code>$.ajax()</code> call. The URL contains the following elements (more details can be found on the  [Spark Docs site](http://docs.spark.io/#/api)):
+Next, we assemble the URL for the POST request and make the <code>$.ajax()</code> call. The URL contains the following elements (more details can be found on the [Spark Docs site](http://docs.spark.io/#/api)):
 
 
 
@@ -241,7 +241,7 @@ void loop() {
 }
 [/code]
 
-Finally, connect an LED to pin D0 of the Core. A recommended circuit is shown below (Using  [SchemeIT](http://www.digikey.co.uk/schemeit)):
+Finally, connect an LED to pin D0 of the Core. A recommended circuit is shown below (Using [SchemeIT](http://www.digikey.co.uk/schemeit)):
 
 ![](http://ninedof.files.wordpress.com/2014/05/pebble-core-cir.png)
 
@@ -255,6 +255,6 @@ When the Core is breathing cyan and the Pebble watchapp is open, press the SELEC
 ## Conclusion
 That's a basic overview of the setup to enable the control of Spark Core pins (functions in general) from a Pebble. In the near future I'll write more to cover sending data asynchronously back the other way using <code>Spark.publish()</code> and <code>EventSource</code> JS objects to receive them. 
 
-You can get the sample project code for all stages  [here on GitHub](https://github.com/C-D-Lewis/pebble-spark-link). 
+You can get the sample project code for all stages [here on GitHub](https://github.com/C-D-Lewis/pebble-spark-link). 
 
 Any queries or feedback if I've made a JS faux-pas (I'm relatively new!), let me know!
