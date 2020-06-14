@@ -43,6 +43,7 @@ const SiteHeader = () => DOM.create('div', {
   width: '100%',
   height: '100px',
   padding: 15,
+  cursor: 'default',
   borderBottom: '1px solid #111',
 });
 
@@ -81,6 +82,46 @@ const SiteTitle = () => {
   DOM.addChild(container, awaitWord);
   DOM.addChild(container, successWord);
   DOM.addChild(container, rest);
+  return container;
+};
+
+/**
+ * SocialIcon component.
+ *
+ * @param {Object} props - Component props.
+ * @returns {HTMLElement}
+ */
+const SocialIcon = (icon, href) => {
+  const img = DOM.create('img', {
+    display: 'block',
+    width: '38px',
+    height: '38px',
+    marginLeft: '15px',
+  }, { src: `./assets/icons/${icon}` });
+  const a = DOM.create('a', {}, { href, target: '_blank' });
+  DOM.addChild(a, img);
+  return a;
+};
+
+/**
+ * SiteSocials component.
+ *
+ * @param {Object} props - Component props.
+ * @returns {HTMLElement}
+ */
+const SiteSocials = () => {
+  const container = DOM.create('div', {
+    display: 'flex',
+    marginRight: '20px',
+    justifyContent: 'flex-end',
+    flex: '1',
+    alignItems: 'center',
+  });
+  const gitHubIcon = SocialIcon('github.png', 'https://github.com/C-D-Lewis');
+  DOM.addChild(container, gitHubIcon);
+  const twitterIcon = SocialIcon('twitter.png', 'https://twitter.com/Chris_DL');
+  DOM.addChild(container, twitterIcon);
+
   return container;
 };
 
@@ -182,6 +223,7 @@ window.UIComponents = {
   ContentContainer,
   SiteHeader,
   SiteTitle,
+  SiteSocials,
   LeftColumn,
   CentralColumn,
   PostTitle,

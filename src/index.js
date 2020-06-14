@@ -6,6 +6,8 @@ const setupUI = () => {
   DOM.addChild(rootContainer, siteHeader);
   const siteTitle = UIComponents.SiteTitle();
   DOM.addChild(siteHeader, siteTitle);
+  const siteSocials = UIComponents.SiteSocials();
+  DOM.addChild(siteHeader, siteSocials);
 
   const contentContainer = UIComponents.ContentContainer();
   DOM.addChild(rootContainer, contentContainer);
