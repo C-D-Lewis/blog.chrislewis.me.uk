@@ -23,7 +23,7 @@ const main = async () => {
     }));
 
   console.log(`Extracted ${posts.length} posts`);
-  writeFileSync('../posts.json', JSON.stringify(posts, null, 2), 'utf8');
+  writeFileSync('../assets/posts.json', JSON.stringify(posts, null, 2), 'utf8');
 };
 
 main();

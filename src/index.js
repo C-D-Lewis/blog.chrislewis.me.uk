@@ -1,12 +1,11 @@
 const setupUI = () => {
   const rootContainer = UIComponents.RootContainer();
+  DOM.addChild(document.getElementById('app'), rootContainer);
+
   const leftColumn = UIComponents.LeftColumn();
-  const centralColumn = UIComponents.CentralColumn();
-
-  const app = document.getElementById('app');
-  DOM.addChild(app, rootContainer);
-
   DOM.addChild(rootContainer, leftColumn);
+
+  const centralColumn = UIComponents.CentralColumn();
   DOM.addChild(rootContainer, centralColumn);
 };
 
