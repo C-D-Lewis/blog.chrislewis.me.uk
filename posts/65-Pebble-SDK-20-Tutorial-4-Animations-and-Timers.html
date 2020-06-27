@@ -1,4 +1,4 @@
-<strong>Required Reading</strong>
+<strong>Required Reading</h2>
 
 <a title="Pebble SDK 2.0 Tutorial #1: Your First Watchapp" href="http://ninedof.wordpress.com/2013/12/02/pebble-sdk-2-0-tutorial-1-your-first-watchapp/">Pebble SDK 2.0 Tutorial #1: Your First Watchapp</a>
 
@@ -6,11 +6,11 @@
 
 <a title="Pebble SDK 2.0 Tutorial #3: Images and Fonts" href="http://ninedof.wordpress.com/2013/12/22/pebble-sdk-2-0-tutorial-3-images-and-fonts/">Pebble SDK 2.0 Tutorial #3: Images and Fonts</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 After adding custom images and fonts to our watch face, the next logical way to improve it is to add non-static elements, movement if you will. For this we have <code>Animations</code>! Using the Pebble SDK provided <code>Animation</code> structure we can schedule movements of a <code>Layer</code>'s bounds whenever we want. This sort of "start here and go here" animation is called 'tweened' animation. The alternative kind offers greater flexibility and is achieved through the use of <code>AppTimer</code>s.
 
-<h2>Tweened Animation</strong>
+<h2>Tweened Animation</h2>
 
 Firstly, we will apply a simple example of a tweened animation to our tutorial watch face. Start by importing the project code from the last section into CloudPebble and giving it a new name, such as 'SDKTut4' for example. Be sure to change the short and long app names in the 'Settings' section! We are going to animate the <code>TextLayer</code> showing the time when the minute changes. The first step is to change the type of tick event we subscribe to to <code>SECOND_UNIT</code> in <code>init()</code>:
 
@@ -50,7 +50,7 @@ void animate_layer(Layer *layer, GRect *start, GRect *finish, int duration, int 
 }
 </code>
 
-<h2>Note: If you are compiling for the <a title="SDK 3.0 Migration Guide" href="https://developer.getpebble.com/sdk/migration-guide/#using-propertyanimation">Basalt platform</a>, you do not need to manually destroy your animation, so leave the handler out. </strong>
+<h2>Note: If you are compiling for the <a title="SDK 3.0 Migration Guide" href="https://developer.getpebble.com/sdk/migration-guide/#using-propertyanimation">Basalt platform</a>, you do not need to manually destroy your animation, so leave the handler out. </h2>
 
 You can cast a <code>PropertyAnimation*</code> pointer to a <code>Animation*</code> pointer and vice versa where needed. In addition, for simplicity the <code>GRect</code>s describing the start and finish positions of the animated <code>Layer</code> are created on the heap, and then specified to the <code>animate_layer()</code> wrapper function as pointers using the '&' operator.
 
@@ -94,7 +94,7 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 
 Compile this and check it works. If you are unsure about the timing, remove the <code>if</code> statements and have the <code>Animation</code> run every second (although perhaps only the first one!) and work your way up to two working in tandem.
 
-<h2>Timers</strong>
+<h2>Timers</h2>
 
 The other main method of moving elements around is to use an <code>AppTimer</code>. These allow you to schedule something to happen whenever and how often you like. The paradigm is that you register some callback (another name for handler) function to run after a given delay. When that delay has elapsed, the callback function is called and performs your task. You can think of an <code>Animation</code> as a task executed by an <code>AppTimer</code> but with a very small delay. The example we are going to create is a small shape that moves back and forth above the time display as an extra aesthetic touch.
 
@@ -173,6 +173,6 @@ text_layer_destroy(square_layer);
 
 Finally, recompile and test the resulting watch face, and see the results! A thing to note is that waking up the Pebble's CPU this often will incur battery life penalties, so use timers sparingly!
 
-<h2>Conclusions</strong>
+<h2>Conclusions</h2>
 
 So that's how to use <code>Animation</code>s and <code>AppTimer</code>s! If you think about it, there is a way to replace the moving square's <code>AppTimer</code> with a <code>PropertyAnimation</code>, rendering its use here void. A more robust example is my <a title="Starfield Source" href="https://github.com/C-D-Lewis/starfield-demo/blob/master/src/starfielddemo.c">Starfield Demo</a>, which uses such timers as the core of its operation. A link to the finished product from this section can be found <a title="Part 4 Source" href="https://www.dropbox.com/s/bl3dx9mhba5yr4r/sdktut4.zip">HERE</a>. Enjoy! If you have queries or comments, make them below, or <a title="Tweet" href="http://twitter.com/Chris_DL">Tweet me</a>.

@@ -1,4 +1,4 @@
-<strong>Required Reading</strong>
+<strong>Required Reading</h2>
 
 <a title="Pebble SDK 2.0 Tutorial #1: Your First Watchapp" href="http://ninedof.wordpress.com/2013/12/02/pebble-sdk-2-0-tutorial-1-your-first-watchapp/">Pebble SDK 2.0 Tutorial #1: Your First Watchapp</a>
 
@@ -18,7 +18,7 @@
 
 <a title="Pebble SDK 2.0 Tutorial #9: App Configuration" href="http://ninedof.wordpress.com/2014/05/24/pebble-sdk-2-0-tutorial-9-app-configuration/">Pebble SDK 2.0 Tutorial #9: App Configuration</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 In this section of the tutorial series, I will be covering some of the Event Services introduced in the 2.0 version of the Pebble SDK which have been oft requested due to their popularity in newer, interactive watchfaces. Namely:
 <ul>
@@ -27,7 +27,7 @@ In this section of the tutorial series, I will be covering some of the Event Ser
 	<li>Accelerometer Service (tap and raw)</li>
 	<li>App Focus Service (not covered, but works <strong>identically</strong> to the Bluetooth Connection Service)</li>
 </ul>
-<h2>Setup</strong>
+<h2>Setup</h2>
 
 To begin with, we will be using the blank template from before, shown below for convenience. Create a new CloudPebble project and start a new C file with the template as its contents:
 
@@ -71,7 +71,7 @@ int main(void)
 }
 </code>
 
-<h2>Bluetooth Connection Service</strong>
+<h2>Bluetooth Connection Service</h2>
 The first Event Service we will be using is the Bluetooth Connection Service, which allows us to see the current connection status as well as subscribe to updates (only while Bluetooth is actually connected, so be careful with debug logs), much in the same way as with the <code>TickTimerService</code>. Firstly, we will create a <code>TextLayer</code> in <code>window_load()</code> to use for showing the events happening. First is the global pointer:
 
 <!-- language="cpp" -->
@@ -132,7 +132,7 @@ bluetooth_connection_service_subscribe(bt_handler);
 
 After compiling and installing the project, try disconnecting and re-connecting your phone's Bluetooth radio a few times and observe the result.
 
-<h2>Battery State Service</strong>
+<h2>Battery State Service</h2>
 The next Event Service we will be adding will be the Battery State Service, which provides information on the Pebble's battery. It provides more detail than a simple <code>bool</code>, including charging status and whether the cable is plugged in or not. As before, we will create a new <code>TextLayer</code> to show the output. Add the pointer to the last one in the declaration:
 
 <!-- language="cpp" -->
@@ -158,7 +158,7 @@ text_layer_set_text(batt_layer, buffer);
 
 After re-compiling, the battery charge percentage should be shown below the Bluetooth status.
 
-<h2>Accelerometer Service (tap)</strong>
+<h2>Accelerometer Service (tap)</h2>
 The Accelerometer Service operates in a very similar manner to the previous two Event Services, but can operate in two modes: tap and raw data. The tap mode will call a handler that we subscribe when the Pebble is tapped (or wrist is shaken), whereas the raw data mode will supply X, Y and Z values at an rate we select. I'll show both of these for the sake of completeness. An application of the latter mode <a title="Block Game using Pebble Accelerometer" href="http://ninedof.wordpress.com/2014/04/24/block-game-using-pebble-accelerometer/">can be seen here</a>.
 
 First, we create a further <code>TextLayer</code> to show the output data:
@@ -231,7 +231,7 @@ accel_tap_service_subscribe(accel_tap_handler);
 
 You should now be able to see the result of tapping the watch. Personally I've found that shaking the wrist is a more reliable way of triggering events (such as showing more information on a watchface), but taps can still be used as an option.
 
-<h2>Accelerometer Service (raw data)</strong>
+<h2>Accelerometer Service (raw data)</h2>
 Finally, we will use the raw data mode of the Accelerometer Service. To do this, we will first remove the existing Accelerometer Service subscription (but still keep the handler for reference).
 
 In the raw data mode, the data values arrive at a specific interval chosen with a call to <code>accel_service_set_sampling_rate()</code>, and the number of samples in a batch can be chosen using <code>accel_service_set_samples_per_update()</code>. We will stick with the default rate and update size for simplicity. Be aware that this mode will drain the battery significantly faster than the tap mode.
@@ -262,7 +262,7 @@ Now this is all in place, re-compile and re-install the watch app to see the liv
 The final result should look like this:
 <a href="/assets/media/2014/07/final.png"><img class="aligncenter size-full wp-image-2054" src="http://ninedof.files.wordpress.com/2014/07/final.png" alt="final" width="150" height="174" /></a>
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 So, that's the new Event Services. As I mentioned, there is another called the App Focus Service which tells you when your app is covered by a notification, but it works in a very similar way to the Bluetooth Connection Service, so you should be able to figure it out!
 
 The full source code can be <a title="Tutorial 10 source" href="https://github.com/C-D-Lewis/pebble-sdk2-tut-10">found here on GitHub</a>.

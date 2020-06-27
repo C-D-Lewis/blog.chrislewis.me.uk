@@ -1,4 +1,4 @@
-<strong>Introduction</strong>
+<strong>Introduction</h2>
 
 After the Pebble SDK update to version 2.0, the time has come to write a new version of my tutorial series for this new SDK.
 
@@ -13,7 +13,7 @@ If you are not familiar with the following basic C concepts, please read <a titl
 </ol>
 Up to speed? Good! Let's make our first SDK 2.0 watchapp. This time the tutorial will take a more practical approach, with each section finishing with a compilable project showing off the things learned therein.
 
-<h2>Development Environment</strong>
+<h2>Development Environment</h2>
 
 In order to write and compile watchfaces there are two main options for Windows users:
 <ol>
@@ -23,7 +23,7 @@ In order to write and compile watchfaces there are two main options for Windows 
 Choose whichever works for you. However, since the first draft of this tutorial section, CloudPebble now allows you to install, take screenshots and see logs from Pebble apps from the Compilation page, so for the purposes of a more simple start I'll be writing this tutorial from the Cloud Pebble perspective.
 
 <h2>First Steps
-</strong>
+</h2>
 
 To get started, log into Cloud Pebble and choose 'Create Project'.
 <ol>
@@ -34,7 +34,7 @@ To get started, log into Cloud Pebble and choose 'Create Project'.
 </ol>
 Next, click 'New C file' and enter a name. I'd recommend 'main.c'. This file will contain the C code that makes up the watchface we're creating.
 
-<h2>Setting up the Basics</strong>
+<h2>Setting up the Basics</h2>
 
 In order to use (or 'include') all the Pebble SDK goodness already created for our use, start the file with this line:
 
@@ -161,7 +161,7 @@ The final basic step is to actually make the app 'appear' when it is chosen from
 
 This will make the window slide into view (denoted by the <code>true</code> argument), but it will be completely blank! Let's rectify that.
 
-<h2>Making the App Do Something</strong>
+<h2>Making the App Do Something</h2>
 
 What we've done so far is to initialize an empty <code>Window</code>. Now let's add the first sub-element to make it show some output. Introducing the <code>TextLayer</code>! This is an element used to show any standard string of characters into a pre-defined area. As with any element, we first need a global pointer. Add this under the <code>Window</code> pointer near the top of the file like so:
 
@@ -199,13 +199,13 @@ Now the best bit! We make the watch app tell us whatever we want. Go back to the
 
 Now we should be ready to see the fruits of our labour!
 
-<h2>Compilation and Installation</strong>
+<h2>Compilation and Installation</h2>
 
 Make sure you hit 'Save', then click 'Settings' on the left. Here you can set all kinds of app-related settings, but for now just give your own values to 'Short App Name' and 'Company Name'. Hit 'Save Changes'. Next, go to 'Compilation' and hit 'Run Build'. You should be greeted with 'Successful' next to 'Status'. If not, go back and compare your code to the segments above, or check out the example download at the end of the post.
 
 Enter your phone's IP address and click 'install and run' after enabling <a title="Developer Connection" href="https://developer.getpebble.com/2/getting-started/developer-connection/">Pebble Developer Connection</a> or download the .pbw file, then open the resulting file on your phone. After the Pebble app has done it's work, you should be able to see your text on the watch! Exciting!
 
-<h2>Conclusions</strong>
+<h2>Conclusions</h2>
 
 So there you have it, a very simple watch app to show some text. Next time we'll flesh it out a bit more and make it do something really useful, like showing the time!
 

@@ -2,13 +2,13 @@ After using a number of proper programming languages for various projects over t
 
 I'd like to see a game fully utilise such a concept one day, but until then, I'd thought I'd have a go at creating a <strong>very</strong> simple pseudo-language and see what would be involved.
 
-<h2>The Result</strong>
+<h2>The Result</h2>
 
 Turns out the easiest way to go about it to is to use an existing language as a platform - a <a href="https://en.wikipedia.org/wiki/Source-to-source_compiler">transpiler</a>. For example, languages like TypeScript and Dart that are transformed to JavaScript, a much more portable language (browsers, Node, <a href="https://pebble.github.io/rockyjs/">watches</a>, etc.) that can easily be run in many places.
 
 To this end I set out (in my typically enjoyed 'do it yourself' style) to try and make a simplified language that is converted into JavaScript, line for line. The result is a project unimaginatively dubbed '<a href="https://github.com/C-D-Lewis/islang">islang</a>' (the 'is' language), so called after the simplest possible statement. The aim is to create a 'language' that is easily learned and uses as little symbols or special syntax rules as possible, which I have seen pose a barrier to new programmers who have never seriously used a programming language before, and would say something like 'why does that line only have a curly bracket in?'
 
-<h2>Is</strong>
+<h2>Is</h2>
 
 So without further ado, here is a sample program that implements a typical 'greeter' scenario:
 
@@ -42,7 +42,7 @@ The output is thus:
 Hello there, Chris!
 </code>
 
-<h2>Compilation</strong>
+<h2>Compilation</h2>
 
 Take a look at the project on <a href="https://github.com/C-D-Lewis/islang">GitHub</a>, specifically '<a href="https://github.com/C-D-Lewis/islang/blob/master/src/transform.js">transform.js</a>', which uses a sequence of conventional rules to mould the input line (and its 'tokens', the individual words in the line) into the output line of JavaScript. This function is includes by 'index.js' and processes every line in the source '.is' file into one output JavaScript files called 'build.js'. The programmer can then run their program using node as usual.
 
@@ -57,7 +57,7 @@ node build.js
 
 In this manner, more rules can be added, though it is limited right now to one rule per line, and only a few cases where combinations occur (such as returning a function call). This could be made more sophisticated in the future, but I confess as an Electronic Engineering graduate I have never studied how real compilers work!
 
-<h2>A More Complex Example</strong>
+<h2>A More Complex Example</h2>
 
 Here's a slightly more complex example that calculates the result of a series of Fibonacci calculations:
 
@@ -119,7 +119,7 @@ fib_output: 34
 
 Looks familiar, right?
 
-<h2>Language Features</strong>
+<h2>Language Features</h2>
 
 Right now those are:
 <ul>
@@ -167,7 +167,7 @@ car property num_wheels is 4
 log 'This {car.color} car has only {car.num_wheels} wheels!'
 </code>
 
-<h2>Wrapping Up</strong>
+<h2>Wrapping Up</h2>
 
 This turned out to be longer than I thought it would be, but the general point is - this is a lot of run, and I hope to add more features in the future, maybe to even use it to teach or provide some more depth or extensibility to another project...
 

@@ -1,4 +1,4 @@
-<strong>Introduction</strong>
+<strong>Introduction</h2>
 
 After using the <a title="PebbleKit" href="http://developer.getpebble.com/">Pebble Watch Face SDK (aka PebbleKit)</a> to create a number of my own watch faces, and considering that being able to do so as an owner of one of these marvellous devices is one of it's main unique selling points, I'd like to use this position to help others get their foot on the ladder in terms of getting started creating their own watch faces.
 
@@ -8,7 +8,7 @@ At the moment, there are two viable environments for writing a watch face that I
 
 In either case, the program code is entered in to a file with the extension '.c', instead of '.jpg' or '.txt' for example. This file is then used by a piece of software supplied by Pebble in the SDK called a 'compiler' that processes your program code and produces a watch install package as a '.pbw', ready for sharing and uploading, to your watch or the web.
 
-<h2>Variables</strong>
+<h2>Variables</h2>
 
 The C programming language is one of the most widely used and flexible around, because it can be  adapted for almost any purpose (including Pebble Smartwatches!) and allows low level control of whatever hardware it's implemented on.
 
@@ -24,7 +24,7 @@ Here are a couple of examples:
 
 Using these types of variable, most kinds of data can be stored.
 
-<h2>Functions</strong>
+<h2>Functions</h2>
 
 Functions can be thought of as tasks that be started at any time. They're a good way of grouping statements (another word for a line of code or command) to act on data that you're going to be doing frequently. As a very basic example, imagine you wanted to add one to an integer. When your code is running, you don't know what that number will be, but you know where it will be coming from. It could be a literal value, or the result of a function call, so it needs to be supplied to the function.
 
@@ -50,17 +50,17 @@ Here's the clever bit: As the function returns an integer type, we can assign it
 
 I hope you can follow that. If not, look back through the last example image and follow the flow of the value of 'number'.
 
-<h2>Pointers</strong>
+<h2>Pointers</h2>
 
 Imagine a variable came with a tag, like a label on an item at a Lost Property Office. The tag or label would describe what was attached. For example, a lost wallet with a ten pounds inside might have a label attached saying "Lost wallet". By following the string from the label to the wallet, you could then look inside and find the value held within. Another example is Baggage Reclaim at the airport. To find the luggage that belongs to you, you look for the label and flight number you've been given, which leads you to the correct bags.
 
 <a href="http://ninedof.files.wordpress.com/2013/06/image-3-51.png"><img class="aligncenter size-full wp-image-518" alt="Image 3.5" src="http://ninedof.files.wordpress.com/2013/06/image-3-51.png" width="429" height="447" /></a>
 
-It is in this way that C can reference variables by their location, but not necessarily by the actual instance of that variable. This type of 'pass by reference' is called a <code>pointer</code>, and is just a number of the memory location of where the variable is actually stored. This is especially useful for strings, where in C a string is often supplied to a function by a <code>pointer</code> to the location of the first slot in the string's character array. The rest of the string can then by read simply by incrementing the <code>pointer</code> to point to the next slot, and so on. An example of the addOne function discussed in the previous section using a pointer to the 'number' and not the actual value itself is shown below. <strong>Note the need for no return type!</strong>
+It is in this way that C can reference variables by their location, but not necessarily by the actual instance of that variable. This type of 'pass by reference' is called a <code>pointer</code>, and is just a number of the memory location of where the variable is actually stored. This is especially useful for strings, where in C a string is often supplied to a function by a <code>pointer</code> to the location of the first slot in the string's character array. The rest of the string can then by read simply by incrementing the <code>pointer</code> to point to the next slot, and so on. An example of the addOne function discussed in the previous section using a pointer to the 'number' and not the actual value itself is shown below. <strong>Note the need for no return type!</h2>
 
 <a href="http://ninedof.files.wordpress.com/2013/06/image-43.png"><img class="aligncenter size-large wp-image-641" alt="Image 4" src="http://ninedof.files.wordpress.com/2013/06/image-43.png?w=545" width="545" height="195" /></a>
 
-<h2>Program flow</strong>
+<h2>Program flow</h2>
 
 Especially relevant in the realm of watch faces that change depending on the time, is the control of how the program that is the watch face executes. You might only want an animation to fire on the turn of the hour, for example. Another example is that the watch face will show "14:30" if the user selects 'Time Display 24h' in the watch settings, and "2:30" if they select 'Time Display 12h'. Thankfully, the SDK lets you facilitate this preference in your watch face program using a combination of program flow and a function supplied by the SDK.
 

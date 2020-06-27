@@ -1,9 +1,9 @@
 <strong>Note: This post assumes basic knowledge of Pebble <code>AppMessage</code>, PebbleKit JS, jQuery <code>$.ajax()</code>, <code>Spark.function()</code> and similar API calls.
 
 Also, the JS code may only work on Android devices.
-</strong>
+</h2>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 A major appeal of the Pebble smartwatch is its potential both as a data display and a data input device. The addition of PebbleKit JS in SDK 2.0 allows a watchapp to connect to the internet and download data. Through the use of jQuery data can be requested, and with the <code>EventSource</code> object data can be listened for asynchronously.
 
@@ -19,7 +19,7 @@ Visually, the process for triggering a <code>Spark.function()</code> call from P
 
 <a href="http://ninedof.files.wordpress.com/2014/05/pebble-core-fuction.png"><img class="aligncenter size-large wp-image-1942" src="http://ninedof.files.wordpress.com/2014/05/pebble-core-fuction.png?w=545" alt="pebble-core-fuction" width="545" height="124" /></a>
 
-<h2>Prepare Pebble</strong>
+<h2>Prepare Pebble</h2>
 
 To prepare the Pebble end, declare the keys you will be using for <code>AppMessage</code> communication. For this example, we will use a key called <code>KEY_TOGGLE</code> with a value of 0. This will be used to instruct PebbleKit JS to call a function registered on the Core with <code>Spark.function()</code> to toggle a pin <code>HIGH</code> or <code>LOW</code>. This is shown below in the starting template for the watchapp:
 
@@ -125,7 +125,7 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context)
 }
 </code>
 
-<h2>Prepare PebbleKit JS</strong>
+<h2>Prepare PebbleKit JS</h2>
 After preparing the Pebble app to send an <code>AppMessage</code>, we must prepare PebbleKit JS to receive it and make a call to the Spark Cloud. The first stage in this is to initialise the <code>pebble-js-app.js</code> file like so:
 
 <!-- language="javascript" -->
@@ -202,11 +202,11 @@ $.ajax({
 });
 </code>
 
-<h2>Make sure you change the <code>deviceId</code> and <code>accessToken</code> variables at the top of the JS file to be those of you own Core!</strong>
+<h2>Make sure you change the <code>deviceId</code> and <code>accessToken</code> variables at the top of the JS file to be those of you own Core!</h2>
 
 This completes the PebbleKit JS preparation!
 
-<h2>Prepare the Core</strong>
+<h2>Prepare the Core</h2>
 The final step in setting up a <code>Spark.function()</code> triggered by Pebble is to write the actual Core firmware. This is a very simple program. A function with the signature mentioned previously is created to do the toggling, with a <code>bool</code> variable to maintain state. This is then exposed to the Cloud API using <code>Spark.function()</code> in <code>setup()</code>. The end result looks like this:
 
 <!-- language="cpp" -->
@@ -243,14 +243,14 @@ Finally, connect an LED to pin D0 of the Core. A recommended circuit is shown be
 
 <a href="http://ninedof.files.wordpress.com/2014/05/pebble-core-cir.png"><img src="http://ninedof.files.wordpress.com/2014/05/pebble-core-cir.png" alt="pebble-core-cir" width="320" height="481" class="aligncenter size-full wp-image-1944" /></a>
 
-<h2>Putting It All Together</strong>
+<h2>Putting It All Together</h2>
 Compile and upload the watchapp to your Pebble, compile and upload the Core firmware to your Core and launch the watchapp when the Core upload is done. You should see something similar to this:
 
 <a href="http://ninedof.files.wordpress.com/2014/05/pebble-spark-screen1.png"><img src="http://ninedof.files.wordpress.com/2014/05/pebble-spark-screen1.png" alt="pebble-spark-screen1" width="150" height="175" class="aligncenter size-full wp-image-1945" /></a>
 
 When the Core is breathing cyan and the Pebble watchapp is open, press the SELECT button. The LED should toggle on and off! 
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 That's a basic overview of the setup to enable the control of Spark Core pins (functions in general) from a Pebble. In the near future I'll write more to cover sending data asynchronously back the other way using <code>Spark.publish()</code> and <code>EventSource</code> JS objects to receive them. 
 
 You can get the sample project code for all stages <a href="https://github.com/C-D-Lewis/pebble-spark-link" title="Source code">here on GitHub</a>. 

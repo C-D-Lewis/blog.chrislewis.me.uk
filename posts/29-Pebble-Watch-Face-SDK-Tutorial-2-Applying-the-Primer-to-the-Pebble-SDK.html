@@ -1,8 +1,8 @@
-<strong>Introduction:</strong>
+<strong>Introduction:</h2>
 
 The aim of this second section of the tutorial series is to show examples of how the primer theory from the last section appears in the real world application we're all looking at - the PebbleKit SDK. But first there is one more data storage convention in C we need to look at. But before that, a quick recap.
 
-<h2>Recap:</strong>
+<h2>Recap:</h2>
 <ul>
 	<li>A watch face file is a C file (*.c) and is compiled by the compilers supplied with the Pebble SDK.</li>
 	<li>Statements (or lines of code) are executed one after another, except where diverted by program flow statements such as <code>if</code> and <code>else</code>.</li>
@@ -11,7 +11,7 @@ The aim of this second section of the tutorial series is to show examples of how
 </ul>
 If any of these things are completely foreign to you, please <a title="Pebble Watch Face SDK Tutorial #1: Beginner’s Primer to the C Language" href="http://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/">go back</a> and read the last section!
 
-<h2>Structures</strong>
+<h2>Structures</h2>
 
 In C, structures are a data type similar to <code>int</code> or <code>float</code>, but contain many different values and can be created for a specific purpose by the user or in this case the SDK developers. You can think of them as a collection of variables that come under one heading, or an Object, if you're coming from an Object Oriented Programming background.
 
@@ -27,7 +27,7 @@ The final point on structures is that the key word <code>typedef</code> can be u
 
 <a href="http://ninedof.files.wordpress.com/2013/06/image-2-5.png"><img class="aligncenter size-full wp-image-547" alt="image 2.5" src="http://ninedof.files.wordpress.com/2013/06/image-2-5.png" width="319" height="148" /></a>
 
-<h2>More Common Types To Know</strong>
+<h2>More Common Types To Know</h2>
 
 In developing a watch face, there are a few more types of data constants to know (these are used as easy ways of specifying aspects of the watch face). The first example is the <code>GColor</code> (Graphics Color). These are defined in order to be used to set the colours of parts of Layers. Their <a title="GColor Types" href="http://developer.getpebble.com/sdkref/group___graphics_types.html#gaafde3cb660d99f7fe83e40c86e67b6c4">listing in the API documentation</a> lets you know which ones are available. You'll see how they fit in when we start to use them later.
 
@@ -39,7 +39,7 @@ Here are two real examples of these types in use:
 
 If you see the <a title="GRect API Documentation" href="http://developer.getpebble.com/sdkref/group___graphics_types.html#struct_g_rect">API documentation for <code>GRect</code></a>, it is actually a structure consisting of a <code>GPoint</code> for the origin and a <code>GSize</code> for the width and height. I hope you can guess what those two new ones do!
 
-<h2>Structures in the PebbleSDK</strong>
+<h2>Structures in the PebbleSDK</h2>
 
 A large number of structures are used in the SDK to represent various elements that go into a watch face or app. An example is the Layer structure. The variables stored inside this structure are items such as it's geometry and the Window it is situated in. In the SDK reference material it <a title="Struct Layer Reference" href="http://developer.getpebble.com/sdkref/group___layer.html#struct_layer">looks like this</a>.
 
@@ -63,11 +63,11 @@ Once this is done, we can initialise and add a TextLayer to the Window for displ
 
 It is important to note that the order in which Layers are added to a Window matters. Much like the new Window is added to the top of the 'stack' of windows, the most recent'y added Layer will be at the front, on top of everything else. If the background colour is specified as <code>GColorClear</code>, this is rarely an issue, but there could be times when this feature can be taken advantage of.
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 
 So that's how the data types, functions and structures manifest themselves in creating a basic watch face. I hope I've made it clear enough, but if not, feel free to ask a question.
 
-<h2>Next Time</strong>
+<h2>Next Time</h2>
 
 In the next section I'll show a brief overview of how to setup a Ubuntu environment for building watch faces, if you prefer that to the cloud based solution mentioned in the first section.
 

@@ -14,7 +14,7 @@ With my adventures in Node and discovering convenient or standardised ways of do
 
 <em><strong>Disclaimer: </strong><strong>This isn't an implementation of any actual accepted standard process/pattern I know of, just the optimum solution I have reached and am happy with under my own steam. Enjoy!</strong></em>
 
-<h2>File Layout</strong>
+<h2>File Layout</h2>
 
 As you can see from any of the linked repositories above, the basic layout for one of my Node apps goes as follows:
 <pre>src/
@@ -31,7 +31,7 @@ The <code>src</code> folder contains <code>modules</code> (modules that are spec
 
 This pattern allows all apps to use common modules that can be guaranteed not only the presence of each other, but of a common <code>config.json</code> that they can all use to draw configuration information (such as log level, API keys, latitude and longitude, etc.).
 
-<h2>Soft Configuration</strong>
+<h2>Soft Configuration</h2>
 
 Of particular interest is the <code>config.js</code> module, which all modules that use <code>config.json</code> information include <em>instead</em> of <code>config.json</code>. It is untracked in git, and so can safely contain sensitive keys and other values. It also guarantees that keys required by modules are present It also provides some additional benefits:
 <ul>
@@ -50,7 +50,7 @@ config.requireKeys('fictitious.js', {
 });</pre>
 The way <code>config.js</code> behaves, if this structure is not present in <code>config.json</code>, the app will not start, and will tell the operator (i.e: me!) that the value should be provided. Handy!
 
-<h2>Standard Modules</strong>
+<h2>Standard Modules</h2>
 
 Any of these Node apps (and any new apps that come along in the future) can make use of a library of drop-in standard modules, many of which can be found in action in any of the linked repositories at the top of this post), including:
 <ul>
@@ -65,7 +65,7 @@ Any of these Node apps (and any new apps that come along in the future) can make
  	<li><code>ip.js</code> - Look up the address of the 'mothership' server (either Server Pi or a Digital Ocean Droplet)</li>
  	<li><code>log.js</code> - Standard logger, asserts, uncaught/unhandled catching.</li>
 </ul>
-<h2>Wrapping Up</strong>
+<h2>Wrapping Up</h2>
 
 So with this standard pattern to my Node apps, it makes it a lot easier to manage the common modules as they are updated/improved, manage SCM untracked soft configuration values (as well as make sure I provide them after migration!), and allow modules to be as drop-in as possible. As with most/all of my hobbyist programming, these approaches and modules are the result of personal refinement, and not from any accepted standard, which is my preferred style when I am the only consumer. Maximise the learnings!
 

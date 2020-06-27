@@ -26,6 +26,7 @@ const transformHTML = (html) => {
 
   // Headers (handle strong for emphasis too)
   result = replace(result, '\n<strong>', '\n<h2>');
+  result = replace(result, '</strong>\n', '</h2>\n');
 
   // Encoded HTML
   result = replace(result, '&lt;', '<');

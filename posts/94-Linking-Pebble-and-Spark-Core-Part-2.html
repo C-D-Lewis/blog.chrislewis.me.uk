@@ -1,12 +1,12 @@
-<strong>Note: The JS code may only work on Android devices.</strong>
+<strong>Note: The JS code may only work on Android devices.</h2>
 
 Part 1: <a href="http://ninedof.wordpress.com/2014/05/12/linking-pebble-and-spark-core/" title="Linking Pebble and Spark Core">Linking Pebble and Spark Core</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 In the last post (linked above) I detailed the basics of connecting a Pebble watchapp's button clicks to a <code>Spark.function()</code> call on a Spark Core. In this post I will go over the reverse process: sending data back to the Pebble asynchronously. Once again this process uses a combination of Spark Cloud, PebbleKit JS and <code>AppMessage</code> to convey the message, which this time will be alerting a Pebble watch wearer that a button connected to the Core has been pressed via a short vibration pulse. 
 
-<h2>Preparing Pebble</strong>
+<h2>Preparing Pebble</h2>
 
 The initial Pebble C program code is similar in structure to the last post's starting point, but without any of the <code>Click</code> functionality, as this will be a receive-only app. Thus the start of your project's main <code>.c</code> file will look like this:
 
@@ -104,7 +104,7 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context)
 
 Compile this and upload to your Pebble to make sure it is ready to work with PebbleKit JS, which we will set up next.
 
-<h2>Preparing PebbleKit JS</strong>
+<h2>Preparing PebbleKit JS</h2>
 
 Also similar to last time, we must setup the JS code to listen for events from the Spark Cloud and send <code>AppMessage</code>s on to the watch. However, this time we do not require jQuery but instead use an object called <code>EventSource</code> that will provide the messages in a callback. This is done in the "ready" event handler:
 
@@ -158,7 +158,7 @@ The <code>AppMessage</code> dictionary takes the form of a JSON dictionary with 
 
 This completes the setup of the JS segment of the message's journey. With the JS code in place, re-compile and re-upload your Pebble <code>.pbw</code> file to your watch. 
 
-<h2>Preparing the Core</strong>
+<h2>Preparing the Core</h2>
 
 The last thing to do is to configure the Core to call <code>Spark.publish()</code> to notify the JS and C code we have already set up. This is done in the <code>loop()</code> function and takes the form of a simple <code>if</code>, <code>else</code> statement, depending on whether <code>digitalRead(D0)</code> determines whether the button is pressed. If you don't have a button to hand, you can simulate one by simply touching the 3.3V pin of your core to D0 briefly once the following code is in place and uploaded:
 
@@ -190,7 +190,7 @@ void loop() {
 
 If you do have a push button to hand, here is how to connect it up, as <a href="http://arduino.cc/en/tutorial/button" title="Button">depicted on the Arduino site</a>, except instead of pin 2, we are using Core pin D0. Once this is done, ensure both watchapp and Core firmware are uploaded and running before pressing the button. The watch should vibrate within a couple of seconds!
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 
 There we have an expansion on the original post, showing how to send asynchronous events and data from the Spare Core to the Pebble watch. A slight reduction in latency between the two can be theoretically achieved by calling <code>app_comm_set_sniff_interval(SNIFF_INTERVAL_REDUCED)</code>, although this will consume more power over a long term period.
 

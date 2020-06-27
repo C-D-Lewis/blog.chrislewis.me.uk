@@ -1,8 +1,8 @@
-<strong>Previous Tutorial Sections</strong>
+<strong>Previous Tutorial Sections</h2>
 
 All five previous parts of this tutorial series can be found on the 'Pebble SDK Tutorial' page link at the top of the page. Please read them if you are not already up to speed!
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 One of the main selling points of the Pebble smartwatch is the fact that it can run apps that communicate with a companion app on an iPhone or Android smartphone. Indeed, it is impossible to get started without one. In the spirit of openness that is also a major selling point, this part of the tutorial series will describe how to accomplish such a task, enabling a much richer watch app experience.
 
@@ -22,7 +22,7 @@ If that explanation leaves you wanting, here's an diagram that will hopefully ma
 
 <a href="http://ninedof.files.wordpress.com/2013/07/key-and-data-life.png"><img class="aligncenter size-full wp-image-710" alt="key and data life" src="http://ninedof.files.wordpress.com/2013/07/key-and-data-life.png" width="500" height="500" /></a>
 
-<h2>Common App Features</strong>
+<h2>Common App Features</h2>
 
 In order to make sure that the phone app sends data to the correct watch app, both apps must use the same UUID to identify them. This has already been covered for the watch app, so here is how this is done on the phone app:
 
@@ -32,7 +32,7 @@ Here is how the phone app would store the keys. Remember that these should be id
 
 <a href="http://ninedof.files.wordpress.com/2013/07/keys.png"><img class="aligncenter size-full wp-image-712" alt="KEYS" src="http://ninedof.files.wordpress.com/2013/07/keys.png" width="442" height="323" /></a>
 
-<h2>Watch App Specifics</strong>
+<h2>Watch App Specifics</h2>
 
 On the watch app side of things, as predicted there is a use of handler functions to manage the following events:
 <ul>
@@ -49,7 +49,7 @@ Next, create the handler functions with <strong>matching names to those referenc
 
 <a href="http://ninedof.files.wordpress.com/2013/07/blank-handlers.png"><img class="aligncenter size-large wp-image-715" alt="blank handlers" src="http://ninedof.files.wordpress.com/2013/07/blank-handlers.png?w=545" width="545" height="388" /></a>
 
-<h2>Sending data to the phone app</strong>
+<h2>Sending data to the phone app</h2>
 
 To send data to the phone app, a Dictionary is constructed and filled with the tuples describing the data to be sent, using the appropriate keys. Here is an example function that takes an <code>int</code> and sends it to the phone app (adapted from the one provided in the SDK examples):
 
@@ -57,19 +57,19 @@ To send data to the phone app, a Dictionary is constructed and filled with the t
 
 The argument sent here would be matched with a corresponding action on the phone app. In this example project (link to the source code will be at the end) each of the three buttons is given a key of 0, 1 or 2 (Select, Up, Down). When the up button is pressed,  the watch app sends '1' to the phone app. Because the keys are the same on both sides, when the phone app receives '1' it can use that to perform the action the programmer wants to perform upon an up button press.
 
-<h2>Receiving data from the watch on the phone</strong>
+<h2>Receiving data from the watch on the phone</h2>
 
 On the phone app side, the Dictionary is received in a callback method which is registered with the Android system when the app starts, in <code>onResume()</code>:
 
 <a href="http://ninedof.files.wordpress.com/2013/07/onresume.png"><img class="aligncenter size-large wp-image-717" alt="onResume" src="http://ninedof.files.wordpress.com/2013/07/onresume.png?w=545" width="545" height="476" /></a>
 
-Hopefully you can see that when the callback is triggered, the data is identified by the key, again it must correspond to the key on the watch app. This value is then used in a switch statement to decide what action to take. <strong>The phone app must first acknowledge (ACK) the data so the watch app doesn't report a timeout.</strong>
+Hopefully you can see that when the callback is triggered, the data is identified by the key, again it must correspond to the key on the watch app. This value is then used in a switch statement to decide what action to take. <strong>The phone app must first acknowledge (ACK) the data so the watch app doesn't report a timeout.</h2>
 
 Another important note is that the callback must be unregistered in <code>onPause()</code> when the phone app is closed to prevent events being missed. Here is how that is done:
 
 <a href="http://ninedof.files.wordpress.com/2013/07/onpause.png"><img class="aligncenter size-large wp-image-718" alt="onPause" src="http://ninedof.files.wordpress.com/2013/07/onpause.png?w=545" width="545" height="130" /></a>
 
-<h2>Sending data back to the watch app</strong>
+<h2>Sending data back to the watch app</h2>
 
 Going back in the opposite direction, data is sent to the watch app by making use of a PebbleDictionary and key-value tuples. The methods used for this are provided by the PebbleKit SDK packages, which you can use and import by copying the packages into the 'src' folder of your Android project (shown here in Eclipse IDE for Java Developers):
 
@@ -85,7 +85,7 @@ This process is summarised in the image below, with comments for clarity:
 
 <a href="http://ninedof.files.wordpress.com/2013/07/send-to-pebble.png"><img class="aligncenter size-large wp-image-720" alt="send to pebble" src="http://ninedof.files.wordpress.com/2013/07/send-to-pebble.png?w=545" width="545" height="284" /></a>
 
-<h2>Receiving data on the watch app</strong>
+<h2>Receiving data on the watch app</h2>
 
 The final part of this process is receiving data from the phone app. This is done by (you guessed it!) extracting data from a Dictionary sent from the phone app and provided by the callback handler as an argument.
 <ol>
@@ -97,7 +97,7 @@ In the example below, the Dictionary is searched for the string data associated 
 
 <a href="http://ninedof.files.wordpress.com/2013/07/using-received-data-on-watch.png"><img class="aligncenter size-large wp-image-721" alt="using received data on watch" src="http://ninedof.files.wordpress.com/2013/07/using-received-data-on-watch.png?w=545" width="545" height="208" /></a>
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 
 So there you have it! Sending data from watch, receiving it on the phone, then sending data from the phone to the watch and using it. I'll admit, this is the most complicated part of this tutorial series so far, and I hope to provide a bit more of a bridge from API Documentation to understanding the examples.
 

@@ -8,11 +8,11 @@ That's right, the latest and greatest update to Dashboard is now live (pending G
 </ul>
 So how does the new 'full charge notification' feature work? I'm glad you asked!
 
-<h2>The Short Answer</strong>
+<h2>The Short Answer</h2>
 
 Once your phone has reached 100% charge (when it was previously 99% or less), an Android notification is posted, which is displayed on Pebble (for free!) unless for some reason Dashboard was disabled in the Pebble app.
 
-<h2>The Long Answer</strong>
+<h2>The Long Answer</h2>
 
 Oh boy, this was a tricky one. While the <code>ACTION_BATTERY_CHANGED</code> Intent is available for apps to know when the battery level changes, it's a special case that cannot be simply registered in AndroidManifest.xml for spin-up whenever required. It has to be <strong>programmatically registered</strong>. For an app designed to run with extremely minimal interaction with the Android app component, this is tricky.
 
@@ -24,7 +24,7 @@ Undeterred by this (because this is a nice feature idea), I found another soluti
 
 In addition, new users would not have their 'keep alive' alarms registered upon first install, since <code>ACTION_PACKAGE_ADDED</code> is <strong>not</strong> delivered to the app that has just installed (why!?). Fancy another complication? Here you go: AlarmManager alarms are all killed when the device is rebooted, so I make additional use of <code>ACTION_BOOT_COMPLETED</code> to restore them.
 
-<h2>Finally</strong>
+<h2>Finally</h2>
 
 So there we go! I've always been a vocal proponent of Android's Intent system for IPC, but after this set of complications (which has still yielded an apparently solid solution), I'm not so sure. Ah, who am I kidding? Still a big fan!
 

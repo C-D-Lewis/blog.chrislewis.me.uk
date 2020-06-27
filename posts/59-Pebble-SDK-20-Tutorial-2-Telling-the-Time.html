@@ -1,12 +1,12 @@
-<strong>Required Reading</strong>
+<strong>Required Reading</h2>
 
 <a title="Pebble SDK 2.0 Tutorial #1: Your First Watchapp" href="http://ninedof.wordpress.com/2013/12/02/pebble-sdk-2-0-tutorial-1-your-first-watchapp/">Pebble SDK 2.0 Tutorial #1: Your First Watchapp</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 So far, if you were stopped in the street and asked about your Pebble, you'd be able to wow them by telling them you wrote your own watch app. Less impressive will it seem when it can't do anything useful, so let's fix that now!
 
-<h2>Getting the Time</strong>
+<h2>Getting the Time</h2>
 
 To get the time for your watchface, Pebble SDK allows you to subscribe to an event service that runs a 'handler' whenever it ticks.
 
@@ -79,7 +79,7 @@ t = localtime(&temp);
 tick_handler(t, MINUTE_UNIT);
 </code>
 
-<h2>Aesthetic Touches</strong>
+<h2>Aesthetic Touches</h2>
 
 At the moment this watch face is pretty dull. Let's make it a bit more pleasing to the eye! You can use the <code>text_layer_set_*</code> functions (<a title="TextLayer" href="https://developer.getpebble.com/2/api-reference/group___text_layer.html">found here</a>) to change how the <code>TextLayer</code> looks. Here's an example replacement of the relevant code segment in <code>window_load()</code> that looks a little more realistic:
 
@@ -129,7 +129,7 @@ void window_unload(Window *window)
 }
 </code>
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 
 So there you have it! A more interesting watch face, ready for any way of improvement. I'll cover a few that I've already mentioned such as images, custom fonts and animations in the next tutorial sections. In the meantime check what you have against the example project available <a title="Source" href="https://github.com/C-D-Lewis/pebble-sdk2-tut-2">on GitHub</a>, or if you got stuck.
 

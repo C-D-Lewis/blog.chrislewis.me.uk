@@ -1,18 +1,18 @@
-<strong>Introduction</strong>
+<strong>Introduction</h2>
 
 As a side-effect of being involved with the development and testing of the new Pebble timeline experience, I've been eager to try my hand at exploiting this new mechanism to bring timely updates to users of BBC News (which as with most of my apps, began as an app for personal use) with timeline pins.
 
-<h2>The Concept</strong>
+<h2>The Concept</h2>
 
 As you may know from reading the <a title="timeline guides" href="https://developer.getpebble.com/guides/timeline/">Pebble Developers timeline guides</a>, Pebble watchapps can now incorporate a purely web-based element to display data from web data sources (such as the <a href="http://feeds.bbci.co.uk/news/rss.xml">BBC News feeds</a>) on the timeline. This is ideal for chronological events such as news stories, as each pin is shown on the timeline according to date.
 
 Pins can also include notifications that appear when they are first created or updated, keeping the user informed as details change. This functionality is used to show a notification each time a new news story is available. The pin itself includes only the icon (standard timeline pin icon) and the title, which is the main title of the story. In addition, timeline pins can have actions associated with them, enabling the user to launch the associated watchapp (whose API key is used to push the pins) and pass a single integer as a context argument. My idea was to use this action ability to enable the pin to open the <a href="https://apps.getpebble.com/applications/5387b383f60819963900000e">BBC News watchapp</a> to show the full story details, since a very long timeline pin body was a poor scrolling experience.
 
-<h2>The Problem</strong>
+<h2>The Problem</h2>
 
 The fundamental question was this; <em><strong>How does one tell the watchapp which story to show from the pin using a single integer?</strong> </em>The first guess was to specify the <code>launchCode</code> (the argument) as the position in the array of downloaded news stories. This would work for a very recent pin only, as the order of news stories in the feed changes frequently as new stories are added and removed from the headlines. After an hour or two, the order would change and an existing pin would possess a <code>launchCode</code> pointing to the same array location, but no longer guaranteed to be the same story.
 
-<h2>Implementation</strong>
+<h2>Implementation</h2>
 
 The solution I ended up choosing came from <a href="https://apps.getpebble.com/applications/52ff6a14432d1cef0000007c">Wristponder</a>, which uses a checksum of the persisted list of responses on the Android and Pebble sides, prompting a re-download to the watch if the two do not match (i.e.: The user has modified their list of responses). Thus the procedure to open a news story from its pin is this:
 
@@ -185,7 +185,7 @@ function findPinWithHash(responseText) {
 
 6. If the story is still relatively recent (this can vary) and a checksum match is found, the story's full title and body are sent to the watchapp for display to the user. The RSS feed also contains links to thumbnails already formatted to 144 pixels in width, which is ideally placed to be a possible future feature.
 
-<h2>Results</strong>
+<h2>Results</h2>
 
 The resulting flow looks something like the image below, which is still a work in progress:
 

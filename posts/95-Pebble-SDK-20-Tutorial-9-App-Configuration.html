@@ -1,4 +1,4 @@
-<strong>Required Reading</strong>
+<strong>Required Reading</h2>
 
 <a title="Pebble SDK 2.0 Tutorial #1: Your First Watchapp" href="http://ninedof.wordpress.com/2013/12/02/pebble-sdk-2-0-tutorial-1-your-first-watchapp/">Pebble SDK 2.0 Tutorial #1: Your First Watchapp</a>
 
@@ -16,7 +16,7 @@
 
 <a title="Pebble SDK 2.0 Tutorial #8: Android App Integration" href="http://ninedof.wordpress.com/2014/04/03/pebble-sdk-2-0-tutorial-8-android-app-integration/">Pebble SDK 2.0 Tutorial #8: Android App Integration</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 In this section of the tutorial series we will create a basic app that can be configured from the Pebble app. Lots of watchfaces and watchapps use this functionality to let the user tweak various aspects to their own liking. Watchfaces I've created before SDK 2.0 get around this by having each tweak in a separate watchface package, which lead to having five or six of the same watchface.
 
@@ -24,7 +24,7 @@ I've not yet gotten around to adding configuration to any of my watchfaces (alth
 
 Let's get started!
 
-<h2>Watchapp Setup</strong>
+<h2>Watchapp Setup</h2>
 The watchapp we will be creating will have a single option to keep things simple - the option to invert the colours. To begin with, create a new project and use the following code as a starting point:
 
 <!-- language="cpp" -->
@@ -82,7 +82,7 @@ This should be familiar: a basic app that has a single <code>TextLayer</code> st
 3. Setup PebbleKit JS code to load the configuration page and send the result to the watch.
 4. Write the HTML page that presents an interface to the user to allow them to choose their options.
 
-<h2>Setting Up AppMessage</strong>
+<h2>Setting Up AppMessage</h2>
 We will start by declaring the key we will be using to receive the option to invert the watchapp. Don't forget to declare this in Settings on CloudPebble or in <code>appinfo.json</code> if you are working with the native SDK:
 
 <!-- language="cpp" -->
@@ -171,7 +171,7 @@ static void window_load(Window *window)
 
 Now the C code is complete!
 
-<h2>PebbleKit JS Setup</strong>
+<h2>PebbleKit JS Setup</h2>
 The PebbleKit JS component of the app is the part responsible for loading the configuration page and sends the results of the user interaction to the watch to be processed as we just set up. This is done through the "showConfiguration" and "webviewclosed" events. Here is our initial JS code. Add a new JS file in CloudPebble or to the <code>src/js/pebble-js-app.js</code> if coding natively:
 
 <!-- language="javascript" -->
@@ -225,7 +225,7 @@ Pebble.addEventListener("webviewclosed",
 
 That concludes the PebbleKit JS setup. Now for the last part - HTML!
 
-<h2>Configuration HTML Page Setup</strong>
+<h2>Configuration HTML Page Setup</h2>
 The final piece of the puzzle is the part the user will actually see and takes the form of a HTML page consisting of form elements such as checkboxes, selectors and buttons. We will just use one selector and one button to let the user choose if they want the watchapp to be inverted or not. Here's the layout code:
 
 <!-- language="html" -->
@@ -287,7 +287,7 @@ That completes the page that will get the user's option choices and also the app
 
 <a href="http://ninedof.files.wordpress.com/2014/05/invert-notinvert.png"><img src="http://ninedof.files.wordpress.com/2014/05/invert-notinvert.png?w=545" alt="invert-notinvert" width="545" height="163" class="aligncenter size-large wp-image-1983" /></a>
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 
 So, that's the process I've adopted to set up app configuration. You can expand it by adding more <code>AppMessage</code> keys and more elements in the HTML page. Make sure to add the fields to the JSON object constructed in <code>saveOptions()</code> though. 
 

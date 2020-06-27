@@ -1,4 +1,4 @@
-<strong>Required Reading</strong>
+<strong>Required Reading</h2>
 
 <a title="Pebble SDK 2.0 Tutorial #1: Your First Watchapp" href="http://ninedof.wordpress.com/2013/12/02/pebble-sdk-2-0-tutorial-1-your-first-watchapp/">Pebble SDK 2.0 Tutorial #1: Your First Watchapp</a>
 
@@ -14,9 +14,9 @@
 
 <a title="Pebble SDK 2.0 Tutorial #7: MenuLayers" href="http://ninedof.wordpress.com/2014/03/13/pebble-sdk-2-0-tutorial-7-menulayers/">Pebble SDK 2.0 Tutorial #7: MenuLayers</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
-<h2>NOTE: This section requires knowledge on how to set up a new Android project in an IDE such as <a title="Eclipse IDE" href="https://www.eclipse.org">Eclipse</a>! I will assume you are using Eclipse</strong>
+<h2>NOTE: This section requires knowledge on how to set up a new Android project in an IDE such as <a title="Eclipse IDE" href="https://www.eclipse.org">Eclipse</a>! I will assume you are using Eclipse</h2>
 
 After a few requests and comments, it's time to revisit the Android app communication from <a title="Pebble Watch Face SDK Tutorial #6: 2 Way Communication with Android" href="http://ninedof.wordpress.com/2013/07/11/pebble-watch-face-sdk-tutorial-6-2-way-communication-with-android/">the old 1.X tutorial series</a> and produce an example app for the new 2.0 SDK.
 
@@ -158,7 +158,7 @@ static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
 
 After setting up the Android side, we will come back to the Pebble side to implement the reverse process; sending data to the watch from Android.
 
-<h2>Android App Integration</strong>
+<h2>Android App Integration</h2>
 
 Set up a new Android project and make sure it runs correctly as just a blank <code>Activity</code>. Following the Android SDK plugin for Eclipse without modifying any of the settings except project location and name is a good starting point, which I will be using. After completing this process and removing the superfluous <code>onCreateOptionsMenu()</code>, my main <code>Activity</code> file looks like this:
 
@@ -214,7 +214,7 @@ protected void onPause() {
 }
 </code>
 
-<h2>Be careful to note that the UUID specified in the constructor is the SAME UUID as specified in your corresponding watchapp's <code>appinfo.json</code>, or in Settings on CloudPebble. The two must match for correct communication! </strong>
+<h2>Be careful to note that the UUID specified in the constructor is the SAME UUID as specified in your corresponding watchapp's <code>appinfo.json</code>, or in Settings on CloudPebble. The two must match for correct communication! </h2>
 
 Next, define the exact same set of keys and values as on the Pebble side, as these are used to communicate:
 
@@ -300,7 +300,7 @@ Time to try it out! Compile and install the watchapp, run the Android project in
 
 <a href="http://ninedof.files.wordpress.com/2014/04/screenshot_2014-04-04-00-04-54.png"><img class="aligncenter  wp-image-1831" src="http://ninedof.files.wordpress.com/2014/04/screenshot_2014-04-04-00-04-54.png?w=545" alt="Screenshot_2014-04-04-00-04-54" width="364" height="647" /></a>
 
-<h2>Going The Other Way</strong>
+<h2>Going The Other Way</h2>
 
 To send data back to Pebble, we will define a new key on both sides to trigger a vibration. Name this key <code>KEY_VIBRATION</code> and give it a value of <code>4</code>. With this done, modify the <code>receiveData()</code> method to send this message using a <code>PebbleDictionary</code> object after the <code>switch</code> statement like so:
 
@@ -338,7 +338,7 @@ static void in_received_handler(DictionaryIterator *iter, void *context)
 
 Recompile, install and launch BOTH the Pebble and Android apps, press a button and feel the communications flowing through to your wrist!
 
-<h2>Conclusions</strong>
+<h2>Conclusions</h2>
 
 Another long post! For more information on diving deeper and to send more complex forms of data, check out the <code>AppMessage</code> <a title="AppMessage Documentation" href="https://developer.getpebble.com/2/api-reference/group___app_message.html">documentation</a>.
 

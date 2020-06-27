@@ -1,4 +1,4 @@
-<strong>Required Reading</strong>
+<strong>Required Reading</h2>
 
 <a title="Pebble SDK 2.0 Tutorial #1: Your First Watchapp" href="http://ninedof.wordpress.com/2013/12/02/pebble-sdk-2-0-tutorial-1-your-first-watchapp/">Pebble SDK 2.0 Tutorial #1: Your First Watchapp</a>
 
@@ -8,7 +8,7 @@
 
 <a title="Pebble SDK 2.0 Tutorial #4: Animations and Timers" href="http://ninedof.wordpress.com/2013/12/29/pebble-sdk-2-0-tutorial-4-animations-and-timers/">Pebble SDK 2.0 Tutorial #4: Animations and Timers</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 In this section of the tutorial we will be returning back to basics, building a simple watchapp that will use button presses (or clicks) and vibrations to enable the user to give input and receive output.
 
@@ -123,7 +123,7 @@ After adding some actions to the three callbacks, compile the watchapp (make sur
 
 So, there you have button clicks. To change the behavior, just change what happens in the callback functions. The rest can stay the same.
 
-<h2>Vibrations</strong>
+<h2>Vibrations</h2>
 With buttons providing a means of user input to your app, the next main means of output, besides what is being displayed on the screen, is to use the built-in vibration motor to notify users to events. For example, in my <a title="PTubeStatus: TFL Status on Your Wrist" href="http://ninedof.wordpress.com/2013/11/24/ptubestatus-tfl-status-on-your-wrist/">Pebble Tube Status</a> app (another shameless plug!) the watch vibrates once the updates data has been sent to the watch, so in the case of a slow data connection, the user can ignore the watch until the information is ready for viewing.
 
 To use this functionality is much simpler than anything else we've covered so far. You can make the watch vibrate simply with one single line:
@@ -158,7 +158,7 @@ VibePattern pattern = {
 vibes_enqueue_custom_pattern(pattern);
 </code>
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 That's pretty much all there is to button clicks and vibrations, which wraps up this part of the tutorial.
 
 You can find a link to the full source code resulting from what we've covered here <a title="Source" href="https://github.com/C-D-Lewis/pebble-sdk2-tut-5">on GitHub</a>.

@@ -1,4 +1,4 @@
-<strong>Required Reading</strong>
+<strong>Required Reading</h2>
 
 <a title="Pebble SDK 2.0 Tutorial #1: Your First Watchapp" href="http://ninedof.wordpress.com/2013/12/02/pebble-sdk-2-0-tutorial-1-your-first-watchapp/">Pebble SDK 2.0 Tutorial #1: Your First Watchapp</a>
 
@@ -12,13 +12,13 @@
 
 <a title="Pebble SDK 2.0 Tutorial #6: AppMessage for PebbleKit JS" href="http://ninedof.wordpress.com/2014/02/02/pebble-sdk-2-0-tutorial-6-appmessage-for-pebblekit-js/">Pebble SDK 2.0 Tutorial #6: AppMessage for PebbleKit JS</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 After a few requests, in this section we will look at using <code>MenuLayer</code>s in a Pebble watchapp. If you pick up your Pebble now and press the select button from the watch face, what you see is a <code>MenuLayer</code>. It has rows, icons and actions. Let's build one of those!
 
 <a href="http://ninedof.files.wordpress.com/2014/03/pebble-screenshot_2014-03-13_00-22-47.png"><img class="aligncenter size-full wp-image-1763" alt="pebble-screenshot_2014-03-13_00-22-47" src="http://ninedof.files.wordpress.com/2014/03/pebble-screenshot_2014-03-13_00-22-47.png" width="148" height="172" /></a>
 
-<h2>Setup</strong>
+<h2>Setup</h2>
 
 The first step as usual is to start a new CloudPebble project with the basic app template. Here's that again, for convenience:
 
@@ -219,7 +219,7 @@ If all has gone well, after compilation you should be greeted with the screen be
 
 <a href="http://ninedof.files.wordpress.com/2014/03/pebble-screenshot_2014-03-13_01-27-12.png"><img class="aligncenter size-full wp-image-1766" alt="pebble-screenshot_2014-03-13_01-27-12" src="http://ninedof.files.wordpress.com/2014/03/pebble-screenshot_2014-03-13_01-27-12.png" width="148" height="172" /></a>
 
-<h2>Conclusions</strong>
+<h2>Conclusions</h2>
 So that's how to setup a basic <code>MenuLayer</code>. An extended application like those mentioned previously will use <code>char[]</code> buffers to store each row's text, modified in a <code>in_received</code> signature <code>AppMessage</code> callback, and calling <code>menu_layer_reload_data()</code> in that <code>AppMessage</code> callback, thus updating the <code>MenuLayer</code> with the new data.
 
 The source code can be found <a title="Source" href="https://github.com/C-D-Lewis/pebble-sdk2-tut-7">on GitHub HERE</a>!

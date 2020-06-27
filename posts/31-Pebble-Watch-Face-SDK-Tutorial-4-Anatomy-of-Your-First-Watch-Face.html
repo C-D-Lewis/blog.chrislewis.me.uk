@@ -1,6 +1,6 @@
-<strong>UPDATE: The section on setting text has been updated to reflect font name change in PebbleKit v1.12</strong>
+<strong>UPDATE: The section on setting text has been updated to reflect font name change in PebbleKit v1.12</h2>
 
-<code></code><strong>Links to Previous Sections:</strong>
+<code></code><strong>Links to Previous Sections:</h2>
 
 Here are links to the previous sections of this tutorial. Read them if you haven't to get up to speed!
 
@@ -10,7 +10,7 @@ Here are links to the previous sections of this tutorial. Read them if you haven
 
 <a title="Pebble Watch Face SDK Tutorial #3: Setting up a Ubuntu Virtual Machine for Development" href="http://ninedof.wordpress.com/2013/06/20/pebble-watch-face-sdk-tutorial-3-setting-up-a-ubuntu-virtual-machine-for-development/">Part #3: Setting Up a Ubuntu Environment for Development</a>
 
-<h2>Introduction</strong>
+<h2>Introduction</h2>
 
 This is the section you've all been waiting for, I suspect. Here, we'll examine the key functions and features of a basic watch face source file, and how it all fits together. By the end of this section, you should have assembled your very first watch face!
 
@@ -26,7 +26,7 @@ In summary:
 </ul>
 Lets begin!
 
-<h2>Pre-processor statements</strong>
+<h2>Pre-processor statements</h2>
 
 These special statements let you give instructions to the compiler. There are two types I'll mention here, <code>#include</code> and <code>#define</code>. The former tells the compiler to include extra files that contain functions, data structure types and constant values provided by the Pebble SDK. The latter lets you specify a key word to represent a value (such as a left hand margin) so you can avoid typing that number over and over again.
 
@@ -57,7 +57,7 @@ Each watch face MUST have a new one! Here is how you generate a new one in Ubunt
 
 <a href="http://ninedof.files.wordpress.com/2013/06/uuidgen.png"><img class="aligncenter size-full wp-image-589" alt="uuidgen" src="http://ninedof.files.wordpress.com/2013/06/uuidgen.png" width="489" height="256" /></a>
 
-<h2>Static allocation vs. Stack allocation</strong>
+<h2>Static allocation vs. Stack allocation</h2>
 
 As you saw in Part #2, if you declare a variable or structure outside ANY function (usually at the top of the file) then it is visible to all parts of the program (it is globally accessible). Once it is declared, that memory is kept safe for later use.
 
@@ -79,7 +79,7 @@ static char hourText[] = "00:00";
 
 </code>
 
-<h2>Handler functions</strong>
+<h2>Handler functions</h2>
 
 In a Pebble watch face, there are certain functions that aren't called by the programmer (you), but by the system. An example is a function called every time a second ticks by. You can't know when this is, but the system does (it's a watch, after all!). What you can do as the programmer is specify what happens in this function, and leave the actual calling of it to the system. It 'handles' that scenario for you.
 
@@ -170,7 +170,7 @@ This brings up an important point: The functions specified by the Pebble SDK <st
 
 However, the handler functions can be called whatever you like (as long as they are C legal) , but when you register them you must supply the exact same name.
 
-<h2>Getting the time (And 24 hour compatibility)</strong>
+<h2>Getting the time (And 24 hour compatibility)</h2>
 
 The one thing a watch face file must do is tell the time! To do this, there is a function supplied by the Pebble SDK called 'string_format_time', which uses:
 <ul>
@@ -201,7 +201,7 @@ text_layer_set_text(&timeLayer, hourText);
 
 </code>
 
-<h2>Minute ticks vs. seconds ticks</strong>
+<h2>Minute ticks vs. seconds ticks</h2>
 
 As I mentioned earlier, battery life can be saved by working with the watch's 'aggressive sleep' philosophy. By only calling the tick handler every minute, the watch can spend a good deal more of it's time asleep in a low power state. Here is how the tick handler would look after changing to a minute tick basis:
 
@@ -249,7 +249,7 @@ app_event_loop(params, &handlers);    //Continue from there!
 
 Notice the '.tick_units' field is different now, to reflect the new tick basis.
 
-<h2>Extra bits and pieces</strong>
+<h2>Extra bits and pieces</h2>
 
 There are a couple extra pieces each watch face file needs.
 
@@ -268,7 +268,7 @@ PBL_APP_INFO(UUID, "First Watch Face", "Chris Lewis", 0, 1, DEFAULT_MENU_ICON, A
 
 The second is the Resource Map. This is a file that is like a catalogue of all the resources you used in your watch face, such as custom images and fonts. Since there are none of those things in this basic example, it can be left as the dummy file supplied with the SDK examples, and included in the link to the finished project files at the end of this post.
 
-<b>Compiling</b><strong> and installing</strong>
+<b>Compiling</b><strong> and installing</h2>
 
 Here comes the fun bit: feeding your watch face source file into the compiler and receiving the install file to upload to your watch. If you've followed Step 1 and Step 2 in the API install instructions from Part 3 on Ubuntu then you should know how to do this, but here is brief summary if you have forgotten <strong>('<path to PebbleKit>' should be replaced with that path)</strong>:
 <ol>
@@ -282,17 +282,17 @@ On cloudpebble.net, this can all be done by selecting 'compilation' and then 'ru
 
 Copy this to your Dropbox, or use the python script from the Pebble SDK (instructions in the API documentation) or any other method of navigating to it on your phone (such as copying to SD card and a file manager), and the Pebble App will do the rest!
 
-<h2>Conclusion</strong>
+<h2>Conclusion</h2>
 
 So, hopefully you'll have all the information you need to build your first Pebble watch face. Tweak the values in the example code segments to see their effect (such as layer GRect co-ordinates and GColors), or tweak some other examples from the SDK and the Web.
 
 <a title="Source code!" href="https://www.dropbox.com/s/4b3k0cosg1u1q4k/FirstWatchFace.zip"><strong>HERE IS A LINK TO THE COMPLETE EXAMPLE PROJECT!</strong></a>
 
-<h2>Next time</strong>
+<h2>Next time</h2>
 
 Next section I'll show you how to use your own fonts, display bitmap images and do simple animations.
 
-<h2>Announcement</strong>
+<h2>Announcement</h2>
 
 For the next ten days, I'll won't be able to write. I'm glad I've managed to get Parts 1 to 4 done so you can do the complete basic journey, but be assured that while I'm away I'll be making copious notes on the next Parts! I'd be very grateful if you could bear with me! If I find time I'll try and check back here and answer any questions that have arisen.
 

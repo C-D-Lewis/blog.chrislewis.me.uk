@@ -13,7 +13,7 @@ So to do something about it, I decided to have a go implementing a central messa
 
 &nbsp;
 
-<h2>Client Registration and Message Exchange</strong>
+<h2>Client Registration and Message Exchange</h2>
 
 To solve this last problem, each app uses a common Node.js modules that knows the port of a local instance of MBus and requests a port assignment. MBus responds with a randomly rolled port number from a range (making sure it isn't already allocated to another app), and the client app then creates an Express server that listens on the allocated port. If MBus receives a message with a known client app as the destination, it simply sends it on to that port within the local machine, where the client app will be listening as expected. These two processes are summarised below:
 
@@ -21,7 +21,7 @@ To solve this last problem, each app uses a common Node.js modules that knows th
 
 &nbsp;
 
-<h2>Client Implementation</strong>
+<h2>Client Implementation</h2>
 
 To implement a new client to talk to MBus, it includes the <code>mbus.js</code> common module, and registers itself at runtime. It also specifies the message schema it will expect from MBus using conventional JSON Schemas:
 
@@ -90,7 +90,7 @@ const MESSAGE_SCHEMA = {
 
 &nbsp;
 
-<h2>Example Implementations</strong>
+<h2>Example Implementations</h2>
 
 You can find the code for <a href="https://github.com/C-D-Lewis/mbus">MBus</a> in the GitHub repository, and also check some example clients including <a href="https://github.com/C-D-Lewis/attic">Attic</a>, <a href="https://github.com/C-D-Lewis/led-server">LED Server</a>, and <a href="https://github.com/C-D-Lewis/monitor">Monitor</a>.
 

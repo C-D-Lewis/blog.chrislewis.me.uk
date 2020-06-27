@@ -1,10 +1,10 @@
-<strong>Edit: 100th post!</strong>
+<strong>Edit: 100th post!</h2>
 
 Quick post to share  a 'new' <code>Layer</code> type I created for an upcoming project: <code>ColorLayer</code>. It's supposed to be a convenience for adding a simple layer of colour. Problem is, unless I'm missing something very obvious, the two options are to declare a standard <code>Layer</code> and assign it a basic <code>_fill_rect()</code> <code>LayerUpdateProc</code>, or use a <code>TextLayer</code> and modifying the background colours.
 
 I normally choose the latter, so for the umpteenth time of doing so I decided to wrap it up to make it a bit simpler to use. Here's the result!
 
-<h2>ColorLayer.h</strong>
+<h2>ColorLayer.h</h2>
 <!-- language="cpp" -->
 <code>
 /**
@@ -30,7 +30,7 @@ Layer* color_layer_get_layer(ColorLayer *this);
 #endif
 </code>
 
-<h2>ColorLayer.c</strong>
+<h2>ColorLayer.c</h2>
 <!-- language="cpp" -->
 <code>
 #include "color_layer.h"
