@@ -58,7 +58,7 @@ const SiteTitleWord = (str, color, marginLeft = '16px') => {
     display: 'block',
     color,
     fontFamily: 'monospace',
-    fontSize: '2.3rem',
+    fontSize: '2rem',
     marginLeft,
   });
   el.innerHTML = str;
