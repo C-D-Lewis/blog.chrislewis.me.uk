@@ -76,31 +76,16 @@ const generatePost = (post) => transformHTML(post.body);
  */
 const main = async () => {
   const posts = require(POSTS_PATH);
-  const history = {};
 
   posts.forEach((post, index) => {
     const md = generatePost(post);
 
-    const [year, month, day] = post.postDate.split(' ')[0].split('-');
-    if (!history[year]) {
-      history[year] = {};
-    }
-    if (!history[year][month]) {
-      history[year][month] = [];
-    }
-
     const postFileName = `${index}-${slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g })}`;
     const postFilePath = `${__dirname}/../assets/import/posts/${postFileName}.html`;
 
-    history[year][month].push({
-      title: post.title,
-      file: `${postFileName}.html`,
-    });
     writeFileSync(postFilePath, md, 'utf8');
     console.log(`Wrote ${postFilePath}`);
   });
-
-  writeFileSync(`${__dirname}/../assets/history.json`, JSON.stringify(history, null, 2), 'utf8');
 };
 
 main();

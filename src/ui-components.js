@@ -110,7 +110,7 @@ const SocialIcon = (icon, href) => {
     display: 'block',
     width: '38px',
     height: '38px',
-    marginLeft: '20px',
+    marginLeft: '25px',
   }, { src: `./assets/icons/${icon}` });
   const a = DOM.create('a', {}, { href, target: '_blank' });
   DOM.addChild(a, img);
@@ -181,7 +181,6 @@ const PostTitle = () => DOM.create('h1', {
   marginTop: '30px',
   border: 'none',
   minWidth: '500px',
-  outline: 'none',
 });
 
 /**
@@ -198,7 +197,6 @@ const PostDate = () => DOM.create('div', {
   fontSize: '1.2rem',
   marginTop: '10px',
   border: 'none',
-  outline: 'none',
 });
 
 /**
@@ -232,6 +230,47 @@ const SimpleRow = () => DOM.create('div', {
   flexDirection: 'row',
 });
 
+/**
+ * YearLabel component.
+ *
+ * @param {Object} props - Component props.
+ * @returns {HTMLElement}
+ */
+const YearLabel = (label) => {
+  const span = DOM.create('span', {
+    display: 'block',
+    color: 'white',
+    fontFamily: 'sans-serif',
+    fontSize: '1.8rem',
+    fontWeight: 'bold',
+    marginTop: '20px',
+    marginLeft: '15px',
+    cursor: 'default',
+  });
+  span.innerHTML = label;
+  return span;
+};
+
+/**
+ * MonthLabel component.
+ *
+ * @param {Object} props - Component props.
+ * @returns {HTMLElement}
+ */
+const MonthLabel = (label) => {
+  const span = DOM.create('span', {
+    display: 'block',
+    color: '#ccc',
+    fontFamily: 'sans-serif',
+    fontSize: '1.3rem',
+    fontWeight: 'bold',
+    marginTop: '10px',
+    marginLeft: '20px',
+  });
+  span.innerHTML = label;
+  return span;
+};
+
 window.UIComponents = {
   RootContainer,
   ContentContainer,
@@ -244,4 +283,6 @@ window.UIComponents = {
   PostDate,
   PostBody,
   SimpleRow,
+  YearLabel,
+  MonthLabel,
 };
