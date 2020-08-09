@@ -11,13 +11,15 @@ later converted into JSON objects that can be rendered as components:
 
 * Second line is the date and time in `YYYY-MM-DD HH:MM` format.
 
-* Each paragraph is treated as a block of text.
+* Body comes afer line containing '---'.
+
+* Each paragraph is treated as a block of text (double newline break).
 
 * Each link is converted to an achor.
 
 * Images are converted to `img`.
 
-* Headings are standard header levels.
+* Headings are standard header levels with a space beween hash and text.
 
 
 ## Building the blog
@@ -26,7 +28,7 @@ All posts in `posts` are built using their metadata to create component lists
 that are rendered on the page, and are placed in `rendered`.
 
 The navigation of months per year is built in `tools/createWordpressHtml.js`,
-and supplemented for new posts in `posts` by `tools/buildPosts.js`.
+and supplemented for new posts in `posts` by `tools/buildPosts.js` from then on.
 
 ```
 node tools/buildPosts.js

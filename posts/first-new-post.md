@@ -4,8 +4,11 @@ First New Post
 
 This is an example post, used to test the build process!
 
+
+## Some heading
+
 Here is a second paragraph that links to [Google](https://google.com) - isn't that neat?
 
 Below is an image:
 
-![](assets/icons/github.png)
+![GitHub Logo](assets/icons/github.png)
