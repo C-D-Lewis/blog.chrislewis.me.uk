@@ -2,15 +2,16 @@ const { parseString } = require('xml2js');
 const { promisify } = require('util');
 const { readFileSync, writeFileSync } = require('fs');
 
-const [path] = process.argv.slice(2);
+const [inputPath] = process.argv.slice(2);
 
 const parseStringAsync = promisify(parseString);
+const outputPath = `${__dirname}/../assets/import/posts.json`;
 
 /**
  * The main function.
  */
 const main = async () => {
-  const xml = readFileSync(path, 'utf8');
+  const xml = readFileSync(inputPath, 'utf8');
   const { rss } = await parseStringAsync(xml);
 
   const pages = rss.channel[0].item;
@@ -26,7 +27,7 @@ const main = async () => {
     }));
 
   console.log(`Extracted ${posts.length} posts`);
-  writeFileSync('../assets/postImport.json', JSON.stringify(posts, null, 2), 'utf8');
+  writeFileSync(outputPath, JSON.stringify(posts, null, 2), 'utf8');
 };
 
 main();

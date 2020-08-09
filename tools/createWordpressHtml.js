@@ -2,7 +2,7 @@ const { readFileSync, writeFileSync } = require('fs');
 const slugify = require('slugify');
 
 /** Path to posts JSON */
-const POSTS_PATH = '../assets/postImport.json';
+const POSTS_PATH = '../assets/import/posts.json';
 
 /**
  * Replace all instances with a replacement.
@@ -33,6 +33,9 @@ const transformHTML = (html) => {
   result = replace(result, '&gt;', '>');
   result = replace(result, '&quot;', '"');
   result = replace(result, '&amp;', '&');
+
+  // Paragraphs
+  // result = replace(result, '\n\n', '</p><p>\n\n');
 
   // Links
   while (result.includes('https://ninedof.files.wordpress.com')) {
@@ -83,21 +86,21 @@ const main = async () => {
       history[year] = {};
     }
     if (!history[year][month]) {
-      history[year][month] = {};
+      history[year][month] = [];
     }
 
     const postFileName = `${index}-${slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g })}`;
-    const postFilePath = `../posts/${postFileName}.html`;
+    const postFilePath = `${__dirname}/../assets/import/posts/${postFileName}.html`;
 
-    history[year][month][day] = {
+    history[year][month].push({
       title: post.title,
       file: `${postFileName}.html`,
-    };
+    });
     writeFileSync(postFilePath, md, 'utf8');
     console.log(`Wrote ${postFilePath}`);
   });
 
-  writeFileSync('../assets/history.json', JSON.stringify(history, null, 2), 'utf8');
+  writeFileSync(`${__dirname}/../assets/history.json`, JSON.stringify(history, null, 2), 'utf8');
 };
 
 main();
