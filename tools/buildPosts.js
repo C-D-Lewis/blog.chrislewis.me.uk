@@ -68,6 +68,7 @@ const postToModel = (fileName) => {
     model.components.push({ type: 'paragraph', content: transformParagraph(section) });
   });
 
+  console.log(`Loaded ${fileName}`);
   return model;
 };
 
@@ -91,7 +92,7 @@ const main = () => {
     if (!history[year][month]) {
       history[year][month] = [];
     }
-    if (history[year][month].find(p => p.dateTime)) return;
+    if (history[year][month].find(p => p.title === model.title)) return;
 
     const fileName = model.fileName.split('.')[0];
     history[year][month].push({
