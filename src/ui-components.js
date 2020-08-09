@@ -2,6 +2,11 @@
 const Colors = {
   lightGrey: '#0004',
   veryLightGrey: '#0002',
+  syntax: {
+    keyword: 'rgb(236 64 135)',
+    function: 'rgb(100, 204, 118)',
+    comment: 'rgb(120 117 125)',
+  }
 };
 
 /**
@@ -76,11 +81,20 @@ const SiteTitle = () => {
     display: 'flex',
     marginLeft: '20px',
   });
-  const awaitWord = SiteTitleWord('await', 'rgb(236 64 135)');
-  const successWord = SiteTitleWord('success', 'rgb(100, 204, 118)');
-  const rest = SiteTitleWord('();  // A blog by Chris Lewis', 'rgb(120 117 125)', '0px');
-  DOM.addChild(container, awaitWord);
-  DOM.addChild(container, successWord);
+  const words = [
+    SiteTitleWord('try', Colors.syntax.keyword),
+    SiteTitleWord('{', Colors.syntax.comment),
+    SiteTitleWord('work', Colors.syntax.function),
+    SiteTitleWord('();', Colors.syntax.comment, '0px'),
+    SiteTitleWord('}', Colors.syntax.comment),
+    SiteTitleWord('finally', Colors.syntax.keyword),
+    SiteTitleWord('{', Colors.syntax.comment),
+    SiteTitleWord('code', Colors.syntax.function),
+    SiteTitleWord('();', Colors.syntax.comment, '0px'),
+    SiteTitleWord('}', Colors.syntax.comment),
+  ]
+  const rest = SiteTitleWord('// A blog by Chris Lewis', Colors.syntax.comment, '25px');
+  words.forEach(word => DOM.addChild(container, word));
   DOM.addChild(container, rest);
   return container;
 };
@@ -96,7 +110,7 @@ const SocialIcon = (icon, href) => {
     display: 'block',
     width: '38px',
     height: '38px',
-    marginLeft: '15px',
+    marginLeft: '20px',
   }, { src: `./assets/icons/${icon}` });
   const a = DOM.create('a', {}, { href, target: '_blank' });
   DOM.addChild(a, img);
