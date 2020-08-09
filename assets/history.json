@@ -657,6 +657,12 @@
         "title": "FitBit Development - Round 3",
         "file": "139-FitBit-Development-Round-3.html"
       }
+    ],
+    "08": [
+      {
+        "title": "First New Post",
+        "file": "rendered/first-new-post.json"
+      }
     ]
   }
 }
