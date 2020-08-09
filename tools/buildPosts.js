@@ -3,6 +3,24 @@ const { readdirSync, readFileSync } = require('fs');
 const historyPath = `${__dirname}/../assets/history.json`;
 const postsDir = `${__dirname}/../posts`;
 
+const transformParagraph = (para) => {
+  // Links
+  while (para.includes('](')) {
+    const labelStart = para.indexOf('[');
+    const labelEnd = para.indexOf('](', labelStart);
+    const label = para.substring(labelStart + 1, labelEnd);
+    const locationStart = labelEnd + 2;
+    const locationEnd = para.indexOf(')', locationStart);
+    const location = para.substring(locationStart, locationEnd);
+
+    para = para.substring(0, labelStart)
+     + `<a class="link" target="_blank" href="${location}">${label}</a>`
+     + para.substring(locationEnd + 1);
+  }
+
+  return para;
+};
+
 /**
  * Process the pseudomarkdown file into component model.
  *
@@ -40,7 +58,7 @@ const postToModel = (name) => {
       return;
     }
 
-    // H3
+    // H3, H2, H1...
     if (section.startsWith('#')) {
       const level = section.split('#').length - 1;
       const text = section.split('# ')[1];
@@ -54,7 +72,10 @@ const postToModel = (name) => {
     }
 
     // Paragraph
-    // TODO Transform links to anchors
+    model.components.push({
+      type: 'paragraph',
+      content: transformParagraph(section),
+    });
   });
 
   console.log(model)
