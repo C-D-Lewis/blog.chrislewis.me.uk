@@ -24,9 +24,12 @@ const transformHTML = (html) => {
   // Paragraphs
   let result = replace(html, '\r\n', '\n');
 
+  // Tabs
+  result = replace(result, '\t', '  ');
+
   // Headers (handle strong for emphasis too)
-  result = replace(result, '\n<strong>', '\n<h2>');
-  result = replace(result, '</strong>\n', '</h2>\n');
+  result = replace(result, '\n<strong>', '\n## ');
+  result = replace(result, '</strong>\n', '\n');
 
   // Encoded HTML
   result = replace(result, '&lt;', '<');
@@ -34,12 +37,15 @@ const transformHTML = (html) => {
   result = replace(result, '&quot;', '"');
   result = replace(result, '&amp;', '&');
 
-  // Paragraphs
-  // result = replace(result, '\n\n', '</p><p>\n\n');
+  // Lists
+  result = replace(result, '<ul>', '');
+  result = replace(result, '   <li>', '• ');
+  result = replace(result, '</li>', '\n');
+  result = replace(result, '</ul>\n', '');
 
   // Links
   while (result.includes('https://ninedof.files.wordpress.com')) {
-    result = replace(result, 'https://ninedof.files.wordpress.com', '/assets/media');
+    result = replace(result, 'https://ninedof.files.wordpress.com', '/assets/import/media');
   }
 
   // Code snippets (TODO highlighter)
@@ -52,13 +58,16 @@ const transformHTML = (html) => {
 
     // Leave language for later highlighting
     result = replace(result, `[code language="${language}"]`, `<!-- language="${language}" -->\n<code>`);
-
     result = replace(result, `[code language="${language}"]`, '<code>');
-    result = replace(result, '[/code]', '</code>');
+    result = replace(result, '[code]', '<pre><code>');
+    result = replace(result, '[/code]', '</code></pre>');
   }
 
   // Cleanup double spaces before links
   result = replace(result, '  <a ', ' <a ');
+
+  // Remove double paragraphs
+  result = replace(result, '\n\n\n', '\n\n');
 
   return result;
 };
@@ -72,6 +81,15 @@ const transformHTML = (html) => {
 const generatePost = (post) => transformHTML(post.body);
 
 /**
+ * Easily list 100s of posts.
+ */
+const zeroPad = (val) => {
+  if (val < 10) return `000${val}`;
+  if (val < 100) return `00${val}`;
+  if (val < 1000) return `0${val}`;
+};
+
+/**
  * The main function.
  */
 const main = async () => {
@@ -79,11 +97,18 @@ const main = async () => {
 
   posts.forEach((post, index) => {
     const md = generatePost(post);
+    const fileContent = `${post.title}
+${post.postDate}
+${post.tags.join(',')}
+---
 
-    const postFileName = `${index}-${slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g })}`;
+${md}
+`;
+
+    const postFileName = `${zeroPad(index)}-${slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g })}`;
     const postFilePath = `${__dirname}/../assets/import/posts/${postFileName}.html`;
 
-    writeFileSync(postFilePath, md, 'utf8');
+    writeFileSync(postFilePath, fileContent, 'utf8');
     console.log(`Wrote ${postFilePath}`);
   });
 };

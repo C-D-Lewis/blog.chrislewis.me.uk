@@ -3,7 +3,7 @@ const Colors = {
   lightGrey: '#0004',
   veryLightGrey: '#0002',
   leftColumnBackground: 'rgb(66, 66, 66)',
-  centralColumnBackground: '#ccc',
+  centralColumnBackground: 'rgb(33, 33, 33)',
   syntax: {
     background: 'rgb(26, 26, 26)',
     keyword: 'rgb(236 64 135)',
@@ -27,6 +27,20 @@ const RootContainer = () => DOM.create('div', {
 });
 
 /**
+ * Fader component.
+ *
+ * @returns {HTMLElement}
+ */
+const Fader = () => {
+  const div = DOM.create('div', {
+    opacity: 0,
+    transition: '0.3s',
+  });
+  setTimeout(() => (div.style.opacity = 1), 100);
+  return div;
+};
+
+/**
  * SiteHeader component.
  *
  * @returns {HTMLElement}
@@ -35,7 +49,7 @@ const SiteHeader = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
-  height: '80px',
+  minHeight: '80px',
   padding: 15,
   cursor: 'default',
   borderBottom: '1px solid #111',
@@ -45,7 +59,6 @@ const SiteHeader = () => DOM.create('div', {
 /**
  * SiteTitleWord component.
  *
- * @param {Object} props - Component props.
  * @returns {HTMLElement}
  */
 const SiteTitleWord = (str, color, marginLeft = '10px') => {
@@ -65,7 +78,6 @@ const SiteTitleWord = (str, color, marginLeft = '10px') => {
 /**
  * SiteTitle component.
  *
- * @param {Object} props - Component props.
  * @returns {HTMLElement}
  */
 const SiteTitle = () => {
@@ -101,7 +113,6 @@ const SiteTitle = () => {
 /**
  * SocialIcon component.
  *
- * @param {Object} props - Component props.
  * @returns {HTMLElement}
  */
 const SocialIcon = (icon, href) => {
@@ -119,7 +130,6 @@ const SocialIcon = (icon, href) => {
 /**
  * SiteSocials component.
  *
- * @param {Object} props - Component props.
  * @returns {HTMLElement}
  */
 const SiteSocials = () => {
@@ -147,7 +157,6 @@ const ContentContainer = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
-  height: '100%',
   margin: 0,
   padding: 0,
 });
@@ -161,7 +170,7 @@ const LeftColumn = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: Colors.leftColumnBackground,
-  flex: '0 0 200px',
+  flex: '0 0 240px',
   justifyContent: 'start',
   padding: '0px 15px',
   borderRight: '1px solid #111',
@@ -170,18 +179,19 @@ const LeftColumn = () => DOM.create('div', {
 /**
  * LeftColumnHeader component.
  *
- * @param {Object} props - Component props.
  * @returns {HTMLElement}
  */
-const LeftColumnHeader = (label) => {
+const LeftColumnHeader = (label, isTopSection = false) => {
   const span = DOM.create('span', {
     display: 'block',
     color: 'white',
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    marginTop: '25px',
+    marginTop: '10px',
+    paddingTop: isTopSection ? '10px' : '30px',
     cursor: 'default',
+    borderTop: isTopSection ? 'none' : '1px solid #666',
   });
   span.innerHTML = label;
   return span;
@@ -190,21 +200,25 @@ const LeftColumnHeader = (label) => {
 /**
  * LeftColumnItem component.
  *
- * @param {Object} props - Component props.
  * @returns {HTMLElement}
  */
-const LeftColumnItem = (label, onClick) => {
+const LeftColumnItem = (label, onClick, fadeIn) => {
   const a = DOM.create('a', {
     color: '#ccc',
-    fontFamily: 'monospace',
+    display: 'block',
+    fontFamily: 'sans-serif',
     fontSize: '1.2rem',
-    fontWeight: 'bold',
     marginTop: '10px',
     cursor: 'pointer',
+  }, {
+    target: '_blank',
   });
   a.innerHTML = label;
   a.addEventListener('click', () => onClick());
-  return a;
+
+  const fader = Fader();
+  DOM.addChild(fader, a);
+  return fadeIn ? fader : a;
 };
 
 /**
@@ -215,10 +229,10 @@ const LeftColumnItem = (label, onClick) => {
 const CentralColumn = () => DOM.create('div', {
   flex: '1',
   display: 'flex',
+  flexDirection: 'column',
   width: '100vw',
-  height: '100%',
   borderLeft: `1px solid ${Colors.lightGrey}`,
-  paddingLeft: '30px',
+  paddingLeft: '20px',
   backgroundColor: Colors.centralColumnBackground,
 });
 
@@ -229,50 +243,116 @@ const CentralColumn = () => DOM.create('div', {
  */
 const PostList = () => DOM.create('div', {
   display: 'flex',
-  height: '100%',
   flexDirection: 'column',
-  backgroundColor: 'white',
+  maxWidth: '800px',
+  margin: '0px 20px',
+  padding: '10px',
 });
 
 /**
  * PostTitle component.
  *
- * @param {Object} props - Component props.
  * @returns {HTMLElement}
  */
 const PostTitle = (text) => {
+  const container = DOM.create('div', {
+    display: 'flex',
+    alignItems: 'center',
+  });
+  const img = DOM.create('img', {
+    width: '38px',
+    height: '38px',
+    marginRight: '5px',
+    paddingTop: '3px',
+  }, {
+    src: 'assets/icons/bookmark-outline-grey.png',
+  });
+  DOM.addChild(container, img);
   const h1 = DOM.create('h1', {
-    display: 'block',
-    color: '#ddd',
+    color: 'black',
     fontFamily: 'sans-serif',
     fontSize: '2rem',
     fontWeight: 'bold',
-    marginTop: '30px',
+    marginTop: '10px',
+    marginBottom: '5px',
     border: 'none',
-    minWidth: '500px',
+    cursor: 'default',
   });
   h1.innerHTML = text;
-  return h1;
+  DOM.addChild(container, h1);
+  return container;
 };
 
 /**
- * PostDate component.
+ * PostTag component.
  *
- * @param {Object} props - Component props.
  * @returns {HTMLElement}
  */
-const PostDate = (text) => {
-  const div = DOM.create('div', {
-    minWidth: '180px',
-    display: 'block',
-    color: '#aaa',
+const PostTag = (text) => {
+  const container = DOM.create('div', {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#bbb',
+    cursor: 'default',
+    borderRadius: '20px',
+    padding: '4px 8px',
+    marginLeft: '5px',
+  });
+  const img = DOM.create('img', {
+    width: '14px',
+    height: '14px',
+  }, { src: 'assets/icons/tag-outline.png' });
+  DOM.addChild(container, img);
+  const tagDiv = DOM.create('div', {
+    color: 'white',
+    fontFamily: 'sans-serif',
+    fontSize: '0.8rem',
+    marginLeft: '5px',
+    paddingTop: '2px',
+  });
+  tagDiv.innerHTML = text;
+  DOM.addChild(container, tagDiv);
+  return container;;
+};
+
+/**
+ * PostTagsList component.
+ *
+ * @returns {HTMLElement}
+ */
+const PostTagsList = (tags) => {
+  const container = DOM.create('div', {
+    display: 'flex',
+    marginLeft: '10px',
+  });
+  tags.forEach(tag => DOM.addChild(container, PostTag(tag)));
+  return container;
+};
+
+/**
+ * PostDateAndTags component.
+ *
+ * @returns {HTMLElement}
+ */
+const PostDateAndTags = ({ dateTime, tags }) => {
+  const container = DOM.create('div', {
+    display: 'flex',
+    alignItems: 'center',
+  });
+  const dateDiv = DOM.create('div', {
+    color: '#999',
     fontFamily: 'sans-serif',
     fontSize: '1.2rem',
-    marginTop: '10px',
-    border: 'none',
+    marginLeft: '44px',
+    cursor: 'default',
+    paddingTop: '3px',
   });
-  div.innerHTML = text;
-  return div;
+  dateDiv.innerHTML = dateTime;
+  DOM.addChild(container, dateDiv);
+
+  const tagList = PostTagsList(tags);
+  DOM.addChild(container, tagList);
+  return container;
 };
 
 /**
@@ -280,24 +360,95 @@ const PostDate = (text) => {
  *
  * @returns {HTMLElement}
  */
-const PostBody = (text) => {
-  const ta = DOM.create('textarea', {
+const PostBody = (children) => {
+  const div = DOM.create('div', {
     display: 'block',
     width: '90%',
-    minHeight: '700px',
     color: 'black',
     fontFamily: 'sans-serif',
     fontSize: '1rem',
-    marginTop: '20px',
+    marginTop: '10px',
+    marginLeft: '39px',
     padding: '5px',
     border: 'none',
     outline: 'none',
+    backgroundColor: '#0000',
   }, {
     disabled: 'true',
   });
-  ta.value = text;
-  return ta;
+  children.forEach(child => DOM.addChild(div, child));
+  return div;
 };
+
+/**
+ * PostImage component.
+ *
+ * @returns {HTMLElement}
+ */
+const PostImage = ({ src }) => {
+  const container = DOM.create('div', {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '30px 0px',
+  });
+  const img = DOM.create('img', {
+    maxWidth: '90%',
+    height: 'auto',
+    maxHeight: '400px',
+    borderRadius: '5px',
+    overflow: 'hidden',
+  }, { src });
+  DOM.addChild(container, img);
+  return container;
+};
+
+/**
+ * PostHeader component.
+ *
+ * @returns {HTMLElement}
+ */
+const PostHeader = ({ level, text }) => {
+  const h = DOM.create(`h${level}`, {
+    color: 'black',
+    fontSize: '1.4rem',
+    marginTop: '25px',
+    marginBottom: '5px',
+  });
+  h.innerHTML = text;
+  return h;
+};
+
+/**
+ * PostParagraph component.
+ *
+ * @returns {HTMLElement}
+ */
+const PostParagraph = ({ text }) => {
+  const h = DOM.create('p', {
+    color: '#222',
+    fontSize: '1rem',
+    marginTop: '8px',
+  });
+  h.innerHTML = text;
+  return h;
+};
+
+/**
+ * Generate the list of post components based on the model generated from Markdown.
+ *
+ * @param {Object[]} components - List of models to convert.
+ * @returns {Object[]} List of HTMLElements for display.
+ */
+const generatePostComponents = (components) => {
+  return components.map((component) => {
+    switch (component.type) {
+      case 'image': return PostImage(component);
+      case 'header': return PostHeader(component);
+      case 'paragraph': return PostParagraph(component);
+    }
+  })
+}
 
 /**
  * Post component.
@@ -309,15 +460,21 @@ const Post = (model = {}) => {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'white',
-    borderRadius: '10px',
+    borderRadius: '5px',
+    overflow: 'hidden',
+    padding: '15px',
+    marginTop: '30px',
   });
-  const title = PostTitle(model.title || 'test title');
+  const title = PostTitle(model.title);
   DOM.addChild(container, title);
-  const date = PostDate(model.dateTime || '2020-20-20 20:20');
+  const date = PostDateAndTags(model);
   DOM.addChild(container, date);
-  const body = PostBody(model.components || 'blah blah blah');
+  const body = PostBody(generatePostComponents(model.components));
   DOM.addChild(container, body);
-  return body;
+
+  const fader = Fader();
+  DOM.addChild(fader, container);
+  return fader;
 };
 
 window.UIComponents = {
@@ -332,7 +489,7 @@ window.UIComponents = {
   CentralColumn,
   PostList,
   PostTitle,
-  PostDate,
+  PostDateAndTags,
   PostBody,
   Post,
 };

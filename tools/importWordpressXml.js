@@ -24,6 +24,7 @@ const main = async () => {
       pubDate: p.pubDate[0],
       postDate: p['wp:post_date'][0],
       body: p['content:encoded'][0],
+      tags: p.category.map(q => q._),
     }));
 
   console.log(`Extracted ${posts.length} posts`);

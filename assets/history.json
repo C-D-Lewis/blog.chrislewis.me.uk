@@ -1,9 +1,17 @@
 {
-  "2020": {
-    "08": [
+  "2018": {
+    "09": [
       {
-        "title": "First New Post",
-        "file": "rendered/first-new-post.json"
+        "title": "Creating a Miniature Scripting Language",
+        "file": "assets/rendered/creating-a-miniature-scripting-language.json"
+      }
+    ]
+  },
+  "2020": {
+    "03": [
+      {
+        "title": "FitBit Development - Round 3",
+        "file": "assets/rendered/fitbit-development-round-3.json"
       }
     ]
   }

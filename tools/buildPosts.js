@@ -1,5 +1,4 @@
 const { readdirSync, readFileSync, writeFileSync } = require('fs');
-const slugify = require('slugify');
 
 const DATE_TIME_REGEX = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}/g;
 
@@ -38,21 +37,26 @@ const transformParagraph = (para) => {
  */
 const postToModel = (fileName) => {
   const text = readFileSync(`${postsDir}/${fileName}`, 'utf8');
-  const [title, dateTime] = text.split('\n').slice(0, 2).map(p => p.trim());
+  const [title, dateTime, tags] = text.split('\n').map(p => p.trim());
   if (!title.length || !dateTime.match(DATE_TIME_REGEX) || !text.includes('---\n')) {
     throw new Error(`metadata error: ${fileName}`);
   }
 
-  const model = { title, fileName, dateTime, components: [] };
-
+  const model = {
+    title,
+    fileName,
+    dateTime,
+    tags: tags !== '---' ? tags.split(',') : [],
+    components: [],
+  };
   const body = text.split('---')[1].trim();
   const sections = body.split('\n\n').map(p => p.trim());
   sections.forEach((section) => {
     // Image
     if (section.startsWith('![')) {
       const description = section.substring( section.indexOf('[') + 1, section.indexOf(']'));
-      const location = section.substring(section.indexOf('(') + 1, section.indexOf(')'));
-      model.components.push({ type: 'image', description, location });
+      const src = section.substring(section.indexOf('(') + 1, section.indexOf(')'));
+      model.components.push({ type: 'image', description, src });
       return;
     }
 
@@ -65,7 +69,7 @@ const postToModel = (fileName) => {
     }
 
     // Paragraph
-    model.components.push({ type: 'paragraph', content: transformParagraph(section) });
+    model.components.push({ type: 'paragraph', text: transformParagraph(section) });
   });
 
   return model;
@@ -84,10 +88,10 @@ const main = () => {
   models.forEach((model) => {
     // Save model file
     const fileName = model.fileName.split('.')[0];
-    const renderPath = `${__dirname}/../rendered/${fileName}.json`;
+    const renderPath = `${__dirname}/../assets/rendered/${fileName}.json`;
     const [year, month] = model.dateTime.split('-');
-    console.log(`Rendered ${renderPath}`);
     writeFileSync(renderPath, JSON.stringify(model, null, 2), 'utf8');
+    console.log(`Rendered ${renderPath}`);
 
     // Update history file
     if (!history[year]) {
@@ -96,12 +100,13 @@ const main = () => {
     if (!history[year][month]) {
       history[year][month] = [];
     }
-    if (history[year][month].find(p => p.title === model.title)) return;
+    if (history[year][month].find(p => p.title === model.title)) {
+      const index = history[year][month].findIndex(p => p.title === model.title);
+      history[year][month].splice(index, 1);
+    }
 
-    history[year][month].push({
-      title: model.title,
-      file: renderPath,
-    });
+    const filePath = `assets/rendered/${fileName}.json`;
+    history[year][month].push({ title: model.title, file: filePath });
   });
   writeFileSync(historyPath, JSON.stringify(history, null, 2), 'utf8');
   console.log('Updated history.json');
