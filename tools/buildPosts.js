@@ -68,7 +68,6 @@ const postToModel = (fileName) => {
     model.components.push({ type: 'paragraph', content: transformParagraph(section) });
   });
 
-  console.log(`Loaded ${fileName}`);
   return model;
 };
 
@@ -82,10 +81,15 @@ const main = () => {
   // Build post models
   const models = files.map(postToModel);
 
-  // Update history file
   models.forEach((model) => {
+    // Save model file
+    const fileName = model.fileName.split('.')[0];
+    const renderPath = `${__dirname}/../rendered/${fileName}.json`;
     const [year, month] = model.dateTime.split('-');
+    console.log(`Rendered ${renderPath}`);
+    writeFileSync(renderPath, JSON.stringify(model, null, 2), 'utf8');
 
+    // Update history file
     if (!history[year]) {
       history[year] = {};
     }
@@ -94,10 +98,9 @@ const main = () => {
     }
     if (history[year][month].find(p => p.title === model.title)) return;
 
-    const fileName = model.fileName.split('.')[0];
     history[year][month].push({
       title: model.title,
-      file: `rendered/${fileName}.json`,
+      file: renderPath,
     });
   });
   writeFileSync(historyPath, JSON.stringify(history, null, 2), 'utf8');
