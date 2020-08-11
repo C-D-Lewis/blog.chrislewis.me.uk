@@ -202,9 +202,10 @@ const LeftColumnHeader = (label, isTopSection = false) => {
  *
  * @returns {HTMLElement}
  */
-const LeftColumnItem = (label, onClick, fadeIn) => {
+const LeftColumnItem = ({ label, onClick = {}, fadeIn, isSelected }) => {
   const a = DOM.create('a', {
-    color: '#ccc',
+    color: isSelected ? 'white' : '#ccc',
+    fontWeight: isSelected ? 'bold' : 'initial',
     display: 'block',
     fontFamily: 'sans-serif',
     fontSize: '1.2rem',
@@ -254,7 +255,7 @@ const PostList = () => DOM.create('div', {
  *
  * @returns {HTMLElement}
  */
-const PostTitle = (text) => {
+const PostTitle = ({ title, fileName }) => {
   const container = DOM.create('div', {
     display: 'flex',
     alignItems: 'center',
@@ -278,8 +279,25 @@ const PostTitle = (text) => {
     border: 'none',
     cursor: 'default',
   });
-  h1.innerHTML = text;
+  h1.innerHTML = title;
   DOM.addChild(container, h1);
+
+  const linkAnchor = DOM.create('div', {
+    fontStyle: 'italic',
+    color: 'darkgrey',
+    fontSize: '1.8rem',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    marginLeft: '10px',
+  }, { class: 'link-anchor' });
+  linkAnchor.addEventListener('click', () => {
+    const slug = fileName.split('.')[0];
+    window.showPost(slug);
+    window.scrollTo(0, 0);
+  });
+  linkAnchor.innerHTML = '#';
+  DOM.addChild(container, linkAnchor);
+
   return container;
 };
 
@@ -347,7 +365,8 @@ const PostDateAndTags = ({ dateTime, tags }) => {
     cursor: 'default',
     paddingTop: '3px',
   });
-  dateDiv.innerHTML = dateTime;
+  const [date, time] = dateTime.split(' ');
+  dateDiv.innerHTML = `Posted on ${date} at ${time}`;
   DOM.addChild(container, dateDiv);
 
   const tagList = PostTagsList(tags);
@@ -465,7 +484,7 @@ const Post = (model = {}) => {
     padding: '15px',
     marginTop: '30px',
   });
-  const title = PostTitle(model.title);
+  const title = PostTitle(model);
   DOM.addChild(container, title);
   const date = PostDateAndTags(model);
   DOM.addChild(container, date);

@@ -1,0 +1,26 @@
+{
+  "title": "First Pebble Watchface (Spoiler: It's not very exciting)",
+  "fileName": "0012-First-Pebble-Watchface-Spoiler-Its-not-very-exciting.md",
+  "dateTime": "2013-04-14 22:45:33",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Even though the watch isn't here yet, I've gone and managed to compile a simple watchface anyway. All it does is show the text 'Text'. I did warn you it wasn't very exciting!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2013/04/texttestbuild.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/04/texttestbuild.png?w=545\"></a></a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "&nbsp;"
+    },
+    {
+      "type": "paragraph",
+      "text": "Source code: <a title=\"Source\" href=\"https://www.dropbox.com/s/9ye60qdb25svoys/TextTest.zip\">here</a>."
+    }
+  ]
+}

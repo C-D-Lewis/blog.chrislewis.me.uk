@@ -1,0 +1,340 @@
+{
+  "title": "Pebble Watch Face SDK Tutorial #4: Anatomy of Your First Watch Face",
+  "fileName": "0031-Pebble-Watch-Face-SDK-Tutorial-4-Anatomy-of-Your-First-Watch-Face.md",
+  "dateTime": "2013-06-21 21:46:34",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "<strong>UPDATE: The section on setting text has been updated to reflect font name change in PebbleKit v1.12"
+    },
+    {
+      "type": "paragraph",
+      "text": "<code></code><strong>Links to Previous Sections:"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here are links to the previous sections of this tutorial. Read them if you haven't to get up to speed!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a title=\"Pebble Watch Face SDK Tutorial #1: Beginner’s Primer to the C Language\" href=\"http://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/\">Part #1: Beginner's Primer to the C Language</a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a title=\"Pebble Watch Face SDK Tutorial #2: Applying the Primer to the Pebble SDK\" href=\"http://ninedof.wordpress.com/2013/06/20/pebble-watch-face-sdk-tutorial-2-applying-the-primer-to-the-pebble-sdk/\">Part #2: Applying the Primer to the Pebble SDK</a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a title=\"Pebble Watch Face SDK Tutorial #3: Setting up a Ubuntu Virtual Machine for Development\" href=\"http://ninedof.wordpress.com/2013/06/20/pebble-watch-face-sdk-tutorial-3-setting-up-a-ubuntu-virtual-machine-for-development/\">Part #3: Setting Up a Ubuntu Environment for Development</a>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Introduction"
+    },
+    {
+      "type": "paragraph",
+      "text": "This is the section you've all been waiting for, I suspect. Here, we'll examine the key functions and features of a basic watch face source file, and how it all fits together. By the end of this section, you should have assembled your very first watch face!"
+    },
+    {
+      "type": "paragraph",
+      "text": "In summary:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Pre-processor statements"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Static allocation vs. Stack allocation"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Handler functions"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Getting the time from the system and 24 hour compatibility"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Minute ticks vs. seconds ticks"
+    },
+    {
+      "type": "paragraph",
+      "text": "• The resource map"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Compiling and installing"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lets begin!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Pre-processor statements"
+    },
+    {
+      "type": "paragraph",
+      "text": "These special statements let you give instructions to the compiler. There are two types I'll mention here, <code>#include</code> and <code>#define</code>. The former tells the compiler to include extra files that contain functions, data structure types and constant values provided by the Pebble SDK. The latter lets you specify a key word to represent a value (such as a left hand margin) so you can avoid typing that number over and over again."
+    },
+    {
+      "type": "paragraph",
+      "text": "Another big advantage of using a <code>#define</code>ed variable is that if you use it as (for example) a margin for all features of the watch face and then decide to change that value, you can simply just change the <code>#define</code> statement and not every single instance where it is used. Neat, eh?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here is how those statements are used for a Pebble watch face:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Include files from SDK\n#include \"pebble_os.h\"\n#include \"pebble_app.h\"\n#include \"pebble_fonts.h\"\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The #define statement is used to define the Universally Unique Identifier, a random number that uniquely defines your watch face. It is used by the Pebble OS to let you overwrite your watch face with a new version."
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Define Universally Unique Identifier\n//    88a97cfd-2377-463a-84bd-b85eb4964063\n#define UUID { 0x88, 0xa9, 0x7c, 0xfd, 0x23, 0x77, 0x46, 0x3a, 0x84, 0xbd, 0xb8, 0x5e, 0xb4, 0x96, 0x40, 0x63 }\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Each watch face MUST have a new one! Here is how you generate a new one in Ubuntu, using the 'uuidgen' command:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2013/06/uuidgen.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/06/uuidgen.png\"></a></a>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Static allocation vs. Stack allocation"
+    },
+    {
+      "type": "paragraph",
+      "text": "As you saw in Part #2, if you declare a variable or structure outside ANY function (usually at the top of the file) then it is visible to all parts of the program (it is globally accessible). Once it is declared, that memory is kept safe for later use."
+    },
+    {
+      "type": "paragraph",
+      "text": "The opposite of this is called 'stack allocation' and is much different. With stack allocation, you can imagine a stack of variables in memory like a stack of cards. When you call a function, any declarations you put in there are added to the top of the stack of memory. When the function returns or exits, these variables are freed up to make more memory available, as it is assumed they are only needed for that function. The variable is declared 'locally'."
+    },
+    {
+      "type": "paragraph",
+      "text": "So, if you know you want to keep data for later, declare it globally. If you only need it for a single calculation, declare it locally!"
+    },
+    {
+      "type": "paragraph",
+      "text": "For our watch face, we declare the watch face features globally, as well as memory for the string containing the current time (more on how we get that later):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Declare structures for watch face elements\nWindow window;\nTextLayer timeLayer;\n//Declare variable for storing time string\nstatic char hourText[] = \"00:00\";\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Handler functions"
+    },
+    {
+      "type": "paragraph",
+      "text": "In a Pebble watch face, there are certain functions that aren't called by the programmer (you), but by the system. An example is a function called every time a second ticks by. You can't know when this is, but the system does (it's a watch, after all!). What you can do as the programmer is specify what happens in this function, and leave the actual calling of it to the system. It 'handles' that scenario for you."
+    },
+    {
+      "type": "paragraph",
+      "text": "There are many different 'handler' functions, but the two main ones I'll introduce here are the 'init handler' and the 'tick handler'. There are also handlers for buttons, 2-way communication events and animation etc."
+    },
+    {
+      "type": "paragraph",
+      "text": "The 'init handler' is called as soon as you switch to your watch face. Any initialisation of watch face features and structures is placed in here, so it is all done for you in one go when you open the watch face."
+    },
+    {
+      "type": "paragraph",
+      "text": "Here is the 'init handler' for our basic watch face. Try and read what each function call does. Their names should be pretty self explanatory:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Watch face initialisation handle function\n*/\nvoid handle_init(AppContextRef ctx) {\n(void)ctx;    //This is not needed. Convert to void (nothing)\n//Initialise window\nwindow_init(&window, \"Window Name\");\nwindow_stack_push(&window, true);\nwindow_set_background_color(&window, GColorBlack);\n//Initialise TextLayers\ntext_layer_init(&timeLayer, GRect(30, 30, 150, 50));\ntext_layer_set_background_color(&timeLayer, GColorClear);\ntext_layer_set_text_color(&timeLayer, GColorWhite);\ntext_layer_set_font(&timeLayer,\nfonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));\ntext_layer_set_text_alignment(&timeLayer, GTextAlignmentLeft);\n//Add to window\nlayer_add_child(&window.layer, &timeLayer.layer);\n//Set initial time so display isn't blank\nPblTm time;\nget_time(&time);\nsetTime(&time);\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The 'tick handler' is a function called when the watch face 'ticks', either every minute or every second. For saving power and helping keep the watch asleep as much as possible, it is wise to use a minute tick handler. If you want a more active watch face, use a second tick handler. We will start with a second tick handler in our basic watch face:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Handle function called every second\n*/\nvoid handle_second_tick(AppContextRef ctx, PebbleTickEvent *t) {\n(void)ctx;\nPblTm time;    //Structure to store time info\nget_time(&time);    //Fill the structure with current time\nint seconds = time.tm_sec;    //Get the current number of seconds\nif(seconds == 0)\nsetTime(t->tick_time);    //Change the time on the 'zero seconds' mark\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "So that the system can call these handler functions, we specify them in a function called 'pbl_main'. The exact details of how this function is laid out is not covered here, but how each handler is registered is done the same way, and can be seen in other examples. Here is the 'pbl_main' function for our basic watch face:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Main Pebble app loop\n*/\nvoid pbl_main(void *params) {\nPebbleAppHandlers handlers = {\n.init_handler = &handle_init,    //Register initialisation function\n.tick_info = {\n.tick_handler = &handle_second_tick,    //Register tick function\n.tick_units = SECOND_UNIT    //Specify to call every minute\n}\n};\napp_event_loop(params, &handlers);    //Continue from there!\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This brings up an important point: The functions specified by the Pebble SDK <strong>MUST </strong>be named how they are specified in the examples and the API documentation. There is no flexibility here."
+    },
+    {
+      "type": "paragraph",
+      "text": "However, the handler functions can be called whatever you like (as long as they are C legal) , but when you register them you must supply the exact same name."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Getting the time (And 24 hour compatibility)"
+    },
+    {
+      "type": "paragraph",
+      "text": "The one thing a watch face file must do is tell the time! To do this, there is a function supplied by the Pebble SDK called 'string_format_time', which uses:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• A string you've declared to store the time as a string"
+    },
+    {
+      "type": "paragraph",
+      "text": "• The size of the string (luckily there is a function supplied called 'sizeof'"
+    },
+    {
+      "type": "paragraph",
+      "text": "• The format of the time you want (<a title=\"strftime\" href=\"http://php.net/manual/en/function.strftime.php\">According to the rules specified here</a>)"
+    },
+    {
+      "type": "paragraph",
+      "text": "• The source of the time, which is a PblTm structure."
+    },
+    {
+      "type": "paragraph",
+      "text": "Here is an example here, in conjunction with another function that tells you what the user's Settings preference is, which returns type <code>bool</code> (<code>true</code> or <code>false</code>), so you can use it in the if else style with ease:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Function to set the time and date features on the TextLayers\n*/\nvoid setTime(PblTm *t) {\n//If user selects '24hr' in Settings on the watch\nif(clock_is_24h_style())\nstring_format_time(hourText, sizeof(hourText), \"%H:%M\", t);\nelse\nstring_format_time(hourText, sizeof(hourText), \"%I:%M\", t);\n//Set the TextLayer text\ntext_layer_set_text(&timeLayer, hourText);\n}\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Minute ticks vs. seconds ticks"
+    },
+    {
+      "type": "paragraph",
+      "text": "As I mentioned earlier, battery life can be saved by working with the watch's 'aggressive sleep' philosophy. By only calling the tick handler every minute, the watch can spend a good deal more of it's time asleep in a low power state. Here is how the tick handler would look after changing to a minute tick basis:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Handle function called every minute\n*/\nvoid handle_minute_tick(AppContextRef ctx, PebbleTickEvent *t) {\n(void)ctx;\nPblTm time;    //Structure to store time info\nget_time(&time);    //Fill the structure with current time\nsetTime(t->tick_time);    //Change time on 'zero seconds' mark\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Notice the differences with the image previous, which showed the second tick handler. It is simpler to implement. However, with the second handler, you can open the possibility of animations happening at different point."
+    },
+    {
+      "type": "paragraph",
+      "text": "For example, in one of my watch faces '<a title=\"Split Horizon Watch Face\" href=\"http://www.mypebblefaces.com/view?fID=3837&aName=Bonsitm&pageTitle=Split+Horizon%3A+Seconds+Edition&auID=3905\">Split Horizon</a>' (shameless plug!) there is animation happening to tell the user how far thorough the minute they are with markers that slide into view showing 15, 30, 45 and 60 seconds past the minute. These are allowed through a second handler with <code>if(seconds == 15)</code> etc conditional statements."
+    },
+    {
+      "type": "paragraph",
+      "text": "Once again, the handle function name can be changed, so long as the name used in 'pbl_main' is kept in sync:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Main Pebble app loop\n*/\nvoid pbl_main(void *params) {\nPebbleAppHandlers handlers = {\n.init_handler = &handle_init,    //Register initialisation function\n.tick_info = {\n.tick_handler = &handle_minute_tick,    //Register tick function\n.tick_units = MINUTE_UNIT    //Specify to call every minute\n}\n};\napp_event_loop(params, &handlers);    //Continue from there!\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Notice the '.tick_units' field is different now, to reflect the new tick basis."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Extra bits and pieces"
+    },
+    {
+      "type": "paragraph",
+      "text": "There are a couple extra pieces each watch face file needs."
+    },
+    {
+      "type": "paragraph",
+      "text": "The first is the PBL_APP_INFO function call which contains information such as watch face name, author, version number, icons etc:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Set app info\nPBL_APP_INFO(UUID, \"First Watch Face\", \"Chris Lewis\", 0, 1, DEFAULT_MENU_ICON, APP_INFO_WATCH_FACE);\n//UUID, app name, author, minor version, major version,\n//use default icon, tell compiler this is a face\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The second is the Resource Map. This is a file that is like a catalogue of all the resources you used in your watch face, such as custom images and fonts. Since there are none of those things in this basic example, it can be left as the dummy file supplied with the SDK examples, and included in the link to the finished project files at the end of this post."
+    },
+    {
+      "type": "paragraph",
+      "text": "<b>Compiling</b><strong> and installing"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here comes the fun bit: feeding your watch face source file into the compiler and receiving the install file to upload to your watch. If you've followed Step 1 and Step 2 in the API install instructions from Part 3 on Ubuntu then you should know how to do this, but here is brief summary if you have forgotten <strong>('<path to PebbleKit>' should be replaced with that path)</strong>:\n<ol>\n• Set up the new project folder to include all the requisite links to the sdk using the following Terminal commands: <code>cd ~/<path to the folder above your project folder></code> and then <code>~/<path to PebbleKit>/Pebble/tools/create_pebble_project.py --symlink-only ~/<path to PebbleKit>/Pebble/sdk <newprojectfolder></code>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Go to the new project folder with <code>cd <newprojectfolder></code>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Configure and build with <code>./waf configure build</code>"
+    },
+    {
+      "type": "paragraph",
+      "text": "</ol>\nThe output file will be found in <project folder>/build and has the extension '.pbw'."
+    },
+    {
+      "type": "paragraph",
+      "text": "On cloudpebble.net, this can all be done by selecting 'compilation' and then 'run build'."
+    },
+    {
+      "type": "paragraph",
+      "text": "Copy this to your Dropbox, or use the python script from the Pebble SDK (instructions in the API documentation) or any other method of navigating to it on your phone (such as copying to SD card and a file manager), and the Pebble App will do the rest!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, hopefully you'll have all the information you need to build your first Pebble watch face. Tweak the values in the example code segments to see their effect (such as layer GRect co-ordinates and GColors), or tweak some other examples from the SDK and the Web."
+    },
+    {
+      "type": "paragraph",
+      "text": "<a title=\"Source code!\" href=\"https://www.dropbox.com/s/4b3k0cosg1u1q4k/FirstWatchFace.zip\"><strong>HERE IS A LINK TO THE COMPLETE EXAMPLE PROJECT!</strong></a>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Next time"
+    },
+    {
+      "type": "paragraph",
+      "text": "Next section I'll show you how to use your own fonts, display bitmap images and do simple animations."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Announcement"
+    },
+    {
+      "type": "paragraph",
+      "text": "For the next ten days, I'll won't be able to write. I'm glad I've managed to get Parts 1 to 4 done so you can do the complete basic journey, but be assured that while I'm away I'll be making copious notes on the next Parts! I'd be very grateful if you could bear with me! If I find time I'll try and check back here and answer any questions that have arisen."
+    },
+    {
+      "type": "paragraph",
+      "text": "Best of luck!"
+    }
+  ]
+}

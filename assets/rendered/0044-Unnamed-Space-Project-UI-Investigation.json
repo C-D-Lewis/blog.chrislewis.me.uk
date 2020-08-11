@@ -1,0 +1,66 @@
+{
+  "title": "Unnamed Space Project: UI Investigation",
+  "fileName": "0044-Unnamed-Space-Project-UI-Investigation.md",
+  "dateTime": "2013-08-28 00:40:47",
+  "tags": [
+    "Java"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "So I've had an idea in my head for a while that has probably been done before, but as I've already mentioned, I prefer to do everything I can from scratch when it comes to programming, which takes time, but is incredibly rewarding when what I strive for comes to life as I imagined."
+    },
+    {
+      "type": "paragraph",
+      "text": "This particular idea is for a real-time space RPG, the main mechanic being that you set a course and a speed, and it might take a few real-time minutes to reach your destination, such that you would play the game ongoing in the background for something else you are doing, similar to an MMO."
+    },
+    {
+      "type": "paragraph",
+      "text": "I've attempted this before, and the main difference in having a game world many times larger than the screen is that you must position everything relative to some abstracted co-ordinate system completely separate from where each item may be drawn on the actual screen. This was achieved before by drawing each item if it was less than a screen width or height away from the player's drawing location in the middle of the screen, then whenever the player moved it's 'co-ordinate', all the other in-game items moved in the opposite direction, very effectively creating the illusion of moving through a world, even though the player's sprite stays put on the screen."
+    },
+    {
+      "type": "paragraph",
+      "text": "This feeling was further enhanced by moving the player's 'co-ordinate' using the sin/cosine of the speed and angle, allowing the player to appear to move in large smooth, sweeping arcs."
+    },
+    {
+      "type": "paragraph",
+      "text": "With my new skills from recent projects still fresh in mind, I set out to make this a much tighter experience, with some more intuitive input system beyond WSAD keyboard keys. I envisaged a speed slider, and a 'ring slider' around the player in the center of the screen, allowing a course to be set and speed to be set by dragging them. As everything is done on a Graphics2D enhanced Canvas component, using pre-written Swing sliders is out of the question, so I set out to recreate these UI elements from scratch to be drawn using Graphics2D methods."
+    },
+    {
+      "type": "paragraph",
+      "text": "The linear slider was fairly easy, using the <code>mouseDragged()</code> method from the <code>MouseMotionListener</code> class. Position the slider where the user clicked (x co-ordinate only!) as long as it was between the slider's start and finish positions."
+    },
+    {
+      "type": "paragraph",
+      "text": "So far so good."
+    },
+    {
+      "type": "paragraph",
+      "text": "But the 'ring slider' required much more thinking about. I first attempted to use counters and quadrant detection of the existing angle position of the ring, but this was way too complex. Then as I was thinking about something else, the answer came to me: use GCSE maths! Specifically, the circle trigonometry stuff. It all came down to this: <a href=\"http://ninedof.files.wordpress.com/2013/08/circletheorem.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/08/circletheorem.png\"></a></a>So using the mouse's dragging x co-ordinate, I can find the corresponding y co-ordinate for that point around the 'ring slider''scircle. From this, the angle (theta, <b>θ</b>) the slider should be set to can be found using the tangent:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2013/08/arctan.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/08/arctan.png\"></a></a>But this only works up to 90 degrees using tangent (which is actually infinite at 90 degrees), so the calculation is carried out subtly differently depending on which of four quadrant rectangles the user is dragging in, after which the resultant 0 - 90 angle is adjusted to read what it should in the quadrant:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2013/08/quadrantssrc1.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/08/quadrantssrc1.png\"></a></a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here is the code for calculation of the angle of the 'ring slider' in quadrant 0:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">//Setup quad rects for ring slider of any bounds x, y, width & height\nquad0 = new Rectangle(x + width/2, y, width/2, height/2);\nquad1 = new Rectangle(x + width/2, y + height/2, width/2, height/2);\nquad2 = new Rectangle(x, y + height/2, width/2, height/2);\nquad3 = new Rectangle(x, y, width/2, height/2);\n//Test user click - 2x2 rect around mouse pointer location\nRectangle thisRect = new Rectangle(inCurrent.x - 1, inCurrent.y - 1, 2, 2);\n//Show angle\nif(thisRect.intersects(quad0))\n    thisQuad = 0;\nelse if(thisRect.intersects(quad1))\n    thisQuad= 1;\nelse if(thisRect.intersects(quad2))\n    thisQuad = 2;\nelse if(thisRect.intersects(quad3))\n    thisQuad = 3;\nswitch(thisQuad) {\n    case 0: {\n        float adj = inCurrent.x - quad0.x;\n        float opp = (quad0.y + quad0.height) - inCurrent.y;\n        double theta = Math.toDegrees(Math.atan(opp/adj));\n        angle = 90 - (int)Math.round(theta);\n        //Range control\n        if(angle < 0)\n            angle = 0;\n        if(angle > 90)\n            angle = 90;\n        break;\n    }\n    //Then the other quads for cases 1 through 3...\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The end result of all this, together with a spawning starfield of stars (who move proportionately to their size to create the illusion of depth) is this (Click to enlarge):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2013/08/inaction.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/08/inaction.png?w=545\"></a></a>I realise that a simple image isn't that exciting, so if you want to play around with these UI elements and see the whole demo in action, <a title=\"StarfieldUI Demo Bundle Download!\" href=\"https://www.dropbox.com/s/6lzg9n61lcfyyrz/StarfieldUI%20Demo.zip\"><strong>here is an executable bundle</strong></a>!"
+    }
+  ]
+}

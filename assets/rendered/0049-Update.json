@@ -1,0 +1,29 @@
+{
+  "title": "Update",
+  "fileName": "0049-Update.md",
+  "dateTime": "2013-10-13 14:21:55",
+  "tags": [
+    "Android",
+    "C++",
+    "General",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "I've embarked upon my fourth and final year at university, and so a lot of my time is taken up with the course and associated course-work, including a mammoth individual research project."
+    },
+    {
+      "type": "paragraph",
+      "text": "The good news is that a large part of that project will involve writing software in C++, which I've never used before. I have, however, used C so the leap is not too far. Thus over the last week or so I've been gaining familiarity with using the <a title=\"OpenCV\" href=\"http://opencv.org\">OpenCV</a> image processing library and after the initial teething troubles installing and linking the library it looks very promising for what I hope to achieve."
+    },
+    {
+      "type": "paragraph",
+      "text": "In the free time remaining when I'm not doing other life stuff, I've been working on a much more polished <a title=\"Android App: GClient (Working Title)\" href=\"http://ninedof.wordpress.com/2013/07/25/android-app-gclient-working-title/\">GClient</a> using the knowledge I obtained working on Watch Trigger, as well as trying to figure out why zoom isn't working in a test build of Watch Trigger +. Yet more wresting with the finicky Camera API."
+    },
+    {
+      "type": "paragraph",
+      "text": "Hopefully I'll crack it soon!"
+    }
+  ]
+}

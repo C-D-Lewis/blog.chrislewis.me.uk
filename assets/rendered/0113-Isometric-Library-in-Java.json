@@ -1,0 +1,32 @@
+{
+  "title": "Isometric Library in Java",
+  "fileName": "0113-Isometric-Library-in-Java.md",
+  "dateTime": "2015-05-03 19:44:07",
+  "tags": [
+    "Java",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A feverish evening spent with little else to do resulted in a quick port of my <a href=\"http://github.com/C-D-Lewis/isometric\">isometric Pebble library</a> to Java Canvas with Graphics2D. Might prove useful for an isometric tile game or such if the mood takes me. There's something distinctly satisfying about seeing the same results on a different platform."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2015/05/screenshot.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "To use, create a context where a <code>Graphics2D</code> object is available, then use static methods of the <code>Isometric</code> class to draw stuff."
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\npublic void program(Graphics2D g2d) {\n  // Black background\n  g2d.setColor(Color.BLACK);\n  g2d.fillRect(0, 0, Build.WINDOW_SIZE.width, Build.WINDOW_SIZE.height);\n  Isometric.drawRect(g2d, new Vec3(100, 100, 100), new Dimension(100, 100), Color.BLUE);\n  Isometric.fillRect(g2d, new Vec3(50, 50, 50), new Dimension(50, 50), Color.RED);\n  Isometric.fillBox(g2d, new Vec3(150, 150, 150), new Dimension(25, 25), 25, Color.YELLOW);\n  Isometric.drawBox(g2d, new Vec3(150, 150, 150), new Dimension(25, 25), 25, Color.BLACK);\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "You can see all the applicable code <a title=\"GitHub repo\" href=\"https://github.com/C-D-Lewis/isometric-java\">on GitHub</a>."
+    }
+  ]
+}

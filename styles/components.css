@@ -1,3 +1,16 @@
 a:hover {
   color: #777 !important;
 }
+
+.code-block {
+  font-size: 0.8rem;
+  font-family: monospace;
+  background-color: #111;
+  color: #ddd;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.link-anchor:hover {
+  color: #444 !important;
+}

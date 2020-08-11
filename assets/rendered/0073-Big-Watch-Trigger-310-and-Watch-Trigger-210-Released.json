@@ -1,0 +1,71 @@
+{
+  "title": "Big Watch Trigger 3.1.0 and Watch Trigger + 2.1.0 Released!",
+  "fileName": "0073-Big-Watch-Trigger-310-and-Watch-Trigger-210-Released.md",
+  "dateTime": "2014-01-24 02:22:53",
+  "tags": [
+    "Android",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "It's been a long time since the last release that had any major changes, but after much work the re-write is now complete, and released to Google Play!"
+    },
+    {
+      "type": "paragraph",
+      "text": "The main change is the new UI, which has a much better flow and use of Android APIs, such as ActionBar Tabs. Here's the spot-the-difference..."
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2014/01/wt-compare.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2014/01/wt-compare.png?w=545\"></a></a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "That old design had been the same almost since it was first published to the store!"
+    },
+    {
+      "type": "paragraph",
+      "text": "The watchapp for the Pebble has also changed for SDK 2.0 users, but this was already released a couple of versions ago. It looks like this:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2014/01/watchapp.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2014/01/watchapp.png?w=545\"></a></a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The other main changes are thus:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Overhauled Android app UI for better navigation."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Added portrait photo shooting orientation."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Added vibration during countdown option."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Added FAQs in Settings."
+    },
+    {
+      "type": "paragraph",
+      "text": "• An inaccessible path is now automatically reset."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Fixed setting flash preference from watch bug."
+    },
+    {
+      "type": "paragraph",
+      "text": "Hopefully the update will be worth the time, and bug free! ALthough it has been known for me to release apps with bugs that only appear on different device configurations than my own, or through unusual use cases. Fingers crossed!"
+    },
+    {
+      "type": "paragraph",
+      "text": "Get the apps here:\n<h2><strong>Watch Trigger  </strong><strong>             </strong></h2>\n<h2><a href=\"https://play.google.com/store/apps/details?id=com.wordpress.ninedof.watchtrigger\"> !<a class=\"link\" target=\"_blank\" href=\"https://developer.android.com/images/brand/en_generic_rgb_wo_60.png\"></a></a></h2>\n<h2></h2>\n<h2><strong>Watch Trigger +</strong></h2>\n<p style=\"text-align:left;\"><a href=\"https://play.google.com/store/apps/details?id=com.wordpress.ninedof.watchtriggerplus\">!<a class=\"link\" target=\"_blank\" href=\"https://developer.android.com/images/brand/en_generic_rgb_wo_60.png\"></a> </a></p>"
+    }
+  ]
+}

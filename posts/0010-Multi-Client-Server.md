@@ -1,0 +1,14 @@
+Multi-Client Server
+2013-04-12 01:24:04
+Java
+---
+
+Working on the server software some more, with some help from a friend, it now accepts up to an arbitrary (currently 10) connections, each one handled in its own thread. When the server manager gets a new connection, it passes the <code>Socket</code> to the new thread, which then handles all the I/O for that connection. When that client disconnects, it sets a 'in use' flag, which the server manager can then use to re-allocate it if all the other threads are busy. 
+
+Here's a demo image! I'll also release some source code for this stage, as a simple proof of concept before it gets too much more complicated. 
+
+<a href="http://ninedof.files.wordpress.com/2013/04/multiclient.png">![](http://ninedof.files.wordpress.com/2013/04/multiclient.png?w=545)</a>
+
+The next step is to set up server sending messages from one client to another, and become a real server! At the moment its just a listener...
+
+Here's a <a href="https://www.dropbox.com/s/br5dldu1rqrejz2/Server%20and%20Client.zip" title="link">link</a> to the source code.

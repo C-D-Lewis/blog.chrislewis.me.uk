@@ -27,8 +27,7 @@ later converted into JSON objects that can be rendered as components:
 All posts in `posts` are built using their metadata to create component lists
 that are rendered on the page, and are placed in `rendered`.
 
-The navigation of months per year is built in `tools/createWordpressHtml.js`,
-and supplemented for new posts in `posts` by `tools/buildPosts.js` from then on.
+The navigation of months per year is built in `tools/buildPosts.js`.
 
 ```
 node tools/buildPosts.js
@@ -66,11 +65,11 @@ The format of the import is as follows:
 ]
 ```
 
-3. Run `tools/createWordpressHtml.js` to create imported cleaned-up HTML files,
-   which should be later tidied up into proper posts files (see above). Each
-   file placed in `assets/import/posts/` will have substitutions made to ease
-   the transition.
+3. Run `tools/createWordpressMarkdown.js` to create imported cleaned-up Markdown
+   files, which should be later tidied up into proper posts files (see above).
+   Each file placed in `posts/` will have substitutions made to ease the
+   transition.
 
 ```
-node tools/createWordpressHtml.js
+node tools/createWordpressMarkdown.js
 ```

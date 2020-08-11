@@ -1,0 +1,18 @@
+{
+  "title": "Note to self",
+  "fileName": "0013-Note-to-self.md",
+  "dateTime": "2013-04-17 23:00:32",
+  "tags": [
+    "Java"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "<code>\"toClient.print(message);\" != \"toClient.println(message);\"</code>"
+    },
+    {
+      "type": "paragraph",
+      "text": "*sigh*"
+    }
+  ]
+}

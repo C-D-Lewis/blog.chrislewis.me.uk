@@ -1,0 +1,73 @@
+{
+  "title": "Wristponder for Pebble 1.2.1 Released",
+  "fileName": "0080-Wristponder-for-Pebble-121-Released.md",
+  "dateTime": "2014-02-28 16:25:46",
+  "tags": [
+    "Android",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "<strong>UPDATES: "
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "- 1.2.0 shipped with an incorrect icon (d'oh!) and is now 1.2.1."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "- 1.2.2 Adds link to install from Pebble Appstore to combat Android Beta 10 sideloading bug. "
+    },
+    {
+      "type": "paragraph",
+      "text": "Today sees the addition of a number of new features to improve and expand the Wristponder experience:\n<ol>\n• Added option to send to last Caller as well as last SMS."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Added auto-close option in Settings."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Added visual indicator of list usage."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Added a guard to size when editing."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Fixed a crash when a response was too long."
+    },
+    {
+      "type": "paragraph",
+      "text": "</ol>\nHere are some screenshots:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2014/02/wp-screens-quad1.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2014/02/wp-screens-quad1.png\"></a></a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "A few points regarding other requested features:\n<ol>\n• Facebook Messenger, WhatsApp and Google Voice do not at the moment have APIs that allow background composition and sending of messages without user interaction. If I am incorrect, please let me know!"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Persistent storage of responses for faster launch on the watch is on the horizon, but it needs a few kinks ironed out first."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Implementing a 'top 5 received SMS contacts' feature<del> is only possible for Android phones with API level 18 (Android 4.3) or greater, so not worth implementation just yet. Still a desirable feature though.</del> Appears to be doable! More soon."
+    },
+    {
+      "type": "paragraph",
+      "text": "</ol>\n<h2 style=\"text-align:left;\">Download</h2>\nYou can get Wristponder with it's companion app in one place from the Google Play store. If you find any bugs or have feature ideas, let me know!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"https://play.google.com/store/apps/details?id=com.wordpress.ninedof.wristponder\"> !<a class=\"link\" target=\"_blank\" href=\"https://developer.android.com/images/brand/en_generic_rgb_wo_60.png\"></a>\n</a>"
+    }
+  ]
+}

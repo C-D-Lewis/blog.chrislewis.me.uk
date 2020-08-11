@@ -1,0 +1,87 @@
+{
+  "title": "Pebble Watch App: Watch Trigger",
+  "fileName": "0045-Pebble-Watch-App-Watch-Trigger.md",
+  "dateTime": "2013-08-30 00:22:22",
+  "tags": [
+    "Android",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "<strong>Updates:\n## 1.8.1:\n- Fixed crash when capturing while media scanner was at work\n- Added option to get a debug log to help me figure out what breaks!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "NOTICE: I'm working on bringing back compatibility with Android 2.3.3 Gingerbread phones. If you own such a device and would like to test a build for me, let me know!"
+    },
+    {
+      "type": "paragraph",
+      "text": "I was on the Google Play store today and I saw that a <a title=\"Search for Pebble Camera Remote on Google Play\" href=\"https://play.google.com/store/search?q=pebble%20camera%20remote&hl=en_GB\">search for \"Pebble Camera Remote\"</a> returned no results. This got me thinking... <em>I can do that</em>!"
+    },
+    {
+      "type": "paragraph",
+      "text": "So I spent a good afternoon getting back into Android and Pebble developer kits to produce the <del>first</del> 1.8.1 version of what I have dubbed \"Watch Trigger\" - an app that lets you use your Pebble watch as a remote control! This means you can do what you'd normally do when taking a timed photo, but you don't have to rush back to the group in ten seconds, you can press the watch button as quickly and discreetly as you want."
+    },
+    {
+      "type": "paragraph",
+      "text": "Once the app is installed, you can install the watch app by pressing the 'Install Watch App' button, then relaunch the Android app. As shown on the Pebble app, pressing SELECT will cause the phone to take a photo and save it to \"<del>/sdcard/Watch Trigger Images/ImageX.jpg</del>\" anywhere in the external storage you want. The name of the photo taken will then be confirmed on the phone and the watch, so you can go back and pick it up again:\n<p style=\"text-align:center;\"><a href=\"http://ninedof.files.wordpress.com/2013/08/shot11.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/08/shot11.png\"></a></a><a href=\"http://ninedof.files.wordpress.com/2013/08/shot31.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/08/shot31.png\"></a></a></p>\n<p style=\"text-align:center;\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2013/08/watchapp.jpg\"></a></p>\nSo now it is possible to take a photo using the Pebble watch as a remote!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Special mentions"
+    },
+    {
+      "type": "paragraph",
+      "text": "In adding a button to install the companion watch app from within the Android app, I used a method written by <a title=\"Install Pebble App\" href=\"https://github.com/SheepWillPrevail/android/blob/a8f51bb6abd8795517aa94bcc3c9f5a0c25eb081/PebbleRSS/src/com/grazz/pebblerss/MainActivity.java#L147\">Robert Meijer, which I found on GitHub</a> - an elegant solution. Thanks Robert!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Known bugs/issues"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <del>Only portrait orientation at the moment, but landscape if you rotate the photos post-shoot.</del>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <del>Cropping of the preview surface, but <strong>NOT</strong> of the resulting photo. I'm not sure how to rectify this at the moment, but if programming has taught me anything, its that virtually anything is possible.</del>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <del>Low default output resolution</del>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <del>Storage location not always /sdcard0/ on all devices</del>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <del>Crash when taking photo while the previous one is being saved</del>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <del>Flash does not always fire</del>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <del>Crash when triggering if media scanner was still running</del>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Let me know any you find!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Download</strong><a href=\"https://play.google.com/store/apps/details?id=com.wordpress.ninedof.watchtrigger\">\n![](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)</a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Enjoy! As usual, please leave your thoughts and suggestions below!"
+    }
+  ]
+}

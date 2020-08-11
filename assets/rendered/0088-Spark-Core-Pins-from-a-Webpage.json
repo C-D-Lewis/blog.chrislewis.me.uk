@@ -1,0 +1,40 @@
+{
+  "title": "Spark Core Pins from a Webpage",
+  "fileName": "0088-Spark-Core-Pins-from-a-Webpage.md",
+  "dateTime": "2014-04-07 16:12:43",
+  "tags": [
+    "Integration",
+    "JavaScript",
+    "Spark Core"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Building on the small amount of JavaScript code developed by controlling the Spark Core pins from my Pebble, I decided to write a basic webpage to allow me to perform the same control functions but from a browser. Sure, it's been done before, but as I have no real expertise or experience of JavaScript beyond that used for PebbleKit JS apps, and virtually none at all for HTML, it seemed like a good learning opportunity."
+    },
+    {
+      "type": "paragraph",
+      "text": "And it turned out to be easier than expected! After a couple of hours, the basic code was in place. The webpage looks like this:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a href=\"http://ninedof.files.wordpress.com/2014/04/jquery-core.png\">!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2014/04/jquery-core.png\"></a></a>Nothing too pretty to look at, but does the job well."
+    },
+    {
+      "type": "paragraph",
+      "text": "During the aforementioned Pebble project, <a href=\"https://community.spark.io/t/pin-argument-for-spark-function-is-always-0-solved/3794\" title=\"Forum post\">I sought help with a problem</a> in getting the same pin number back as I sent to the Spark Cloud. The solution to this turned out to be specifying the Spark.function() parameter string as a key-value dictionary, making the core (aha) code segment in this webpage as so:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n//Send the request to the Core\nvar sendRequest = function(pin, on, device_id, access_token) {\n  var url;\n  if(on) {\n    url = \"https://api.spark.io/v1/devices/\" + device_id + \"/on?access_token=\" + access_token;\n  } else {\n    url = \"https://api.spark.io/v1/devices/\" + device_id + \"/off?access_token=\" + access_token;\n  }\n  console.log(\"jQuery AJAX: Requesting pin \" + pin + \" \" + (on == true ? \"on\" : \"off\") + \"...\");\n  //Send request using jQuert AJAX\n  $.ajax({\n    type: \"POST\",\n    url: url,\n    data: {\"args\":pin},\n    success: success,\n    dataType: \"json\"\n  });\n};\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The entire project (three files!) can be found on <a title=\"Source code\" href=\"https://github.com/C-D-Lewis/core-pins-js/tree/master\">GitHub here</a>. I may expand it to include more functions in the future, but at the moment it provides a good platform to play around with, and I've learned a small amount about HTML forms and using jQuery. Time well spent!"
+    },
+    {
+      "type": "paragraph",
+      "text": "&nbsp;"
+    }
+  ]
+}

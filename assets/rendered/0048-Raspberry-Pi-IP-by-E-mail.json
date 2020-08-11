@@ -1,0 +1,54 @@
+{
+  "title": "Raspberry Pi: IP by E-mail",
+  "fileName": "0048-Raspberry-Pi-IP-by-E-mail.md",
+  "dateTime": "2013-09-28 00:01:38",
+  "tags": [
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "I <a title=\"Raspberry Pi: IP Address to LCD Display\" href=\"http://ninedof.wordpress.com/2013/07/13/raspberry-pi-ip-address-to-lcd-display/\">wrote a while ago</a> about a mechanism to locate and connect to a <a title=\"Wikipedia - Headless\" href=\"http://en.wikipedia.org/wiki/Headless_computer\">headless</a> Raspberry Pi over Ethernet using an LCD display and some start-up code."
+    },
+    {
+      "type": "paragraph",
+      "text": "Well today I broke it while preparing to move house (and use it in it's intended situation!), which was bad news. Listen to your GND markings, people!"
+    },
+    {
+      "type": "paragraph",
+      "text": "But a moment's search for a replacement strategy yielded another idea. Nothing original by any means, but something new to my programming adventures thus far: Get the IP address by e-mail on boot!"
+    },
+    {
+      "type": "paragraph",
+      "text": "Looking at a Raspberry Pi as it boots you will see the Ethernet port is initialized pretty early on in the boot procedure. A quick Google search revealed the existence of the '<a title=\"Python 2.7 SMTPLib\" href=\"http://docs.python.org/2/library/smtplib.html\">smtplib</a>' module included with Python, which I leveraged to make this happen. Here is the final code (get_ip_address() found <a title=\"Get IP Address\" href=\"code.activestate.com/recipes/439094-get-the-ip-address-associated-with-a-network-inter/\">here</a>):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\nimport smtplib\nimport struct\nimport socket\nimport fcntl\nmsg = \"From RPi Python\"\ndef get_ip_address(ifname):\n  s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)\n  return socket.inet_ntoa(fcntl.ioctl(\n    s.fileno(), 0x8915, # SIOCGIFADDR\n    struct.pack('256s', ifname[:15])\n  )[20:24])\nfromaddr = <from address>\ntoaddr = <to address>\nmsg = \"\"\"RPi IP is  %s\"\"\" % get_ip_address('eth0')\nusername = <username>\npassword = <password>\nprint(\"Sending IP: %s to %s\" % (get_ip_address('eth0'), toaddr))\nprint(\"Opening connection...\")\nserver = smtplib.SMTP('smtp.gmail.com:587')\nserver.ehlo()\nserver.starttls()\nserver.ehlo()\nprint(\"Logging in...\")\nserver.login(username, password)\nprint(\"Sending message: %s\" % msg)\nserver.sendmail(fromaddr, toaddr, msg)\nprint(\"Closing connection...\")\nserver.close()\nprint(\"Sent.\")\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The next step is to make it run on boot, which only involved writing this script (called ipmailboot.sh):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\n#!/usr/bin/python\nsudo python ~/python/ipmail.py\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Then changing the permissions for execution:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\n sudo chmod 755 ipmailboot.sh\n </div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And then registering it to run on boot using <code>update-rc.d ipmailboot.sh defaults</code>."
+    },
+    {
+      "type": "paragraph",
+      "text": "So, nothing revolutionary, but when I move house and find the router is nowhere near a TV, all I'll have to do is connect it to the network with an Ethernet cable, power on and wait for the email to arrive (on my Pebble watch, no less!)"
+    }
+  ]
+}

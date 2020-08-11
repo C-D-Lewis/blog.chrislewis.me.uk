@@ -1,0 +1,55 @@
+{
+  "title": "Dashboard 4.0 now available!",
+  "fileName": "0118-Dashboard-40-now-available.md",
+  "dateTime": "2016-05-04 18:30:55",
+  "tags": [
+    "Android",
+    "Integration",
+    "Java",
+    "Pebble",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2016/05/blogbanner.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "It's here! The redesign I've been planning since many months ago (the previous colour watchapp design was a bit of a bodge), and I've wanted to add in a few extra features:"
+    },
+    {
+      "type": "paragraph",
+      "text": " • GSM signal strength"
+    },
+    {
+      "type": "paragraph",
+      "text": " • Wifi network name"
+    },
+    {
+      "type": "paragraph",
+      "text": " • Phone free space"
+    },
+    {
+      "type": "paragraph",
+      "text": " • Resync every 30 seconds while the app is open"
+    },
+    {
+      "type": "paragraph",
+      "text": " • Option to jump straight to a certain toggle when the app is opened"
+    },
+    {
+      "type": "paragraph",
+      "text": "...and all the usual refactoring (I can't help myself) and some protocol simplification. Here's a rule of thumb: if your AppMessage protocol uses arithmetic and nested switch statements, ditch it!"
+    },
+    {
+      "type": "paragraph",
+      "text": "I also improved a lot of the Android code, added fail cases, and more logging etc. to better help me diagnose problems when a user sends me a debug log. Finally, I brought a little animation magic to the UI, and relied more heavily on system UI components instead of over-complicating things by rolling my own version of everything."
+    },
+    {
+      "type": "paragraph",
+      "text": "Download on <a href=\"https://play.google.com/store/apps/details?id=com.wordpress.ninedof.dashboard\">Google Play</a> and <a href=\"https://apps.getpebble.com/en_US/application/53ec8d840c3036447e000109\">Pebble appstore</a>!"
+    }
+  ]
+}

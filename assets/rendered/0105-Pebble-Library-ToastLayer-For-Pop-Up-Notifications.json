@@ -1,0 +1,35 @@
+{
+  "title": "Pebble Library: ToastLayer For Pop Up Notifications",
+  "fileName": "0105-Pebble-Library-ToastLayer-For-Pop-Up-Notifications.md",
+  "dateTime": "2014-10-17 04:36:31",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A while ago I created a simple <a title=\"Pebble Alert Lib\" href=\"https://github.com/C-D-Lewis/pebble-alert-lib\">Alert Library</a>, which provides functions to show and hide a set of layers to show an 'alert window' for a time that tells the user of an event without changing Window."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2014/10/screenshot.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Continuing this theme, today I created another similar library called the <a title=\"ToastLayer\" href=\"https://github.com/C-D-Lewis/ToastLayer\">ToastLayer</a>, which has two advantages over the Alert Library:"
+    },
+    {
+      "type": "paragraph",
+      "text": "1. The toast notification animates up from the bottom, instead of covering the majority of the Window."
+    },
+    {
+      "type": "paragraph",
+      "text": "2. It is designed as an object, like any of the other Layers in the Pebble SDK. This means there can be more than one!"
+    },
+    {
+      "type": "paragraph",
+      "text": "Feel free to use it to show notifications without changing Window! I will probably look into including this in some of my existing apps."
+    }
+  ]
+}

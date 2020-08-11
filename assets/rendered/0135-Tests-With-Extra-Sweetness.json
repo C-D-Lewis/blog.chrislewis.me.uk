@@ -1,0 +1,55 @@
+{
+  "title": "Tests With Extra Sweetness",
+  "fileName": "0135-Tests-With-Extra-Sweetness.md",
+  "dateTime": "2018-02-17 22:11:28",
+  "tags": [
+    "Integration",
+    "JavaScript",
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A quick post about moving my Node app tests to <a href=\"https://mochajs.org/\">Mocha</a> and <a href=\"http://chaijs.com/\">Chai</a>. These are frameworks used where I work, and I figured I may as well learn something new and have more confidence in my Node apps when I deploy them, so how hard can it be?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Turns out, quite easy. These testing frameworks are deigned to be flexible and resemble plain-english test descriptions. In fact, the new testing code looks a lot like my home-grown test framework. Have a look below for a comparison (taken from the <a href=\"https://github.com/C-D-Lewis/led-server\"><code>led-server</code></a> project):"
+    },
+    {
+      "type": "paragraph",
+      "text": "(You can see the implementation of <code>testBed</code> module in the <a href=\"https://github.com/C-D-Lewis/node-common/blob/master/testBed.js\"><code>node-common</code></a> project)"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Home-grown"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nasync function testSetAll(expected) {\n  const response = await testBed.sendConduitPacket({\n    to: 'LedServer',\n    topic: 'setAll',\n    message: { all: [ 25, 25, 52 ] }\n  });\n  testBed.assert(response.status === 200 && response.message.content === 'OK',\n    'setAll: response contains status:200 and content:OK');\n}\nasync function testSetPixel(expected) {\n  const response = await testBed.sendConduitPacket({\n    to: 'LedServer',\n    topic: 'setPixel',\n    message: {\n      '0': [ 25, 25, 52 ],\n      '1': [ 100, 100, 100 ]\n    }\n  });\n  testBed.assert(response.status === 200 && response.message.content === 'OK',\n    'setPixel: response contains status:200 and content:OK');\n}\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Mocha/Chai"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\ndescribe('Conduit topic: setPixel', () => {\n  it('should return 200 / OK', async () => {\n    const response = await testBed.sendConduitPacket({\n      to: 'LedServer',\n      topic: 'setPixel',\n      message: {\n        '0': [ 10, 20, 30],\n        '1': [30, 50, 60]\n      }\n    });\n    expect(response.status).to.equal(200);\n    expect(response.message.content).to.equal('OK');\n  });\n});\ndescribe('Conduit topic: setAll', () => {\n  it('should return 200 / OK', async () => {\n    const response = await testBed.sendConduitPacket({\n      to: 'LedServer',\n      topic: 'setAll',\n      message: { all: [64,64,64] }\n    });\n    expect(response.status).to.equal(200);\n    expect(response.message.content).to.equal('OK');\n  });\n});\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As a result, my script to run all the test suites of each Node app (after booting them all together locally) looks like a lot of this - all green, and no red!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2018/02/screen-shot-2018-02-17-at-22-09-10.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Hopefully this new skill will enable me to write better code both personally and professionally in the future - I may even try out TDD for my next project!"
+    }
+  ]
+}

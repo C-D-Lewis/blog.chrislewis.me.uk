@@ -50,7 +50,23 @@ const postToModel = (fileName) => {
     components: [],
   };
   const body = text.split('---')[1].trim();
-  const sections = body.split('\n\n').map(p => p.trim());
+  const sections = body.split('\n\n');
+
+  // Join paragraphs inside code blocks
+  let start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
+  let endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
+  while (endIndex !== -1) {
+    if (start === -1) break;
+
+    const end = endIndex + start + 1;
+    const joinedSection = '' + sections.slice(start, end).join('\n');
+    sections.splice(start, end - start);
+    sections.splice(start, 0, joinedSection);
+
+    start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
+    endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
+  }
+
   sections.forEach((section) => {
     // Image
     if (section.startsWith('![')) {
@@ -79,12 +95,12 @@ const postToModel = (fileName) => {
  * The main function.
  */
 const main = () => {
-  const history = require(historyPath);
-  const files = readdirSync(postsDir);
 
   // Build post models
+  const files = readdirSync(postsDir);
   const models = files.map(postToModel);
 
+  const history = {};
   models.forEach((model) => {
     // Save model file
     const fileName = model.fileName.split('.')[0];
@@ -100,13 +116,9 @@ const main = () => {
     if (!history[year][month]) {
       history[year][month] = [];
     }
-    if (history[year][month].find(p => p.title === model.title)) {
-      const index = history[year][month].findIndex(p => p.title === model.title);
-      history[year][month].splice(index, 1);
-    }
 
     const filePath = `assets/rendered/${fileName}.json`;
-    history[year][month].push({ title: model.title, file: filePath });
+    history[year][month].push({ title: model.title, file: filePath, fileName: fileName });
   });
   writeFileSync(historyPath, JSON.stringify(history, null, 2), 'utf8');
   console.log('Updated history.json');

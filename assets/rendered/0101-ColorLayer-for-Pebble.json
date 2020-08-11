@@ -1,0 +1,36 @@
+{
+  "title": "ColorLayer for Pebble",
+  "fileName": "0101-ColorLayer-for-Pebble.md",
+  "dateTime": "2014-07-29 14:55:30",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "<strong>Edit: 100th post!"
+    },
+    {
+      "type": "paragraph",
+      "text": "Quick post to share  a 'new' <code>Layer</code> type I created for an upcoming project: <code>ColorLayer</code>. It's supposed to be a convenience for adding a simple layer of colour. Problem is, unless I'm missing something very obvious, the two options are to declare a standard <code>Layer</code> and assign it a basic <code>_fill_rect()</code> <code>LayerUpdateProc</code>, or use a <code>TextLayer</code> and modifying the background colours."
+    },
+    {
+      "type": "paragraph",
+      "text": "I normally choose the latter, so for the umpteenth time of doing so I decided to wrap it up to make it a bit simpler to use. Here's the result!"
+    },
+    {
+      "type": "header",
+      "level": 6,
+      "text": "ColorLayer.h\n<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n * Layer on top of TextLayer used just for coloring areas without using LayerUpdateProc\n * Author: Chris Lewis (@Chris_DL)\n * Version 1.0.0\n */\n#include <pebble.h>\n#ifndef COLOR_LAYER_H\n#define COLOR_LAYER_H\ntypedef struct {\n  TextLayer *layer;\n} ColorLayer;\nColorLayer* color_layer_create(GRect bounds, GColor fill_color);\nvoid color_layer_destroy(ColorLayer *this);\nvoid color_layer_set_color(ColorLayer *this, GColor fill_color);\nvoid color_layer_set_frame(ColorLayer *this, GRect bounds);\nLayer* color_layer_get_layer(ColorLayer *this);\n#endif\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 3,
+      "text": "ColorLayer.c\n<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include \"color_layer.h\"\nColorLayer* color_layer_create(GRect bounds, GColor fill_color)\n{\n  ColorLayer *this = malloc(sizeof(ColorLayer));\n  this->layer = text_layer_create(bounds);\n  text_layer_set_background_color(this->layer, fill_color);\n  return this;\n}\nvoid color_layer_destroy(ColorLayer *this)\n{\n  text_layer_destroy(this->layer);\n  free(this);\n}\nvoid color_layer_set_color(ColorLayer *this, GColor fill_color)\n{\n  text_layer_set_background_color(this->layer, fill_color);\n}\nvoid color_layer_set_frame(ColorLayer *this, GRect bounds)\n{\n  layer_set_frame(text_layer_get_layer(this->layer), bounds);\n}\nLayer* color_layer_get_layer(ColorLayer *this)\n{\n  return text_layer_get_layer(this->layer);\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "It could be argued that it's such a thin layer you may as well not bother, but I find it to be sufficiently easier to setup and read (as well as avoiding confusion with <code>TextLayer</code>s that actually show text), so once again I'm glad coding allows a degree of personal preference and style!"
+    }
+  ]
+}

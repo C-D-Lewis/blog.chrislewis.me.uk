@@ -1,0 +1,15 @@
+{
+  "title": "Wristponder for Pebble v2.5.0",
+  "fileName": "0102-Wristponder-for-Pebble-v250.md",
+  "dateTime": "2014-08-12 23:23:34",
+  "tags": [
+    "Android",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "<p>A not insignificant amount of time after starting work on this update, it is finally here!</p><p>New features include:</p><p>- All data to be synchronised is now done in a streaming manner after each <code>Window</code> appears, meaning no more waiting for sync!<br /> - Favourite contacts are now chosen using the Android Contact Picker, and not from five (potentially very large) spinners.<br /> - The debug log can now be read and reported from the Settings screen. This makes reporting bugs to me much simpler.</p><p>Here's a before and after shot of the Favourites selection <code>Activity</code>:</p><p>!<a class=\"link\" target=\"_blank\" href=\"http://ninedof.files.wordpress.com/2014/08/favourite-selection.png?w=545\"></a></p><p>There is only really one major comment to make that arose during development for this version, and that's on the subject of an Android <code>Activity</code> in KitKat. I came across a a strange behaviour when launching the Pebble Android app to install the watchapp. It appears that in the event that the user chooses 'Install Watchapp' from Wristponder Settings, completes the installation and returns to the Settings <code>Activity</code>, they will not be able to launch any new ones such as Favourites or Import for anywhere between 10 to 45 seconds. On top of this any spamming of buttons done by a bemused user results in just as many launches when the <code>Activity</code>s requested are eventually delivered.</p><p>The only evidence of this in a single logcat output something along the lines of \"Waited long enough for ServiceRecord\" (unable to reproduce it at the time of writing, which is a good thing!) and <a title=\"StackOverflow\" href=\"http://stackoverflow.com/questions/21512469/my-service-always-getting-waited-long-enough-for-servicerecord-error-in-kitkat\">this is the only link</a> I can find on the subject. Apparently its to do with serializing launches from background services, although none of my launches are <code>Services</code>.</p><p>Anyway, that is the only problem with this release, and I feel that Wristponder is now a pretty solid and smooth piece of software. For this I am proud!</p><p><strong>Download</strong><br /> <a href=\"https://play.google.com/store/apps/details?id=com.wordpress.ninedof.wristponder\"> !<a class=\"link\" target=\"_blank\" href=\"https://developer.android.com/images/brand/en_generic_rgb_wo_60.png\"></a><br /> </a></p>"
+    }
+  ]
+}
