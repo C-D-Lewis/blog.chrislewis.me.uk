@@ -1,0 +1,43 @@
+{
+  "title": "Big Watch Trigger Update Soon",
+  "fileName": "2013-12-30-Big-Watch-Trigger-Update-Soon.md",
+  "dateTime": "2013-12-30 16:46:16",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "After reading the Pebble UX Guidelines document last week, I realized that I had not changed the UI on either the watch app or phone app for Watch Trigger / Watch Trigger + for quite some time. Now is that time!"
+    },
+    {
+      "type": "paragraph",
+      "text": "Planned changes are:\n<ol>\n• New UX compliant watch app with changeable settings"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Re-built phone app Settings and underlying Preferences system."
+    },
+    {
+      "type": "paragraph",
+      "text": "• A new 'Welcome' screen for first run to try and mitigate SDK 2.0 vs SDK 1.X confusion in new users."
+    },
+    {
+      "type": "paragraph",
+      "text": "• A possible overhaul of the phone app UI, if I have the energy."
+    },
+    {
+      "type": "paragraph",
+      "text": "</ol>\nThe new watch app will be SDK 2.0 only for new, as the release is just around the corner, but if another delay is announced I will try and find the time to upgrade the 1.X watch app as well. To clarify, the 1.X watchapp will still be compatible with the new version, but will not carry the additional features."
+    },
+    {
+      "type": "paragraph",
+      "text": "Here is a sneak peek!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2013/12/pebble-screenshot_2013-12-30_16-42-52.png"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "title": "Split Horizon Watch Face Update (v4)",
+  "fileName": "2013-07-09-Split-Horizon-Watch-Face-Update-v4.md",
+  "dateTime": "2013-07-09 19:09:19",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Here's another update to the Split Horizon watch faces, this time adding a 'AM/PM' indicator when the watch is in 12 hour mode, by user request. Also, small font artefacts are fixed by reducing the month font size by a point."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2013/07/split-v4.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Source code <a title=\"Split Horizon Source Code v4\" href=\"https://www.dropbox.com/s/00q0ky4qmmpj60k/Split%20Horizon%20Source%20and%20Bundle%20v3.zip\">can be found here</a>."
+    },
+    {
+      "type": "paragraph",
+      "text": "Enjoy!"
+    },
+    {
+      "type": "paragraph",
+      "text": "&nbsp;"
+    }
+  ]
+}

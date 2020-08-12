@@ -1,0 +1,117 @@
+{
+  "title": "First Pebble Timeline App - BBC News",
+  "fileName": "2015-04-05-First-Pebble-Timeline-App-BBC-News.md",
+  "dateTime": "2015-04-05 13:19:24",
+  "tags": [
+    "Integration",
+    "Pebble",
+    "pin"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "<strong>Introduction"
+    },
+    {
+      "type": "paragraph",
+      "text": "As a side-effect of being involved with the development and testing of the new Pebble timeline experience, I've been eager to try my hand at exploiting this new mechanism to bring timely updates to users of BBC News (which as with most of my apps, began as an app for personal use) with timeline pins."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The Concept"
+    },
+    {
+      "type": "paragraph",
+      "text": "As you may know from reading the <a title=\"timeline guides\" href=\"https://developer.getpebble.com/guides/timeline/\">Pebble Developers timeline guides</a>, Pebble watchapps can now incorporate a purely web-based element to display data from web data sources (such as the <a href=\"http://feeds.bbci.co.uk/news/rss.xml\">BBC News feeds</a>) on the timeline. This is ideal for chronological events such as news stories, as each pin is shown on the timeline according to date."
+    },
+    {
+      "type": "paragraph",
+      "text": "Pins can also include notifications that appear when they are first created or updated, keeping the user informed as details change. This functionality is used to show a notification each time a new news story is available. The pin itself includes only the icon (standard timeline pin icon) and the title, which is the main title of the story. In addition, timeline pins can have actions associated with them, enabling the user to launch the associated watchapp (whose API key is used to push the pins) and pass a single integer as a context argument. My idea was to use this action ability to enable the pin to open the <a href=\"https://apps.getpebble.com/applications/5387b383f60819963900000e\">BBC News watchapp</a> to show the full story details, since a very long timeline pin body was a poor scrolling experience."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The Problem"
+    },
+    {
+      "type": "paragraph",
+      "text": "The fundamental question was this; <em><strong>How does one tell the watchapp which story to show from the pin using a single integer?</strong> </em>The first guess was to specify the <code>launchCode</code> (the argument) as the position in the array of downloaded news stories. This would work for a very recent pin only, as the order of news stories in the feed changes frequently as new stories are added and removed from the headlines. After an hour or two, the order would change and an existing pin would possess a <code>launchCode</code> pointing to the same array location, but no longer guaranteed to be the same story."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Implementation"
+    },
+    {
+      "type": "paragraph",
+      "text": "The solution I ended up choosing came from <a href=\"https://apps.getpebble.com/applications/52ff6a14432d1cef0000007c\">Wristponder</a>, which uses a checksum of the persisted list of responses on the Android and Pebble sides, prompting a re-download to the watch if the two do not match (i.e.: The user has modified their list of responses). Thus the procedure to open a news story from its pin is this:"
+    },
+    {
+      "type": "paragraph",
+      "text": "1. Backend server running on <a href=\"https://www.digitalocean.com/\">DigitalOcean</a> downloads the RSS feed from the BBC every half an hour, using a function to create a list of story objects from the XML;"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nvar parseFeed = function(responseText) {\n  var items = [];\n  var longestTitle = 0;\n  var longestDesc = 0;\n  while(responseText.indexOf('<title>') > 0 && items.length < MAX_ITEMS) {\n    //Title\n    var title = responseText.substring(responseText.indexOf('<title>') + '<title>'.length);\n    title = title.substring(0, title.indexOf('</title>'));\n    responseText = responseText.substring(responseText.indexOf('</title>') + '</title>'.length);\n\n    //Desc\n    var desc = responseText.substring(responseText.indexOf('<description>') + '<description>'.length);\n    desc = desc.substring(0, desc.indexOf('</description>'));\n\n    // Date\n    var date = responseText.substring(responseText.indexOf('') + ''.length);\n    date = date.substring(0, date.indexOf('</pubDate>'));\n\n    //Add\n    var s = { 'title': title, 'description': desc, 'date': date };\n    items.push(s);\n\n    // Metrics\n    Log('Story '+ items.length + ': ' + s.title + ' // ' + s.description);\n    Log('(' + s.title.length + 'x' + s.description.length + ')');\n    if(s.title.length > longestTitle) {\n      longestTitle = s.title.length;\n    }\n    if(s.description.length > longestDesc) {\n      longestDesc = s.description.length;\n    }\n\n    // Next\n    responseText = responseText.substring(responseText.indexOf('</description>') + '</description>'.length);\n  }\n\n  Log('parseFeed(): Extracted ' + items.length + ' items.');\n  Log('parseFeed(): Longest title/description: ' + longestTitle + '/' + longestDesc);\n  return items;\n};\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "2. Backend uses story titles, publish dates and checksums of the titles to push a pin for each story. The id field of each pin is a prefix followed by the Unix timestamp of the pubDate RSS field (as an easy solution of a fairly unique number from each story). The checksum is generated by simply adding all the character codes in each title, then specifying this number as the 'Open Story' <a href=\"https://developer.getpebble.com/guides/timeline/pin-structure/#pin-actions\">pin action's lanchCode</a>;"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nvar pin = {\n  'id': 'bbcnews-story-' + pubDate.unix(),\n  'time': pubDate.toDate(),\n  'layout': {\n    'type': 'genericPin',\n    'tinyIcon': 'system://images/TIMELINE_PIN_TINY',\n    'title': gStories[i].title,\n    'subtitle': 'BBC News Headline'\n  },\n  'createNotification': {\n    'layout': {\n    'type': 'genericPin',\n    'tinyIcon': 'system://images/TIMELINE_PIN_TINY',\n    'title': gStories[i].title,\n    'subtitle': 'BBC News Headline'\n    }\n  },\n  'actions': [\n    {\n      'title': 'Open Story',\n      'type': 'openWatchApp',\n      'launchCode': checksum(gStories[i].title)\n    }\n  ]\n};\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "3. These pins are filtered for duplicates and staleness by the Pebble timeline public API, then pushed through the Pebble mobile app to the user's watch. This is demanded by a subscription to the 'headlines' topic that all users are subscribed to when they first launch the BBC News watchapp (this will be optional in the first release)."
+    },
+    {
+      "type": "paragraph",
+      "text": "4. The user selects a BBC News story from their timeline and chooses the 'Open Story' pin action. This opens the watchapp with the launch_get_args() value set as the checksum stored in the pin when it was originally generated. If the <code>launchCode</code> is not zero, a pin was specified;"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\n#ifdef PBL_PLATFORM_APLITE\n\n// Timeline not available, give me ALL the stories!\ncomm_request(COMM_MODE_LIST, 0);\n\n#elif PBL_PLATFORM_BASALT\n\n// Is launchCode specified from a pin?\nint launch_code = launch_get_args();\n\nif(launch_code == 0) {\n  // Get all stories\n  comm_request(COMM_MODE_LIST, 0);\n\n  stories_window_set_desc_text(\"Updating...\");\n} else if(launch_reason() == APP_LAUNCH_TIMELINE_ACTION) {\n  // Check this checksum, JS!\n  comm_request(COMM_MODE_PIN, launch_code);\n\n  stories_window_set_desc_text(\"Getting pin story...\");\n}\n\n#endif\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "5. The watchapp sends the checksum for the pin in question to PebbleKit JS, which downloads the latest feed from the BBC News site and checks the query checksum against checksums of all the stories downloaded. First, the checksum is obtained from the watch's <code>AppMessage</code>;"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nif(hasKey(dict, 'KEY_ACTION')) {\n  gLaunchCode = getValue(dict, 'KEY_ACTION');\n  Log('TIMELINE PIN LAUNCH CODE: ' + gLaunchCode + '\\n\\n\\n');\n\n  // Download stories, and match the titles to the pin\n  download(persistRead('category', 'headlines'), findPinWithHash);\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Next, the matching story is found;"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nfunction findPinWithHash(responseText) {\n  //Strip metadata\n  var spool = responseText.substring(responseText.indexOf('<item>') + '<item>'.length);\n  gQuantity = 30; // Get all\n\n  var stories = parseFeed(spool);\n  Log('Finding title with launchCode=' + gLaunchCode + ' in list of ' + stories.length + ' stories');\n\n  var found = false;\n  for(var i = 0; i < stories.length; i += 1) {\n    var check = checksum(stories[i].title);\n    if('' + check == '' + gLaunchCode) {\n      Log('Found! check=' + check + ', gLaunchCode=' + gLaunchCode);\n\n      // Send to phone\n      var dict = {\n        'KEY_ACTION': 0,\n        'KEY_TITLE': stories[i].title,\n        'KEY_DESCRIPTION': stories[i].description\n      };\n      Pebble.sendAppMessage(dict, function() {\n        Log('Sent pin data to watch!');\n        found = true;\n      });\n    }\n  }\n\n  // Not found?\n  if(found == false) {\n    var dict = {\n      'KEY_FAILED': 1\n    };\n    Pebble.sendAppMessage(dict, function() {\n      Log('Informed Pebble of failure to find story.');\n    },\n    function(err) {\n      Log('Failed to inform of failure!');\n    });\n  }\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "6. If the story is still relatively recent (this can vary) and a checksum match is found, the story's full title and body are sent to the watchapp for display to the user. The RSS feed also contains links to thumbnails already formatted to 144 pixels in width, which is ideally placed to be a possible future feature."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Results"
+    },
+    {
+      "type": "paragraph",
+      "text": "The resulting flow looks something like the image below, which is still a work in progress:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2015/04/pin.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "This new layout will be available soon (once bugs are worked out) for Aplite users of the existing BBC News Headlines watchapp, in color on Basalt for those with Pebble Time watches (admittedly few right now!). Stay tuned!"
+    }
+  ]
+}

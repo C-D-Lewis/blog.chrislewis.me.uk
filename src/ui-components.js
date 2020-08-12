@@ -54,6 +54,7 @@ const SiteHeader = () => DOM.create('div', {
   cursor: 'default',
   borderBottom: '1px solid #111',
   backgroundColor: Colors.syntax.background,
+  position: 'fixed',
 });
 
 /**
@@ -186,7 +187,7 @@ const LeftColumnHeader = (label, isTopSection = false) => {
     display: 'block',
     color: 'white',
     fontFamily: 'sans-serif',
-    fontSize: '1.5rem',
+    fontSize: '1.2rem',
     fontWeight: 'bold',
     marginTop: '10px',
     paddingTop: isTopSection ? '10px' : '30px',
@@ -208,7 +209,7 @@ const LeftColumnItem = ({ label, onClick = {}, fadeIn, isSelected }) => {
     fontWeight: isSelected ? 'bold' : 'initial',
     display: 'block',
     fontFamily: 'sans-serif',
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     marginTop: '10px',
     cursor: 'pointer',
   }, {
@@ -235,6 +236,7 @@ const CentralColumn = () => DOM.create('div', {
   borderLeft: `1px solid ${Colors.lightGrey}`,
   paddingLeft: '20px',
   backgroundColor: Colors.centralColumnBackground,
+  paddingTop: '80px',
 });
 
 /**
@@ -272,7 +274,7 @@ const PostTitle = ({ title, fileName }) => {
   const h1 = DOM.create('h1', {
     color: 'black',
     fontFamily: 'sans-serif',
-    fontSize: '2rem',
+    fontSize: '1.5rem',
     fontWeight: 'bold',
     marginTop: '10px',
     marginBottom: '5px',
@@ -283,12 +285,12 @@ const PostTitle = ({ title, fileName }) => {
   DOM.addChild(container, h1);
 
   const linkAnchor = DOM.create('span', {
-    color: 'darkgrey',
-    fontSize: '1.8rem',
+    color: 'lightgrey',
+    fontSize: '1.4rem',
     cursor: 'pointer',
     fontWeight: 'bold',
     marginLeft: '10px',
-    paddingTop: '9px',
+    paddingTop: '6px',
   }, { className: 'link-anchor' });
   linkAnchor.addEventListener('click', () => {
     const slug = fileName.split('.')[0];
@@ -356,11 +358,13 @@ const PostDateAndTags = ({ dateTime, tags }) => {
   const container = DOM.create('div', {
     display: 'flex',
     alignItems: 'center',
+    borderBottom: '1px solid #eee',
+    paddingBottom: '10px',
   });
   const dateDiv = DOM.create('div', {
     color: '#999',
     fontFamily: 'sans-serif',
-    fontSize: '1.2rem',
+    fontSize: '1rem',
     marginLeft: '44px',
     cursor: 'default',
     paddingTop: '3px',
@@ -448,6 +452,7 @@ const PostParagraph = ({ text }) => {
     color: '#222',
     fontSize: '1rem',
     marginTop: '8px',
+    lineHeight: '1.2',
   });
   h.innerHTML = text;
   return h;
@@ -482,7 +487,7 @@ const Post = (model = {}) => {
     borderRadius: '5px',
     overflow: 'hidden',
     padding: '15px',
-    marginTop: '30px',
+    marginTop: '15px',
   });
   const title = PostTitle(model);
   DOM.addChild(container, title);

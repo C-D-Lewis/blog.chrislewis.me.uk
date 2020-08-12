@@ -1,0 +1,32 @@
+{
+  "title": "New Watchface: CMD Time Typed",
+  "fileName": "2014-01-29-New-Watchface-CMD-Time-Typed.md",
+  "dateTime": "2014-01-29 14:47:23",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "After being inspired by a post on Reddit, I made a watch face that imitates the '<code>time /t</code>' and '<code>date /t</code>' commands in the Windows Command Prompt. This was the result:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2014/01/mockup.gif"
+    },
+    {
+      "type": "paragraph",
+      "text": "The result is CMD Time Typed, and looks like this:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2014/01/mockup1.gif"
+    },
+    {
+      "type": "paragraph",
+      "text": "&nbsp;"
+    }
+  ]
+}

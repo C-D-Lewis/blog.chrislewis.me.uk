@@ -47,6 +47,9 @@ const transformHTML = (html) => {
   while (result.includes('https://ninedof.files.wordpress.com')) {
     result = replace(result, 'https://ninedof.files.wordpress.com', '/assets/import/media');
   }
+  while (result.includes('http://ninedof.files.wordpress.com')) {
+    result = replace(result, 'http://ninedof.files.wordpress.com', '/assets/import/media');
+  }
 
   // Images inside anchors
   while (result.includes('<a href="/assets/')) {
@@ -75,6 +78,16 @@ const transformHTML = (html) => {
 
     result = replace(result, img, `![](${src})`);
   }
+
+  // Remove redundant paragraphs
+  while (result.includes('<p')) {
+    const pStart = result.indexOf('<p');
+    const pEnd = result.indexOf('>', pStart) + 1;
+    const pTag = result.substring(pStart, pEnd);
+
+    result = replace(result, pTag, '');
+  }
+  result = replace(result, '</p>', '');
 
   // Code snippets (TODO highlighter)
   while (result.includes('[code language=')) {
@@ -125,8 +138,9 @@ ${post.tags.join(',')}
 ${md}
 `;
 
+    const [year, month, day] = post.postDate.split(' ')[0].split('-');
     const slug = slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g });
-    const postFileName = `${zeroPad(index)}-${slug}`;
+    const postFileName = `${year}-${month}-${day}-${slug}`;
     const postFilePath = `${__dirname}/../posts/${postFileName}.md`;
 
     writeFileSync(postFilePath, fileContent, 'utf8');

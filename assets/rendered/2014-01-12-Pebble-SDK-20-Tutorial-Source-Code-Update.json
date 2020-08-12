@@ -1,0 +1,15 @@
+{
+  "title": "Pebble SDK 2.0 Tutorial Source Code Update",
+  "fileName": "2014-01-12-Pebble-SDK-20-Tutorial-Source-Code-Update.md",
+  "dateTime": "2014-01-12 01:43:13",
+  "tags": [
+    "General",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "After the Dropbox outage (which appears to still be affecting me) the tutorial source code is now on <a href=\"http://github.com/C-D-Lewis\">GitHub</a>.Just so you know."
+    }
+  ]
+}

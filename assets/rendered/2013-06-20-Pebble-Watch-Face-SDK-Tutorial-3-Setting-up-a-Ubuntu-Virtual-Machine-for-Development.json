@@ -1,0 +1,153 @@
+{
+  "title": "Pebble Watch Face SDK Tutorial #3: Setting up a Ubuntu Virtual Machine for Development",
+  "fileName": "2013-06-20-Pebble-Watch-Face-SDK-Tutorial-3-Setting-up-a-Ubuntu-Virtual-Machine-for-Development.md",
+  "dateTime": "2013-06-20 19:28:03",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "<strong>Links to Previous Sections:"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here are links to the previous sections of this tutorial. Read them if you haven't to get up to speed!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a title=\"Pebble Watch Face SDK Tutorial #1: Beginner’s Primer to the C Language\" href=\"http://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/\">Part #1: Beginner's Primer to the C Language</a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a title=\"Pebble Watch Face SDK Tutorial #2: Applying the Primer to the Pebble SDK\" href=\"http://ninedof.wordpress.com/2013/06/20/pebble-watch-face-sdk-tutorial-2-applying-the-primer-to-the-pebble-sdk/\">Part #2: Applying the Primer to the Pebble SDK</a>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Introduction"
+    },
+    {
+      "type": "paragraph",
+      "text": "In this section of the tutorial I'll do an almost click by click run-through of how to set up a Virtual Machine running Ubuntu Linux for developing watch faces and apps. This will be without any screenshots because it's a very linear 'click next to continue' sort of process. If you get stuck, there are numerous guides that are Google-able to achieve this goal."
+    },
+    {
+      "type": "paragraph",
+      "text": "The reason this is done is because the software tools and compilers used are only supported on Linux, and not Windows."
+    },
+    {
+      "type": "paragraph",
+      "text": "Again, if you would rather prefer not to do this you can use <a title=\"cloudpebble.net\" href=\"http://cloudpebble.net\">cloudpebble.net</a> to write the .c files and compile them, but it's always interesting to see a new facet of computing that you might not have done otherwise. It can also be said that this method of building watch faces and apps grants you more control, but it's up to  you."
+    },
+    {
+      "type": "paragraph",
+      "text": "An advantage of using cloudpebble instead of installing your own Virtual Machine is that if you wanted only to modify an existing watch face and study the effects, that is a simpler option. You can focus on writing watch face code and compilation. For example, you can make a small modification to an existing watch face to save bothering the developer, but in most case I'd hope they would be happy to help, unless they were inundated with requests!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Important Downloads"
+    },
+    {
+      "type": "paragraph",
+      "text": "Before you start, make sure you download both these files. You'll need them!\n<ol>\n• <a title=\"VirtualBox\" href=\"https://www.virtualbox.org/wiki/Downloads\">VirtualBox</a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <a title=\"Ubuntu Download\" href=\"http://www.ubuntu.com/download/desktop\">A DVD image file for Ubuntu OS</a>. I'd recommend 12.04 LTS. Pick the architecture version that is applicable. If you're unsure, select 32-bit. If you want to donate, that's great, but you don't have to. On the next page choose 'not now, take me to the download' to go straight there."
+    },
+    {
+      "type": "paragraph",
+      "text": "</ol>\n## Setting Up the Virtual Machine\n<ol>\n• Install and open VirtualBox. Click 'New' at the top left corner."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Enter a name for your Virtual Machine and select 'Type' as 'Linux' and 'Version' as 'Ubuntu' or 'Ubuntu 64', depending on your preference earlier."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Choose a memory size. I'd recommend between 1 GB and 2 GB. (1024 MB - 2048 MB to be more precise)"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Choose 'Create a virtual hard drive now'."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Choose the 'VDI' type."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Select 'Dynamically allocated'. An explanation of the difference is given."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Name your virtual hard drive and set the capacity. I'd recommend 8 GB if you have that much available, but Ubuntu itself recommends at least 4.5 GB. You'll need extra space for installing the Pebble SDK and tools."
+    },
+    {
+      "type": "paragraph",
+      "text": "• You should now be back at the main VirtualBox window you started in. Click 'Start'."
+    },
+    {
+      "type": "paragraph",
+      "text": "• When asked for the instal medium, click the 'folder with green arrow' icon on the right of the dialogue and navigate to the Ubuntu .iso you downloaded earlier."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Press 'Start' and wait for the 'Welcome' window."
+    },
+    {
+      "type": "paragraph",
+      "text": "</ol>\n## Setting up Ubuntu\n<ol>\n• Select your preferred language on the left pane and then choose 'Install Ubuntu'."
+    },
+    {
+      "type": "paragraph",
+      "text": "• If you prefer, select the box for 'Download updates while installing'. This will ensure the standard parts of Linux that the SDK may rely on are up-to-date, and I'd strongly recommend it. Press 'Continue'."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Select 'Erase Disk and Install Ubuntu'. This is fine, as the whole machine is running on a virtual hard disk, which is merely a single file on your host OS. Your computer is safe!"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Press 'Continue', then 'Install now'."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Wait for the installation to complete and answer the additional locale questions. This should take no more than ten minutes. (I remember waiting almost two hours for Windows XP to install back in the day)."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Click 'Restart Now' when asked, then press ENTER when asked. There is no CD to eject."
+    },
+    {
+      "type": "paragraph",
+      "text": "</ol>\n## Set Up Toolchain"
+    },
+    {
+      "type": "paragraph",
+      "text": "Now you need to install the software tools and dependencies the SDK requires to work."
+    },
+    {
+      "type": "paragraph",
+      "text": "I would go though it in detail here, but there really is only one correct way of doing it and that method is documented in fine detail <a title=\"Pebble Developer Site\" href=\"http://developer.getpebble.com/1/welcome\">over on the official Pebble Developer site</a>. Make sure you follow the instructions <strong>to the letter</strong> and make sure you resolve any problems you encounter before you try and proceed any further, or you'll be wasting your time!"
+    },
+    {
+      "type": "paragraph",
+      "text": "I'd say that only Step 1 and Step 2 on the left hand side are essential right now, then you will be ready for the next section of my tutorial, but if you're interested, a little extra reading is great."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Next Time"
+    },
+    {
+      "type": "paragraph",
+      "text": "In the next section there will be a detailed look at the key features of a basic watch face source file, and you'll end up with your first custom built watch face!"
+    },
+    {
+      "type": "paragraph",
+      "text": "Best of luck! Remember there are already lots of answered questions and solutions to common problems over on the Pebble <a title=\"SDK Install forum\" href=\"http://forums.getpebble.com/categories/sdk-install\">SDK Install</a> and <a title=\"SDK Help Forum\" href=\"http://forums.getpebble.com/categories/watchface-sdk-help\">SDK Help</a> forums."
+    }
+  ]
+}

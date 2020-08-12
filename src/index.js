@@ -41,10 +41,8 @@ const setupUI = () => {
   // Header
   const siteHeader = UIComponents.SiteHeader();
   DOM.addChild(rootContainer, siteHeader);
-  const siteTitle = UIComponents.SiteTitle();
-  DOM.addChild(siteHeader, siteTitle);
-  const siteSocials = UIComponents.SiteSocials();
-  DOM.addChild(siteHeader, siteSocials);
+  DOM.addChild(siteHeader, UIComponents.SiteTitle());
+  DOM.addChild(siteHeader, UIComponents.SiteSocials());
 
   // Containers
   const contentContainer = UIComponents.ContentContainer();
@@ -55,27 +53,31 @@ const setupUI = () => {
   DOM.addChild(contentContainer, centralColumn);
 
   // Blog sections
-  const blogHeader = UIComponents.LeftColumnHeader('Blog', true);
-  DOM.addChild(leftColumn, blogHeader);
-  const blogHomeLabel = UIComponents.LeftColumnItem({
+  DOM.addChild(leftColumn, UIComponents.LeftColumnHeader('Blog', true));
+  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
     label: 'Most Recent',
     onClick: () => (window.location.href = '/'),
-  });
-  DOM.addChild(leftColumn, blogHomeLabel);
+  }));
 
   // Other stuff
   const otherStuffHeader = UIComponents.LeftColumnHeader('Other Stuff');
   DOM.addChild(leftColumn, otherStuffHeader);
-  const pebbleAppsLabel = UIComponents.LeftColumnItem({
+  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
+    label: 'Pixels With Friends',
+    onClick: () => (window.open('http://pixels.chrislewis.me.uk', '_blank')),
+  }));
+  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
+    label: 'FitBit Apps',
+    onClick: () => (window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank')),
+  }));
+  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
     label: 'Pebble Apps',
-    onCick: () => (window.location.href = 'https://github.com/C-D-Lewis/pebble'),
-  });
-  DOM.addChild(leftColumn, pebbleAppsLabel);
-  const wordPressLabel = UIComponents.LeftColumnItem({
+    onClick: () => (window.open('https://github.com/C-D-Lewis/pebble', '_blank')),
+  }));
+  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
     label: 'Old WordPress Blog',
-    onCick: () => (window.location.href = 'https://ninedof.wordpress.com/'),
-  });
-  DOM.addChild(leftColumn, wordPressLabel);
+    onClick: () => (window.open('https://ninedof.wordpress.com/', '_blank')),
+  }));
 
   // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
   const archiveHeader = UIComponents.LeftColumnHeader('Archive');

@@ -1,0 +1,76 @@
+{
+  "title": "Dynamic PC Backlight with Raspberry Pi and Blinkt",
+  "fileName": "2016-11-20-Dynamic-PC-Backlight-with-Raspberry-Pi-and-Blinkt.md",
+  "dateTime": "2016-11-20 23:18:44",
+  "tags": [
+    "Integration",
+    "Java",
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "I'm a big fan of <a href=\"https://shop.pimoroni.com/products/blinkt\">Blinkt light hats</a> for Raspberry Pi. I have one showing me server status, rail delays, and weather conditions."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2016/11/20161016_153730.jpg"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2016/11/img_20161117_165458.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "And now I have one as a dynamic backlight for my new PC build."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2016/11/img_20161120_135026.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "And the best part? This last one has an API! It has five modes, powered by a Node.js Express server and the <code>node-blinkt</code> NPM package:"
+    },
+    {
+      "type": "paragraph",
+      "text": " • <code>/set { \"to\": [r, g, b] }</code> - Set a color instantly."
+    },
+    {
+      "type": "paragraph",
+      "text": " • <code>/fade { \"to\": [r, g, b] }</code> - Fade from the current colour to this one."
+    },
+    {
+      "type": "paragraph",
+      "text": " • 'CPU' - Fade to a colour on a HSV scale from green to red depending on current CPU load."
+    },
+    {
+      "type": "paragraph",
+      "text": " • 'Screen' - Take an average of the four screen corners, and set to that colour ten times a second."
+    },
+    {
+      "type": "paragraph",
+      "text": " • 'Demo' - Fade to a random colour from the rainbow every 15 seconds."
+    },
+    {
+      "type": "paragraph",
+      "text": " • 'Test' - Ping the Pi and set the 'Test' button to green if it responds 'OK' and HTTP 200."
+    },
+    {
+      "type": "paragraph",
+      "text": "The last three are driven by a Java control panel that permanently lives on the new PC."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "/assets/import/media/2016/11/controller.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Thanks to the motherboard supplying power after the PC turns off, I can use 'Demo' as a nightlight! Not that I need one..."
+    }
+  ]
+}
