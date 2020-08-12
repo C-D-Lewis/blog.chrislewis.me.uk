@@ -418,7 +418,7 @@ const PostImage = ({ src }) => {
   const img = DOM.create('img', {
     maxWidth: '90%',
     height: 'auto',
-    maxHeight: '400px',
+    maxHeight: '600px',
     borderRadius: '5px',
     overflow: 'hidden',
   }, { src });

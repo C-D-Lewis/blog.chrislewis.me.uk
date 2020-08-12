@@ -158,7 +158,6 @@ const fetchPosts = () => {
           Object.entries(yearData)
             .sort(([month1, month2]) => integerItemSort(month1, month2))
             .forEach(([monthIndex]) => {
-              // FIXME - Months end prematurely
               const monthLabel = UIComponents.LeftColumnItem({
                 label: `${monthName(monthIndex)} ${year}`,
                 onClick: () => showPostsFrom(year, monthIndex),

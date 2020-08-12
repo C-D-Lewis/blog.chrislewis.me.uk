@@ -1,6 +1,8 @@
 # blog
 
-Time to roll my own.
+Time to roll my own. So long, WordPress!
+
+![](assets/screenshot.png)
 
 ## Post format
 
@@ -15,8 +17,6 @@ later converted into JSON objects that can be rendered as components:
 
 * Each paragraph is treated as a block of text (double newline break).
 
-* Each link is converted to an achor.
-
 * Images are converted to `img`.
 
 * Headings are standard header levels with a space beween hash and text.
@@ -27,15 +27,21 @@ later converted into JSON objects that can be rendered as components:
 All posts in `posts` are built using their metadata to create component lists
 that are rendered on the page, and are placed in `rendered`.
 
-The navigation of months per year is built in `tools/buildPosts.js`.
+Existing WordPress import posts are built from `assets/import/posts.json` using
+`tools/importWordpressXml.js`.
+
+The navigation of months per year is built in `tools/buildPosts.js` as
+`assets/history.json`.
 
 ```
-node tools/buildPosts.js
+./build.sh
 ```
 
 After building, opening `index.html` and selecting a year and month will show
 all the posts from `assets/history.json` referring to their rendered components
 which can then be displayed.
+
+The chosen month or post is reflected in the query for permalinking.
 
 
 ## Import from WordPress
@@ -73,3 +79,5 @@ The format of the import is as follows:
 ```
 node tools/createWordpressMarkdown.js
 ```
+
+Then, build as usual.
