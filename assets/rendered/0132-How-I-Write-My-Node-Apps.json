@@ -89,7 +89,7 @@
     },
     {
       "type": "paragraph",
-      "text": "For example, a fictitious module may require an API key to be present in the <code>ENV</code> member of <code>config.json</code>:\n<pre>const config = require('../common/config');\nconfig.requireKeys('fictitious.js', {\n  ENV: {\n    API_KEY: ''\n  }\n});</pre>\nThe way <code>config.js</code> behaves, if this structure is not present in <code>config.json</code>, the app will not start, and will tell the operator (i.e: me!) that the value should be provided. Handy!"
+      "text": "For example, a fictitious module may require an API key to be present in the <code>ENV</code> member of <code>config.json</code>:\n<pre>const config = require('../common/config');\n\nconfig.requireKeys('fictitious.js', {\n  ENV: {\n    API_KEY: ''\n  }\n});</pre>\nThe way <code>config.js</code> behaves, if this structure is not present in <code>config.json</code>, the app will not start, and will tell the operator (i.e: me!) that the value should be provided. Handy!"
     },
     {
       "type": "header",

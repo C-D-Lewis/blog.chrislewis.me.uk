@@ -12,7 +12,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\nstatic void some_layer_update_proc(Layer *layer, GContext *ctx) {\n  // Graphics calls\n}\nstatic void timer_handler(void *context) {\n  // Update frame\n  layer_mark_dirty(some_layer);\n  // Finally schedule next frame\n  app_timer_register(34, timer_handler, NULL);\n}\n...\nstatic void start_animation() {\n  // Schedule first frame to start loop\n  layer_set_update_proc(some_layer, some_layer_update_proc);\n  app_timer_register(34, timer_handler, NULL);\n}\n</div></pre>"
+      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\nstatic void some_layer_update_proc(Layer *layer, GContext *ctx) {\n  // Graphics calls\n\n}\n\nstatic void timer_handler(void *context) {\n  // Update frame\n  layer_mark_dirty(some_layer);\n\n  // Finally schedule next frame\n  app_timer_register(34, timer_handler, NULL);\n}\n\n...\n\nstatic void start_animation() {\n  // Schedule first frame to start loop\n  layer_set_update_proc(some_layer, some_layer_update_proc);\n  app_timer_register(34, timer_handler, NULL);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -24,7 +24,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\n#include \"pge.h\"\nstatic PGE *s_game;\nvoid loop() {\n}\nvoid draw(GContext *ctx) {\n}\nvoid click(int button_id) {\n}\n...\ns_game = pge_begin(s_window, loop, draw, click);\n</div></pre>"
+      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\n#include \"pge.h\"\n\nstatic PGE *s_game;\n\nvoid loop() {\n\n}\n\nvoid draw(GContext *ctx) {\n\n}\n\nvoid click(int button_id) {\n\n}\n\n...\n\ns_game = pge_begin(s_window, loop, draw, click);\n</div></pre>"
     },
     {
       "type": "paragraph",

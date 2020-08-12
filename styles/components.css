@@ -7,7 +7,9 @@ a:hover {
   font-family: monospace;
   background-color: #111;
   color: #ddd;
-  padding: 5px;
+  padding: 10px;
+  padding-top: 0px;
+  border-top: 5px solid rgb(100, 204, 118);
   border-radius: 5px;
 }
 

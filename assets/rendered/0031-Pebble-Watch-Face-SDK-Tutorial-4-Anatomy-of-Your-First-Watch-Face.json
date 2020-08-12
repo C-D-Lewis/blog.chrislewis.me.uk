@@ -102,7 +102,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Define Universally Unique Identifier\n//    88a97cfd-2377-463a-84bd-b85eb4964063\n#define UUID { 0x88, 0xa9, 0x7c, 0xfd, 0x23, 0x77, 0x46, 0x3a, 0x84, 0xbd, 0xb8, 0x5e, 0xb4, 0x96, 0x40, 0x63 }\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n//Define Universally Unique Identifier\n//    88a97cfd-2377-463a-84bd-b85eb4964063\n#define UUID { 0x88, 0xa9, 0x7c, 0xfd, 0x23, 0x77, 0x46, 0x3a, 0x84, 0xbd, 0xb8, 0x5e, 0xb4, 0x96, 0x40, 0x63 }\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -135,7 +135,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Declare structures for watch face elements\nWindow window;\nTextLayer timeLayer;\n//Declare variable for storing time string\nstatic char hourText[] = \"00:00\";\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n//Declare structures for watch face elements\nWindow window;\nTextLayer timeLayer;\n\n//Declare variable for storing time string\nstatic char hourText[] = \"00:00\";\n\n</div></pre>"
     },
     {
       "type": "header",
@@ -160,7 +160,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Watch face initialisation handle function\n*/\nvoid handle_init(AppContextRef ctx) {\n(void)ctx;    //This is not needed. Convert to void (nothing)\n//Initialise window\nwindow_init(&window, \"Window Name\");\nwindow_stack_push(&window, true);\nwindow_set_background_color(&window, GColorBlack);\n//Initialise TextLayers\ntext_layer_init(&timeLayer, GRect(30, 30, 150, 50));\ntext_layer_set_background_color(&timeLayer, GColorClear);\ntext_layer_set_text_color(&timeLayer, GColorWhite);\ntext_layer_set_font(&timeLayer,\nfonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));\ntext_layer_set_text_alignment(&timeLayer, GTextAlignmentLeft);\n//Add to window\nlayer_add_child(&window.layer, &timeLayer.layer);\n//Set initial time so display isn't blank\nPblTm time;\nget_time(&time);\nsetTime(&time);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n/**\n* Watch face initialisation handle function\n*/\nvoid handle_init(AppContextRef ctx) {\n(void)ctx;    //This is not needed. Convert to void (nothing)\n\n//Initialise window\nwindow_init(&window, \"Window Name\");\nwindow_stack_push(&window, true);\nwindow_set_background_color(&window, GColorBlack);\n\n//Initialise TextLayers\ntext_layer_init(&timeLayer, GRect(30, 30, 150, 50));\ntext_layer_set_background_color(&timeLayer, GColorClear);\ntext_layer_set_text_color(&timeLayer, GColorWhite);\ntext_layer_set_font(&timeLayer,\nfonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));\ntext_layer_set_text_alignment(&timeLayer, GTextAlignmentLeft);\n\n//Add to window\nlayer_add_child(&window.layer, &timeLayer.layer);\n\n//Set initial time so display isn't blank\nPblTm time;\nget_time(&time);\nsetTime(&time);\n}\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -168,7 +168,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Handle function called every second\n*/\nvoid handle_second_tick(AppContextRef ctx, PebbleTickEvent *t) {\n(void)ctx;\nPblTm time;    //Structure to store time info\nget_time(&time);    //Fill the structure with current time\nint seconds = time.tm_sec;    //Get the current number of seconds\nif(seconds == 0)\nsetTime(t->tick_time);    //Change the time on the 'zero seconds' mark\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n/**\n* Handle function called every second\n*/\nvoid handle_second_tick(AppContextRef ctx, PebbleTickEvent *t) {\n(void)ctx;\n\nPblTm time;    //Structure to store time info\nget_time(&time);    //Fill the structure with current time\n\nint seconds = time.tm_sec;    //Get the current number of seconds\n\nif(seconds == 0)\nsetTime(t->tick_time);    //Change the time on the 'zero seconds' mark\n}\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -176,7 +176,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Main Pebble app loop\n*/\nvoid pbl_main(void *params) {\nPebbleAppHandlers handlers = {\n.init_handler = &handle_init,    //Register initialisation function\n.tick_info = {\n.tick_handler = &handle_second_tick,    //Register tick function\n.tick_units = SECOND_UNIT    //Specify to call every minute\n}\n};\napp_event_loop(params, &handlers);    //Continue from there!\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n/**\n* Main Pebble app loop\n*/\nvoid pbl_main(void *params) {\nPebbleAppHandlers handlers = {\n.init_handler = &handle_init,    //Register initialisation function\n\n.tick_info = {\n.tick_handler = &handle_second_tick,    //Register tick function\n.tick_units = SECOND_UNIT    //Specify to call every minute\n}\n};\napp_event_loop(params, &handlers);    //Continue from there!\n}\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -217,7 +217,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Function to set the time and date features on the TextLayers\n*/\nvoid setTime(PblTm *t) {\n//If user selects '24hr' in Settings on the watch\nif(clock_is_24h_style())\nstring_format_time(hourText, sizeof(hourText), \"%H:%M\", t);\nelse\nstring_format_time(hourText, sizeof(hourText), \"%I:%M\", t);\n//Set the TextLayer text\ntext_layer_set_text(&timeLayer, hourText);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n/**\n* Function to set the time and date features on the TextLayers\n*/\nvoid setTime(PblTm *t) {\n\n//If user selects '24hr' in Settings on the watch\nif(clock_is_24h_style())\nstring_format_time(hourText, sizeof(hourText), \"%H:%M\", t);\nelse\nstring_format_time(hourText, sizeof(hourText), \"%I:%M\", t);\n\n//Set the TextLayer text\ntext_layer_set_text(&timeLayer, hourText);\n}\n\n</div></pre>"
     },
     {
       "type": "header",
@@ -230,7 +230,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Handle function called every minute\n*/\nvoid handle_minute_tick(AppContextRef ctx, PebbleTickEvent *t) {\n(void)ctx;\nPblTm time;    //Structure to store time info\nget_time(&time);    //Fill the structure with current time\nsetTime(t->tick_time);    //Change time on 'zero seconds' mark\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n/**\n* Handle function called every minute\n*/\nvoid handle_minute_tick(AppContextRef ctx, PebbleTickEvent *t) {\n(void)ctx;\n\nPblTm time;    //Structure to store time info\nget_time(&time);    //Fill the structure with current time\nsetTime(t->tick_time);    //Change time on 'zero seconds' mark\n}\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -246,7 +246,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n/**\n* Main Pebble app loop\n*/\nvoid pbl_main(void *params) {\nPebbleAppHandlers handlers = {\n.init_handler = &handle_init,    //Register initialisation function\n.tick_info = {\n.tick_handler = &handle_minute_tick,    //Register tick function\n.tick_units = MINUTE_UNIT    //Specify to call every minute\n}\n};\napp_event_loop(params, &handlers);    //Continue from there!\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n/**\n* Main Pebble app loop\n*/\nvoid pbl_main(void *params) {\nPebbleAppHandlers handlers = {\n.init_handler = &handle_init,    //Register initialisation function\n\n.tick_info = {\n.tick_handler = &handle_minute_tick,    //Register tick function\n.tick_units = MINUTE_UNIT    //Specify to call every minute\n}\n};\napp_event_loop(params, &handlers);    //Continue from there!\n}\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -267,7 +267,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Set app info\nPBL_APP_INFO(UUID, \"First Watch Face\", \"Chris Lewis\", 0, 1, DEFAULT_MENU_ICON, APP_INFO_WATCH_FACE);\n//UUID, app name, author, minor version, major version,\n//use default icon, tell compiler this is a face\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n\n//Set app info\nPBL_APP_INFO(UUID, \"First Watch Face\", \"Chris Lewis\", 0, 1, DEFAULT_MENU_ICON, APP_INFO_WATCH_FACE);\n\n//UUID, app name, author, minor version, major version,\n//use default icon, tell compiler this is a face\n\n</div></pre>"
     },
     {
       "type": "paragraph",

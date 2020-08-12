@@ -50,7 +50,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid on_animation_stopped(Animation *anim, bool finished, void *context)\n{\n  //Free the memory used by the Animation\n  property_animation_destroy((PropertyAnimation*) anim);\n}\nvoid animate_layer(Layer *layer, GRect *start, GRect *finish, int duration, int delay)\n{\n  //Declare animation\n  PropertyAnimation *anim = property_animation_create_layer_frame(layer, start, finish);\n  //Set characteristics\n  animation_set_duration((Animation*) anim, duration);\n  animation_set_delay((Animation*) anim, delay);\n  //Set stopped handler to free memory\n  AnimationHandlers handlers = {\n    //The reference to the stopped handler is the only one in the array\n    .stopped = (AnimationStoppedHandler) on_animation_stopped\n  };\n  animation_set_handlers((Animation*) anim, handlers, NULL);\n  //Start animation!\n  animation_schedule((Animation*) anim);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid on_animation_stopped(Animation *anim, bool finished, void *context)\n{\n  //Free the memory used by the Animation\n  property_animation_destroy((PropertyAnimation*) anim);\n}\n\nvoid animate_layer(Layer *layer, GRect *start, GRect *finish, int duration, int delay)\n{\n  //Declare animation\n  PropertyAnimation *anim = property_animation_create_layer_frame(layer, start, finish);\n\n  //Set characteristics\n  animation_set_duration((Animation*) anim, duration);\n  animation_set_delay((Animation*) anim, delay);\n\n  //Set stopped handler to free memory\n  AnimationHandlers handlers = {\n    //The reference to the stopped handler is the only one in the array\n    .stopped = (AnimationStoppedHandler) on_animation_stopped\n  };\n  animation_set_handlers((Animation*) anim, handlers, NULL);\n\n  //Start animation!\n  animation_schedule((Animation*) anim);\n}\n</div></pre>"
     },
     {
       "type": "header",
@@ -67,7 +67,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid tick_handler(struct tm *tick_time, TimeUnits units_changed)\n{\n  //Format the buffer string using tick_time as the time source\n  strftime(buffer, sizeof(\"00:00\"), \"%H:%M\", tick_time);\n  int seconds = tick_time->tm_sec;\n  if(seconds == 59)\n  {\n    //Slide offscreen to the right\n    GRect start = GRect(0, 53, 144, 168);\n    GRect finish = GRect(144, 53, 144, 168);\n    animate_layer(text_layer_get_layer(text_layer), &start, &finish, 300, 500);\n  }\n  else if(seconds == 0)\n  {\n    //Change the TextLayer text to show the new time!\n    text_layer_set_text(text_layer, buffer);\n    //Slide onscreen from the left\n    GRect start = GRect(-144, 53, 144, 168);\n    GRect finish = GRect(0, 53, 144, 168);\n    animate_layer(text_layer_get_layer(text_layer), &start, &finish, 300, 500);\n  }\n  else\n  {\n    //Change the TextLayer text to show the new time!\n    text_layer_set_text(text_layer, buffer);\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid tick_handler(struct tm *tick_time, TimeUnits units_changed)\n{\n  //Format the buffer string using tick_time as the time source\n  strftime(buffer, sizeof(\"00:00\"), \"%H:%M\", tick_time);\n\n  int seconds = tick_time->tm_sec;\n\n  if(seconds == 59)\n  {\n    //Slide offscreen to the right\n    GRect start = GRect(0, 53, 144, 168);\n    GRect finish = GRect(144, 53, 144, 168);\n    animate_layer(text_layer_get_layer(text_layer), &start, &finish, 300, 500);\n  }\n\n  else if(seconds == 0)\n  {\n    //Change the TextLayer text to show the new time!\n    text_layer_set_text(text_layer, buffer);\n\n    //Slide onscreen from the left\n    GRect start = GRect(-144, 53, 144, 168);\n    GRect finish = GRect(0, 53, 144, 168);\n    animate_layer(text_layer_get_layer(text_layer), &start, &finish, 300, 500);\n  }\n\n  else\n  {\n    //Change the TextLayer text to show the new time!\n    text_layer_set_text(text_layer, buffer);\n  }\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -104,7 +104,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid timer_callback(void *data) {\n  //Get current position\n  GRect current = layer_get_frame(text_layer_get_layer(square_layer));\n  //Check to see if we have hit the edges\n  if(current.origin.x > 144 - square_size)\n  {\n    dx = -1;  //Reverse\n  }\n  else if(current.origin.x < 0)\n  {\n    dx = 1;  //Forwards\n  }\n  //Move the square to the next position, modifying the x value\n  GRect next = GRect(current.origin.x + dx, current.origin.y, square_size, square_size);\n  layer_set_frame(text_layer_get_layer(square_layer), next);\n  //Register next execution\n  timer = app_timer_register(delta, (AppTimerCallback) timer_callback, NULL);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid timer_callback(void *data) {\n  //Get current position\n  GRect current = layer_get_frame(text_layer_get_layer(square_layer));\n\n  //Check to see if we have hit the edges\n  if(current.origin.x > 144 - square_size)\n  {\n    dx = -1;  //Reverse\n  }\n  else if(current.origin.x < 0)\n  {\n    dx = 1;  //Forwards\n  }\n\n  //Move the square to the next position, modifying the x value\n  GRect next = GRect(current.origin.x + dx, current.origin.y, square_size, square_size);\n  layer_set_frame(text_layer_get_layer(square_layer), next);\n\n  //Register next execution\n  timer = app_timer_register(delta, (AppTimerCallback) timer_callback, NULL);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -128,7 +128,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Cancel timer\napp_timer_cancel(timer);\n//Destroy square layer\ntext_layer_destroy(square_layer);\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Cancel timer\napp_timer_cancel(timer);\n\n//Destroy square layer\ntext_layer_destroy(square_layer);\n</div></pre>"
     },
     {
       "type": "paragraph",

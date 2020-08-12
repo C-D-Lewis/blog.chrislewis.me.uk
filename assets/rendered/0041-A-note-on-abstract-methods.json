@@ -16,7 +16,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\n/**\n  * Implement this to act on data received\n  * @param data String containing the data received from the remote python host\n  */\n  public abstract void onReceive(String data);\n</div></pre>"
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\n\n/**\n  * Implement this to act on data received\n  * @param data String containing the data received from the remote python host\n  */\n  public abstract void onReceive(String data);\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -24,7 +24,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\nPythonConnection pyCon = new PythonConnection() {\n      @Override\n      public void onReceive(String data) {\n        //Put code to use the 'data' String here!\n        //Update UI, send a response etc...\n      }\n    };\n</div></pre>"
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\n\nPythonConnection pyCon = new PythonConnection() {\n\n      @Override\n      public void onReceive(String data) {\n        //Put code to use the 'data' String here!\n        //Update UI, send a response etc...\n\n      }\n    };\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -32,7 +32,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\n/**\n  * Start the receiving thread that will call onReceive() when it has data\n  */\n  private void startListening() {\n    receiveThread = new Thread(new Runnable() {\n      @Override\n      public void run() {\n        listening = true;\n        System.out.println(\"Ready to receive.\");\n        while(listening) {\n          try {\n            String packet = fromPython.readLine();\n            if(packet != null) {\n              onReceive(packet);\n            }\n          } catch (IOException e) {\n            e.printStackTrace();\n          }\n        }\n      }\n    });\n    receiveThread.start();\n  }\n</div></pre>"
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\n\n/**\n  * Start the receiving thread that will call onReceive() when it has data\n  */\n  private void startListening() {\n\n    receiveThread = new Thread(new Runnable() {\n\n      @Override\n      public void run() {\n        listening = true;\n        System.out.println(\"Ready to receive.\");\n\n        while(listening) {\n          try {\n            String packet = fromPython.readLine();\n            if(packet != null) {\n              onReceive(packet);\n            }\n          } catch (IOException e) {\n            e.printStackTrace();\n          }\n        }\n      }\n    });\n\n    receiveThread.start();\n  }\n\n</div></pre>"
     },
     {
       "type": "paragraph",

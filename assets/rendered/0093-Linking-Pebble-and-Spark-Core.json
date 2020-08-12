@@ -64,7 +64,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n#define KEY_TOGGLE 0\nstatic Window *window;\nstatic TextLayer *text_layer;\nstatic void select_click_handler(ClickRecognizerRef recognizer, void *context) \n{\n  text_layer_set_text(text_layer, \"Select\");\n}\nstatic void click_config_provider(void *context) \n{\n  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);\n}\nstatic void window_load(Window *window) \n{\n  //Create TextLayer\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_text(text_layer, \"Press SELECT to toggle Spark pin D0\");\n  text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n}\nstatic void window_unload(Window *window) \n{\n  //Destroy TextLayer\n  text_layer_destroy(text_layer);\n}\nstatic void init(void) \n{\n  //Create Window\n  window = window_create();\n  window_set_click_config_provider(window, click_config_provider);\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n  window_stack_push(window, true);\n}\nstatic void deinit(void) \n{\n  //Destroy Window\n  window_destroy(window);\n}\nint main(void) \n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n\n#define KEY_TOGGLE 0\n\nstatic Window *window;\nstatic TextLayer *text_layer;\n\nstatic void select_click_handler(ClickRecognizerRef recognizer, void *context) \n{\n  text_layer_set_text(text_layer, \"Select\");\n}\n\nstatic void click_config_provider(void *context) \n{\n  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);\n}\n\nstatic void window_load(Window *window) \n{\n  //Create TextLayer\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_text(text_layer, \"Press SELECT to toggle Spark pin D0\");\n  text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n}\n\nstatic void window_unload(Window *window) \n{\n  //Destroy TextLayer\n  text_layer_destroy(text_layer);\n}\n\nstatic void init(void) \n{\n  //Create Window\n  window = window_create();\n  window_set_click_config_provider(window, click_config_provider);\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n  window_stack_push(window, true);\n}\n\nstatic void deinit(void) \n{\n  //Destroy Window\n  window_destroy(window);\n}\n\nint main(void) \n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -105,7 +105,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar deviceId = \"\";\nvar accessToken = \"\";\nPebble.addEventListener(\"ready\",\n    function(e) {\n        console.log(\"Pebble JS Ready!\");\n    }\n);\nPebble.addEventListener(\"appmessage\",\n  function(dict) {\n    console.log(\"AppMessage received!\");\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar deviceId = \"\";\nvar accessToken = \"\";\n\nPebble.addEventListener(\"ready\",\n    function(e) {\n        console.log(\"Pebble JS Ready!\");\n    }\n);\n\nPebble.addEventListener(\"appmessage\",\n  function(dict) {\n    console.log(\"AppMessage received!\");\n  }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -121,7 +121,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar importjQuery = function() {\n  var script = document.createElement('script');\n  script.src = 'http://code.jquery.com/jquery-latest.min.js';\n  script.type = 'text/javascript';\n  document.getElementsByTagName('head')[0].appendChild(script);\n};\nPebble.addEventListener(\"ready\",\n    function(e) {\n        importjQuery();\n        console.log(\"Pebble JS Ready!\");\n    }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar importjQuery = function() {\n  var script = document.createElement('script');\n  script.src = 'http://code.jquery.com/jquery-latest.min.js';\n  script.type = 'text/javascript';\n  document.getElementsByTagName('head')[0].appendChild(script);\n};\n\nPebble.addEventListener(\"ready\",\n    function(e) {\n        importjQuery();\n        console.log(\"Pebble JS Ready!\");\n    }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -153,7 +153,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar url = \"https://api.spark.io/v1/devices/\" + deviceId + \"/toggle?access_token=\" + accessToken;\n//Send with jQuery\n$.ajax({\n  type: \"POST\",\n  url: url,\n  data: {\"args\":\"none\"},  //No args for the moment\n  success: function() {\n    console.log(\"POST successful!\");\n  },\n  dataType: \"json\"\n});\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar url = \"https://api.spark.io/v1/devices/\" + deviceId + \"/toggle?access_token=\" + accessToken;\n\n//Send with jQuery\n$.ajax({\n  type: \"POST\",\n  url: url,\n  data: {\"args\":\"none\"},  //No args for the moment\n  success: function() {\n    console.log(\"POST successful!\");\n  },\n  dataType: \"json\"\n});\n</div></pre>"
     },
     {
       "type": "header",
@@ -171,7 +171,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nbool is_high = false;\nint toggle(String args)\n{\n    if(is_high == true)\n    {\n        digitalWrite(D0, LOW);\n        is_high = false;\n    }\n    else\n    {\n        digitalWrite(D0, HIGH);\n        is_high = true;\n    }\n    \n    return 0;\n}\nvoid setup() {\n    pinMode(D0, OUTPUT);\n    Spark.function(\"toggle\", toggle);\n}\nvoid loop() {\n    //Nothing here\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nbool is_high = false;\n\nint toggle(String args)\n{\n    if(is_high == true)\n    {\n        digitalWrite(D0, LOW);\n        is_high = false;\n    }\n    else\n    {\n        digitalWrite(D0, HIGH);\n        is_high = true;\n    }\n    \n    return 0;\n}\n\nvoid setup() {\n    pinMode(D0, OUTPUT);\n    Spark.function(\"toggle\", toggle);\n}\n\nvoid loop() {\n    //Nothing here\n}\n</div></pre>"
     },
     {
       "type": "paragraph",

@@ -36,7 +36,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n#define KEY_BUTTON_STATE 0\nstatic Window *window;\nstatic TextLayer *text_layer;\nstatic void window_load(Window *window) \n{\n  //Create TextLayer\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_text(text_layer, \"Press button on Core pin D0\");\n  text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n}\nstatic void window_unload(Window *window) \n{\n  //Destroy TextLayer\n  text_layer_destroy(text_layer);\n}\nstatic void init(void) \n{\n  //Create Window\n  window = window_create();\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n  //Prepare AppMessage\n  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());\n  window_stack_push(window, true);\n}\nstatic void deinit(void) \n{\n  //Destroy Window\n  window_destroy(window);\n}\nint main(void) \n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n\n#define KEY_BUTTON_STATE 0\n\nstatic Window *window;\nstatic TextLayer *text_layer;\n\nstatic void window_load(Window *window) \n{\n  //Create TextLayer\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_text(text_layer, \"Press button on Core pin D0\");\n  text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n}\n\nstatic void window_unload(Window *window) \n{\n  //Destroy TextLayer\n  text_layer_destroy(text_layer);\n}\n\nstatic void init(void) \n{\n  //Create Window\n  window = window_create();\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n\n  //Prepare AppMessage\n  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());\n\n  window_stack_push(window, true);\n}\n\nstatic void deinit(void) \n{\n  //Destroy Window\n  window_destroy(window);\n}\n\nint main(void) \n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -56,7 +56,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void in_recv_handler(DictionaryIterator *iterator, void *context)\n{\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void in_recv_handler(DictionaryIterator *iterator, void *context)\n{\n\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -64,7 +64,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void in_recv_handler(DictionaryIterator *iterator, void *context)\n{\n  //Get first tuple (should be KEY_BUTTON_STATE)\n  Tuple *t = dict_read_first(iterator);\n  //If it's there\n  if(t)\n  {\n    if(strcmp(\"HIGH\", t->value->cstring) == 0)\n    {\n      vibes_short_pulse();\n    }\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void in_recv_handler(DictionaryIterator *iterator, void *context)\n{\n  //Get first tuple (should be KEY_BUTTON_STATE)\n  Tuple *t = dict_read_first(iterator);\n\n  //If it's there\n  if(t)\n  {\n    if(strcmp(\"HIGH\", t->value->cstring) == 0)\n    {\n      vibes_short_pulse();\n    }\n  }\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -81,7 +81,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"ready\",\n  function(e) {\n    //Register EventSource listener\n    var core = new EventSource(\"https://api.spark.io/v1/events/?access_token=\" + accessToken);\n    core.addEventListener(\"button_state\", \n      function(response) {\n        \n      }, \n      false\n    );\n    console.log(\"Pebble JS Ready!\");\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"ready\",\n  function(e) {\n    //Register EventSource listener\n    var core = new EventSource(\"https://api.spark.io/v1/events/?access_token=\" + accessToken);\n    core.addEventListener(\"button_state\", \n      function(response) {\n        \n      }, \n      false\n    );\n\n    console.log(\"Pebble JS Ready!\");\n  }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -93,7 +93,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\ncore.addEventListener(\"button_state\", \n  function(response) {\n    //Interpret response as JSON\n    var json = JSON.parse(response.data);\n    console.log(\"Payload is '\" + json.data + \"'\");\n    //Send the payload\n    Pebble.sendAppMessage(\n      {\"KEY_BUTTON_STATE\":json.data},\n      function(e) {\n        console.log(\"Sent '\" + json.data + \"' to Pebble.\");\n      },\n      function(e) {\n        console.log(\"Failed to send data to Pebble!\");\n      }\n    );\n  }, \n  false\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\ncore.addEventListener(\"button_state\", \n  function(response) {\n    //Interpret response as JSON\n    var json = JSON.parse(response.data);\n\n    console.log(\"Payload is '\" + json.data + \"'\");\n\n    //Send the payload\n    Pebble.sendAppMessage(\n      {\"KEY_BUTTON_STATE\":json.data},\n      function(e) {\n        console.log(\"Sent '\" + json.data + \"' to Pebble.\");\n      },\n      function(e) {\n        console.log(\"Failed to send data to Pebble!\");\n      }\n    );\n  }, \n  false\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -114,7 +114,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic bool pressed = false;\nvoid setup() {\n    pinMode(D0, INPUT);\n}\nvoid loop() {\n    //Publish button state\n    if(digitalRead(D0) == HIGH && pressed == false)\n    {\n        Spark.publish(\"button_state\", \"HIGH\");\n        pressed = true;\n        \n        //Rate limit to prevent spamming the cloud\n        delay(500);\n    }\n    else if(digitalRead(D0) == LOW && pressed == true)\n    {\n        Spark.publish(\"button_state\", \"LOW\");\n        pressed = false;\n    }\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic bool pressed = false;\n\nvoid setup() {\n    pinMode(D0, INPUT);\n}\n\nvoid loop() {\n    //Publish button state\n    if(digitalRead(D0) == HIGH && pressed == false)\n    {\n        Spark.publish(\"button_state\", \"HIGH\");\n        pressed = true;\n        \n        //Rate limit to prevent spamming the cloud\n        delay(500);\n    }\n    else if(digitalRead(D0) == LOW && pressed == true)\n    {\n        Spark.publish(\"button_state\", \"LOW\");\n        pressed = false;\n    }\n}\n</div></pre>"
     },
     {
       "type": "paragraph",

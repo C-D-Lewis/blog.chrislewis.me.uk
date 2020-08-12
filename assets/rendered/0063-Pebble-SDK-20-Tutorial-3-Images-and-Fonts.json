@@ -75,7 +75,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Load bitmaps into GBitmap structures\n//The ID you chose when uploading is prefixed with 'RESOURCE_ID_'\nfuture_bitmap = gbitmap_create_with_resource(RESOURCE_ID_FUTURE);\npast_bitmap = gbitmap_create_with_resource(RESOURCE_ID_PAST);\n//Create BitmapLayers to show GBitmaps and add to Window\n//Sample images are 144 x 50 pixels\nfuture_layer = bitmap_layer_create(GRect(0, 0, 144, 50));\nbitmap_layer_set_bitmap(future_layer, future_bitmap);\nlayer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(future_layer));\npast_layer = bitmap_layer_create(GRect(0, 112, 144, 50));\nbitmap_layer_set_bitmap(past_layer, past_bitmap);\nlayer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(past_layer));\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Load bitmaps into GBitmap structures\n//The ID you chose when uploading is prefixed with 'RESOURCE_ID_'\nfuture_bitmap = gbitmap_create_with_resource(RESOURCE_ID_FUTURE);\npast_bitmap = gbitmap_create_with_resource(RESOURCE_ID_PAST);\n\n//Create BitmapLayers to show GBitmaps and add to Window\n//Sample images are 144 x 50 pixels\nfuture_layer = bitmap_layer_create(GRect(0, 0, 144, 50));\nbitmap_layer_set_bitmap(future_layer, future_bitmap);\nlayer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(future_layer));\n\npast_layer = bitmap_layer_create(GRect(0, 112, 144, 50));\nbitmap_layer_set_bitmap(past_layer, past_bitmap);\nlayer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(past_layer));\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -83,7 +83,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Destroy GBitmaps\ngbitmap_destroy(future_bitmap);\ngbitmap_destroy(past_bitmap);\n//Destroy BitmapLayers\nbitmap_layer_destroy(future_layer);\nbitmap_layer_destroy(past_layer);\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Destroy GBitmaps\ngbitmap_destroy(future_bitmap);\ngbitmap_destroy(past_bitmap);\n\n//Destroy BitmapLayers\nbitmap_layer_destroy(future_layer);\nbitmap_layer_destroy(past_layer);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -116,7 +116,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\ntext_layer = text_layer_create(GRect(0, 53, 144, 168));\n...\ntext_layer_set_font(text_layer, fonts_load_custom_font(font_handle));\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\ntext_layer = text_layer_create(GRect(0, 53, 144, 168));\n\n...\n\ntext_layer_set_font(text_layer, fonts_load_custom_font(font_handle));\n</div></pre>"
     },
     {
       "type": "paragraph",

@@ -29,7 +29,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid flash(int pin)\n{\n  digitalWrite(pin, HIGH);\n  delay(50);\n  digitalWrite(pin, LOW);\n  delay(50);\n}\nvoid setup()\n{\n  Serial.begin(9600);\n  pinMode(13, OUTPUT);\n}\nvoid loop()\n{\n  Serial.print('1');\n  flash(13);\n  delay(1000);\n  Serial.print('2');\n  flash(13);\n  delay(1000);\n  Serial.print('3');\n  flash(13);\n  delay(1000);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid flash(int pin)\n{\n  digitalWrite(pin, HIGH);\n  delay(50);\n  digitalWrite(pin, LOW);\n  delay(50);\n}\n\nvoid setup()\n{\n  Serial.begin(9600);\n  pinMode(13, OUTPUT);\n}\n\nvoid loop()\n{\n  Serial.print('1');\n  flash(13);\n  delay(1000);\n  Serial.print('2');\n  flash(13);\n  delay(1000);\n  Serial.print('3');\n  flash(13);\n  delay(1000);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -37,7 +37,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nint output_led = D0;\nint onboard_led = D7;\nvoid flash(int pin);\nvoid setup()\n{\n    Serial1.begin(9600);\n    pinMode(output_led, OUTPUT);\n    pinMode(onboard_led, OUTPUT);\n}\nvoid loop()\n{\n    if(Serial1.available() > 0)\n    {\n        flash(onboard_led);\n        char c = (char)Serial1.read();\n        switch(c) {\n            case '1':\n            {\n                flash(output_led);\n                break;\n            }\n            case '2':\n            {\n                flash(output_led);\n                flash(output_led);\n                break;\n            }\n            case '3':\n            {\n                flash(output_led);\n                flash(output_led);\n                flash(output_led);\n            }\n        }\n    }\n}\nvoid flash(int pin)\n{\n    digitalWrite(pin, HIGH);\n    delay(50);\n    digitalWrite(pin, LOW);\n    delay(50);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nint output_led = D0;\nint onboard_led = D7;\n\nvoid flash(int pin);\n\nvoid setup()\n{\n    Serial1.begin(9600);\n    pinMode(output_led, OUTPUT);\n    pinMode(onboard_led, OUTPUT);\n}\n\nvoid loop()\n{\n    if(Serial1.available() > 0)\n    {\n        flash(onboard_led);\n\n        char c = (char)Serial1.read();\n\n        switch(c) {\n            case '1':\n            {\n                flash(output_led);\n                break;\n            }\n            case '2':\n            {\n                flash(output_led);\n                flash(output_led);\n                break;\n            }\n            case '3':\n            {\n                flash(output_led);\n                flash(output_led);\n                flash(output_led);\n            }\n        }\n    }\n}\n\nvoid flash(int pin)\n{\n    digitalWrite(pin, HIGH);\n    delay(50);\n    digitalWrite(pin, LOW);\n    delay(50);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",

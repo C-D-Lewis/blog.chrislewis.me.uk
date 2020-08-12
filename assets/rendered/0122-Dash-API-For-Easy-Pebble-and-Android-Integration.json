@@ -58,7 +58,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble-dash-api/pebble-dash-api.h>;\n#include <pebble-events/pebble-events.h>\n#define APP_NAME \"My App\"\nstatic void error_callback(ErrorCode code) {\n  // Receive error codes here\n}\nstatic void init() {\n  dash_api_init(APP_NAME, error_callback);\n  events_app_message_open();\n  /* Other init code */\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble-dash-api/pebble-dash-api.h>;\n#include <pebble-events/pebble-events.h>\n\n#define APP_NAME \"My App\"\n\nstatic void error_callback(ErrorCode code) {\n  // Receive error codes here\n}\n\nstatic void init() {\n  dash_api_init(APP_NAME, error_callback);\n  events_app_message_open();\n\n  /* Other init code */\n}\n</div></pre>"
     },
     {
       "type": "paragraph",

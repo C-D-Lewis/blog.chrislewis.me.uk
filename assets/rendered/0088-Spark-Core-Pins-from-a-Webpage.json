@@ -26,7 +26,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n//Send the request to the Core\nvar sendRequest = function(pin, on, device_id, access_token) {\n  var url;\n  if(on) {\n    url = \"https://api.spark.io/v1/devices/\" + device_id + \"/on?access_token=\" + access_token;\n  } else {\n    url = \"https://api.spark.io/v1/devices/\" + device_id + \"/off?access_token=\" + access_token;\n  }\n  console.log(\"jQuery AJAX: Requesting pin \" + pin + \" \" + (on == true ? \"on\" : \"off\") + \"...\");\n  //Send request using jQuert AJAX\n  $.ajax({\n    type: \"POST\",\n    url: url,\n    data: {\"args\":pin},\n    success: success,\n    dataType: \"json\"\n  });\n};\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n//Send the request to the Core\nvar sendRequest = function(pin, on, device_id, access_token) {\n  var url;\n  if(on) {\n    url = \"https://api.spark.io/v1/devices/\" + device_id + \"/on?access_token=\" + access_token;\n  } else {\n    url = \"https://api.spark.io/v1/devices/\" + device_id + \"/off?access_token=\" + access_token;\n  }\n\n  console.log(\"jQuery AJAX: Requesting pin \" + pin + \" \" + (on == true ? \"on\" : \"off\") + \"...\");\n\n  //Send request using jQuert AJAX\n  $.ajax({\n    type: \"POST\",\n    url: url,\n    data: {\"args\":pin},\n    success: success,\n    dataType: \"json\"\n  });\n};\n</div></pre>"
     },
     {
       "type": "paragraph",

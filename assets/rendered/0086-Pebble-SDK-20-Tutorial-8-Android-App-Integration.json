@@ -59,7 +59,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\nstatic Window *window;\nstatic TextLayer *text_layer;\nstatic void select_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Select\");\n}\nstatic void up_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Up\");\n}\nstatic void down_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Down\");\n}\nstatic void click_config_provider(void *context) {\n  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);\n  window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);\n  window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);\n}\nstatic void window_load(Window *window) {\n  Layer *window_layer = window_get_root_layer(window);\n  GRect bounds = layer_get_bounds(window_layer);\n  text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 20 } });\n  text_layer_set_text(text_layer, \"Press a button\");\n  text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);\n  layer_add_child(window_layer, text_layer_get_layer(text_layer));\n}\nstatic void window_unload(Window *window) {\n  text_layer_destroy(text_layer);\n}\nstatic void init(void) {\n  window = window_create();\n  window_set_click_config_provider(window, click_config_provider);\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n  const bool animated = true;\n  window_stack_push(window, animated);\n}\nstatic void deinit(void) {\n  window_destroy(window);\n}\nint main(void) {\n  init();\n  APP_LOG(APP_LOG_LEVEL_DEBUG, \"Done initializing, pushed window: %p\", window);\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n\nstatic Window *window;\nstatic TextLayer *text_layer;\n\nstatic void select_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Select\");\n}\n\nstatic void up_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Up\");\n}\n\nstatic void down_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Down\");\n}\n\nstatic void click_config_provider(void *context) {\n  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);\n  window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);\n  window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);\n}\n\nstatic void window_load(Window *window) {\n  Layer *window_layer = window_get_root_layer(window);\n  GRect bounds = layer_get_bounds(window_layer);\n\n  text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 20 } });\n  text_layer_set_text(text_layer, \"Press a button\");\n  text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);\n  layer_add_child(window_layer, text_layer_get_layer(text_layer));\n}\n\nstatic void window_unload(Window *window) {\n  text_layer_destroy(text_layer);\n}\n\nstatic void init(void) {\n  window = window_create();\n  window_set_click_config_provider(window, click_config_provider);\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n  const bool animated = true;\n  window_stack_push(window, animated);\n}\n\nstatic void deinit(void) {\n  window_destroy(window);\n}\n\nint main(void) {\n  init();\n\n  APP_LOG(APP_LOG_LEVEL_DEBUG, \"Done initializing, pushed window: %p\", window);\n\n  app_event_loop();\n  deinit();\n}\n\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -103,7 +103,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void select_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Select\");\n  send_int(KEY_BUTTON_EVENT, BUTTON_EVENT_SELECT);\n}\nstatic void up_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Up\");\n  send_int(KEY_BUTTON_EVENT, BUTTON_EVENT_UP);\n}\nstatic void down_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Down\");\n  send_int(KEY_BUTTON_EVENT, BUTTON_EVENT_DOWN);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void select_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Select\");\n  send_int(KEY_BUTTON_EVENT, BUTTON_EVENT_SELECT);\n}\n\nstatic void up_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Up\");\n  send_int(KEY_BUTTON_EVENT, BUTTON_EVENT_UP);\n}\n\nstatic void down_click_handler(ClickRecognizerRef recognizer, void *context) {\n  text_layer_set_text(text_layer, \"Down\");\n  send_int(KEY_BUTTON_EVENT, BUTTON_EVENT_DOWN);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -120,7 +120,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\npackage com.wordpress.ninedof.pebblesdk2part8;\nimport android.app.Activity;\nimport android.os.Bundle;\npublic class MainActivity extends Activity {\n  @Override\n  protected void onCreate(Bundle savedInstanceState) {\n    super.onCreate(savedInstanceState);\n    setContentView(R.layout.activity_main);\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\npackage com.wordpress.ninedof.pebblesdk2part8;\n\nimport android.app.Activity;\nimport android.os.Bundle;\n\npublic class MainActivity extends Activity {\n\n  @Override\n  protected void onCreate(Bundle savedInstanceState) {\n    super.onCreate(savedInstanceState);\n    setContentView(R.layout.activity_main);\n  }\n\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -132,7 +132,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\nprivate PebbleDataReceiver mReceiver;\n... onCreate() here ...\n@Override\nprotected void onResume() {\n  super.onResume();\n  mReceiver = new PebbleDataReceiver(UUID.fromString(\"2fc99a5d-ee35-4057-aa9b-0d4dd8e35ef5\")) {\n    @Override\n    public void receiveData(Context context, int transactionId, PebbleDictionary data) {\n      \n    }\n  };\n  PebbleKit.registerReceivedDataHandler(this, mReceiver);\n}\n@Override\nprotected void onPause() {\n  super.onPause();\n  \n  unregisterReceiver(mReceiver);\n}\n</div></pre>"
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\nprivate PebbleDataReceiver mReceiver;\n\n... onCreate() here ...\n\n@Override\nprotected void onResume() {\n  super.onResume();\n\n  mReceiver = new PebbleDataReceiver(UUID.fromString(\"2fc99a5d-ee35-4057-aa9b-0d4dd8e35ef5\")) {\n\n    @Override\n    public void receiveData(Context context, int transactionId, PebbleDictionary data) {\n      \n    }\n\n  };\n\n  PebbleKit.registerReceivedDataHandler(this, mReceiver);\n}\n\n@Override\nprotected void onPause() {\n  super.onPause();\n  \n  unregisterReceiver(mReceiver);\n}\n</div></pre>"
     },
     {
       "type": "header",
@@ -153,7 +153,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\n@Override\npublic void receiveData(Context context, int transactionId, PebbleDictionary data) {\n  //ACK the message\n  PebbleKit.sendAckToPebble(context, transactionId);\n  //Check the key exists\n  if(data.getUnsignedInteger(KEY_BUTTON_EVENT) != null) {\n    int button = data.getUnsignedInteger(KEY_BUTTON_EVENT).intValue();\n    switch(button) {\n    case BUTTON_EVENT_UP:\n      //The UP button was pressed\n      break;\n    case BUTTON_EVENT_DOWN:\n      //The DOWN button was pressed\n      break;\n    case BUTTON_EVENT_SELECT:\n      //The SELECT button was pressed\n      break;\n    }\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\n@Override\npublic void receiveData(Context context, int transactionId, PebbleDictionary data) {\n  //ACK the message\n  PebbleKit.sendAckToPebble(context, transactionId);\n\n  //Check the key exists\n  if(data.getUnsignedInteger(KEY_BUTTON_EVENT) != null) {\n    int button = data.getUnsignedInteger(KEY_BUTTON_EVENT).intValue();\n\n    switch(button) {\n    case BUTTON_EVENT_UP:\n      //The UP button was pressed\n      break;\n    case BUTTON_EVENT_DOWN:\n      //The DOWN button was pressed\n      break;\n    case BUTTON_EVENT_SELECT:\n      //The SELECT button was pressed\n      break;\n    }\n  }\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -161,7 +161,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\nprivate TextView buttonView;\n...\n@Override\nprotected void onCreate(Bundle savedInstanceState) {\n  super.onCreate(savedInstanceState);\n  \n  mButtonView = new TextView(this);\n  mButtonView.setText(\"No button yet!\");\n  \n  setContentView(mButtonView);\n}\n</div></pre>"
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\nprivate TextView buttonView;\n\n...\n\n@Override\nprotected void onCreate(Bundle savedInstanceState) {\n  super.onCreate(savedInstanceState);\n  \n  mButtonView = new TextView(this);\n  mButtonView.setText(\"No button yet!\");\n  \n  setContentView(mButtonView);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -202,7 +202,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nenum {\n  KEY_BUTTON_EVENT = 0,\n  BUTTON_EVENT_UP = 1,\n  BUTTON_EVENT_DOWN = 2,\n  BUTTON_EVENT_SELECT = 3,\n  KEY_VIBRATION = 4\n};\n...\nstatic void in_received_handler(DictionaryIterator *iter, void *context) \n{\n  Tuple *t = dict_read_first(iter);\n  if(t)\n  {\n    vibes_short_pulse();\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nenum {\n  KEY_BUTTON_EVENT = 0,\n  BUTTON_EVENT_UP = 1,\n  BUTTON_EVENT_DOWN = 2,\n  BUTTON_EVENT_SELECT = 3,\n  KEY_VIBRATION = 4\n};\n\n...\n\nstatic void in_received_handler(DictionaryIterator *iter, void *context) \n{\n  Tuple *t = dict_read_first(iter);\n  if(t)\n  {\n    vibes_short_pulse();\n  }\n}\n</div></pre>"
     },
     {
       "type": "paragraph",

@@ -30,6 +30,28 @@ const transformParagraph = (para) => {
 };
 
 /**
+ * Join paragraphs that span a code section.
+ *
+ * @param {string[]} sections - List of paragraph sections.
+ * @returns {string[]} sections - Modified list of paragraph sections.
+ */
+const joinCodeParagraphs = (sections) => {
+  let start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
+  let endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
+  while (endIndex !== -1) {
+    if (start === -1) break;
+
+    const end = endIndex + start + 1;
+    const joinedSection = '' + sections.slice(start, end).join('\n\n');
+    sections.splice(start, end - start);
+    sections.splice(start, 0, joinedSection);
+
+    start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
+    endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
+  }
+};
+
+/**
  * Process the pseudomarkdown file into component model.
  *
  * @param {string} fileName - File name.
@@ -53,19 +75,7 @@ const postToModel = (fileName) => {
   const sections = body.split('\n\n');
 
   // Join paragraphs inside code blocks
-  let start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
-  let endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
-  while (endIndex !== -1) {
-    if (start === -1) break;
-
-    const end = endIndex + start + 1;
-    const joinedSection = '' + sections.slice(start, end).join('\n');
-    sections.splice(start, end - start);
-    sections.splice(start, 0, joinedSection);
-
-    start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
-    endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
-  }
+  joinCodeParagraphs(sections);
 
   sections.forEach((section) => {
     // Image

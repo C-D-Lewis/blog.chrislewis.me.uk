@@ -38,7 +38,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\ntask greet gets name\n  log 'Hello there, {name}!'\nend\ntask main\n  value name is 'Chris'\n  run greet with name\nend\nrun main\n</div></pre>"
+      "text": "<pre><div class=\"code-block\">\ntask greet gets name\n  log 'Hello there, {name}!'\nend\n\ntask main\n  value name is 'Chris'\n  run greet with name\nend\n\nrun main\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -112,7 +112,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\ntask fibonacci gets input\n  when input <= 1\n    return input\n  end\n  // return fib(n-1) + fib(n-2);\n  value n_minus_1 is input - 1\n  value n_minus_2 is input - 2\n  value result_1 is run fibonacci with n_minus_1\n  value result_2 is run fibonacci with n_minus_2\n  return result_1 + result_2\nend\ntask main\n  value fib_output is run fibonacci with 9\n  log 'fib_output: {fib_output}'\nend\nrun main\n</div></pre>"
+      "text": "<pre><div class=\"code-block\">\ntask fibonacci gets input\n  when input <= 1\n    return input\n  end\n\n  // return fib(n-1) + fib(n-2);\n  value n_minus_1 is input - 1\n  value n_minus_2 is input - 2\n  value result_1 is run fibonacci with n_minus_1\n  value result_2 is run fibonacci with n_minus_2\n  return result_1 + result_2\nend\n\ntask main\n  value fib_output is run fibonacci with 9\n  log 'fib_output: {fib_output}'\nend\n\nrun main\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -124,7 +124,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n// compiled from islang source\nfunction fibonacci (input) {\n  if (input <= 1) {\n    return input;\n  }\n  // return fib(n-1) + fib(n-2);\n  let n_minus_1 = input - 1;\n  let n_minus_2 = input - 2;\n  let result_1 = fibonacci(n_minus_1);\n  let result_2 = fibonacci(n_minus_2);\n  return result_1 + result_2;\n}\nfunction main () {\n  let fib_output = fibonacci(9);\n  console.log(`fib_output: ${fib_output}`);\n}\nmain();\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n// compiled from islang source\n\nfunction fibonacci (input) {\n  if (input <= 1) {\n    return input;\n  }\n\n  // return fib(n-1) + fib(n-2);\n  let n_minus_1 = input - 1;\n  let n_minus_2 = input - 2;\n  let result_1 = fibonacci(n_minus_1);\n  let result_2 = fibonacci(n_minus_2);\n  return result_1 + result_2;\n}\n\nfunction main () {\n  let fib_output = fibonacci(9);\n  console.log(`fib_output: ${fib_output}`);\n}\n\nmain();\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -149,7 +149,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nvalue my_value is 10\nmy_value is 20\nmy_value is run increment my_value\n</div></pre>"
+      "text": "<pre><div class=\"code-block\">\nvalue my_value is 10\n\nmy_value is 20\n\nmy_value is run increment my_value\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -173,7 +173,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nobject car\ncar property color is 'red'\ncar property num_wheels is 4\nlog 'This {car.color} car has only {car.num_wheels} wheels!'\n</div></pre>"
+      "text": "<pre><div class=\"code-block\">\nobject car\ncar property color is 'red'\ncar property num_wheels is 4\n\nlog 'This {car.color} car has only {car.num_wheels} wheels!'\n</div></pre>"
     },
     {
       "type": "header",

@@ -66,7 +66,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\nstatic Window *window;\nstatic TextLayer *text_layer;\nstatic void window_load(Window *window) \n{\n  //Create TextLayer\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));\n  text_layer_set_text_color(text_layer, GColorBlack);\n  text_layer_set_background_color(text_layer, GColorWhite);\n  text_layer_set_text(text_layer, \"Not inverted!\");\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n}\nstatic void window_unload(Window *window) \n{\n  text_layer_destroy(text_layer);\n}\nstatic void init(void) \n{\n  window = window_create();\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n  window_stack_push(window, true);\n}\nstatic void deinit(void) \n{\n  window_destroy(window);\n}\nint main(void) \n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n\nstatic Window *window;\nstatic TextLayer *text_layer;\n\nstatic void window_load(Window *window) \n{\n  //Create TextLayer\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));\n  text_layer_set_text_color(text_layer, GColorBlack);\n  text_layer_set_background_color(text_layer, GColorWhite);\n  text_layer_set_text(text_layer, \"Not inverted!\");\n\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n}\n\nstatic void window_unload(Window *window) \n{\n  text_layer_destroy(text_layer);\n}\n\nstatic void init(void) \n{\n  window = window_create();\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n\n  window_stack_push(window, true);\n}\n\nstatic void deinit(void) \n{\n  window_destroy(window);\n}\n\nint main(void) \n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -91,7 +91,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void in_recv_handler(DictionaryIterator *iterator, void *context)\n{\n  //Get Tuple\n  Tuple *t = dict_read_first(iterator);\n  if(t)\n  {\n    switch(t->key)\n    {\n    case KEY_INVERT:\n      //It's the KEY_INVERT key\n      if(strcmp(t->value->cstring, \"on\") == 0)\n      {\n        //Set and save as inverted\n        text_layer_set_text_color(text_layer, GColorWhite);\n        text_layer_set_background_color(text_layer, GColorBlack);\n        text_layer_set_text(text_layer, \"Inverted!\");\n        persist_write_bool(KEY_INVERT, true);\n      }\n      else if(strcmp(t->value->cstring, \"off\") == 0)\n      {\n        //Set and save as not inverted\n        text_layer_set_text_color(text_layer, GColorBlack);\n        text_layer_set_background_color(text_layer, GColorWhite);\n        text_layer_set_text(text_layer, \"Not inverted!\");\n        persist_write_bool(KEY_INVERT, false);\n      }\n      break;\n    }\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void in_recv_handler(DictionaryIterator *iterator, void *context)\n{\n  //Get Tuple\n  Tuple *t = dict_read_first(iterator);\n  if(t)\n  {\n    switch(t->key)\n    {\n    case KEY_INVERT:\n      //It's the KEY_INVERT key\n      if(strcmp(t->value->cstring, \"on\") == 0)\n      {\n        //Set and save as inverted\n        text_layer_set_text_color(text_layer, GColorWhite);\n        text_layer_set_background_color(text_layer, GColorBlack);\n        text_layer_set_text(text_layer, \"Inverted!\");\n\n        persist_write_bool(KEY_INVERT, true);\n      }\n      else if(strcmp(t->value->cstring, \"off\") == 0)\n      {\n        //Set and save as not inverted\n        text_layer_set_text_color(text_layer, GColorBlack);\n        text_layer_set_background_color(text_layer, GColorWhite);\n        text_layer_set_text(text_layer, \"Not inverted!\");\n\n        persist_write_bool(KEY_INVERT, false);\n      }\n      break;\n    }\n  }\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -111,7 +111,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void window_load(Window *window) \n{\n  //Check for saved option\n  bool inverted = persist_read_bool(KEY_INVERT);\n  //Create TextLayer\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));\n  //Option-specific setup\n  if(inverted == true)\n  {\n    text_layer_set_text_color(text_layer, GColorWhite);\n    text_layer_set_background_color(text_layer, GColorBlack);\n    text_layer_set_text(text_layer, \"Inverted!\");\n  }\n  else\n  {\n    text_layer_set_text_color(text_layer, GColorBlack);\n    text_layer_set_background_color(text_layer, GColorWhite);\n    text_layer_set_text(text_layer, \"Not inverted!\");\n  }\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void window_load(Window *window) \n{\n  //Check for saved option\n  bool inverted = persist_read_bool(KEY_INVERT);\n\n  //Create TextLayer\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));\n\n  //Option-specific setup\n  if(inverted == true)\n  {\n    text_layer_set_text_color(text_layer, GColorWhite);\n    text_layer_set_background_color(text_layer, GColorBlack);\n    text_layer_set_text(text_layer, \"Inverted!\");\n  }\n  else\n  {\n    text_layer_set_text_color(text_layer, GColorBlack);\n    text_layer_set_background_color(text_layer, GColorWhite);\n    text_layer_set_text(text_layer, \"Not inverted!\");\n  }\n\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -148,7 +148,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"webviewclosed\",\n  function(e) {\n    //Get JSON dictionary\n    var configuration = JSON.parse(decodeURIComponent(e.response));\n    console.log(\"Configuration window returned: \" + JSON.stringify(configuration));\n    //Send to Pebble, persist there\n    Pebble.sendAppMessage(\n      {\"KEY_INVERT\": configuration.invert},\n      function(e) {\n        console.log(\"Sending settings data...\");\n      },\n      function(e) {\n        console.log(\"Settings feedback failed!\");\n      }\n    );\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"webviewclosed\",\n  function(e) {\n    //Get JSON dictionary\n    var configuration = JSON.parse(decodeURIComponent(e.response));\n    console.log(\"Configuration window returned: \" + JSON.stringify(configuration));\n\n    //Send to Pebble, persist there\n    Pebble.sendAppMessage(\n      {\"KEY_INVERT\": configuration.invert},\n      function(e) {\n        console.log(\"Sending settings data...\");\n      },\n      function(e) {\n        console.log(\"Settings feedback failed!\");\n      }\n    );\n  }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -161,7 +161,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"html\" -->\n<pre><div class=\"code-block\">\n<!DOCTYPE html>\n<html>\n  <head>\n    <title>SDKTut9 Configuration</title>\n  </head>\n  <body>\n    <h1>Pebble Config Tutorial</h1>\n    <p>Choose watchapp settings</p>\n    <p>Invert watchapp:\n    <select id=\"invert_select\">\n      <option value=\"off\">Off</option>\n      <option value=\"on\">On</option>\n    </select>\n    </p>\n    <p>\n    <button id=\"save_button\">Save</button>\n    </p>\n  </body>\n</html>\n</div></pre>"
+      "text": "<!-- language=\"html\" -->\n<pre><div class=\"code-block\">\n<!DOCTYPE html>\n<html>\n  <head>\n    <title>SDKTut9 Configuration</title>\n  </head>\n  <body>\n    <h1>Pebble Config Tutorial</h1>\n    <p>Choose watchapp settings</p>\n\n    <p>Invert watchapp:\n    <select id=\"invert_select\">\n      <option value=\"off\">Off</option>\n      <option value=\"on\">On</option>\n    </select>\n    </p>\n\n    <p>\n    <button id=\"save_button\">Save</button>\n    </p>\n  </body>\n</html>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -169,7 +169,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\n<script>\n  //Setup to allow easy adding more options later\n  function saveOptions() {\n    var invertSelect = document.getElementById(\"invert_select\");\n    var options = {\n      \"invert\": invertSelect.options[invertSelect.selectedIndex].value\n    }\n    \n    return options;\n  };\n  var submitButton = document.getElementById(\"save_button\");\n  submitButton.addEventListener(\"click\", \n    function() {\n      console.log(\"Submit\");\n      var options = saveOptions();\n      var location = \"pebblejs://close#\" + encodeURIComponent(JSON.stringify(options));\n      \n      document.location = location;\n    }, \n  false);\n</script>\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\n<script>\n  //Setup to allow easy adding more options later\n  function saveOptions() {\n    var invertSelect = document.getElementById(\"invert_select\");\n\n    var options = {\n      \"invert\": invertSelect.options[invertSelect.selectedIndex].value\n    }\n    \n    return options;\n  };\n\n  var submitButton = document.getElementById(\"save_button\");\n  submitButton.addEventListener(\"click\", \n    function() {\n      console.log(\"Submit\");\n\n      var options = saveOptions();\n      var location = \"pebblejs://close#\" + encodeURIComponent(JSON.stringify(options));\n      \n      document.location = location;\n    }, \n  false);\n</script>\n</div></pre>"
     },
     {
       "type": "paragraph",

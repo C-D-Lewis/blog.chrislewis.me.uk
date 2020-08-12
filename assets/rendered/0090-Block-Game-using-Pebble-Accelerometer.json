@@ -22,7 +22,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\nPebbleGestureModel model = new PebbleGestureModel(800, 1000L, PebbleGestureModel.MODE_TILT) {\n  @Override\n  public void onWristUp() {\n  }\n  @Override\n  public void onWristRight() {\n  }\n  @Override\n  public void onWristLeft() {\n  }\n  @Override\n  public void onWristDown() {\n  }\n  @Override\n  public void onActionEnd() {\n  }\n};\n</div></pre>"
+      "text": "<!-- language=\"java\" -->\n<pre><div class=\"code-block\">\nPebbleGestureModel model = new PebbleGestureModel(800, 1000L, PebbleGestureModel.MODE_TILT) {\n\n  @Override\n  public void onWristUp() {\n\n  }\n\n  @Override\n  public void onWristRight() {\n\n  }\n\n  @Override\n  public void onWristLeft() {\n\n  }\n\n  @Override\n  public void onWristDown() {\n\n  }\n\n  @Override\n  public void onActionEnd() {\n\n  }\n\n};\n</div></pre>"
     },
     {
       "type": "paragraph",

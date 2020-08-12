@@ -24,7 +24,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\nimport smtplib\nimport struct\nimport socket\nimport fcntl\nmsg = \"From RPi Python\"\ndef get_ip_address(ifname):\n  s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)\n  return socket.inet_ntoa(fcntl.ioctl(\n    s.fileno(), 0x8915, # SIOCGIFADDR\n    struct.pack('256s', ifname[:15])\n  )[20:24])\nfromaddr = <from address>\ntoaddr = <to address>\nmsg = \"\"\"RPi IP is  %s\"\"\" % get_ip_address('eth0')\nusername = <username>\npassword = <password>\nprint(\"Sending IP: %s to %s\" % (get_ip_address('eth0'), toaddr))\nprint(\"Opening connection...\")\nserver = smtplib.SMTP('smtp.gmail.com:587')\nserver.ehlo()\nserver.starttls()\nserver.ehlo()\nprint(\"Logging in...\")\nserver.login(username, password)\nprint(\"Sending message: %s\" % msg)\nserver.sendmail(fromaddr, toaddr, msg)\nprint(\"Closing connection...\")\nserver.close()\nprint(\"Sent.\")\n</div></pre>"
+      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\nimport smtplib\nimport struct\nimport socket\nimport fcntl\n\nmsg = \"From RPi Python\"\n\ndef get_ip_address(ifname):\n  s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)\n  return socket.inet_ntoa(fcntl.ioctl(\n    s.fileno(), 0x8915, # SIOCGIFADDR\n    struct.pack('256s', ifname[:15])\n  )[20:24])\n\nfromaddr = <from address>\ntoaddr = <to address>\n\nmsg = \"\"\"RPi IP is  %s\"\"\" % get_ip_address('eth0')\n\nusername = <username>\npassword = <password>\n\nprint(\"Sending IP: %s to %s\" % (get_ip_address('eth0'), toaddr))\n\nprint(\"Opening connection...\")\nserver = smtplib.SMTP('smtp.gmail.com:587')\nserver.ehlo()\nserver.starttls()\nserver.ehlo()\n\nprint(\"Logging in...\")\nserver.login(username, password)\n\nprint(\"Sending message: %s\" % msg)\nserver.sendmail(fromaddr, toaddr, msg)\n\nprint(\"Closing connection...\")\nserver.close()\n\nprint(\"Sent.\")\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -32,7 +32,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\n#!/usr/bin/python\nsudo python ~/python/ipmail.py\n</div></pre>"
+      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\n#!/usr/bin/python\n\nsudo python ~/python/ipmail.py\n</div></pre>"
     },
     {
       "type": "paragraph",

@@ -82,7 +82,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\nstatic Window* window;\nstatic void window_load(Window *window)\n{\n}\nstatic void window_unload(Window *window)\n{\n}\nstatic void init()\n{\n  window = window_create();\n  WindowHandlers handlers = {\n    .load = window_load,\n    .unload = window_unload\n  };\n  window_set_window_handlers(window, (WindowHandlers) handlers);\n  window_stack_push(window, true);\n}\nstatic void deinit()\n{\n  window_destroy(window);\n}\nint main(void)\n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n\nstatic Window* window;\n\nstatic void window_load(Window *window)\n{\n\n}\n\nstatic void window_unload(Window *window)\n{\n\n}\n\nstatic void init()\n{\n  window = window_create();\n  WindowHandlers handlers = {\n    .load = window_load,\n    .unload = window_unload\n  };\n  window_set_window_handlers(window, (WindowHandlers) handlers);\n  window_stack_push(window, true);\n}\n\nstatic void deinit()\n{\n  window_destroy(window);\n}\n\nint main(void)\n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
     },
     {
       "type": "header",
@@ -99,7 +99,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void window_load(Window *window)\n{\n  //Setup BT Layer\n  bt_layer = text_layer_create(GRect(5, 5, 144, 30));\n  text_layer_set_font(bt_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));\n  if(bluetooth_connection_service_peek() == true)\n  {\n    text_layer_set_text(bt_layer, \"BT: CONNECTED\");\n  }\n  else\n  {\n    text_layer_set_text(bt_layer, \"BT: DISCONNECTED\");\n  }\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(bt_layer));\n}\nstatic void window_unload(Window *window)\n{\n  text_layer_destroy(bt_layer);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void window_load(Window *window)\n{\n  //Setup BT Layer\n  bt_layer = text_layer_create(GRect(5, 5, 144, 30));\n  text_layer_set_font(bt_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));\n  if(bluetooth_connection_service_peek() == true)\n  {\n    text_layer_set_text(bt_layer, \"BT: CONNECTED\");\n  }\n  else\n  {\n    text_layer_set_text(bt_layer, \"BT: DISCONNECTED\");\n  }\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(bt_layer));\n}\n\nstatic void window_unload(Window *window)\n{\n  text_layer_destroy(bt_layer);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -136,7 +136,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Setup Battery Layer\nbatt_layer = text_layer_create(GRect(5, 25, 144, 30));\ntext_layer_set_font(batt_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));\nlayer_add_child(window_get_root_layer(window), text_layer_get_layer(batt_layer));\n//Get info, copy to long-lived buffer and display\nBatteryChargeState state = battery_state_service_peek();\nstatic char buffer[] = \"Battery: 100/100\";\nsnprintf(buffer, sizeof(\"Battery: 100/100\"), \"Battery: %d/100\", state.charge_percent);\ntext_layer_set_text(batt_layer, buffer);\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n//Setup Battery Layer\nbatt_layer = text_layer_create(GRect(5, 25, 144, 30));\ntext_layer_set_font(batt_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));\nlayer_add_child(window_get_root_layer(window), text_layer_get_layer(batt_layer));\n\n//Get info, copy to long-lived buffer and display\nBatteryChargeState state = battery_state_service_peek();\nstatic char buffer[] = \"Battery: 100/100\";\nsnprintf(buffer, sizeof(\"Battery: 100/100\"), \"Battery: %d/100\", state.charge_percent);\ntext_layer_set_text(batt_layer, buffer);\n</div></pre>"
     },
     {
       "type": "paragraph",

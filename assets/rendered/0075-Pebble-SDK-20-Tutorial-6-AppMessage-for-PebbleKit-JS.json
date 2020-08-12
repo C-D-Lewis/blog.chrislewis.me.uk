@@ -58,7 +58,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\nWindow* window;\nvoid window_load(Window *window)\n{\n}\nvoid window_unload(Window *window)\n{\n}\nvoid init()\n{\n  window = window_create();\n  WindowHandlers handlers = {\n    .load = window_load,\n    .unload = window_unload\n  };\n  window_set_window_handlers(window, handlers);\n  window_stack_push(window, true);\n}\nvoid deinit()\n{\n  window_destroy(window);\n}\nint main(void)\n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n\nWindow* window;\n\nvoid window_load(Window *window)\n{\n\n}\n\nvoid window_unload(Window *window)\n{\n\n}\n\nvoid init()\n{\n  window = window_create();\n  WindowHandlers handlers = {\n    .load = window_load,\n    .unload = window_unload\n  };\n  window_set_window_handlers(window, handlers);\n\n  window_stack_push(window, true);\n}\n\nvoid deinit()\n{\n  window_destroy(window);\n}\n\nint main(void)\n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -74,7 +74,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic TextLayer* init_text_layer(GRect location, GColor colour, GColor background, const char *res_id, GTextAlignment alignment)\n{\n  TextLayer *layer = text_layer_create(location);\n  text_layer_set_text_color(layer, colour);\n  text_layer_set_background_color(layer, background);\n  text_layer_set_font(layer, fonts_get_system_font(res_id));\n  text_layer_set_text_alignment(layer, alignment);\n  return layer;\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic TextLayer* init_text_layer(GRect location, GColor colour, GColor background, const char *res_id, GTextAlignment alignment)\n{\n  TextLayer *layer = text_layer_create(location);\n  text_layer_set_text_color(layer, colour);\n  text_layer_set_background_color(layer, background);\n  text_layer_set_font(layer, fonts_get_system_font(res_id));\n  text_layer_set_text_alignment(layer, alignment);\n\n  return layer;\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -90,7 +90,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nlocation_layer = init_text_layer(GRect(5, 30, 144, 30), GColorBlack, GColorClear, \"RESOURCE_ID_GOTHIC_18\", GTextAlignmentLeft);\ntext_layer_set_text(location_layer, \"Location: N/A\");\nlayer_add_child(window_get_root_layer(window), text_layer_get_layer(location_layer));\ntemperature_layer = init_text_layer(GRect(5, 60, 144, 30), GColorBlack, GColorClear, \"RESOURCE_ID_GOTHIC_18\", GTextAlignmentLeft);\ntext_layer_set_text(temperature_layer, \"Temperature: N/A\");\nlayer_add_child(window_get_root_layer(window), text_layer_get_layer(temperature_layer));\ntime_layer = init_text_layer(GRect(5, 90, 144, 30), GColorBlack, GColorClear, \"RESOURCE_ID_GOTHIC_18\", GTextAlignmentLeft);\ntext_layer_set_text(time_layer, \"Last updated: N/A\");\nlayer_add_child(window_get_root_layer(window), text_layer_get_layer(time_layer));\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nlocation_layer = init_text_layer(GRect(5, 30, 144, 30), GColorBlack, GColorClear, \"RESOURCE_ID_GOTHIC_18\", GTextAlignmentLeft);\ntext_layer_set_text(location_layer, \"Location: N/A\");\nlayer_add_child(window_get_root_layer(window), text_layer_get_layer(location_layer));\n\ntemperature_layer = init_text_layer(GRect(5, 60, 144, 30), GColorBlack, GColorClear, \"RESOURCE_ID_GOTHIC_18\", GTextAlignmentLeft);\ntext_layer_set_text(temperature_layer, \"Temperature: N/A\");\nlayer_add_child(window_get_root_layer(window), text_layer_get_layer(temperature_layer));\n\ntime_layer = init_text_layer(GRect(5, 90, 144, 30), GColorBlack, GColorClear, \"RESOURCE_ID_GOTHIC_18\", GTextAlignmentLeft);\ntext_layer_set_text(time_layer, \"Last updated: N/A\");\nlayer_add_child(window_get_root_layer(window), text_layer_get_layer(time_layer));\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -129,7 +129,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void in_received_handler(DictionaryIterator *iter, void *context)\n{\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nstatic void in_received_handler(DictionaryIterator *iter, void *context)\n{\n\n}\n</div></pre>"
     },
     {
       "type": "header",
@@ -163,7 +163,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid process_tuple(Tuple *t)\n{\n  //Get key\n  int key = t->key;\n  //Get integer value, if present\n  int value = t->value->int32;\n  //Get string value, if present\n  char string_value[32];\n  strcpy(string_value, t->value->cstring);\n  //Decide what to do\n  switch(key) {\n    case KEY_LOCATION:\n      //Location received\n      snprintf(location_buffer, sizeof(\"Location: couldbereallylongname\"), \"Location: %s\", string_value);\n      text_layer_set_text(location_layer, (char*) &location_buffer);\n      break;\n    case KEY_TEMPERATURE:\n      //Temperature received\n      snprintf(temperature_buffer, sizeof(\"Temperature: XX \\u00B0C\"), \"Temperature: %d \\u00B0C\", value);\n      text_layer_set_text(temperature_layer, (char*) &temperature_buffer);\n      break;\n  }\n  //Set time this update came in\n  time_t temp = time(NULL);\n  struct tm *tm = localtime(&temp);\n  strftime(time_buffer, sizeof(\"Last updated: XX:XX\"), \"Last updated: %H:%M\", tm);\n  text_layer_set_text(time_layer, (char*) &time_buffer);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid process_tuple(Tuple *t)\n{\n  //Get key\n  int key = t->key;\n\n  //Get integer value, if present\n  int value = t->value->int32;\n\n  //Get string value, if present\n  char string_value[32];\n  strcpy(string_value, t->value->cstring);\n\n  //Decide what to do\n  switch(key) {\n    case KEY_LOCATION:\n      //Location received\n      snprintf(location_buffer, sizeof(\"Location: couldbereallylongname\"), \"Location: %s\", string_value);\n      text_layer_set_text(location_layer, (char*) &location_buffer);\n      break;\n    case KEY_TEMPERATURE:\n      //Temperature received\n      snprintf(temperature_buffer, sizeof(\"Temperature: XX \\u00B0C\"), \"Temperature: %d \\u00B0C\", value);\n      text_layer_set_text(temperature_layer, (char*) &temperature_buffer);\n      break;\n  }\n\n  //Set time this update came in\n  time_t temp = time(NULL);\n  struct tm *tm = localtime(&temp);\n  strftime(time_buffer, sizeof(\"Last updated: XX:XX\"), \"Last updated: %H:%M\", tm);\n  text_layer_set_text(time_layer, (char*) &time_buffer);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -204,7 +204,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nvar getWeather = function() {\n  //Get weather info\n  var response = HTTPGET(\"http://api.openweathermap.org/data/2.5/weather?q=London,uk\");\n  //Convert to JSON\n  var json = JSON.parse(response);\n  //Extract the data\n  var temperature = Math.round(json.main.temp - 273.15);\n  var location = json.name;\n  //Console output to check all is working.\n  console.log(\"It is \" + temperature + \" degrees in \" + location + \" today!\");\n  //Construct a key-value dictionary\n  var dict = {\"KEY_LOCATION\" : location, \"KEY_TEMPERATURE\": temperature};\n  //Send data to watch for display\n  Pebble.sendAppMessage(dict);\n};\nPebble.addEventListener(\"ready\",\n  function(e) {\n    //App is ready to receive JS messages\n  getWeather();\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nvar getWeather = function() {\n  //Get weather info\n  var response = HTTPGET(\"http://api.openweathermap.org/data/2.5/weather?q=London,uk\");\n\n  //Convert to JSON\n  var json = JSON.parse(response);\n\n  //Extract the data\n  var temperature = Math.round(json.main.temp - 273.15);\n  var location = json.name;\n\n  //Console output to check all is working.\n  console.log(\"It is \" + temperature + \" degrees in \" + location + \" today!\");\n\n  //Construct a key-value dictionary\n  var dict = {\"KEY_LOCATION\" : location, \"KEY_TEMPERATURE\": temperature};\n\n  //Send data to watch for display\n  Pebble.sendAppMessage(dict);\n};\n\nPebble.addEventListener(\"ready\",\n  function(e) {\n    //App is ready to receive JS messages\n  getWeather();\n  }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -245,7 +245,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid tick_callback(struct tm *tick_time, TimeUnits units_changed)\n{\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid tick_callback(struct tm *tick_time, TimeUnits units_changed)\n{\n\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -253,7 +253,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid send_int(uint8_t key, uint8_t cmd)\n{\n  DictionaryIterator *iter;\n   app_message_outbox_begin(&iter);\n   Tuplet value = TupletInteger(key, cmd);\n   dict_write_tuplet(iter, &value);\n   app_message_outbox_send();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid send_int(uint8_t key, uint8_t cmd)\n{\n  DictionaryIterator *iter;\n   app_message_outbox_begin(&iter);\n\n   Tuplet value = TupletInteger(key, cmd);\n   dict_write_tuplet(iter, &value);\n\n   app_message_outbox_send();\n}\n</div></pre>"
     },
     {
       "type": "paragraph",

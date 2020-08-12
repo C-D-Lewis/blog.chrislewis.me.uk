@@ -58,7 +58,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\nWindow* window;\nvoid window_load(Window *window)\n{\n}\nvoid window_unload(Window *window)\n{\n}\nvoid init()\n{\n  window = window_create();\n  WindowHandlers handlers = {\n    .load = window_load,\n    .unload = window_unload\n  };\n  window_set_window_handlers(window, (WindowHandlers) handlers);\n  window_stack_push(window, true);\n}\nvoid deinit()\n{\n  window_destroy(window);\n}\nint main(void)\n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n\nWindow* window;\n\nvoid window_load(Window *window)\n{\n\n}\n\nvoid window_unload(Window *window)\n{\n\n}\n\nvoid init()\n{\n  window = window_create();\n  WindowHandlers handlers = {\n    .load = window_load,\n    .unload = window_unload\n  };\n  window_set_window_handlers(window, (WindowHandlers) handlers);\n  window_stack_push(window, true);\n}\n\nvoid deinit()\n{\n  window_destroy(window);\n}\n\nint main(void)\n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -94,7 +94,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid draw_row_callback(GContext *ctx, Layer *cell_layer, MenuIndex *cell_index, void *callback_context)\n{\n}\nuint16_t num_rows_callback(MenuLayer *menu_layer, uint16_t section_index, void *callback_context)\n{\n}\nvoid select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context)\n{\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid draw_row_callback(GContext *ctx, Layer *cell_layer, MenuIndex *cell_index, void *callback_context)\n{\n\n}\n\nuint16_t num_rows_callback(MenuLayer *menu_layer, uint16_t section_index, void *callback_context)\n{\n\n}\n\nvoid select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context)\n{\n\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -122,7 +122,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context)\n{\n  //Get which row\n  int which = cell_index->row;\n  //The array that will hold the on/off vibration times\n  uint32_t segments[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};\n  //Build the pattern (milliseconds on and off in alternating positions)\n  for(int i = 0; i < which + 1; i++)\n  {\n    segments[2 * i] = 200;\n    segments[(2 * i) + 1] = 100;\n  }\n  //Create a VibePattern data structure\n  VibePattern pattern = {\n    .durations = segments,\n    .num_segments = 16\n  };\n  //Do the vibration pattern!\n  vibes_enqueue_custom_pattern(pattern);\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context)\n{\n  //Get which row\n  int which = cell_index->row;\n\n  //The array that will hold the on/off vibration times\n  uint32_t segments[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};\n\n  //Build the pattern (milliseconds on and off in alternating positions)\n  for(int i = 0; i < which + 1; i++)\n  {\n    segments[2 * i] = 200;\n    segments[(2 * i) + 1] = 100;\n  }\n\n  //Create a VibePattern data structure\n  VibePattern pattern = {\n    .durations = segments,\n    .num_segments = 16\n  };\n\n  //Do the vibration pattern!\n  vibes_enqueue_custom_pattern(pattern);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -150,7 +150,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid window_load(Window *window)\n{\n  //Create it - 12 is approx height of the top bar\n  menu_layer = menu_layer_create(GRect(0, 0, 144, 168 - 16));\n  //Let it receive clicks\n  menu_layer_set_click_config_onto_window(menu_layer, window);\n  //Give it its callbacks\n  MenuLayerCallbacks callbacks = {\n    .draw_row = (MenuLayerDrawRowCallback) draw_row_callback,\n    .get_num_rows = (MenuLayerGetNumberOfRowsInSectionsCallback) num_rows_callback,\n    .select_click = (MenuLayerSelectCallback) select_click_callback\n  };\n  menu_layer_set_callbacks(menu_layer, NULL, callbacks);\n  //Add to Window\n  layer_add_child(window_get_root_layer(window), menu_layer_get_layer(menu_layer));\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid window_load(Window *window)\n{\n  //Create it - 12 is approx height of the top bar\n  menu_layer = menu_layer_create(GRect(0, 0, 144, 168 - 16));\n\n  //Let it receive clicks\n  menu_layer_set_click_config_onto_window(menu_layer, window);\n\n  //Give it its callbacks\n  MenuLayerCallbacks callbacks = {\n    .draw_row = (MenuLayerDrawRowCallback) draw_row_callback,\n    .get_num_rows = (MenuLayerGetNumberOfRowsInSectionsCallback) num_rows_callback,\n    .select_click = (MenuLayerSelectCallback) select_click_callback\n  };\n  menu_layer_set_callbacks(menu_layer, NULL, callbacks);\n\n  //Add to Window\n  layer_add_child(window_get_root_layer(window), menu_layer_get_layer(menu_layer));\n}\n</div></pre>"
     },
     {
       "type": "paragraph",

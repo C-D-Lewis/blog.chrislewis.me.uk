@@ -282,14 +282,14 @@ const PostTitle = ({ title, fileName }) => {
   h1.innerHTML = title;
   DOM.addChild(container, h1);
 
-  const linkAnchor = DOM.create('div', {
-    fontStyle: 'italic',
+  const linkAnchor = DOM.create('span', {
     color: 'darkgrey',
     fontSize: '1.8rem',
     cursor: 'pointer',
     fontWeight: 'bold',
     marginLeft: '10px',
-  }, { class: 'link-anchor' });
+    paddingTop: '9px',
+  }, { className: 'link-anchor' });
   linkAnchor.addEventListener('click', () => {
     const slug = fileName.split('.')[0];
     window.showPost(slug);

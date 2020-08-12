@@ -111,7 +111,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid init()\n{\n  //Initialize the app elements here!\n}\nvoid deinit()\n{\n  //De-initialize elements here to save memory!\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\nvoid init()\n{\n  //Initialize the app elements here!\n}\n\nvoid deinit()\n{\n  //De-initialize elements here to save memory!\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -147,7 +147,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\nWindow *window;\nvoid window_load(Window *window)\n{\n  //We will add the creation of the Window's elements here soon!\n}\nvoid window_unload(Window *window)\n{\n  //We will safely destroy the Window's elements here!\n}\nvoid init()\n{\n  //Initialize the app elements here!\n  window = window_create();\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n}\nvoid deinit()\n{\n  //De-initialize elements here to save memory!\n}\nint main(void)\n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include <pebble.h>\n\nWindow *window;\n\nvoid window_load(Window *window)\n{\n  //We will add the creation of the Window's elements here soon!\n}\n\nvoid window_unload(Window *window)\n{\n  //We will safely destroy the Window's elements here!\n}\n\nvoid init()\n{\n  //Initialize the app elements here!\n  window = window_create();\n  window_set_window_handlers(window, (WindowHandlers) {\n    .load = window_load,\n    .unload = window_unload,\n  });\n}\n\nvoid deinit()\n{\n  //De-initialize elements here to save memory!\n}\n\nint main(void)\n{\n  init();\n  app_event_loop();\n  deinit();\n}\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -192,7 +192,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_background_color(text_layer, GColorClear);\n  text_layer_set_text_color(text_layer, GColorBlack);\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n</div></pre>"
+      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n  text_layer = text_layer_create(GRect(0, 0, 144, 168));\n  text_layer_set_background_color(text_layer, GColorClear);\n  text_layer_set_text_color(text_layer, GColorBlack);\n\n  layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));\n</div></pre>"
     },
     {
       "type": "paragraph",
