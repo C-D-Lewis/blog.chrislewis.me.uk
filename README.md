@@ -4,6 +4,12 @@ Time to roll my own. So long, WordPress!
 
 ![](assets/screenshot.png)
 
+## TODO
+
+* Mobile-friendly layout
+* Missing images in very old posts
+* State of Archive links reflects current selection
+
 ## Post format
 
 Blog posts are written in a simplified Markdown format in `posts`. These are
