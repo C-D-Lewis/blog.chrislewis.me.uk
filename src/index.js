@@ -64,7 +64,7 @@ const setupUI = () => {
   DOM.addChild(leftColumn, otherStuffHeader);
   DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
     label: 'Pixels With Friends',
-    onClick: () => (window.open('http://pixels.chrislewis.me.uk', '_blank')),
+    onClick: () => (window.open('https://pixels.chrislewis.me.uk', '_blank')),
   }));
   DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
     label: 'FitBit Apps',
