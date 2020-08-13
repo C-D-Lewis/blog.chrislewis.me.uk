@@ -34,7 +34,11 @@
     },
     {
       "type": "paragraph",
-      "text": "But what if we wanted to change it? Well, here's how you'd go about it:\n<ol>\n• <span style=\"line-height:12px;\">Load up Ubuntu Linux or a suitable VM, download the Pebble SDK (including dependencies and libraries) and set it all up <a title=\"Pebble SDK\" href=\"http://developer.getpebble.com/1/welcome\">as described here</a>.</span>"
+      "text": "But what if we wanted to change it? Well, here's how you'd go about it:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <span style=\"line-height:12px;\">Load up Ubuntu Linux or a suitable VM, download the Pebble SDK (including dependencies and libraries) and set it all up <a title=\"Pebble SDK\" href=\"http://developer.getpebble.com/1/welcome\">as described here</a>.</span>"
     },
     {
       "type": "paragraph",
@@ -74,7 +78,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nNow to work on some other ideas I've had..."
+      "text": "\nNow to work on some other ideas I've had..."
     }
   ]
 }

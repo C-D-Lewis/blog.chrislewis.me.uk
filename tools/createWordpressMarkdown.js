@@ -42,6 +42,8 @@ const transformHTML = (html) => {
   result = replace(result, '  <li>', '• ');
   result = replace(result, '</li>', '\n');
   result = replace(result, '</ul>\n', '');
+  result = replace(result, '<ol>', '\n');
+  result = replace(result, '</ol>', '\n');
 
   // Links
   while (result.includes('https://ninedof.files.wordpress.com')) {
@@ -139,7 +141,7 @@ ${md}
 `;
 
     const [year, month, day] = post.postDate.split(' ')[0].split('-');
-    const slug = slugify(post.title, { remove: /[*+~.()'"!#:@\/]/g });
+    const slug = slugify(post.title, { remove: /[*+~.()'"!\?#:@\/]/g });
     const postFileName = `${year}-${month}-${day}-${slug}`;
     const postFilePath = `${__dirname}/../posts/${postFileName}.md`;
 

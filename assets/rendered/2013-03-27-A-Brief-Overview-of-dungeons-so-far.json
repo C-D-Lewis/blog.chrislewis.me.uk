@@ -12,7 +12,11 @@
     },
     {
       "type": "paragraph",
-      "text": "At the moment, when a level is generated, the following events occur:\n<ol>\n• <span style=\"line-height:12px;\">Rooms are generated with a random size in random locations. Each room has a random number of doors cut into the walls. !<a class=\"link\" target=\"_blank\" href=\"/assets/import/media/2013/03/doors1.png\"></a></span>"
+      "text": "At the moment, when a level is generated, the following events occur:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <span style=\"line-height:12px;\">Rooms are generated with a random size in random locations. Each room has a random number of doors cut into the walls. !<a class=\"link\" target=\"_blank\" href=\"/assets/import/media/2013/03/doors1.png\"></a></span>"
     },
     {
       "type": "paragraph",
@@ -36,7 +40,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nWhen the player plays the level, all tiles are hidden except those they have just passed. These are revealed with a cardinal line of sight of 5, then forgotten on a tile by tile basis after five seconds, unless a torch item is placed down. !<a class=\"link\" target=\"_blank\" href=\"/assets/import/media/2013/03/visibility.png?w=300\"></a>"
+      "text": "\nWhen the player plays the level, all tiles are hidden except those they have just passed. These are revealed with a cardinal line of sight of 5, then forgotten on a tile by tile basis after five seconds, unless a torch item is placed down. !<a class=\"link\" target=\"_blank\" href=\"/assets/import/media/2013/03/visibility.png?w=300\"></a>"
     },
     {
       "type": "paragraph",

@@ -8,7 +8,7 @@ Pebble
 After the Pebble SDK update to version 2.0, the time has come to write a new version of my tutorial series for this new SDK.
 
 If you are not familiar with the following basic C concepts, please read <a title="Pebble Watch Face SDK Tutorial #1: Beginner’s Primer to the C Language" href="http://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/">Part 1 of the 1.X tutorial</a>, which is just as appropriate now:
-<ol>
+
 • Variables and variable scope (local or global?)
 
 • Functions (definitions and use)
@@ -21,24 +21,24 @@ If you are not familiar with the following basic C concepts, please read <a titl
 
 • Pre-processor statements (<code>#define</code>, <code>#include</code> etc)
 
-</ol>
+
 Up to speed? Good! Let's make our first SDK 2.0 watchapp. This time the tutorial will take a more practical approach, with each section finishing with a compilable project showing off the things learned therein.
 
 ## Development Environment
 
 In order to write and compile watchfaces there are two main options for Windows users:
-<ol>
+
 • Use <a title="cloudpebble" href="http://cloudpebble.net">Cloud Pebble</a>.
 
 • <a title="Pebble Windows install instructions" href="https://developer.getpebble.com/2/getting-started/linux/">Install Ubuntu on a virtual machine</a>.
 
-</ol>
+
 Choose whichever works for you. However, since the first draft of this tutorial section, CloudPebble now allows you to install, take screenshots and see logs from Pebble apps from the Compilation page, so for the purposes of a more simple start I'll be writing this tutorial from the Cloud Pebble perspective.
 
 ## First Steps
 
 To get started, log into Cloud Pebble and choose 'Create Project'.
-<ol>
+
 • Enter a suitable name such as 'Tutorial Part 1'.
 
 • Choose 'Pebble C SDK'.
@@ -47,7 +47,7 @@ To get started, log into Cloud Pebble and choose 'Create Project'.
 
 • Confirm with 'Create'.
 
-</ol>
+
 Next, click 'New C file' and enter a name. I'd recommend 'main.c'. This file will contain the C code that makes up the watchface we're creating.
 
 ## Setting up the Basics

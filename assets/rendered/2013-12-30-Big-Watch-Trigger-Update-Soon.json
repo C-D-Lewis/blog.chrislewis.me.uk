@@ -12,7 +12,11 @@
     },
     {
       "type": "paragraph",
-      "text": "Planned changes are:\n<ol>\n• New UX compliant watch app with changeable settings"
+      "text": "Planned changes are:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• New UX compliant watch app with changeable settings"
     },
     {
       "type": "paragraph",
@@ -28,7 +32,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nThe new watch app will be SDK 2.0 only for new, as the release is just around the corner, but if another delay is announced I will try and find the time to upgrade the 1.X watch app as well. To clarify, the 1.X watchapp will still be compatible with the new version, but will not carry the additional features."
+      "text": "\nThe new watch app will be SDK 2.0 only for new, as the release is just around the corner, but if another delay is announced I will try and find the time to upgrade the 1.X watch app as well. To clarify, the 1.X watchapp will still be compatible with the new version, but will not carry the additional features."
     },
     {
       "type": "paragraph",

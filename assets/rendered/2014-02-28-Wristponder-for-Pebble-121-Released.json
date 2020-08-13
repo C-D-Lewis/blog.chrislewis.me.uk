@@ -23,7 +23,11 @@
     },
     {
       "type": "paragraph",
-      "text": "Today sees the addition of a number of new features to improve and expand the Wristponder experience:\n<ol>\n• Added option to send to last Caller as well as last SMS."
+      "text": "Today sees the addition of a number of new features to improve and expand the Wristponder experience:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Added option to send to last Caller as well as last SMS."
     },
     {
       "type": "paragraph",
@@ -43,7 +47,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nHere are some screenshots:"
+      "text": "\nHere are some screenshots:"
     },
     {
       "type": "image",
@@ -52,7 +56,11 @@
     },
     {
       "type": "paragraph",
-      "text": "A few points regarding other requested features:\n<ol>\n• Facebook Messenger, WhatsApp and Google Voice do not at the moment have APIs that allow background composition and sending of messages without user interaction. If I am incorrect, please let me know!"
+      "text": "A few points regarding other requested features:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Facebook Messenger, WhatsApp and Google Voice do not at the moment have APIs that allow background composition and sending of messages without user interaction. If I am incorrect, please let me know!"
     },
     {
       "type": "paragraph",
@@ -64,7 +72,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\n<h2 style=\"text-align:left;\">Download</h2>\nYou can get Wristponder with it's companion app in one place from the Google Play store. If you find any bugs or have feature ideas, let me know!"
+      "text": "\n<h2 style=\"text-align:left;\">Download</h2>\nYou can get Wristponder with it's companion app in one place from the Google Play store. If you find any bugs or have feature ideas, let me know!"
     },
     {
       "type": "paragraph",

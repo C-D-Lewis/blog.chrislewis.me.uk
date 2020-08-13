@@ -8,7 +8,11 @@
   "components": [
     {
       "type": "paragraph",
-      "text": "Lots going on at the moment, so here's a list of what's coming soon (also a personal reminder!):\n<ol>\n• Pebble SDK Tutorial Part 6 is written, just needs images. 2 Way Communications."
+      "text": "Lots going on at the moment, so here's a list of what's coming soon (also a personal reminder!):"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Pebble SDK Tutorial Part 6 is written, just needs images. 2 Way Communications."
     },
     {
       "type": "paragraph",
@@ -20,7 +24,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nGot to do my best not to lose sight of a current project!"
+      "text": "\nGot to do my best not to lose sight of a current project!"
     }
   ]
 }

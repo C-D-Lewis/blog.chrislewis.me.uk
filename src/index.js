@@ -34,7 +34,7 @@ const getQueryParam = name => new URLSearchParams(window.location.search).get(na
 /**
  * Setup the UI.
  */
-const setupUI = () => {
+const buildPageLayout = () => {
   const rootContainer = UIComponents.RootContainer();
   DOM.addChild(document.getElementById('app'), rootContainer);
 
@@ -92,7 +92,7 @@ const setupUI = () => {
  * @param {string} year - Year selected
  * @param {string} month - Month selected
  */
-const showPostsFrom = (year, month) => {
+const showPostsFrom = async (year, month) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?year=${year}&month=${month}`);
 
@@ -102,10 +102,10 @@ const showPostsFrom = (year, month) => {
   // Fetch all posts and add to the postList component as Posts
   const posts = historyJson[year][month];
   const promises = posts.map(({ file }) => fetch(file).then(res => res.json()));
-  Promise.all(promises)
-    .then((models) => {
-      models.forEach(model => DOM.addChild(postList, UIComponents.Post(model)));
-    });
+  const models = await Promise.all(promises);
+  models.forEach(model => DOM.addChild(postList, UIComponents.Post(model)));
+
+  Events.post('selectionUpdated');
 };
 
 /**
@@ -113,7 +113,7 @@ const showPostsFrom = (year, month) => {
  *
  * @param {string} fileName - Post fileName selected
  */
-window.showPost = (fileName) => {
+window.showPost = async (fileName) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?post=${fileName}`);
 
@@ -133,8 +133,10 @@ window.showPost = (fileName) => {
     return;
   }
 
-  fetch(post.file).then(res => res.json())
-    .then(model => DOM.addChild(postList, UIComponents.Post(model)));
+  const model = await fetch(post.file).then(res => res.json());
+  DOM.addChild(postList, UIComponents.Post(model));
+
+  Events.post('selectionUpdated');
 };
 
 /**
@@ -145,57 +147,59 @@ const integerItemSort = (a, b) => parseInt(a) > parseInt(b) ? -1 : 1;
 /**
  * Fetch the post history file.
  */
-const fetchPosts = () => {
-  fetch('assets/history.json')
-    .then(async (res) => {
-      historyJson = await res.json();
+const initPostsAndHistory = async () => {
+  historyJson = await fetch('assets/history.json').then(res => res.json());
 
-      // Populate the Archive section
-      // TODO - Highlight selected section
-      Object.entries(historyJson)
-        .sort(([year1], [year2]) => integerItemSort(year1, year2))
-        .forEach(([year, yearData]) => {
-          Object.entries(yearData)
-            .sort(([month1, month2]) => integerItemSort(month1, month2))
-            .forEach(([monthIndex]) => {
-              const monthLabel = UIComponents.LeftColumnItem({
-                label: `${monthName(monthIndex)} ${year}`,
-                onClick: () => showPostsFrom(year, monthIndex),
-                fadeIn: true,
-                isSelected: getQueryParam('year') === year && getQueryParam('month') === monthIndex
-              });
-              DOM.addChild(leftColumn, monthLabel);
-            });
+  // Populate the Archive section
+  Object.entries(historyJson)
+    .sort(([year1], [year2]) => integerItemSort(year1, year2))
+    .forEach(([year, yearData]) => {
+      Object.entries(yearData)
+        .sort(([month1, month2]) => integerItemSort(month1, month2))
+        .forEach(([monthIndex]) => {
+          const monthLabel = UIComponents.LeftColumnItem({
+            label: `${monthName(monthIndex)} ${year}`,
+            onClick: () => showPostsFrom(year, monthIndex),
+            fadeIn: true,
+            getIsSelected: () => getQueryParam('year') === year && getQueryParam('month') === monthIndex,
+          });
+          DOM.addChild(leftColumn, monthLabel);
         });
-
-      // Does the URL contain a selection?
-      const post = getQueryParam('post');
-      if (post) {
-        showPost(post);
-        return;
-      }
-
-      // Or else a month page?
-      let year = getQueryParam('year');
-      let month = getQueryParam('month');
-      if (year && month) {
-        showPostsFrom(year, month);
-        return;
-      }
-
-      // Auto load most recent month
-      year = Object.keys(historyJson).sort(integerItemSort)[0];
-      month = Object.keys(historyJson[year]).sort(integerItemSort)[0];
-      showPostsFrom(year, month);
     });
-  };
+};
+
+/**
+ * Load the posts to display, if the query specifies a month/year or post slug.
+ */
+const loadSelection = () => {
+  // Does the URL contain a selection?
+  const post = getQueryParam('post');
+  if (post) {
+    showPost(post);
+    return;
+  }
+
+  // Or else a month page?
+  let year = getQueryParam('year');
+  let month = getQueryParam('month');
+  if (year && month) {
+    showPostsFrom(year, month);
+    return;
+  }
+
+  // Auto load most recent month
+  year = Object.keys(historyJson).sort(integerItemSort)[0];
+  month = Object.keys(historyJson[year]).sort(integerItemSort)[0];
+  showPostsFrom(year, month);
+};
 
 /**
  * The main function.
  */
-const main = () => {
-  setupUI();
-  fetchPosts();
+const main = async () => {
+  buildPageLayout();
+  await initPostsAndHistory();
+  loadSelection();
 };
 
 main();

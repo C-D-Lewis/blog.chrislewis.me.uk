@@ -22,14 +22,14 @@ To do this, we look at each digit and the conditions under which each one will c
 Similar conditions exist for the other two left hand digits. For the 'hours minutes', the condition is that  the 'minutes tens' digit is '5' and the 'minutes units' digit is '9' (12:59 for example).
 
 Finally, for the left hand most digit, 'hours tens', the condition is a little more complex. There are three times at which this digit changes.
-<ol>
+
 • At 09:59, it changes to a '1' in 10:00.
 
 • At 19:59, it changes to a '2' in 20:00.
 
 • At 23:59, it changes to a '0' in 00:00.
 
-</ol>
+
 By using this simple prediction algorithm on the second tick before any animation is due to take place, the watch face code knows which digits will change before the time change has even taken place!
 
 I'll need to think about how this can be generalised even further for 12-hour time, so that will be included in the eventual release, hopefully very soon!

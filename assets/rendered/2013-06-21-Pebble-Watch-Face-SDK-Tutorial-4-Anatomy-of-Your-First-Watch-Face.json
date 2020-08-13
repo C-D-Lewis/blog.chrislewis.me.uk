@@ -280,7 +280,11 @@
     },
     {
       "type": "paragraph",
-      "text": "Here comes the fun bit: feeding your watch face source file into the compiler and receiving the install file to upload to your watch. If you've followed Step 1 and Step 2 in the API install instructions from Part 3 on Ubuntu then you should know how to do this, but here is brief summary if you have forgotten <strong>('' should be replaced with that path)</strong>:\n<ol>\n• Set up the new project folder to include all the requisite links to the sdk using the following Terminal commands: <code>cd ~/</code> and then <code>~//Pebble/tools/create_pebble_project.py --symlink-only ~//Pebble/sdk <newprojectfolder></code>"
+      "text": "Here comes the fun bit: feeding your watch face source file into the compiler and receiving the install file to upload to your watch. If you've followed Step 1 and Step 2 in the API install instructions from Part 3 on Ubuntu then you should know how to do this, but here is brief summary if you have forgotten <strong>('' should be replaced with that path)</strong>:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Set up the new project folder to include all the requisite links to the sdk using the following Terminal commands: <code>cd ~/</code> and then <code>~//Pebble/tools/create_pebble_project.py --symlink-only ~//Pebble/sdk <newprojectfolder></code>"
     },
     {
       "type": "paragraph",
@@ -292,7 +296,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nThe output file will be found in /build and has the extension '.pbw'."
+      "text": "\nThe output file will be found in /build and has the extension '.pbw'."
     },
     {
       "type": "paragraph",

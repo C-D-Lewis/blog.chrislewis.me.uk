@@ -285,14 +285,14 @@ The second is the Resource Map. This is a file that is like a catalogue of all t
 <b>Compiling</b><strong> and installing
 
 Here comes the fun bit: feeding your watch face source file into the compiler and receiving the install file to upload to your watch. If you've followed Step 1 and Step 2 in the API install instructions from Part 3 on Ubuntu then you should know how to do this, but here is brief summary if you have forgotten <strong>('' should be replaced with that path)</strong>:
-<ol>
+
 • Set up the new project folder to include all the requisite links to the sdk using the following Terminal commands: <code>cd ~/</code> and then <code>~//Pebble/tools/create_pebble_project.py --symlink-only ~//Pebble/sdk <newprojectfolder></code>
 
 • Go to the new project folder with <code>cd <newprojectfolder></code>
 
 • Configure and build with <code>./waf configure build</code>
 
-</ol>
+
 The output file will be found in /build and has the extension '.pbw'.
 
 On cloudpebble.net, this can all be done by selecting 'compilation' and then 'run build'.

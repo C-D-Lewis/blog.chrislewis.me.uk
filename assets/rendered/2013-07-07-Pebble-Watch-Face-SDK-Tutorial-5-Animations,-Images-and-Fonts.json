@@ -101,7 +101,11 @@
     },
     {
       "type": "paragraph",
-      "text": "To do all this, you need to use a structure called PropertyAnimation. When using this to animate a Layer of your choice, you must do a number of steps in a certain order.\n<ol>\n• First, initalise the PropertyAnimation with the PropertyAnimation structure, the Layer to be moved and start and end locations (GRects)"
+      "text": "To do all this, you need to use a structure called PropertyAnimation. When using this to animate a Layer of your choice, you must do a number of steps in a certain order."
+    },
+    {
+      "type": "paragraph",
+      "text": "• First, initalise the PropertyAnimation with the PropertyAnimation structure, the Layer to be moved and start and end locations (GRects)"
     },
     {
       "type": "paragraph",
@@ -113,7 +117,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nAs promised earlier, here is a function that neatly wraps up all this into one function call you can use to make the main function easier to read (Click the image to see it better):"
+      "text": "\nAs promised earlier, here is a function that neatly wraps up all this into one function call you can use to make the main function easier to read (Click the image to see it better):"
     },
     {
       "type": "image",

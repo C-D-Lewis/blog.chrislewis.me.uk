@@ -71,7 +71,11 @@
     },
     {
       "type": "paragraph",
-      "text": "A function declaration has three main parts:\n<ol>\n• The return type, which is the type of data the function will supply us with when we call it to run."
+      "text": "A function declaration has three main parts:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• The return type, which is the type of data the function will supply us with when we call it to run."
     },
     {
       "type": "paragraph",
@@ -83,7 +87,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nYou can see these parts shown in the 'pseudo-function' below:"
+      "text": "\nYou can see these parts shown in the 'pseudo-function' below:"
     },
     {
       "type": "image",

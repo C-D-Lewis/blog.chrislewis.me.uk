@@ -32,12 +32,12 @@ The new enhanced adapting watch app:
 <strong>Notes on Android </strong>
 First, the process for capturing video on Android is very different from photo capture. There are two methods I can think of for capturing photos/videos on Android:
 
-<ol>
+
 • Start an Intent to launch the device's built-in Camera app, which then waits for the user to press the capture button and then go back, which hands the resulting image data back to the previous Activity. Useless for this purpose, since once the Intent is launched, the Watch Trigger app and hence Pebble cannot control the built-in Camera app, which leaves us with the alternative;
 
 • Re-implement the Camera app as a custom Activity to enable access to all stages of preview, capture, write and gallery scan. This involves creating a new SurfaceView subclass that opens the Camera and displays the preview images. Once the basic layout is complete, and the Camera.Parameters API probed to expose the requires settings to the user, this isn't too much work.
 
-</ol>
+
 <div>The problems start to appear if you want to do approach #2 above with <strong>video</strong> capture. Whereas the Camera API has the takePicture() method, which calls the supplied callbacks to get and save the image data to internal storage, the capturing of video data requires continuous storage functionality, which is managed with the MediaRecorder class.</div>
 <div></div>
 <div></div>

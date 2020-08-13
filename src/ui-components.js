@@ -203,10 +203,9 @@ const LeftColumnHeader = (label, isTopSection = false) => {
  *
  * @returns {HTMLElement}
  */
-const LeftColumnItem = ({ label, onClick = {}, fadeIn, isSelected }) => {
+const LeftColumnItem = ({ label, onClick = {}, fadeIn, getIsSelected = () => {} }) => {
   const a = DOM.create('a', {
-    color: isSelected ? 'white' : '#ccc',
-    fontWeight: isSelected ? 'bold' : 'initial',
+    color: '#ccc',
     display: 'block',
     fontFamily: 'sans-serif',
     fontSize: '1.1rem',
@@ -217,6 +216,12 @@ const LeftColumnItem = ({ label, onClick = {}, fadeIn, isSelected }) => {
   });
   a.innerHTML = label;
   a.addEventListener('click', () => onClick());
+
+  Events.subscribe('selectionUpdated', () => {
+    const isSelected = getIsSelected();
+    a.style.color = isSelected ? 'white' : '#ccc';
+    a.style.fontWeight = isSelected ? 'bold' : 'initial';
+  });
 
   const fader = Fader();
   DOM.addChild(fader, a);

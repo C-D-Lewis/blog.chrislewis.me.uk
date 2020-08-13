@@ -4,14 +4,14 @@ Android,Pebble
 ---
 
 Today saw the end of Team Pebble's controversial radio silence, and replaced it with an absolutely huge announcement in the form of a live stream. You can get the details <a title="Pebble SDK 2.0 stream" href="http://www.youtube.com/watch?v=uoVX2ibCFXw">here</a>. The salient points are:
-<ol>
+
 • A huge overhaul of the 1.x SDK, changing a huge amount of how apps are written.
 
 • New APIs for access to accelerometer and JS services.
 
 • Upgraded and streamlined developer tools.
 
-</ol>
+
 The main implications for this for me, my watch/phone apps/faces and my tutorials are this; When the SDK 2.0 exits beta and it generally released, all the watch faces and apps I've developed for 1.x will cease to work, unless I upgrade them.
 
 My priority for upgrade will be Watch Trigger and Watch Trigger +, followed by all the watch apps available in Watch App Selector. Maybe that will require splintering into two pages for 1.x and 2.0, or multiple buttons.

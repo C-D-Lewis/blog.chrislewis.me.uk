@@ -34,14 +34,14 @@ Using these types of variable, most kinds of data can be stored.
 Functions can be thought of as tasks that be started at any time. They're a good way of grouping statements (another word for a line of code or command) to act on data that you're going to be doing frequently. As a very basic example, imagine you wanted to add one to an integer. When your code is running, you don't know what that number will be, but you know where it will be coming from. It could be a literal value, or the result of a function call, so it needs to be supplied to the function.
 
 A function declaration has three main parts:
-<ol>
+
 • The return type, which is the type of data the function will supply us with when we call it to run.
 
 • The name of the function
 
 • The variables we supply to the function for it to work on. These are called arguments. There can be as many arguments as you need.
 
-</ol>
+
 You can see these parts shown in the 'pseudo-function' below:
 
 ![](/assets/import/media/2013/06/image-21.png)

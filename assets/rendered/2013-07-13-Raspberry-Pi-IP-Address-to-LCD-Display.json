@@ -44,7 +44,11 @@
     },
     {
       "type": "paragraph",
-      "text": "So far so good. But the main purpose of this exercise was to get around the combined problem of not knowing the IP address assigned by DHCP when the Pi is first introduced to a LAN, and having to TV guaranteed to be within reach. The final step therefore was to have the Python script run on boot. The final process is summed up below:\n<ol>\n• Boot script /etc/rc.local executes the Python script."
+      "text": "So far so good. But the main purpose of this exercise was to get around the combined problem of not knowing the IP address assigned by DHCP when the Pi is first introduced to a LAN, and having to TV guaranteed to be within reach. The final step therefore was to have the Python script run on boot. The final process is summed up below:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Boot script /etc/rc.local executes the Python script."
     },
     {
       "type": "paragraph",
@@ -60,7 +64,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nI think that's mission accomplished! Here is a photo of the finished system in action:"
+      "text": "\nI think that's mission accomplished! Here is a photo of the finished system in action:"
     },
     {
       "type": "image",

@@ -24,14 +24,14 @@ An advantage of using cloudpebble instead of installing your own Virtual Machine
 ## Important Downloads
 
 Before you start, make sure you download both these files. You'll need them!
-<ol>
+
 • <a title="VirtualBox" href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>
 
 • <a title="Ubuntu Download" href="http://www.ubuntu.com/download/desktop">A DVD image file for Ubuntu OS</a>. I'd recommend 12.04 LTS. Pick the architecture version that is applicable. If you're unsure, select 32-bit. If you want to donate, that's great, but you don't have to. On the next page choose 'not now, take me to the download' to go straight there.
 
-</ol>
+
 ## Setting Up the Virtual Machine
-<ol>
+
 • Install and open VirtualBox. Click 'New' at the top left corner.
 
 • Enter a name for your Virtual Machine and select 'Type' as 'Linux' and 'Version' as 'Ubuntu' or 'Ubuntu 64', depending on your preference earlier.
@@ -52,9 +52,9 @@ Before you start, make sure you download both these files. You'll need them!
 
 • Press 'Start' and wait for the 'Welcome' window.
 
-</ol>
+
 ## Setting up Ubuntu
-<ol>
+
 • Select your preferred language on the left pane and then choose 'Install Ubuntu'.
 
 • If you prefer, select the box for 'Download updates while installing'. This will ensure the standard parts of Linux that the SDK may rely on are up-to-date, and I'd strongly recommend it. Press 'Continue'.
@@ -67,7 +67,7 @@ Before you start, make sure you download both these files. You'll need them!
 
 • Click 'Restart Now' when asked, then press ENTER when asked. There is no CD to eject.
 
-</ol>
+
 ## Set Up Toolchain
 
 Now you need to install the software tools and dependencies the SDK requires to work.

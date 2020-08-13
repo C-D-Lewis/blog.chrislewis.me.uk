@@ -22,7 +22,7 @@ Here's how the new viewfinder looks with the progressbar, in my room, as it's cu
 ![](/assets/import/media/2013/09/shot2.png)
 
 Other new features include:
-<ol>
+
 • Subtle animations on a couple of UI elements; namely the reset button (if Instant Review is on) and the countdown timer remaining TextView, when it is visible
 
 • A ProgressBar showing the stages of trigger, capture, saving and media scanning of the image. If Instant Review is on, the reset button appears once this process is complete, ensuring users don't reset the camera before the image is finished saving.
@@ -35,7 +35,7 @@ Other new features include:
 
 • Finally, a wake-lock so that the phone doesn't go to sleep while you are arranging your photo/relatives.
 
-</ol>
+
 I think that's all, so have at it and enjoy! The in-app feedback options are still there in case anything goes wrong.
 
 One other note: I've had reports of intermittent responses from the watch-app, such as UP and DOWN buttons working, but not SELECT. Seeing as I've implemented the Pebble AppSync as best as I am able, all events go through the same procedures, so receive equal treatment. This unusual behavior could be attributed to the on-going battle Pebble are fighting against flaky device connections as one of the focuses behind the last few Pebble App updates. As a personal response to this, I am working on my own abstraction above AppSync (which is itself an abstraction of AppMessage) to try and get a better handle on the continuous state of the connection to the watch.

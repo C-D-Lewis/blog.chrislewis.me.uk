@@ -10,7 +10,7 @@ Android,Pebble
 ## - 1.2.2 Adds link to install from Pebble Appstore to combat Android Beta 10 sideloading bug. 
 
 Today sees the addition of a number of new features to improve and expand the Wristponder experience:
-<ol>
+
 • Added option to send to last Caller as well as last SMS.
 
 • Added auto-close option in Settings.
@@ -21,20 +21,20 @@ Today sees the addition of a number of new features to improve and expand the Wr
 
 • Fixed a crash when a response was too long.
 
-</ol>
+
 Here are some screenshots:
 
 ![](/assets/import/media/2014/02/wp-screens-quad1.png)
 
 A few points regarding other requested features:
-<ol>
+
 • Facebook Messenger, WhatsApp and Google Voice do not at the moment have APIs that allow background composition and sending of messages without user interaction. If I am incorrect, please let me know!
 
 • Persistent storage of responses for faster launch on the watch is on the horizon, but it needs a few kinks ironed out first.
 
 • Implementing a 'top 5 received SMS contacts' feature<del> is only possible for Android phones with API level 18 (Android 4.3) or greater, so not worth implementation just yet. Still a desirable feature though.</del> Appears to be doable! More soon.
 
-</ol>
+
 <h2 style="text-align:left;">Download</h2>
 You can get Wristponder with it's companion app in one place from the Google Play store. If you find any bugs or have feature ideas, let me know!
 

@@ -48,14 +48,14 @@ This function call allows you to use the resources as named in the JSON file whe
 Animations allow a static watch face to come alive and become more expressive. An example of an implementation of these can be found in my <a title="Split Horizon" href="http://www.mypebblefaces.com/view?fID=3837&aName=Bonsitm&pageTitle=Split+Horizon%3A+Seconds+Edition&auID=3905">Split Horizon: Seconds Edition</a> watch face. Blocks slide in from the top to mark the 15, 30, 45 and 60 second marks, and two half-screen-sized InverterLayers come in and out again to reveal the new time when the minute ticks over.
 
 To do all this, you need to use a structure called PropertyAnimation. When using this to animate a Layer of your choice, you must do a number of steps in a certain order.
-<ol>
+
 • First, initalise the PropertyAnimation with the PropertyAnimation structure, the Layer to be moved and start and end locations (GRects)
 
 • Set the duration of the animation (in milliseconds) and the curve type (Easing in or out for example)
 
 • Schedule the animation. As soon as this is called, the animation will start pretty much instantaneously.
 
-</ol>
+
 As promised earlier, here is a function that neatly wraps up all this into one function call you can use to make the main function easier to read (Click the image to see it better):
 
 ![](/assets/import/media/2013/07/animatelayer.png?w=545)

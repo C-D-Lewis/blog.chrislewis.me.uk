@@ -22,7 +22,7 @@ As I quickly found, the LiquidCrystal library didn't appear to be included in wi
 Once this was done, I wrote a Python script (<a title="Getting the Raspberry Pi's IP address" href="http://raspberrypi.stackexchange.com/questions/6714/how-to-get-the-raspberry-pis-ip-address-for-ssh">with help from here</a>) that determined the IP address, and then called the compiled executable that took the address as the argument and send it to the LCD display.
 
 So far so good. But the main purpose of this exercise was to get around the combined problem of not knowing the IP address assigned by DHCP when the Pi is first introduced to a LAN, and having to TV guaranteed to be within reach. The final step therefore was to have the Python script run on boot. The final process is summed up below:
-<ol>
+
 • Boot script /etc/rc.local executes the Python script.
 
 • The Python script in turn finds the IP address and calls the LCD executable, supplying the address as an argument.
@@ -31,7 +31,7 @@ So far so good. But the main purpose of this exercise was to get around the comb
 
 • I use the IP address now visible to the world to connect using SSH, saving it for later use in the process.
 
-</ol>
+
 I think that's mission accomplished! Here is a photo of the finished system in action:
 
 ![](/assets/import/media/2013/07/ip-cutout.png)As is usual for this type of post, <a title="Source!" href="https://www.dropbox.com/s/flvkhkzwh7iyfpa/RPi%20IP%20to%20LCD.zip">you can find the C and Python source files, as well as a built C executable here</a>. The LCD display pin map is included as a comment in the C file. The Raspberry Pi pins used by the wiringPi library <a title="Drogon Pin definitions" href="https://projects.drogon.net/raspberry-pi/wiringpi/pins/">can be found here</a>.

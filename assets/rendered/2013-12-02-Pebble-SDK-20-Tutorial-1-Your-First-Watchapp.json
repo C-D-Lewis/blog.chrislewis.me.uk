@@ -16,7 +16,11 @@
     },
     {
       "type": "paragraph",
-      "text": "If you are not familiar with the following basic C concepts, please read <a title=\"Pebble Watch Face SDK Tutorial #1: Beginner’s Primer to the C Language\" href=\"http://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/\">Part 1 of the 1.X tutorial</a>, which is just as appropriate now:\n<ol>\n• Variables and variable scope (local or global?)"
+      "text": "If you are not familiar with the following basic C concepts, please read <a title=\"Pebble Watch Face SDK Tutorial #1: Beginner’s Primer to the C Language\" href=\"http://ninedof.wordpress.com/2013/06/19/pebble-watch-face-sdk-tutorial-1-beginners-primer-to-the-c-language/\">Part 1 of the 1.X tutorial</a>, which is just as appropriate now:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Variables and variable scope (local or global?)"
     },
     {
       "type": "paragraph",
@@ -40,7 +44,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nUp to speed? Good! Let's make our first SDK 2.0 watchapp. This time the tutorial will take a more practical approach, with each section finishing with a compilable project showing off the things learned therein."
+      "text": "\nUp to speed? Good! Let's make our first SDK 2.0 watchapp. This time the tutorial will take a more practical approach, with each section finishing with a compilable project showing off the things learned therein."
     },
     {
       "type": "header",
@@ -49,7 +53,11 @@
     },
     {
       "type": "paragraph",
-      "text": "In order to write and compile watchfaces there are two main options for Windows users:\n<ol>\n• Use <a title=\"cloudpebble\" href=\"http://cloudpebble.net\">Cloud Pebble</a>."
+      "text": "In order to write and compile watchfaces there are two main options for Windows users:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Use <a title=\"cloudpebble\" href=\"http://cloudpebble.net\">Cloud Pebble</a>."
     },
     {
       "type": "paragraph",
@@ -57,7 +65,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nChoose whichever works for you. However, since the first draft of this tutorial section, CloudPebble now allows you to install, take screenshots and see logs from Pebble apps from the Compilation page, so for the purposes of a more simple start I'll be writing this tutorial from the Cloud Pebble perspective."
+      "text": "\nChoose whichever works for you. However, since the first draft of this tutorial section, CloudPebble now allows you to install, take screenshots and see logs from Pebble apps from the Compilation page, so for the purposes of a more simple start I'll be writing this tutorial from the Cloud Pebble perspective."
     },
     {
       "type": "header",
@@ -66,7 +74,11 @@
     },
     {
       "type": "paragraph",
-      "text": "To get started, log into Cloud Pebble and choose 'Create Project'.\n<ol>\n• Enter a suitable name such as 'Tutorial Part 1'."
+      "text": "To get started, log into Cloud Pebble and choose 'Create Project'."
+    },
+    {
+      "type": "paragraph",
+      "text": "• Enter a suitable name such as 'Tutorial Part 1'."
     },
     {
       "type": "paragraph",
@@ -82,7 +94,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nNext, click 'New C file' and enter a name. I'd recommend 'main.c'. This file will contain the C code that makes up the watchface we're creating."
+      "text": "\nNext, click 'New C file' and enter a name. I'd recommend 'main.c'. This file will contain the C code that makes up the watchface we're creating."
     },
     {
       "type": "header",

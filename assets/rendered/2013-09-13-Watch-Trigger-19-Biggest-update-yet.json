@@ -48,7 +48,11 @@
     },
     {
       "type": "paragraph",
-      "text": "Other new features include:\n<ol>\n• Subtle animations on a couple of UI elements; namely the reset button (if Instant Review is on) and the countdown timer remaining TextView, when it is visible"
+      "text": "Other new features include:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• Subtle animations on a couple of UI elements; namely the reset button (if Instant Review is on) and the countdown timer remaining TextView, when it is visible"
     },
     {
       "type": "paragraph",
@@ -72,7 +76,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nI think that's all, so have at it and enjoy! The in-app feedback options are still there in case anything goes wrong."
+      "text": "\nI think that's all, so have at it and enjoy! The in-app feedback options are still there in case anything goes wrong."
     },
     {
       "type": "paragraph",

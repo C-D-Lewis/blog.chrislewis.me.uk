@@ -45,7 +45,11 @@
     },
     {
       "type": "paragraph",
-      "text": "Finally, for the left hand most digit, 'hours tens', the condition is a little more complex. There are three times at which this digit changes.\n<ol>\n• At 09:59, it changes to a '1' in 10:00."
+      "text": "Finally, for the left hand most digit, 'hours tens', the condition is a little more complex. There are three times at which this digit changes."
+    },
+    {
+      "type": "paragraph",
+      "text": "• At 09:59, it changes to a '1' in 10:00."
     },
     {
       "type": "paragraph",
@@ -57,7 +61,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nBy using this simple prediction algorithm on the second tick before any animation is due to take place, the watch face code knows which digits will change before the time change has even taken place!"
+      "text": "\nBy using this simple prediction algorithm on the second tick before any animation is due to take place, the watch face code knows which digits will change before the time change has even taken place!"
     },
     {
       "type": "paragraph",

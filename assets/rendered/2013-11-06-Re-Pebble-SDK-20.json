@@ -9,7 +9,11 @@
   "components": [
     {
       "type": "paragraph",
-      "text": "Today saw the end of Team Pebble's controversial radio silence, and replaced it with an absolutely huge announcement in the form of a live stream. You can get the details <a title=\"Pebble SDK 2.0 stream\" href=\"http://www.youtube.com/watch?v=uoVX2ibCFXw\">here</a>. The salient points are:\n<ol>\n• A huge overhaul of the 1.x SDK, changing a huge amount of how apps are written."
+      "text": "Today saw the end of Team Pebble's controversial radio silence, and replaced it with an absolutely huge announcement in the form of a live stream. You can get the details <a title=\"Pebble SDK 2.0 stream\" href=\"http://www.youtube.com/watch?v=uoVX2ibCFXw\">here</a>. The salient points are:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• A huge overhaul of the 1.x SDK, changing a huge amount of how apps are written."
     },
     {
       "type": "paragraph",
@@ -21,7 +25,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nThe main implications for this for me, my watch/phone apps/faces and my tutorials are this; When the SDK 2.0 exits beta and it generally released, all the watch faces and apps I've developed for 1.x will cease to work, unless I upgrade them."
+      "text": "\nThe main implications for this for me, my watch/phone apps/faces and my tutorials are this; When the SDK 2.0 exits beta and it generally released, all the watch faces and apps I've developed for 1.x will cease to work, unless I upgrade them."
     },
     {
       "type": "paragraph",

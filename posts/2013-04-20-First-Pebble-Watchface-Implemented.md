@@ -16,7 +16,7 @@ The key to being able to use the screen is to hold the Down button quite hard...
 But in the meantime I can keep writing watchfaces, just can't use 'em.
 
 But what if we wanted to change it? Well, here's how you'd go about it:
-<ol>
+
 • <span style="line-height:12px;">Load up Ubuntu Linux or a suitable VM, download the Pebble SDK (including dependencies and libraries) and set it all up <a title="Pebble SDK" href="http://developer.getpebble.com/1/welcome">as described here</a>.</span>
 
 • Write the source file, with guidance from the SDK documentation. I've already done this (and you can <a title="Source for basic watchface" href="https://www.dropbox.com/s/yp02w4zcf6j9w5s/textTest.c">read it in full here</a>).
@@ -37,5 +37,5 @@ But what if we wanted to change it? Well, here's how you'd go about it:
 
 • Now you should see the watchface with its changes on the watch!![](/assets/import/media/2013/04/7.jpg)
 
-</ol>
+
 Now to work on some other ideas I've had...

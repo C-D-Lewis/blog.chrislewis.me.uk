@@ -12,7 +12,11 @@
     },
     {
       "type": "paragraph",
-      "text": "If you're Java literate enough to read the source files you may want to figure out how it works for yourself, but if not, here is a brief summary:\n<ol>\n• <span style=\"line-height:12px;\">All 'notes' are an Entry. These have three fields: ID, Label and Content, all represented as strings. These fields are saved in a '.entry' file.</span>"
+      "text": "If you're Java literate enough to read the source files you may want to figure out how it works for yourself, but if not, here is a brief summary:"
+    },
+    {
+      "type": "paragraph",
+      "text": "• <span style=\"line-height:12px;\">All 'notes' are an Entry. These have three fields: ID, Label and Content, all represented as strings. These fields are saved in a '.entry' file.</span>"
     },
     {
       "type": "paragraph",
@@ -24,7 +28,7 @@
     },
     {
       "type": "paragraph",
-      "text": "</ol>\nThere are quite a few bugs, so please let me know what you find. I'm still adding features, and if it proves useful to me I'll probably make a GUI for it."
+      "text": "\nThere are quite a few bugs, so please let me know what you find. I'm still adding features, and if it proves useful to me I'll probably make a GUI for it."
     },
     {
       "type": "paragraph",

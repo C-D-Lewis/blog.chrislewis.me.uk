@@ -8,7 +8,6 @@ Time to roll my own. So long, WordPress!
 
 * Mobile-friendly layout
 * Missing images in very old posts
-* State of Archive links reflects current selection
 
 ## Post format
 

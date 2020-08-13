@@ -16,7 +16,7 @@ Anyway, dramatics aside, here's a screenie of me playing against myself. When I 
 ![](/assets/import/media/2013/04/multiplayersuccess.png?w=545)
 
 Brief details for those interested:
-<ol>
+
 • <span style="line-height:12px;">When a player is moved locally, it sends "#playerposition", followed by its location x and y to the server. </span>
 
 • This information is then sent to all connected clients in the form "#playerupdate", followed by that player's name, x and y. The name of each player is associated with each listening thread on the server.
@@ -27,7 +27,7 @@ Brief details for those interested:
 
 • When a player disconnects, it sends "#disconnect". The server then issues a "#despawn" command to all connected clients, followed by the disconnecting player's name. Each client then removes the corresponding local entity.
 
-</ol>
+
 I am aware that this is a very crude 'move to target' system that will only really work in obstruction free scenes. Anything more complicated like an environment made of corridors and squares like '<a title="A Brief Overview of ‘dungeons’ so far" href="http://ninedof.wordpress.com/2013/03/27/a-brief-overview-of-dungeons-so-far/">dungeons</a>' and pathfinding will have to rear its ugly head once again.
 
 But thats okay, because it seems to get easier and simpler to implement each time it comes around.

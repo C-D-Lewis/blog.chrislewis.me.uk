@@ -84,14 +84,14 @@ Going back in the opposite direction, data is sent to the watch app by making us
 ![](/assets/import/media/2013/07/packages.png)
 
 The process for sending data from the phone app to the watch app is largely similar to the same process started from the watch app:
-<ol>
+
 • Create the Dictionary (or PebbleDictionary in this case)
 
 • Populate it with key-value tuples containing the data to be sent
 
 • Send the Dictionary using the UUID (same as the watch app UUID)
 
-</ol>
+
 This process is summarised in the image below, with comments for clarity:
 
 ![](/assets/import/media/2013/07/send-to-pebble.png?w=545)
@@ -99,14 +99,14 @@ This process is summarised in the image below, with comments for clarity:
 ## Receiving data on the watch app
 
 The final part of this process is receiving data from the phone app. This is done by (you guessed it!) extracting data from a Dictionary sent from the phone app and provided by the callback handler as an argument.
-<ol>
+
 • A DictionaryIterator is used to search the Dictionary for data using the pre-defined key for that identifies the data received.
 
 • This data is stored in a tuple
 
 • The tuple contents can then be used as you wish
 
-</ol>
+
 In the example below, the Dictionary is searched for the string data associated with the DATA_KEY, which was send from the phone app using the same key. This string is then displayed in a TextLayer for the user to see that the data has arrived successfully. Note that the Pebble OS automatically ACKs the received AppMessage:
 
 ![](/assets/import/media/2013/07/using-received-data-on-watch.png?w=545)
