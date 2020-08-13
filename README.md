@@ -6,7 +6,6 @@ Time to roll my own. So long, WordPress!
 
 ## TODO
 
-* Mobile-friendly layout
 * Missing images in very old posts
 
 ## Post format
@@ -30,17 +29,14 @@ later converted into JSON objects that can be rendered as components:
 ## Building the blog
 
 All posts in `posts` are built using their metadata to create component lists
-that are rendered on the page, and are placed in `rendered`.
-
-Existing WordPress import posts are built from `assets/import/posts.json` using
-`tools/importWordpressXml.js`.
-
-The navigation of months per year is built in `tools/buildPosts.js` as
-`assets/history.json`.
+that are rendered on the page, and are placed in `assets/rendered`.
 
 ```
 ./build.sh
 ```
+
+The navigation of months per year is built during `tools/buildPosts.js` as
+`assets/history.json`.
 
 After building, opening `index.html` and selecting a year and month will show
 all the posts from `assets/history.json` referring to their rendered components
@@ -48,6 +44,18 @@ which can then be displayed.
 
 The chosen month or post is reflected in the query for permalinking.
 
+
+## Deployment
+
+Currently deployed as a S3 website from bucket, with a CloudFront distribution
+serving HTTPS with a ACM certificate. It can be syncronized and invalidated
+with an AWS IAM User with S3 and CloudFront permissions allowed:
+
+```
+export AWS_PROFILE=...
+
+./deploy.sh
+```
 
 ## Import from WordPress
 
