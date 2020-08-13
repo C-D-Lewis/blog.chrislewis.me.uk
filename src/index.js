@@ -35,54 +35,59 @@ const getQueryParam = name => new URLSearchParams(window.location.search).get(na
  * Setup the UI.
  */
 const buildPageLayout = () => {
-  const rootContainer = UIComponents.RootContainer();
+  const rootContainer = Components.RootContainer();
   DOM.addChild(document.getElementById('app'), rootContainer);
 
   // Header
-  const siteHeader = UIComponents.SiteHeader();
+  const siteHeader = Components.SiteHeader();
   DOM.addChild(rootContainer, siteHeader);
-  DOM.addChild(siteHeader, UIComponents.SiteTitle());
-  DOM.addChild(siteHeader, UIComponents.SiteSocials());
+  DOM.addChild(siteHeader, Components.SiteTitle());
+  DOM.addChild(siteHeader, Components.SiteSocials());
 
   // Containers
-  const contentContainer = UIComponents.ContentContainer();
+  const contentContainer = Components.ContentContainer();
   DOM.addChild(rootContainer, contentContainer);
-  leftColumn = UIComponents.LeftColumn();
-  DOM.addChild(contentContainer, leftColumn);
-  const centralColumn = UIComponents.CentralColumn();
-  DOM.addChild(contentContainer, centralColumn);
+  leftColumn = Components.LeftColumn();
+  const centralColumn = Components.CentralColumn();
+  if (DOM.isNarrowScreen()) {
+    DOM.addChild(contentContainer, centralColumn);
+    DOM.addChild(contentContainer, leftColumn);
+  } else {
+    DOM.addChild(contentContainer, leftColumn);
+    DOM.addChild(contentContainer, centralColumn);
+  }
 
   // Blog sections
-  DOM.addChild(leftColumn, UIComponents.LeftColumnHeader('Blog', true));
-  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
+  DOM.addChild(leftColumn, Components.LeftColumnHeader('Blog', true));
+  DOM.addChild(leftColumn, Components.LeftColumnItem({
     label: 'Most Recent',
     onClick: () => (window.location.href = '/'),
   }));
 
   // Other stuff
-  const otherStuffHeader = UIComponents.LeftColumnHeader('Other Stuff');
+  const otherStuffHeader = Components.LeftColumnHeader('Other Stuff');
   DOM.addChild(leftColumn, otherStuffHeader);
-  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
+  DOM.addChild(leftColumn, Components.LeftColumnItem({
     label: 'Pixels With Friends',
     onClick: () => (window.open('http://pixels.chrislewis.me.uk', '_blank')),
   }));
-  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
+  DOM.addChild(leftColumn, Components.LeftColumnItem({
     label: 'FitBit Apps',
     onClick: () => (window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank')),
   }));
-  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
+  DOM.addChild(leftColumn, Components.LeftColumnItem({
     label: 'Pebble Apps',
     onClick: () => (window.open('https://github.com/C-D-Lewis/pebble', '_blank')),
   }));
-  DOM.addChild(leftColumn, UIComponents.LeftColumnItem({
+  DOM.addChild(leftColumn, Components.LeftColumnItem({
     label: 'Old WordPress Blog',
     onClick: () => (window.open('https://ninedof.wordpress.com/', '_blank')),
   }));
 
   // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
-  const archiveHeader = UIComponents.LeftColumnHeader('Archive');
+  const archiveHeader = Components.LeftColumnHeader('Archive');
   DOM.addChild(leftColumn, archiveHeader);
-  postList = UIComponents.PostList();
+  postList = Components.PostList();
   DOM.addChild(centralColumn, postList);
 };
 
@@ -96,14 +101,14 @@ const showPostsFrom = async (year, month) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?year=${year}&month=${month}`);
 
-  const archiveHeader = UIComponents.LeftColumnHeader(`Archive: ${monthName(month)} ${year}`, true);
+  const archiveHeader = Components.LeftColumnHeader(`Archive: ${monthName(month)} ${year}`, true);
   DOM.addChild(postList, archiveHeader);
 
   // Fetch all posts and add to the postList component as Posts
   const posts = historyJson[year][month];
   const promises = posts.map(({ file }) => fetch(file).then(res => res.json()));
   const models = await Promise.all(promises);
-  models.forEach(model => DOM.addChild(postList, UIComponents.Post(model)));
+  models.forEach(model => DOM.addChild(postList, Components.Post(model)));
 
   Events.post('selectionUpdated');
 };
@@ -134,7 +139,7 @@ window.showPost = async (fileName) => {
   }
 
   const model = await fetch(post.file).then(res => res.json());
-  DOM.addChild(postList, UIComponents.Post(model));
+  DOM.addChild(postList, Components.Post(model));
 
   Events.post('selectionUpdated');
 };
@@ -157,7 +162,7 @@ const initPostsAndHistory = async () => {
       Object.entries(yearData)
         .sort(([month1, month2]) => integerItemSort(month1, month2))
         .forEach(([monthIndex]) => {
-          const monthLabel = UIComponents.LeftColumnItem({
+          const monthLabel = Components.LeftColumnItem({
             label: `${monthName(monthIndex)} ${year}`,
             onClick: () => showPostsFrom(year, monthIndex),
             fadeIn: true,

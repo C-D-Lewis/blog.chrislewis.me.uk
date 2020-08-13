@@ -1,3 +1,6 @@
+/** Min narrow width. */
+const MIN_WIDTH = 1000;
+
 /**
  * Create an element of given type, and apply style and optional properties.
  *
@@ -47,10 +50,18 @@ const addChild = (parent, child) => parent.appendChild(child);
  */
 const addChildren = (parent, children) => children.forEach(p => parent.appendChild(p));
 
+/**
+ * Decide if the screen is narrow.
+ *
+ * @returns {boolean} true if narrow.
+ */
+const isNarrowScreen = () => window.innerWidth < MIN_WIDTH;
+
 window.DOM = {
   create,
   setHtml,
   getHtml,
   addChild,
   addChildren,
+  isNarrowScreen,
 };

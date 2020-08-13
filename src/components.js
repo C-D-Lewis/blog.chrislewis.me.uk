@@ -67,7 +67,7 @@ const SiteTitleWord = (str, color, marginLeft = '10px') => {
     display: 'block',
     color,
     fontFamily: 'monospace',
-    fontSize: '1.4rem',
+    fontSize: DOM.isNarrowScreen() ? '1rem' : '1.4rem',
     marginLeft,
     marginTop: '0px',
     marginBottom: '0px',
@@ -138,7 +138,7 @@ const SiteSocials = () => {
     display: 'flex',
     marginRight: '20px',
     justifyContent: 'flex-end',
-    flex: '1',
+    flex: DOM.isNarrowScreen() ? 'initial' : '1',
     alignItems: 'center',
   });
   const gitHubIcon = SocialIcon('github.png', 'https://github.com/C-D-Lewis');
@@ -157,6 +157,7 @@ const SiteSocials = () => {
 const ContentContainer = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'row',
+  flexWrap: 'wrap',
   width: '100%',
   margin: 0,
   padding: 0,
@@ -171,7 +172,7 @@ const LeftColumn = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: Colors.leftColumnBackground,
-  flex: '0 0 240px',
+  flex: DOM.isNarrowScreen() ? '1' : '0 0 230px',
   justifyContent: 'start',
   padding: '0px 15px',
   borderRight: '1px solid #111',
@@ -237,9 +238,9 @@ const CentralColumn = () => DOM.create('div', {
   flex: '1',
   display: 'flex',
   flexDirection: 'column',
-  width: '100vw',
+  minWidth: '700px',
   borderLeft: `1px solid ${Colors.lightGrey}`,
-  paddingLeft: '20px',
+  paddingLeft: DOM.isNarrowScreen() ? '5px' : '20px',
   backgroundColor: Colors.centralColumnBackground,
   paddingTop: '80px',
 });
@@ -252,9 +253,10 @@ const CentralColumn = () => DOM.create('div', {
 const PostList = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'column',
-  maxWidth: '800px',
-  margin: '0px 20px',
+  maxWidth: DOM.isNarrowScreen() ? '370px' : '800px',
+  margin: DOM.isNarrowScreen() ? '0px 5px' : '0px 20px',
   padding: '10px',
+  paddingBottom: '40px',
 });
 
 /**
@@ -279,7 +281,7 @@ const PostTitle = ({ title, fileName }) => {
   const h1 = DOM.create('h1', {
     color: 'black',
     fontFamily: 'sans-serif',
-    fontSize: '1.5rem',
+    fontSize: DOM.isNarrowScreen() ? '1.2rem': '1.5rem',
     fontWeight: 'bold',
     marginTop: '10px',
     marginBottom: '5px',
@@ -374,8 +376,8 @@ const PostDateAndTags = ({ dateTime, tags }) => {
     cursor: 'default',
     paddingTop: '3px',
   });
-  const [date, time] = dateTime.split(' ');
-  dateDiv.innerHTML = `Posted on ${date} at ${time}`;
+  const [date] = dateTime.split(' ');
+  dateDiv.innerHTML = `Posted ${date}`;
   DOM.addChild(container, dateDiv);
 
   const tagList = PostTagsList(tags);
@@ -391,13 +393,13 @@ const PostDateAndTags = ({ dateTime, tags }) => {
 const PostBody = (children) => {
   const div = DOM.create('div', {
     display: 'block',
-    width: '90%',
     color: 'black',
     fontFamily: 'sans-serif',
     fontSize: '1rem',
     marginTop: '10px',
-    marginLeft: '39px',
-    padding: '5px',
+    marginLeft: DOM.isNarrowScreen() ? '10px' : '39px',
+    padding: DOM.isNarrowScreen() ? '0px' : '5px',
+    paddingRight: DOM.isNarrowScreen() ? '5px' : '35px',
     border: 'none',
     outline: 'none',
     backgroundColor: '#0000',
@@ -469,15 +471,13 @@ const PostParagraph = ({ text }) => {
  * @param {Object[]} components - List of models to convert.
  * @returns {Object[]} List of HTMLElements for display.
  */
-const generatePostComponents = (components) => {
-  return components.map((component) => {
-    switch (component.type) {
-      case 'image': return PostImage(component);
-      case 'header': return PostHeader(component);
-      case 'paragraph': return PostParagraph(component);
-    }
-  })
-}
+const generatePostComponents = (components) => components.map((component) => {
+  switch (component.type) {
+    case 'image': return PostImage(component);
+    case 'header': return PostHeader(component);
+    case 'paragraph': return PostParagraph(component);
+  }
+});
 
 /**
  * Post component.
@@ -491,7 +491,7 @@ const Post = (model = {}) => {
     backgroundColor: 'white',
     borderRadius: '5px',
     overflow: 'hidden',
-    padding: '15px',
+    padding: DOM.isNarrowScreen () ? '5px' : '15px',
     marginTop: '15px',
   });
   const title = PostTitle(model);
@@ -506,7 +506,7 @@ const Post = (model = {}) => {
   return fader;
 };
 
-window.UIComponents = {
+window.Components = {
   RootContainer,
   SiteHeader,
   SiteTitle,
