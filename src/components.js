@@ -48,7 +48,7 @@ const Fader = () => {
 const SiteHeader = () => DOM.create('div', {
   display: 'flex',
   flexDirection: 'row',
-  width: '100%',
+  width: '100vw',
   minHeight: '80px',
   padding: 15,
   cursor: 'default',
@@ -109,44 +109,6 @@ const SiteTitle = () => {
   DOM.addChild(rowsContainer, comment);
   DOM.addChild(rowsContainer, wordsContainer);
   return rowsContainer;
-};
-
-/**
- * SocialIcon component.
- *
- * @returns {HTMLElement}
- */
-const SocialIcon = (icon, href) => {
-  const img = DOM.create('img', {
-    display: 'block',
-    width: '32px',
-    height: '32px',
-    marginLeft: '25px',
-  }, { src: `./assets/icons/${icon}` });
-  const a = DOM.create('a', {}, { href, target: '_blank' });
-  DOM.addChild(a, img);
-  return a;
-};
-
-/**
- * SiteSocials component.
- *
- * @returns {HTMLElement}
- */
-const SiteSocials = () => {
-  const container = DOM.create('div', {
-    display: 'flex',
-    marginRight: '20px',
-    justifyContent: 'flex-end',
-    flex: DOM.isNarrowScreen() ? 'initial' : '1',
-    alignItems: 'center',
-  });
-  const gitHubIcon = SocialIcon('github.png', 'https://github.com/C-D-Lewis');
-  DOM.addChild(container, gitHubIcon);
-  const twitterIcon = SocialIcon('twitter.png', 'https://twitter.com/Chris_DL');
-  DOM.addChild(container, twitterIcon);
-
-  return container;
 };
 
 /**
@@ -216,7 +178,10 @@ const LeftColumnItem = ({ label, onClick = {}, fadeIn, getIsSelected = () => {} 
     target: '_blank',
   });
   a.innerHTML = label;
-  a.addEventListener('click', () => onClick());
+  a.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    onClick();
+  });
 
   Events.subscribe('selectionUpdated', () => {
     const isSelected = getIsSelected();
@@ -238,12 +203,76 @@ const CentralColumn = () => DOM.create('div', {
   flex: '1',
   display: 'flex',
   flexDirection: 'column',
-  minWidth: '700px',
+  minWidth: DOM.isNarrowScreen() ? '400px' : '700px',
   borderLeft: `1px solid ${Colors.lightGrey}`,
   paddingLeft: DOM.isNarrowScreen() ? '5px' : '20px',
   backgroundColor: Colors.centralColumnBackground,
-  paddingTop: '80px',
+  paddingTop: '90px',
 });
+
+/**
+ * SocialPill component.
+ *
+ * @returns {HTMLElement}
+ */
+const SocialPill = ({ icon, label, backgroundColor, href }) => {
+  const a = DOM.create('a', {
+    display: 'flex',
+    padding: '5px 10px',
+    borderRadius: '55px',
+    margin: '5px',
+    backgroundColor,
+    alignItems: 'center',
+    textDecoration: 'none',
+    height: '30px',
+  }, { href, target: '_blank' });
+  const img = DOM.create('img', {
+    display: 'block',
+    width: '28px',
+    height: '28px',
+    marginRight: '5px',
+  }, { src: `./assets/icons/${icon}` });
+  DOM.addChild(a, img);
+  const labelSpan = DOM.create('span', {
+    color: 'white',
+    fontFamily: 'sans-serif',
+    paddingTop: '2px',
+  });
+  labelSpan.innerHTML = label;
+  DOM.addChild(a, labelSpan);
+  return a;
+};
+
+/**
+ * SiteSocials component.
+ *
+ * @returns {HTMLElement}
+ */
+const SiteSocials = () => {
+  const container = DOM.create('div', {
+    display: 'flex',
+    marginRight: '20px',
+    justifyContent: DOM.isNarrowScreen() ? 'center' : 'flex-end',
+    flex: DOM.isNarrowScreen() ? 'initial' : '1',
+    alignItems: 'center',
+  });
+  const gitHubIcon = SocialPill({
+    icon: 'github.png',
+    label: 'C-D-Lewis',
+    backgroundColor: 'black',
+    href: 'https://github.com/C-D-Lewis'
+  });
+  DOM.addChild(container, gitHubIcon);
+  const twitterIcon = SocialPill({
+    icon: 'twitter.png',
+    label: 'Chris_DL',
+    backgroundColor: 'rgb(29, 142, 238)',
+    href: 'https://twitter.com/Chris_DL'
+  });
+  DOM.addChild(container, twitterIcon);
+
+  return container;
+};
 
 /**
  * PostList component.

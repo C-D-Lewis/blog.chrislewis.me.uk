@@ -42,7 +42,9 @@ const buildPageLayout = () => {
   const siteHeader = Components.SiteHeader();
   DOM.addChild(rootContainer, siteHeader);
   DOM.addChild(siteHeader, Components.SiteTitle());
-  DOM.addChild(siteHeader, Components.SiteSocials());
+  if (!DOM.isNarrowScreen()) {
+    DOM.addChild(siteHeader, Components.SiteSocials());
+  }
 
   // Containers
   const contentContainer = Components.ContentContainer();
@@ -55,6 +57,9 @@ const buildPageLayout = () => {
   } else {
     DOM.addChild(contentContainer, leftColumn);
     DOM.addChild(contentContainer, centralColumn);
+  }
+  if (DOM.isNarrowScreen()) {
+    DOM.addChild(centralColumn, Components.SiteSocials());
   }
 
   // Blog sections
