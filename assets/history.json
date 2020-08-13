@@ -797,6 +797,13 @@
         "file": "assets/rendered/2020-03-08-FitBit-Development-Round-3.json",
         "fileName": "2020-03-08-FitBit-Development-Round-3"
       }
+    ],
+    "08": [
+      {
+        "title": "Blog 2.0!",
+        "file": "assets/rendered/2020-08-13-Blog-2-0.json",
+        "fileName": "2020-08-13-Blog-2-0"
+      }
     ]
   }
 }

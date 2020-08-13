@@ -1,0 +1,131 @@
+{
+  "title": "Blog 2.0!",
+  "fileName": "2020-08-13-Blog-2-0.md",
+  "dateTime": "2020-08-13 22:04",
+  "tags": [
+    "General",
+    "React"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "I began my personal programming blog in 2013 in a response to recommendation\nfrom a coursemate I was working with at university, in order to document my\nlearning journey and put the projects I produced out into the world in case it\ninterested others, and perhaps to one day serve as a sort of living portfolio\nwhen the time came to look for a job."
+    },
+    {
+      "type": "paragraph",
+      "text": "And I have to thank him! After a few awkward posts about extremely basic Java\nprograms, I got into the Pebble SDK, writing those popular SDK tutorial series,\nand being hired as a technical writer. And after that post at Pebble, I got a\nsimilar post at EVRYTHNG which has since evolved into a proper software job."
+    },
+    {
+      "type": "paragraph",
+      "text": "When I started the blog, I was just able to enter content into WordPress. Now,\nI know all I need to create my own blog from scratch, so after a long time\nthinking about it, and a few stalled weekends' works, here it is."
+    },
+    {
+      "type": "paragraph",
+      "text": "You're reading it right now! If you want, <a href=\"https://github.com/C-D-Lewis/blog\" target=\"_blank\">dive right into the source!</a>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Architecture"
+    },
+    {
+      "type": "paragraph",
+      "text": "After working on several frontend web apps, demos, and mobile applications at\nEVRYTHNG, I got into using frameworks like Hyperapp and React. I love the way\na complex application can be easily built from small components with self\ncontained behavior (if organised in a smart way early on!). But as is my\npreferred style, I wanted to see if I could do it all 'from scratch', without\na large established framework."
+    },
+    {
+      "type": "paragraph",
+      "text": "And so, something similar to a framework like React can be emulated with\nsomething as simple as this, if you are willing to go without the whole virtual\nDOM lifecycle keeping things up to date:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\n/**\n * Create an element of given type, and apply style and optional properties.\n *\n * @param {string} tag - The tag name, such as 'input'.\n * @param {Object} style - Object of CSS styles.\n * @param {Object} [props] - Object of optional object properties.\n * @returns {HTMLElement} The element with styles and props applied.\n */\nconst create = (tag, style, props = {}) => {\n  const el = document.createElement(tag);\n  Object.keys(style).forEach(key => Object.assign(el.style, { [key]: style[key] }));\n  Object.keys(props).forEach(key => Object.assign(el, { [key]: props[key] }));\n  return el;\n};\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And so a simple header component can be created, styled, and given behavios like\nso:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\n/**\n * PostHeader component.\n *\n * @returns {HTMLElement}\n */\nconst PostHeader = ({ level, text }) => {\n  const h = DOM.create(`h${level}`, {\n    color: 'black',\n    fontSize: '1.4rem',\n    marginTop: '25px',\n    marginBottom: '5px',\n  });\n  h.innerHTML = text;\n  return h;\n};\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The top site bar and side columns are both constructed this way. For the posts\nthemselves, I wrote a tranformation process to allow relatively easy to write\nMarkdown to become more rich content - as components of course!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Posts as Components"
+    },
+    {
+      "type": "paragraph",
+      "text": "After writing a post such as this one (or even transforming from a WordPress\nXML export, as for the old existing posts ported here), a build script does the\nfollowing:"
+    },
+    {
+      "type": "paragraph",
+      "text": "- Take the top metadata as title, date/time, and tags."
+    },
+    {
+      "type": "paragraph",
+      "text": "- Take the body after the separator line and divide it into paragraphs."
+    },
+    {
+      "type": "paragraph",
+      "text": "- If a paragraph starts with a markdown image, extract the image <code>src</code> and create an image component object."
+    },
+    {
+      "type": "paragraph",
+      "text": "- If a paragraph starts with a markdown header, extract the title and create a header component object."
+    },
+    {
+      "type": "paragraph",
+      "text": "- Else, just create a paragraph component object."
+    },
+    {
+      "type": "paragraph",
+      "text": "Once a post is finished, it will look something like the following:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\n{\n  \"title\": \"Creating a Miniature Scripting Language\",\n  \"fileName\": \"2018-09-29-Creating-a-Miniature-Scripting-Language.md\",\n  \"dateTime\": \"2018-09-29 21:10:48\",\n  \"tags\": [\n    \"Other Programming\"\n  ],\n  \"components\": [\n    {\n      \"type\": \"paragraph\",\n      \"text\": \"After using a number of proper programming languages for various projects...\"\n    },\n    {\n      \"type\": \"paragraph\",\n      \"text\": \"I'd like to see a game fully utilise such a concept one day, but...\"\n    },\n    {\n      \"type\": \"header\",\n      \"level\": 2,\n      \"text\": \"The Result\"\n    },\n    {\n      \"type\": \"paragraph\",\n      \"text\": \"Turns out the easiest way to go about it to is to use an existing language...\"\n    },\n\n    ... and so on\n  ]\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The date and time of each post is used to create an object describing all posts\nfrom all months of all years, which is used to render the left hand navigation.\nWhen an item is chosen, the posts from that month are read and the corresponding\nfiles containing the metadata and component lists are fetched and rendered as\nthe components you see here now."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Deployment"
+    },
+    {
+      "type": "paragraph",
+      "text": "A blog is nothing if it can only be seen when checking out the repository and\nsetting up a local server - hardly a mobile-first experience! It should be as\neasy to read as the WordPress blog, and also easy for me to build and redeploy\nto not discourage from writing new posts, for I have a number of posts backing\nup waiting for the new blog to be finished - so expect those soon."
+    },
+    {
+      "type": "paragraph",
+      "text": "The <code>deploy.sh</code> script makes use of the AWS CLI to sync all HTML,\nCSS, JavaScript, images, and JSON files to an S3 bucket which is configured as a\nwebsite with an appropriate bucket policy allowing reading the objects within.\nThis works well enough, but you have to use the long S3 bucket website URL, and\nit doesn't support HTTPS."
+    },
+    {
+      "type": "paragraph",
+      "text": "To get around this I added a CloudFront distribution in front of the bucket,\nconfigured with an easier to remember Route53 record (blog.chrislewis.me.uk),\nand served with an SSL certification from ACM."
+    },
+    {
+      "type": "paragraph",
+      "text": "To redeploy after making layout or post changes, one simply runs the\n<code>build.sh</code> script, and then the <code>deploy.sh</code> script which\nsynchronized objects in the S3 bucket and then creates a CloudFront distribution\nto update any caches out there. Neat!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The Future"
+    },
+    {
+      "type": "paragraph",
+      "text": "Is it done? It's a side project - it's never done! I still have to write the odd\nsnippet of HTML for links within paragraphs, and the code snippets lack any kind\nof helpful syntax highlighting, and some really old posts are harder to map out\nof the WordPress export, but the vast majority is here okay, and I'm proud of\nhow it looks today."
+    },
+    {
+      "type": "paragraph",
+      "text": "And now this post is out the way, I can resume writing about my\n'lockdown projects'..."
+    }
+  ]
+}
