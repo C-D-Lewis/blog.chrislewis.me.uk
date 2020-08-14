@@ -67,7 +67,7 @@ const SiteTitleWord = (str, color, marginLeft = '10px') => {
     display: 'block',
     color,
     fontFamily: 'monospace',
-    fontSize: DOM.isNarrowScreen() ? '1rem' : '1.4rem',
+    fontSize: DOM.isNarrowScreen() ? '1.1rem' : '1.4rem',
     marginLeft,
     marginTop: '0px',
     marginBottom: '0px',
@@ -136,7 +136,7 @@ const LeftColumn = () => DOM.create('div', {
   backgroundColor: Colors.leftColumnBackground,
   flex: DOM.isNarrowScreen() ? '1' : '0 0 230px',
   justifyContent: 'start',
-  padding: '0px 15px',
+  padding: '90px 15px 0px 15px',
   borderRight: '1px solid #111',
 });
 
@@ -224,12 +224,12 @@ const SocialPill = ({ icon, label, backgroundColor, href }) => {
     backgroundColor,
     alignItems: 'center',
     textDecoration: 'none',
-    height: '30px',
+    height: '25px',
   }, { href, target: '_blank' });
   const img = DOM.create('img', {
     display: 'block',
-    width: '28px',
-    height: '28px',
+    width: '24px',
+    height: '24px',
     marginRight: '5px',
   }, { src: `./assets/icons/${icon}` });
   DOM.addChild(a, img);
@@ -237,6 +237,7 @@ const SocialPill = ({ icon, label, backgroundColor, href }) => {
     color: 'white',
     fontFamily: 'sans-serif',
     paddingTop: '2px',
+    fontSize: '0.9rem',
   });
   labelSpan.innerHTML = label;
   DOM.addChild(a, labelSpan);
@@ -256,20 +257,24 @@ const SiteSocials = () => {
     flex: DOM.isNarrowScreen() ? 'initial' : '1',
     alignItems: 'center',
   });
-  const gitHubIcon = SocialPill({
+  DOM.addChild(container, SocialPill({
+    icon: 'rss.png',
+    label: 'RSS',
+    backgroundColor: 'rgb(247, 171, 24)',
+    href: '/feed/rss.xml',
+  }));
+  DOM.addChild(container, SocialPill({
     icon: 'github.png',
     label: 'C-D-Lewis',
     backgroundColor: 'black',
     href: 'https://github.com/C-D-Lewis'
-  });
-  DOM.addChild(container, gitHubIcon);
-  const twitterIcon = SocialPill({
+  }));
+  DOM.addChild(container, SocialPill({
     icon: 'twitter.png',
     label: 'Chris_DL',
     backgroundColor: 'rgb(29, 142, 238)',
     href: 'https://twitter.com/Chris_DL'
-  });
-  DOM.addChild(container, twitterIcon);
+  }));
 
   return container;
 };
@@ -284,8 +289,7 @@ const PostList = () => DOM.create('div', {
   flexDirection: 'column',
   maxWidth: DOM.isNarrowScreen() ? '370px' : '800px',
   margin: DOM.isNarrowScreen() ? '0px 5px' : '0px 20px',
-  padding: '10px',
-  paddingBottom: '40px',
+  padding: '0px 10px 40px 10px',
 });
 
 /**

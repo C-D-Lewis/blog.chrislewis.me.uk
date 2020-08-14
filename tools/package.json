@@ -1,6 +1,7 @@
 {
   "name": "tools",
   "dependencies": {
+    "feed-validator": "^1.1.1",
     "slugify": "^1.4.0",
     "xml2js": "^0.4.23"
   }

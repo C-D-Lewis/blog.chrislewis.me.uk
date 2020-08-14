@@ -127,6 +127,9 @@ window.showPost = async (fileName) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?post=${fileName}`);
 
+  const archiveHeader = Components.LeftColumnHeader('Selected post', true);
+  DOM.addChild(postList, archiveHeader);
+
   // Find the post with this fileName
   let post;
   Object.entries(historyJson).forEach(([year, yearData]) => {
