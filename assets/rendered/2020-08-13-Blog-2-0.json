@@ -112,7 +112,7 @@
     },
     {
       "type": "paragraph",
-      "text": "To redeploy after making layout or post changes, one simply runs the\n<code>build.sh</code> script, and then the <code>deploy.sh</code> script which\nsynchronized objects in the S3 bucket and then creates a CloudFront distribution\nto update any caches out there. Neat!"
+      "text": "To redeploy after making layout or post changes, one simply runs the\n<code>build.sh</code> script, and then the <code>deploy.sh</code> script which\nsynchronizes objects in the S3 bucket and then creates a CloudFront invalidation\nto update any caches out there. Neat!"
     },
     {
       "type": "header",
