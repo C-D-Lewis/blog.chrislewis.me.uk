@@ -71,7 +71,7 @@ const main = () => {
     .map(json => ({
       title: json.title,
       pubDate: createPubDate(json.dateTime),
-      link: `${BLOG_HOME_LINK}?post=${json.fileName}`,
+      link: `${BLOG_HOME_LINK}?post=${json.fileName.split('.')[0]}`,
       description: json.description || 'No description',
     }))
     .map(toItemXml);

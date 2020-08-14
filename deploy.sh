@@ -16,6 +16,7 @@ aws s3 cp index.html $BUCKET
 aws s3 sync src $BUCKET/src
 aws s3 sync assets $BUCKET/assets
 aws s3 sync styles $BUCKET/styles
+aws s3 sync feed $BUCKET/feed
 
 # CloudFront invalidation
 aws cloudfront create-invalidation --distribution-id $CF_DIST_ID --paths "/*"
