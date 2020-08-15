@@ -1,6 +1,6 @@
 Upcoming Posts
 2013-07-11 01:32:50
-General
+Uncategorized
 ---
 
 Lots going on at the moment, so here's a list of what's coming soon (also a personal reminder!):

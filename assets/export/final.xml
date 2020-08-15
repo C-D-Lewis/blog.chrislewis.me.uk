@@ -323,6 +323,7 @@ Thanks]]></wp:comment_content>
 		<description></description>
 		<content:encoded><![CDATA[<p><img class="size-full wp-image" id="i-19" style="font-style:normal;" alt="Image" src="http://ninedof.files.wordpress.com/2013/03/blogcode.png?w=340" /></p><p>So I've finally started that blog idea I'd had my eye on for a while - a place to document all the thoughts, processes and results of my attempts at programming. Sure, its been done before, but isn't that the idea of a blog, to be personal? </p>]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<category domain="category" nicename="uncategorized"><![CDATA[Uncategorized]]></category>
 		<wp:post_id>2</wp:post_id>
 		<wp:post_date>2013-03-21 15:16:22</wp:post_date>
 		<wp:post_date_gmt>2013-03-21 15:16:22</wp:post_date_gmt>
@@ -335,8 +336,6 @@ Thanks]]></wp:comment_content>
 		<wp:post_type>post</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="general"><![CDATA[General]]></category>
-		<category domain="post_tag" nicename="note"><![CDATA[note]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_wp_page_template</wp:meta_key>
 			<wp:meta_value><![CDATA[default]]></wp:meta_value>
@@ -402,14 +401,7 @@ Thanks]]></wp:comment_content>
 		<wp:post_type>post</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="post_tag" nicename="dungeons"><![CDATA[dungeons]]></category>
-		<category domain="post_tag" nicename="game"><![CDATA[game]]></category>
-		<category domain="post_tag" nicename="generation"><![CDATA[generation]]></category>
-		<category domain="post_tag" nicename="image-analyser"><![CDATA[image analyser]]></category>
 		<category domain="post_tag" nicename="java"><![CDATA[Java]]></category>
-		<category domain="post_tag" nicename="pea"><![CDATA[PEA]]></category>
-		<category domain="post_tag" nicename="personal"><![CDATA[personal]]></category>
-		<category domain="post_tag" nicename="quadcopter"><![CDATA[quadcopter]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_publicize_pending</wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
@@ -1740,8 +1732,6 @@ Next step, a networked game! But first I think I should clean up the format of t
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
 		<category domain="post_tag" nicename="java"><![CDATA[Java]]></category>
-		<category domain="post_tag" nicename="networked-game"><![CDATA[networked game]]></category>
-		<category domain="post_tag" nicename="software"><![CDATA[software]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[47609224]]></wp:meta_value>
@@ -2535,7 +2525,6 @@ Here we go!]]></content:encoded>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
 		<category domain="category" nicename="android"><![CDATA[Android]]></category>
-		<category domain="category" nicename="general"><![CDATA[General]]></category>
 		<category domain="category" nicename="java"><![CDATA[Java]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
@@ -8661,6 +8650,7 @@ Enjoy!
 </ol>
 Got to do my best not to lose sight of a current project!]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<category domain="category" nicename="uncategorized"><![CDATA[Uncategorized]]></category>
 		<wp:post_id>692</wp:post_id>
 		<wp:post_date>2013-07-11 01:32:50</wp:post_date>
 		<wp:post_date_gmt>2013-07-11 01:32:50</wp:post_date_gmt>
@@ -8673,7 +8663,6 @@ Got to do my best not to lose sight of a current project!]]></content:encoded>
 		<wp:post_type>post</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="general"><![CDATA[General]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[47609224]]></wp:meta_value>
@@ -15807,7 +15796,6 @@ Hopefully I'll crack it soon!]]></content:encoded>
 		<wp:is_sticky>0</wp:is_sticky>
 		<category domain="category" nicename="android"><![CDATA[Android]]></category>
 		<category domain="category" nicename="c"><![CDATA[C++]]></category>
-		<category domain="category" nicename="general"><![CDATA[General]]></category>
 		<category domain="category" nicename="pebble"><![CDATA[Pebble]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
@@ -19377,7 +19365,6 @@ Stay tuned!]]></content:encoded>
 		<wp:post_type>post</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="general"><![CDATA[General]]></category>
 		<category domain="category" nicename="pebble"><![CDATA[Pebble]]></category>
 		<category domain="category" nicename="releases"><![CDATA[Releases]]></category>
 		<wp:postmeta>
@@ -23537,7 +23524,6 @@ Hopefully Watch Trigger on the Play Store is stable enough to fend for itself fo
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
 		<category domain="category" nicename="android"><![CDATA[Android]]></category>
-		<category domain="category" nicename="general"><![CDATA[General]]></category>
 		<category domain="category" nicename="pebble"><![CDATA[Pebble]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
@@ -23593,37 +23579,6 @@ Hopefully Watch Trigger on the Play Store is stable enough to fend for itself fo
 		<wp:postmeta>
 			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
 			<wp:meta_value><![CDATA[a:5:{s:5:"width";i:1080;s:6:"height";i:1920;s:4:"file";s:106:"/home/wpcom/public_html/wp-content/blogs.dir/a0b/48898481/files/2014/01/screenshot_2014-01-05-00-10-50.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:10:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";}}]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>The Three Stages of Coding for Android (So Far)</title>
-		<link>https://ninedof.wordpress.com/?p=1502</link>
-		<pubDate></pubDate>
-		<dc:creator>bonsitm</dc:creator>
-		<guid isPermaLink="false">http://ninedof.wordpress.com/?p=1502</guid>
-		<description></description>
-		<content:encoded><![CDATA[1. Hello, World!
-
-2. Incrementally building something new (Watch Trigger)
-
-3. Being able to dive in and bend the API to your needs (Data Toggle)]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>1502</wp:post_id>
-		<wp:post_date>2014-01-05 13:48:40</wp:post_date>
-		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
-		<wp:comment_status>open</wp:comment_status>
-		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name></wp:post_name>
-		<wp:status>draft</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>post</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="uncategorized"><![CDATA[Uncategorized]]></category>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[47609224]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 	<item>
@@ -26378,7 +26333,6 @@ and it complies and junk. I&#8217;m curious to as why the first syntax? Is it be
 		<wp:post_type>post</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="general"><![CDATA[General]]></category>
 		<category domain="category" nicename="pebble"><![CDATA[Pebble]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
@@ -39887,7 +39841,6 @@ This new layout will be available soon (once bugs are worked out) for Aplite use
 		<wp:is_sticky>0</wp:is_sticky>
 		<category domain="category" nicename="integration"><![CDATA[Integration]]></category>
 		<category domain="category" nicename="pebble"><![CDATA[Pebble]]></category>
-		<category domain="post_tag" nicename="pin"><![CDATA[pin]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[47609224]]></wp:meta_value>
@@ -43984,6 +43937,7 @@ And the code is <a href="https://github.com/C-D-Lewis/vector-dev/blob/master/str
 
 I think I'll take a break from buying smartwatches for a while. In case I take another one down.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<category domain="category" nicename="uncategorized"><![CDATA[Uncategorized]]></category>
 		<wp:post_id>2491</wp:post_id>
 		<wp:post_date>2017-01-15 11:18:08</wp:post_date>
 		<wp:post_date_gmt>2017-01-15 11:18:08</wp:post_date_gmt>
@@ -43996,7 +43950,6 @@ I think I'll take a break from buying smartwatches for a while. In case I take a
 		<wp:post_type>post</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="vectorwatch"><![CDATA[VectorWatch]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[47609224]]></wp:meta_value>
@@ -44104,7 +44057,6 @@ With all this work done, it's also time for <a href="https://ninedof.wordpress.c
 		<wp:post_type>post</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="general"><![CDATA[General]]></category>
 		<category domain="category" nicename="integration"><![CDATA[Integration]]></category>
 		<category domain="category" nicename="javascript"><![CDATA[JavaScript]]></category>
 		<category domain="category" nicename="pebble"><![CDATA[Pebble]]></category>

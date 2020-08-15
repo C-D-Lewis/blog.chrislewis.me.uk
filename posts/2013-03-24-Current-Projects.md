@@ -1,6 +1,6 @@
 Current Projects
 2013-03-24 18:46:41
-dungeons,game,generation,image analyser,Java,PEA,personal,quadcopter
+Java
 ---
 
 At the moment I'm working on a few project-in-progress, which are listed below. As a general rule, I like to do everything from scratch if I can help it. Unfortunately this results in sometimes inefficient or just plain wrong coding practices and slow progress, but everything I learn on one project tends to get used straightaway in the next, resulting in a sort of 'standing on the shoulders of giants' effect. Anyway, here's the list:![](/assets/import/media/2013/03/dungeons.png?w=487)<li><span style="line-height:14px;">'dungeons' (Working Title) - A simple 2D top-down Java dungeon crawler used as a vehicle for exploring procedural generation of game maps, enemy AI and game development in general.</span>

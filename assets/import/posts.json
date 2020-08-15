@@ -7,8 +7,7 @@
     "postDate": "2013-03-21 15:16:22",
     "body": "<p><img class=\"size-full wp-image\" id=\"i-19\" style=\"font-style:normal;\" alt=\"Image\" src=\"http://ninedof.files.wordpress.com/2013/03/blogcode.png?w=340\" /></p><p>So I've finally started that blog idea I'd had my eye on for a while - a place to document all the thoughts, processes and results of my attempts at programming. Sure, its been done before, but isn't that the idea of a blog, to be personal? </p>",
     "tags": [
-      "General",
-      "note"
+      "Uncategorized"
     ]
   },
   {
@@ -19,14 +18,7 @@
     "postDate": "2013-03-24 18:46:41",
     "body": "<p>At the moment I'm working on a few project-in-progress, which are listed below. As a general rule, I like to do everything from scratch if I can help it. Unfortunately this results in sometimes inefficient or just plain wrong coding practices and slow progress, but everything I learn on one project tends to get used straightaway in the next, resulting in a sort of 'standing on the shoulders of giants' effect. Anyway, here's the list:</p><p><a href=\"http://ninedof.files.wordpress.com/2013/03/dungeons.png\"><img class=\"size-full wp-image\" id=\"i-39\" alt=\"Image\" src=\"http://ninedof.files.wordpress.com/2013/03/dungeons.png?w=487\" /></a></p><ul><li><span style=\"line-height:14px;\">'dungeons' (Working Title) - A simple 2D top-down Java dungeon crawler used as a vehicle for exploring procedural generation of game maps, enemy AI and game development in general.</span></li></ul><p><a href=\"http://ninedof.files.wordpress.com/2013/03/imageanalyser.png\"><img class=\"size-full wp-image\" id=\"i-41\" alt=\"Image\" src=\"http://ninedof.files.wordpress.com/2013/03/imageanalyser.png?w=487\" /></a></p><ul><li>'ImageAnalyser' - A scalable Java image analyzer that will find the one or three brightest areas of an image, and return the locations of these, the average brightness of the image and a bearing clockwise from north towards the brightest area. This was used on a recent University project that involved developing an automated tracking system for guiding a quadcopter to an arbitrary target. More details when I write that one up. </li></ul><p><a href=\"http://ninedof.files.wordpress.com/2013/03/pea.png\"><img class=\"size-full wp-image\" id=\"i-44\" alt=\"Image\" src=\"http://ninedof.files.wordpress.com/2013/03/pea.png?w=487\" /></a></p><ul><li>'PEA' - An attempt to implement a larger game world, while showing only the player's range of sight withing the game window. This involves turning world coordinates into on-screen pixel coordinates, and at last count, also a set of mini-map (showing all world space) coordinates in the corner.</li><li>'FilingCabinet' - Undoubtedly been done before, but more for personal use. Inspired by the brief structure thrown together for humorous purposes in the first post, a command line way of organizing 'notes' within virtual filing cabinet 'drawers', mainly an exercise in managing file system files. </li></ul>",
     "tags": [
-      "dungeons",
-      "game",
-      "generation",
-      "image analyser",
-      "Java",
-      "PEA",
-      "personal",
-      "quadcopter"
+      "Java"
     ]
   },
   {
@@ -115,9 +107,7 @@
     "postDate": "2013-04-10 20:43:47",
     "body": "The next step in any game development methodology is investigating networked games, ones that run on multiple computers and communicate to coordinate a shared experience for players. To this end, I started looking into <code>java.net</code> for communicating in Java program. This yielded good results, and after about an hour of tinkering, I can show the fruits of this surprisingly easy labor:\n\n<a href=\"http://ninedof.files.wordpress.com/2013/04/server.png\"><img src=\"http://ninedof.files.wordpress.com/2013/04/server.png?w=545\" alt=\"Server\" width=\"545\" height=\"551\" class=\"aligncenter size-large wp-image-186\" /></a>\n\nEagle eyed readers will be able to figure out the chronology of events. Simply, its a brief back and forth, with me entering commands in the bottom window, and the server program on top reporting the reception of these commands. The client also shows the time taken for the round trip. I have tested this on another computer in my local network and it works! \n\nNext step, a networked game! But first I think I should clean up the format of the messages here, as it maybe a tad confusing...",
     "tags": [
-      "Java",
-      "networked game",
-      "software"
+      "Java"
     ]
   },
   {
@@ -195,7 +185,6 @@
     "body": "So while the exams are going on, I don't have a lot of time for long coding sessions, but I am working on a small side project that builds on earlier work, and therefore requires minimal effort.\n\nThe idea is this: Modify the Java server to run <code>cmd</code> commands from my Android phone. First stage is creating a networking class for Android use. This could be useful for commands such as <code>shutdown</code> without having to use the slow TeamViewer app, for example. \n\nHere we go!",
     "tags": [
       "Android",
-      "General",
       "Java"
     ]
   },
@@ -410,7 +399,7 @@
     "postDate": "2013-07-11 01:32:50",
     "body": "Lots going on at the moment, so here's a list of what's coming soon (also a personal reminder!):\n<ol>\n\t<li>Pebble SDK Tutorial Part 6 is written, just needs images. 2 Way Communications.</li>\n\t<li>Java &lt;-&gt; Pebble text bridge Android Service.</li>\n\t<li>Raspberry Pi obtained, working on Java &lt;-&gt; Pi text bridge using Pi Python.</li>\n</ol>\nGot to do my best not to lose sight of a current project!",
     "tags": [
-      "General"
+      "Uncategorized"
     ]
   },
   {
@@ -573,7 +562,6 @@
     "tags": [
       "Android",
       "C++",
-      "General",
       "Pebble"
     ]
   },
@@ -677,7 +665,6 @@
     "postDate": "2013-12-15 22:44:26",
     "body": "So now the semester has finished, I can get down to some real coding and tutorial writing. Things to expect over the next few weeks:\n<ul>\n\t<li>More parts of the Pebble SDK 2.0 Tutorial.</li>\n\t<li>Information on a basic Pebble rendering engine.</li>\n\t<li>A small post on my recently acquired Spark Core.</li>\n</ul>\nIn other news, the latest versions of Watch Trigger (2.3) and Watch Trigger + (1.5) have been sent to Google Play, fixing xx-hdpi display issues and a bug when opening the front camera on the LG Nexus 5.\n\nStay tuned!",
     "tags": [
-      "General",
       "Pebble",
       "Releases"
     ]
@@ -793,19 +780,7 @@
     "body": "Back to work! This means I'll be developing stuff in my spare time rather than all day. I know, it's sad news.\n\nThings to expect eventually (in the weeks range):\n<ul>\n\t<li>More Pebble SDK 2.0 Tutorial sections. A list of planned ones can <a title=\"Forum post\" href=\"http://forums.getpebble.com/discussion/9459/pebble-sdk-2-0-tutorial\">be seen here</a>.</li>\n\t<li>A new UI for Watch Trigger &amp;+ that better resembles Holo, but with that distinctive red theme. I'm also working on portrait shooting, but the Camera API hates me. It works, but the layout always seems to make the Preview View stretched and distorted. Here's a sneak preview:</li>\n</ul>\n<p style=\"text-align:center;\"><a href=\"http://ninedof.files.wordpress.com/2014/01/screenshot_2014-01-05-00-10-50.png\"><img class=\"aligncenter  wp-image-1497\" alt=\"Screenshot_2014-01-05-00-10-50\" src=\"http://ninedof.files.wordpress.com/2014/01/screenshot_2014-01-05-00-10-50.png?w=545\" width=\"305\" height=\"542\" /></a></p>\n\n<ul>\n\t<li>Toying with ideas for a 'canned' SMS responses app that can be customised on the phone, then set to the watchapp. We'll see.</li>\n</ul>\nHopefully Watch Trigger on the Play Store is stable enough to fend for itself for the time being. If not, let me know.",
     "tags": [
       "Android",
-      "General",
       "Pebble"
-    ]
-  },
-  {
-    "id": "1502",
-    "title": "The Three Stages of Coding for Android (So Far)",
-    "link": "https://ninedof.wordpress.com/?p=1502",
-    "pubDate": "",
-    "postDate": "2014-01-05 13:48:40",
-    "body": "1. Hello, World!\n\n2. Incrementally building something new (Watch Trigger)\n\n3. Being able to dive in and bend the API to your needs (Data Toggle)",
-    "tags": [
-      "Uncategorized"
     ]
   },
   {
@@ -839,7 +814,6 @@
     "postDate": "2014-01-12 01:43:13",
     "body": "<p>After the Dropbox outage (which appears to still be affecting me) the tutorial source code is now on <a href=\"http://github.com/C-D-Lewis\">GitHub</a>.</p><p>Just so you know.</p>",
     "tags": [
-      "General",
       "Pebble"
     ]
   },
@@ -1294,8 +1268,7 @@
     "body": "<strong>Introduction</strong>\n\nAs a side-effect of being involved with the development and testing of the new Pebble timeline experience, I've been eager to try my hand at exploiting this new mechanism to bring timely updates to users of BBC News (which as with most of my apps, began as an app for personal use) with timeline pins.\n\n<strong>The Concept</strong>\n\nAs you may know from reading the <a title=\"timeline guides\" href=\"https://developer.getpebble.com/guides/timeline/\">Pebble Developers timeline guides</a>, Pebble watchapps can now incorporate a purely web-based element to display data from web data sources (such as the <a href=\"http://feeds.bbci.co.uk/news/rss.xml\">BBC News feeds</a>) on the timeline. This is ideal for chronological events such as news stories, as each pin is shown on the timeline according to date.\n\nPins can also include notifications that appear when they are first created or updated, keeping the user informed as details change. This functionality is used to show a notification each time a new news story is available. The pin itself includes only the icon (standard timeline pin icon) and the title, which is the main title of the story. In addition, timeline pins can have actions associated with them, enabling the user to launch the associated watchapp (whose API key is used to push the pins) and pass a single integer as a context argument. My idea was to use this action ability to enable the pin to open the <a href=\"https://apps.getpebble.com/applications/5387b383f60819963900000e\">BBC News watchapp</a> to show the full story details, since a very long timeline pin body was a poor scrolling experience.\n\n<strong>The Problem</strong>\n\nThe fundamental question was this; <em><strong>How does one tell the watchapp which story to show from the pin using a single integer?</strong> </em>The first guess was to specify the <code>launchCode</code> (the argument) as the position in the array of downloaded news stories. This would work for a very recent pin only, as the order of news stories in the feed changes frequently as new stories are added and removed from the headlines. After an hour or two, the order would change and an existing pin would possess a <code>launchCode</code> pointing to the same array location, but no longer guaranteed to be the same story.\n\n<strong>Implementation</strong>\n\nThe solution I ended up choosing came from <a href=\"https://apps.getpebble.com/applications/52ff6a14432d1cef0000007c\">Wristponder</a>, which uses a checksum of the persisted list of responses on the Android and Pebble sides, prompting a re-download to the watch if the two do not match (i.e.: The user has modified their list of responses). Thus the procedure to open a news story from its pin is this:\n\n1. Backend server running on <a href=\"https://www.digitalocean.com/\">DigitalOcean</a> downloads the RSS feed from the BBC every half an hour, using a function to create a list of story objects from the XML;\n\n[code language=\"js\"]\nvar parseFeed = function(responseText) {\n  var items = [];\n  var longestTitle = 0;\n  var longestDesc = 0;\n  while(responseText.indexOf('&lt;title&gt;') &gt; 0 &amp;&amp; items.length &lt; MAX_ITEMS) {\n    //Title\n    var title = responseText.substring(responseText.indexOf('&lt;title&gt;') + '&lt;title&gt;'.length);\n    title = title.substring(0, title.indexOf('&lt;/title&gt;'));\n    responseText = responseText.substring(responseText.indexOf('&lt;/title&gt;') + '&lt;/title&gt;'.length);\n\n    //Desc\n    var desc = responseText.substring(responseText.indexOf('&lt;description&gt;') + '&lt;description&gt;'.length);\n    desc = desc.substring(0, desc.indexOf('&lt;/description&gt;'));\n\n    // Date\n    var date = responseText.substring(responseText.indexOf('&lt;pubDate&gt;') + '&lt;pubDate&gt;'.length);\n    date = date.substring(0, date.indexOf('&lt;/pubDate&gt;'));\n\n    //Add\n    var s = { 'title': title, 'description': desc, 'date': date };\n    items.push(s);\n\n    // Metrics\n    Log('Story '+ items.length + ': ' + s.title + ' // ' + s.description);\n    Log('(' + s.title.length + 'x' + s.description.length + ')');\n    if(s.title.length &gt; longestTitle) {\n      longestTitle = s.title.length;\n    }\n    if(s.description.length &gt; longestDesc) {\n      longestDesc = s.description.length;\n    }\n\n    // Next\n    responseText = responseText.substring(responseText.indexOf('&lt;/description&gt;') + '&lt;/description&gt;'.length);\n  }\n\n  Log('parseFeed(): Extracted ' + items.length + ' items.');\n  Log('parseFeed(): Longest title/description: ' + longestTitle + '/' + longestDesc);\n  return items;\n};\n[/code]\n\n2. Backend uses story titles, publish dates and checksums of the titles to push a pin for each story. The id field of each pin is a prefix followed by the Unix timestamp of the pubDate RSS field (as an easy solution of a fairly unique number from each story). The checksum is generated by simply adding all the character codes in each title, then specifying this number as the 'Open Story' <a href=\"https://developer.getpebble.com/guides/timeline/pin-structure/#pin-actions\">pin action's lanchCode</a>;\n\n[code language=\"js\"]\nvar pin = {\n  'id': 'bbcnews-story-' + pubDate.unix(),\n  'time': pubDate.toDate(),\n  'layout': {\n    'type': 'genericPin',\n    'tinyIcon': 'system://images/TIMELINE_PIN_TINY',\n    'title': gStories[i].title,\n    'subtitle': 'BBC News Headline'\n  },\n  'createNotification': {\n    'layout': {\n    'type': 'genericPin',\n    'tinyIcon': 'system://images/TIMELINE_PIN_TINY',\n    'title': gStories[i].title,\n    'subtitle': 'BBC News Headline'\n    }\n  },\n  'actions': [\n    {\n      'title': 'Open Story',\n      'type': 'openWatchApp',\n      'launchCode': checksum(gStories[i].title)\n    }\n  ]\n};\n[/code]\n\n3. These pins are filtered for duplicates and staleness by the Pebble timeline public API, then pushed through the Pebble mobile app to the user's watch. This is demanded by a subscription to the 'headlines' topic that all users are subscribed to when they first launch the BBC News watchapp (this will be optional in the first release).\n\n4. The user selects a BBC News story from their timeline and chooses the 'Open Story' pin action. This opens the watchapp with the launch_get_args() value set as the checksum stored in the pin when it was originally generated. If the <code>launchCode</code> is not zero, a pin was specified;\n\n[code language=\"c\"]\n#ifdef PBL_PLATFORM_APLITE\n\n// Timeline not available, give me ALL the stories!\ncomm_request(COMM_MODE_LIST, 0);\n\n#elif PBL_PLATFORM_BASALT\n\n// Is launchCode specified from a pin?\nint launch_code = launch_get_args();\n\nif(launch_code == 0) {\n  // Get all stories\n  comm_request(COMM_MODE_LIST, 0);\n\n  stories_window_set_desc_text(&quot;Updating...&quot;);\n} else if(launch_reason() == APP_LAUNCH_TIMELINE_ACTION) {\n  // Check this checksum, JS!\n  comm_request(COMM_MODE_PIN, launch_code);\n\n  stories_window_set_desc_text(&quot;Getting pin story...&quot;);\n}\n\n#endif\n[/code]\n\n5. The watchapp sends the checksum for the pin in question to PebbleKit JS, which downloads the latest feed from the BBC News site and checks the query checksum against checksums of all the stories downloaded. First, the checksum is obtained from the watch's <code>AppMessage</code>;\n\n[code language=\"js\"]\nif(hasKey(dict, 'KEY_ACTION')) {\n  gLaunchCode = getValue(dict, 'KEY_ACTION');\n  Log('TIMELINE PIN LAUNCH CODE: ' + gLaunchCode + '\\n\\n\\n');\n\n  // Download stories, and match the titles to the pin\n  download(persistRead('category', 'headlines'), findPinWithHash);\n}\n[/code]\n\nNext, the matching story is found;\n\n[code language=\"js\"]\nfunction findPinWithHash(responseText) {\n  //Strip metadata\n  var spool = responseText.substring(responseText.indexOf('&lt;item&gt;') + '&lt;item&gt;'.length);\n  gQuantity = 30; // Get all\n\n  var stories = parseFeed(spool);\n  Log('Finding title with launchCode=' + gLaunchCode + ' in list of ' + stories.length + ' stories');\n\n  var found = false;\n  for(var i = 0; i &lt; stories.length; i += 1) {\n    var check = checksum(stories[i].title);\n    if('' + check == '' + gLaunchCode) {\n      Log('Found! check=' + check + ', gLaunchCode=' + gLaunchCode);\n\n      // Send to phone\n      var dict = {\n        'KEY_ACTION': 0,\n        'KEY_TITLE': stories[i].title,\n        'KEY_DESCRIPTION': stories[i].description\n      };\n      Pebble.sendAppMessage(dict, function() {\n        Log('Sent pin data to watch!');\n        found = true;\n      });\n    }\n  }\n\n  // Not found?\n  if(found == false) {\n    var dict = {\n      'KEY_FAILED': 1\n    };\n    Pebble.sendAppMessage(dict, function() {\n      Log('Informed Pebble of failure to find story.');\n    },\n    function(err) {\n      Log('Failed to inform of failure!');\n    });\n  }\n}\n[/code]\n\n6. If the story is still relatively recent (this can vary) and a checksum match is found, the story's full title and body are sent to the watchapp for display to the user. The RSS feed also contains links to thumbnails already formatted to 144 pixels in width, which is ideally placed to be a possible future feature.\n\n<strong>Results</strong>\n\nThe resulting flow looks something like the image below, which is still a work in progress:\n\n<a href=\"https://ninedof.files.wordpress.com/2015/04/pin.png\"><img class=\"aligncenter size-full wp-image-2209\" src=\"https://ninedof.files.wordpress.com/2015/04/pin.png\" alt=\"pin\" width=\"545\" height=\"195\" /></a>\n\nThis new layout will be available soon (once bugs are worked out) for Aplite users of the existing BBC News Headlines watchapp, in color on Basalt for those with Pebble Time watches (admittedly few right now!). Stay tuned!",
     "tags": [
       "Integration",
-      "Pebble",
-      "pin"
+      "Pebble"
     ]
   },
   {
@@ -1545,7 +1518,7 @@
     "postDate": "2017-01-15 11:18:08",
     "body": "After Pebble disappeared, I felt adventurous enough to buy <em>another vendor's smartwatch</em> (!) just to see what another experience was like.\n\nIn one way, it was <a href=\"https://twitter.com/Chris_DL/status/818926070309289987\">an eerily similar experience</a>.\n\nIn terms of the watch itself, it's solidly built, has a larger display, and since charging on Boxing Day last year, it's <em>still</em> at about 50%! In terms of development, I was impressed with how you can write some JavaScript for a 'stream' widget that goes on a watchface, run it in the browser and then use that instance to <em>power an actual device from the phone app's appstore</em>!\n\nA good start. I was looking forward to the upcoming native app SDK, but sadly that doesn't look to be arriving after all. In the short time I spent with it, I ported over some code from News Headlines to show a fraction (which scrolled) of a latest BBC News headline on a watchface.\n\n<a href=\"https://ninedof.files.wordpress.com/2017/01/c1hyubbxaamh-pa.jpg\"><img class=\"aligncenter size-full wp-image-2492\" src=\"https://ninedof.files.wordpress.com/2017/01/c1hyubbxaamh-pa.jpg\" alt=\"c1hyubbxaamh-pa\" width=\"530\" height=\"398\" /></a>\n\nAnd the code is <a href=\"https://github.com/C-D-Lewis/vector-dev/blob/master/streams/headline.js\">available on GitHub</a>, for historical institutions to reference.\n\nI think I'll take a break from buying smartwatches for a while. In case I take another one down.",
     "tags": [
-      "VectorWatch"
+      "Uncategorized"
     ]
   },
   {
@@ -1556,7 +1529,6 @@
     "postDate": "2017-03-04 22:21:45",
     "body": "For some just beginning their programming journeys a common example to conquer is blinking an LED, which usually goes something like this:\n\n[code language=\"c\"]\ndigitalWrite(13, HIGH);\ndelay(1000);\ndigitalWrite(13, LOW);\n[/code]\n\nFor me, I decided to try a much harder approach, in a fiddly effort that could be regarded as virtually pointless. Nevertheless, I persisted, because I thought it would be cool.\n\n<strong>The idea</strong>: blink a Blinkt LED on Server Pi whenever it serviced a request from the outside.\n\nFor those unfamiliar with my little family of Raspberry Pi minions, here is a brief overview:\n<ul>\n \t<li><a href=\"https://twitter.com/Chris_DL/status/836336013790298112\">Server Pi</a> - A Raspberry Pi 3 running three Node.js processes for various Pebble apps (News Headlines pin pusher, Tube Status pin pusher, unreleased notification and discovery service).</li>\n \t<li>Backlight Pi - Another Raspberry Pi 3 with a single Node.js Express server that allows any device in the house to HTTP POST a colour to be shown behind my PC.</li>\n \t<li><a href=\"https://twitter.com/Chris_DL/status/806750464322568193\">Monitor Pi</a> - A Raspberry Pi Zero W (W, as of today) that pings the three processes running on Server Pi <em>via</em> the GitHub Gist discovery mechanism to give me peace of mind that they're still up. It also checks the weather for ice and rain, and whether or not Greater Anglia have fallen over before I've taken the trouble of leaving for work at 7AM.</li>\n</ul>\nMaintaining this small fleet is a joy and a curse (one or both of \"my own mini infrastructure, yay!\" or  \"It's all fallen over because Node exceptions are weird, noo!\"), but since I started versioning it all in Git and adding crontab and boot scripts, it's become a lot easier. However, for this particular task, I found only one process can usefully control the Blinkt LEDs on top of Server Pi. Since this is a parameterised (services only) instance of Monitor Pi, it must be this process that does the blinking when a request is processed.\n\nSince I'm already a big fan of modular Node.js apps, I just added another module that sets up a single-endpoint Express server, and have each of the other three Server Pi processes POST to it whenever they service a request with their own Express servers. Neat!\n\nAn hour of synchronising and testing four processes locally and on-device later, and I now have a blue blinking LED whenever a request is serviced. Sadly the activity isn't as high as it was in the News Headlines heyday when it was tasked with converting news story images to Pebble-friendly 64 colour thumbnails and an experimental analytics service late last year, but with the interesting tentative steps the unreleased notification service is taking, Server Pi may end up seeing a bit more action than simple status checks and app news lookups in the future.\n\nWith all this work done, it's also time for <a href=\"https://ninedof.wordpress.com/2016/12/03/map-of-pebble-services-architecture/\">another </a>diagrammatic mess that I like to call my infrastructure...\n\n<a href=\"https://ninedof.files.wordpress.com/2017/03/services-architecture-march-20173.png\"><img class=\"aligncenter wp-image-2510 size-full\" src=\"https://ninedof.files.wordpress.com/2017/03/services-architecture-march-20173.png\" width=\"840\" height=\"714\" /></a>",
     "tags": [
-      "General",
       "Integration",
       "JavaScript",
       "Pebble",

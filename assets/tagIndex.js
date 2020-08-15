@@ -1,29 +1,11 @@
 window.tagIndex = {
-  "General": [
+  "Uncategorized": [
     "2013-03-21-Here-it-is.json",
-    "2013-05-01-Interlude-Cross-platform-idea.json",
     "2013-07-11-Upcoming-Posts.json",
-    "2013-10-13-Update.json",
-    "2013-12-15-Updates.json",
-    "2014-01-04-Update-Back-to-Work.json",
-    "2014-01-12-Pebble-SDK-20-Tutorial-Source-Code-Update.json",
-    "2017-03-04-Blinking-an-LED-and-Infra-Update.json",
-    "2020-08-13-Blog-2-0.json"
-  ],
-  "note": [
-    "2013-03-21-Here-it-is.json"
-  ],
-  "dungeons": [
-    "2013-03-24-Current-Projects.json"
-  ],
-  "game": [
-    "2013-03-24-Current-Projects.json"
-  ],
-  "generation": [
-    "2013-03-24-Current-Projects.json"
-  ],
-  "image analyser": [
-    "2013-03-24-Current-Projects.json"
+    "2013-08-16-New-Project.json",
+    "2014-01-05-The-Three-Stages-of-Coding-for-Android-So-Far.json",
+    "2017-01-15-Vector-Dev-11-Headlines-Stream.json",
+    "2018-05-19-FitBit-Development-Round-2.json"
   ],
   "Java": [
     "2013-03-24-Current-Projects.json",
@@ -50,15 +32,6 @@ window.tagIndex = {
     "2016-07-20-Dash-API-For-Easy-Pebble-and-Android-Integration.json",
     "2016-11-20-Dynamic-PC-Backlight-with-Raspberry-Pi-and-Blinkt.json",
     "2016-12-18-Dashboard-Now-Open-source.json"
-  ],
-  "PEA": [
-    "2013-03-24-Current-Projects.json"
-  ],
-  "personal": [
-    "2013-03-24-Current-Projects.json"
-  ],
-  "quadcopter": [
-    "2013-03-24-Current-Projects.json"
   ],
   "Releases": [
     "2013-03-25-Filing-Cabinet-Initial-Release.json",
@@ -120,12 +93,6 @@ window.tagIndex = {
     "2016-07-20-Dash-API-For-Easy-Pebble-and-Android-Integration.json",
     "2016-12-18-Dashboard-Now-Open-source.json",
     "2020-03-08-FitBit-Development-Round-3.json"
-  ],
-  "networked game": [
-    "2013-04-10-Java-Networking.json"
-  ],
-  "software": [
-    "2013-04-10-Java-Networking.json"
   ],
   "Pebble": [
     "2013-04-13-All-ready-for-Pebble.json",
@@ -272,11 +239,6 @@ window.tagIndex = {
     "2017-12-24-Simpler-Inter-service-Communication-with-MBus.json",
     "2018-02-17-Tests-With-Extra-Sweetness.json"
   ],
-  "Uncategorized": [
-    "2013-08-16-New-Project.json",
-    "2014-01-05-The-Three-Stages-of-Coding-for-Android-So-Far.json",
-    "2018-05-19-FitBit-Development-Round-2.json"
-  ],
   "C++": [
     "2013-10-13-Update.json",
     "2014-05-04-Configurable-Spark-Core-connected-LCD.json"
@@ -308,12 +270,6 @@ window.tagIndex = {
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
     "2018-05-19-FitBit-Development-Round-2.json"
   ],
-  "pin": [
-    "2015-04-05-First-Pebble-Timeline-App-BBC-News.json"
-  ],
-  "VectorWatch": [
-    "2017-01-15-Vector-Dev-11-Headlines-Stream.json"
-  ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
     "2018-05-19-FitBit-Development-Round-2.json",
@@ -321,6 +277,9 @@ window.tagIndex = {
   ],
   "Other Programming": [
     "2018-09-29-Creating-a-Miniature-Scripting-Language.json"
+  ],
+  "General": [
+    "2020-08-13-Blog-2-0.json"
   ],
   "React": [
     "2020-08-13-Blog-2-0.json"

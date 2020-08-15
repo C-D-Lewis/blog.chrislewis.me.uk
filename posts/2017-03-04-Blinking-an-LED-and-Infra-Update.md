@@ -1,6 +1,6 @@
 Blinking an LED & Infra Update
 2017-03-04 22:21:45
-General,Integration,JavaScript,Pebble,Raspberry Pi
+Integration,JavaScript,Pebble,Raspberry Pi
 ---
 
 For some just beginning their programming journeys a common example to conquer is blinking an LED, which usually goes something like this:

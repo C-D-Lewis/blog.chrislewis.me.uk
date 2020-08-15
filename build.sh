@@ -1,5 +1,7 @@
 #!/bin/bash
 
+node tools/importWordpressXml.js
+
 mkdir -p posts
 node tools/createWordpressMarkdown.js
 

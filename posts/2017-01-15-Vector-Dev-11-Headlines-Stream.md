@@ -1,6 +1,6 @@
 Vector Dev 1/1: Headlines Stream
 2017-01-15 11:18:08
-VectorWatch
+Uncategorized
 ---
 
 After Pebble disappeared, I felt adventurous enough to buy <em>another vendor's smartwatch</em> (!) just to see what another experience was like.

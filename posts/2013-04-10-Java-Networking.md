@@ -1,6 +1,6 @@
 Java Networking
 2013-04-10 20:43:47
-Java,networked game,software
+Java
 ---
 
 The next step in any game development methodology is investigating networked games, ones that run on multiple computers and communicate to coordinate a shared experience for players. To this end, I started looking into <code>java.net</code> for communicating in Java program. This yielded good results, and after about an hour of tinkering, I can show the fruits of this surprisingly easy labor:
