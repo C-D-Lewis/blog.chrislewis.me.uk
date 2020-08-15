@@ -34,18 +34,31 @@ const toItemXml = (item) => {
   });
 
   return `<item>
-    <title>${title}</title>
-    <pubDate>${item.pubDate}</pubDate>
-    <link>${item.link}</link>
-    <guid>${item.link}</guid>
-    <description>${item.description}</description>
-  </item>`;
+  <title>${title}</title>
+  <pubDate>${item.pubDate}</pubDate>
+  <link>${item.link}</link>
+  <guid>${item.link}</guid>
+  <description>${item.description}</description>
+</item>`;
 };
 
 /**
  * Pad a value less than ten.
  */
 const zeroPad = val => val < 10 ? `0${val}` : val;
+
+/*
+ * Sort by date in descending order.
+ *
+ * @param {string} a - fileName A.
+ * @param {string} b - fileName B.
+ * @returns {number} 1 if date A is earlier, -1 otherwise.
+ */
+const descendingDateSort = (a, b) => {
+  const dateA = a.split('-').slice(0, 3).join('-');
+  const dateB = b.split('-').slice(0, 3).join('-');
+  return dateA < dateB ? 1 : -1;
+};
 
 /**
  * Create a compatible pubDate from dateTime.
@@ -67,6 +80,7 @@ const createPubDate = (dateTime) => {
 const main = () => {
   const posts = readdirSync(RENDERED_DIR);
   const items = posts
+    .sort(descendingDateSort)
     .map(name => JSON.parse(readFileSync(RENDERED_DIR + name, 'utf8')))
     .map(json => ({
       title: json.title,

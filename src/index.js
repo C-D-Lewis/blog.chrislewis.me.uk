@@ -160,6 +160,19 @@ window.showPost = async (fileName) => {
   Events.post('selectionUpdated');
 };
 
+/*
+ * Sort by date in descending order.
+ *
+ * @param {string} a - fileName A.
+ * @param {string} b - fileName B.
+ * @returns {number} 1 if date A is earlier, -1 otherwise.
+ */
+const descendingDateSort = (a, b) => {
+  const dateA = a.split('-').slice(0, 3).join('-');
+  const dateB = b.split('-').slice(0, 3).join('-');
+  return dateA < dateB ? 1 : -1;
+};
+
 /**
  * Show posts from a chosen tag.
  *
@@ -184,12 +197,7 @@ window.showTagPosts = async (tag) => {
   }
 
   const promises = tagIndex[tag]
-    .sort((a, b) => {
-      // Sort by date in descending order
-      const dateA = a.split('-').slice(0, 3).join('-');
-      const dateB = b.split('-').slice(0, 3).join('-');
-      return dateA < dateB ? 1 : -1;
-    })
+    .sort(descendingDateSort)
     .map(fileName => fetch(`assets/rendered/${fileName}`).then(res => res.json()));
   const models = await Promise.all(promises);
   models.forEach(model => DOM.addChild(postList, Components.Post({ model })));
