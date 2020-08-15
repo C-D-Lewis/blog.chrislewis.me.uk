@@ -329,15 +329,15 @@ const PostTitle = ({ title, fileName }) => {
 };
 
 /**
- * PostTag component.
+ * PostTagPill component.
  *
  * @returns {HTMLElement}
  */
-const PostTag = ({ text }) => {
+const PostTagPill = ({ text }) => {
   const div = DOM.create('div', {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: '#bbb',
+    backgroundColor: Colors.syntax.function,
     cursor: 'pointer',
     borderRadius: '20px',
     padding: '4px 8px',
@@ -369,7 +369,7 @@ const PostTagsList = ({ tags }) =>
   DOM.create('div', {
     display: 'flex',
     marginLeft: '10px'
-  }, {}, [...tags.map(tag => PostTag({ text: tag }))]);
+  }, {}, [...tags.map(tag => PostTagPill({ text: tag }))]);
 
 /**
  * PostDateAndTags component.

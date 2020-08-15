@@ -20,5 +20,5 @@ a:hover {
 }
 
 .post-tag:hover {
-  background-color: #999 !important;
+  filter: brightness(0.8) !important;
 }
