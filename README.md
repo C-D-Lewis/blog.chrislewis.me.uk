@@ -6,7 +6,6 @@ Time to roll my own. So long, WordPress!
 
 ## TODO
 
-* Index posts by tags, make clickable
 * Missing images in very old posts
 
 ## Post format
