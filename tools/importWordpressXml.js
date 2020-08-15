@@ -2,10 +2,10 @@ const { parseString } = require('xml2js');
 const { promisify } = require('util');
 const { readFileSync, writeFileSync } = require('fs');
 
-const [inputPath] = process.argv.slice(2);
+const inputPath = `${__dirname}/../assets/export/final.xml`;
+const outputPath = `${__dirname}/../assets/import/posts.json`;
 
 const parseStringAsync = promisify(parseString);
-const outputPath = `${__dirname}/../assets/import/posts.json`;
 
 /**
  * The main function.
