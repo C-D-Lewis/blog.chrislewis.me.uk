@@ -129,7 +129,7 @@ const LeftColumn = () =>
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: Colors.leftColumnBackground,
-    flex: DOM.isNarrowScreen() ? '1' : '0 0 230px',
+    flex: DOM.isNarrowScreen() ? '1' : '0 0 240px',
     justifyContent: 'start',
     padding: '90px 15px 0px 15px',
     borderRight: '1px solid #111',
@@ -193,7 +193,7 @@ const CentralColumn = () =>
   DOM.create('div', {
     flex: '1',
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'center',
     minWidth: DOM.isNarrowScreen() ? '400px' : '700px',
     borderLeft: `1px solid ${Colors.lightGrey}`,
     paddingLeft: DOM.isNarrowScreen() ? '5px' : '20px',
@@ -321,7 +321,7 @@ const PostTitle = ({ title, fileName }) => {
     paddingTop: '6px',
   }, { className: 'link-anchor' }, ['#']);
   linkAnchor.addEventListener('click', () => {
-    window.showPost(fileName.split('.')[0]);
+    window.showSinglePost(fileName.split('.')[0]);
     window.scrollTo(0, 0);
   });
   DOM.addChild(container, linkAnchor);
@@ -341,7 +341,7 @@ const PostTagPill = ({ text }) => {
     cursor: 'pointer',
     borderRadius: '20px',
     padding: '4px 8px',
-    marginLeft: '5px',
+    margin: '2px',
   }, { className: 'post-tag' }, [
     DOM.create('img', {
       width: '14px',
@@ -351,7 +351,7 @@ const PostTagPill = ({ text }) => {
       color: 'white',
       fontFamily: 'sans-serif',
       fontSize: '0.8rem',
-      marginLeft: '5px',
+      marginLeft: '2px',
       paddingTop: '2px',
     }, {}, [text]),
   ]);
@@ -500,6 +500,13 @@ const Post = ({ model }) =>
     ])
   ]);
 
+const TagCloud = ({ tags }) =>
+  DOM.create('div', {
+    display: 'flex',
+    flexWrap: 'wrap',
+    paddingTop: '5px',
+  }, {}, [...tags.map(tag => PostTagPill({ text: tag }))]);
+
 window.Components = {
   RootContainer,
   SiteHeader,
@@ -511,8 +518,6 @@ window.Components = {
   LeftColumnItem,
   CentralColumn,
   PostList,
-  PostTitle,
-  PostDateAndTags,
-  PostBody,
   Post,
+  TagCloud,
 };

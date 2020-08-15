@@ -1,4 +1,4 @@
-{
+window.postHistory = {
   "2013": {
     "10": [
       {

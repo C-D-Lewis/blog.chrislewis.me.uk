@@ -1,7 +1,7 @@
 const { readdirSync, readFileSync, writeFileSync } = require('fs');
 
 const DATE_TIME_REGEX = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}/g;
-const HISTORY_PATH = `${__dirname}/../assets/history.json`;
+const HISTORY_PATH = `${__dirname}/../assets/postHistory.js`;
 const POSTS_DIR = `${__dirname}/../posts`;
 
 let numRendered = 0;
@@ -133,8 +133,8 @@ const main = () => {
   });
   console.log(`Rendered ${numRendered} posts`);
 
-  writeFileSync(HISTORY_PATH, JSON.stringify(history, null, 2), 'utf8');
-  console.log('Updated history.json');
+  writeFileSync(HISTORY_PATH, `window.postHistory = ${JSON.stringify(history, null, 2)}`, 'utf8');
+  console.log('Created history.js');
 };
 
 main();

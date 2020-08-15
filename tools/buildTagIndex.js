@@ -1,7 +1,7 @@
 const { readdirSync, readFileSync, writeFileSync } = require('fs');
 
 const RENDERED_DIR = `${__dirname}/../assets/rendered/`;
-const TAG_INDEX_PATH = `${__dirname}/../assets/tagIndex.json`;  // CANNOT CHANGE
+const TAG_INDEX_PATH = `${__dirname}/../assets/tagIndex.js`;
 
 /**
  * The main function.
@@ -27,8 +27,8 @@ const main = () => {
         tagIndex[tag].push(renderedName);
       });
     });
-  writeFileSync(TAG_INDEX_PATH, JSON.stringify(tagIndex, null, 2), 'utf8');
-  console.log('Created tagIndex.json');
+  writeFileSync(TAG_INDEX_PATH, `window.tagIndex = ${JSON.stringify(tagIndex, null, 2)}`, 'utf8');
+  console.log('Created tagIndex.js');
 };
 
 main();

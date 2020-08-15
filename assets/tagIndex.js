@@ -1,4 +1,4 @@
-{
+window.tagIndex = {
   "General": [
     "2013-03-21-Here-it-is.json",
     "2013-05-01-Interlude-Cross-platform-idea.json",

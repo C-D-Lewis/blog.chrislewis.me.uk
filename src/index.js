@@ -1,7 +1,5 @@
-let historyJson;
 let leftColumn;
 let postList;
-let tagIndex;
 
 /**
  * Convert month index to name.
@@ -31,6 +29,37 @@ const monthName = index => {
  * Get a query param value.
  */
 const getQueryParam = name => new URLSearchParams(window.location.search).get(name);
+
+/*
+ * Sort by date in descending order.
+ *
+ * @param {string} a - fileName A.
+ * @param {string} b - fileName B.
+ * @returns {number} 1 if date A is earlier, -1 otherwise.
+ */
+const descendingDateSort = (a, b) => {
+  const dateA = a.split('-').slice(0, 3).join('-');
+  const dateB = b.split('-').slice(0, 3).join('-');
+  return dateA < dateB ? 1 : -1;
+};
+
+/*
+ * Sort by post date in fileName in descending order.
+ *
+ * @param {string} a - post A.
+ * @param {string} b - post B.
+ * @returns {number} 1 if date A is earlier, -1 otherwise.
+ */
+const descendingPostSort = (a, b) => {
+  const dateA = a.fileName.split('-').slice(0, 3).join('-');
+  const dateB = b.fileName.split('-').slice(0, 3).join('-');
+  return dateA < dateB ? 1 : -1;
+};
+
+/**
+ * Integer item sort in descending order.
+ */
+const integerItemSort = (a, b) => parseInt(a) > parseInt(b) ? -1 : 1;
 
 /**
  * Setup the UI.
@@ -71,8 +100,7 @@ const buildPageLayout = () => {
   }));
 
   // Other stuff
-  const otherStuffHeader = Components.LeftColumnHeader({ text: 'Other Stuff' });
-  DOM.addChild(leftColumn, otherStuffHeader);
+  DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Other Stuff' }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
     text: 'Pixels With Friends',
     onClick: () => (window.open('http://pixels.chrislewis.me.uk', '_blank')),
@@ -91,7 +119,8 @@ const buildPageLayout = () => {
   }));
 
   // Tags list as pills
-
+  DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Tags' }));
+  DOM.addChild(leftColumn, Components.TagCloud({ tags: Object.keys(window.tagIndex) }));
 
   // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
   const archiveHeader = Components.LeftColumnHeader({ text: 'Archive' });
@@ -116,8 +145,10 @@ const showPostsFrom = async (year, month) => {
   }));
 
   // Fetch all posts and add to the postList component as Posts
-  const posts = historyJson[year][month];
-  const promises = posts.map(({ file }) => fetch(file).then(res => res.json()));
+  const posts = window.postHistory[year][month];
+  const promises = posts
+    .sort(descendingPostSort)
+    .map(({ file }) => fetch(file).then(res => res.json()));
   const models = await Promise.all(promises);
   models.forEach(model => DOM.addChild(postList, Components.Post({ model })));
 
@@ -129,7 +160,7 @@ const showPostsFrom = async (year, month) => {
  *
  * @param {string} fileName - Post fileName selected
  */
-window.showPost = async (fileName) => {
+window.showSinglePost = async (fileName) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?post=${fileName}`);
 
@@ -140,7 +171,7 @@ window.showPost = async (fileName) => {
 
   // Find the post with this fileName
   let post;
-  Object.entries(historyJson).forEach(([year, yearData]) => {
+  Object.entries(window.postHistory).forEach(([year, yearData]) => {
     Object.entries(yearData).forEach(([monthIndex, posts]) => {
       const found = posts.find(p => p.fileName === fileName);
       if (found) {
@@ -160,19 +191,6 @@ window.showPost = async (fileName) => {
   Events.post('selectionUpdated');
 };
 
-/*
- * Sort by date in descending order.
- *
- * @param {string} a - fileName A.
- * @param {string} b - fileName B.
- * @returns {number} 1 if date A is earlier, -1 otherwise.
- */
-const descendingDateSort = (a, b) => {
-  const dateA = a.split('-').slice(0, 3).join('-');
-  const dateB = b.split('-').slice(0, 3).join('-');
-  return dateA < dateB ? 1 : -1;
-};
-
 /**
  * Show posts from a chosen tag.
  *
@@ -185,18 +203,18 @@ window.showTagPosts = async (tag) => {
   DOM.addChild(
     postList,
     Components.LeftColumnHeader({
-      text: `Tag: ${tag} (${tagIndex[tag].length} posts)`,
+      text: `Tag: ${tag} (${window.tagIndex[tag].length} posts)`,
       isTopSection: true,
     }),
   );
 
   // Find the post with this tag
-  if (!tagIndex[tag]) {
+  if (!window.tagIndex[tag]) {
     alert(`Linked tag ${tag} not found`);
     return;
   }
 
-  const promises = tagIndex[tag]
+  const promises = window.tagIndex[tag]
     .sort(descendingDateSort)
     .map(fileName => fetch(`assets/rendered/${fileName}`).then(res => res.json()));
   const models = await Promise.all(promises);
@@ -206,19 +224,11 @@ window.showTagPosts = async (tag) => {
 };
 
 /**
- * Integer item sort in descending order.
- */
-const integerItemSort = (a, b) => parseInt(a) > parseInt(b) ? -1 : 1;
-
-/**
  * Fetch the post history file.
  */
-const initPostsAndHistory = async () => {
-  historyJson = await fetch('assets/history.json').then(res => res.json());
-  tagIndex = await fetch('assets/tagIndex.json').then(res => res.json());
-
+const initPostHistory = () => {
   // Populate the Archive section
-  Object.entries(historyJson)
+  Object.entries(window.postHistory)
     .sort(([year1], [year2]) => integerItemSort(year1, year2))
     .forEach(([year, yearData]) => {
       Object.entries(yearData)
@@ -227,7 +237,6 @@ const initPostsAndHistory = async () => {
           const monthLabel = Components.LeftColumnItem({
             text: `${monthName(monthIndex)} ${year}`,
             onClick: () => showPostsFrom(year, monthIndex),
-            fadeIn: true,
             getIsSelected: () => getQueryParam('year') === year && getQueryParam('month') === monthIndex,
           });
           DOM.addChild(leftColumn, monthLabel);
@@ -242,7 +251,7 @@ const loadSelection = () => {
   // Does the URL contain a selection?
   const post = getQueryParam('post');
   if (post) {
-    showPost(post);
+    showSinglePost(post);
     return;
   }
 
@@ -262,17 +271,17 @@ const loadSelection = () => {
   }
 
   // Auto load most recent month
-  year = Object.keys(historyJson).sort(integerItemSort)[0];
-  month = Object.keys(historyJson[year]).sort(integerItemSort)[0];
+  year = Object.keys(window.postHistory).sort(integerItemSort)[0];
+  month = Object.keys(window.postHistory[year]).sort(integerItemSort)[0];
   showPostsFrom(year, month);
 };
 
 /**
  * The main function.
  */
-const main = async () => {
+const main = () => {
   buildPageLayout();
-  await initPostsAndHistory();
+  initPostHistory();
   loadSelection();
 };
 
