@@ -63,34 +63,34 @@ const buildPageLayout = () => {
   }
 
   // Blog sections
-  DOM.addChild(leftColumn, Components.LeftColumnHeader('Blog', true));
+  DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Blog', isTopSection: true }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
-    label: 'Most Recent',
+    text: 'Most Recent',
     onClick: () => (window.location.href = '/'),
   }));
 
   // Other stuff
-  const otherStuffHeader = Components.LeftColumnHeader('Other Stuff');
+  const otherStuffHeader = Components.LeftColumnHeader({ text: 'Other Stuff' });
   DOM.addChild(leftColumn, otherStuffHeader);
   DOM.addChild(leftColumn, Components.LeftColumnItem({
-    label: 'Pixels With Friends',
+    text: 'Pixels With Friends',
     onClick: () => (window.open('http://pixels.chrislewis.me.uk', '_blank')),
   }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
-    label: 'FitBit Apps',
+    text: 'FitBit Apps',
     onClick: () => (window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank')),
   }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
-    label: 'Pebble Apps',
+    text: 'Pebble Apps',
     onClick: () => (window.open('https://github.com/C-D-Lewis/pebble', '_blank')),
   }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
-    label: 'Old WordPress Blog',
+    text: 'Old WordPress Blog',
     onClick: () => (window.open('https://ninedof.wordpress.com/', '_blank')),
   }));
 
   // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
-  const archiveHeader = Components.LeftColumnHeader('Archive');
+  const archiveHeader = Components.LeftColumnHeader({ text: 'Archive' });
   DOM.addChild(leftColumn, archiveHeader);
   postList = Components.PostList();
   DOM.addChild(centralColumn, postList);
@@ -106,14 +106,17 @@ const showPostsFrom = async (year, month) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?year=${year}&month=${month}`);
 
-  const archiveHeader = Components.LeftColumnHeader(`Archive: ${monthName(month)} ${year}`, true);
+  const archiveHeader = Components.LeftColumnHeader({
+    text: `Archive: ${monthName(month)} ${year}`,
+    isTopSection: true,
+  });
   DOM.addChild(postList, archiveHeader);
 
   // Fetch all posts and add to the postList component as Posts
   const posts = historyJson[year][month];
   const promises = posts.map(({ file }) => fetch(file).then(res => res.json()));
   const models = await Promise.all(promises);
-  models.forEach(model => DOM.addChild(postList, Components.Post(model)));
+  models.forEach(model => DOM.addChild(postList, Components.Post({ model })));
 
   Events.post('selectionUpdated');
 };
@@ -127,7 +130,7 @@ window.showPost = async (fileName) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?post=${fileName}`);
 
-  const archiveHeader = Components.LeftColumnHeader('Selected post', true);
+  const archiveHeader = Components.LeftColumnHeader({ text: 'Selected post', isTopSection: true });
   DOM.addChild(postList, archiveHeader);
 
   // Find the post with this fileName
@@ -147,7 +150,7 @@ window.showPost = async (fileName) => {
   }
 
   const model = await fetch(post.file).then(res => res.json());
-  DOM.addChild(postList, Components.Post(model));
+  DOM.addChild(postList, Components.Post({ model }));
 
   Events.post('selectionUpdated');
 };
@@ -171,7 +174,7 @@ const initPostsAndHistory = async () => {
         .sort(([month1, month2]) => integerItemSort(month1, month2))
         .forEach(([monthIndex]) => {
           const monthLabel = Components.LeftColumnItem({
-            label: `${monthName(monthIndex)} ${year}`,
+            text: `${monthName(monthIndex)} ${year}`,
             onClick: () => showPostsFrom(year, monthIndex),
             fadeIn: true,
             getIsSelected: () => getQueryParam('year') === year && getQueryParam('month') === monthIndex,

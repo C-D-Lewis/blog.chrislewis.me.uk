@@ -6,6 +6,7 @@ Time to roll my own. So long, WordPress!
 
 ## TODO
 
+* Index posts by tags, make clickable
 * Missing images in very old posts
 
 ## Post format
@@ -24,6 +25,8 @@ later converted into JSON objects that can be rendered as components:
 * Images are converted to `img`.
 
 * Headings are standard header levels with a space beween hash and text.
+
+* Links are converted to anchors.
 
 
 ## Building the blog

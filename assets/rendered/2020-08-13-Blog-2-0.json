@@ -21,7 +21,7 @@
     },
     {
       "type": "paragraph",
-      "text": "You're reading it right now! If you want, <a href=\"https://github.com/C-D-Lewis/blog\" target=\"_blank\">dive right into the source!</a>"
+      "text": "You're reading it right now! If you want,\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/blog\">dive right into the source!</a>"
     },
     {
       "type": "header",

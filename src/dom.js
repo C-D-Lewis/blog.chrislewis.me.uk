@@ -7,12 +7,23 @@ const MIN_WIDTH = 1000;
  * @param {string} tag - The tag name, such as 'input'.
  * @param {Object} style - Object of CSS styles.
  * @param {Object} [props] - Object of optional object properties.
+ * @param {Object[]} [children] - Array of children.
  * @returns {HTMLElement} The element with styles and props applied.
  */
-const create = (tag, style, props = {}) => {
+const create = (tag, style = {}, props = {}, children = []) => {
   const el = document.createElement(tag);
   Object.keys(style).forEach(key => Object.assign(el.style, { [key]: style[key] }));
   Object.keys(props).forEach(key => Object.assign(el, { [key]: props[key] }));
+  children.forEach(child => {
+    if (typeof child === 'object') {
+      el.appendChild(child);
+      return;
+    }
+
+    const span = create('span');
+    span.innerHTML = children;
+    el.appendChild(span);
+  });
   return el;
 };
 
