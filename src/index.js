@@ -197,6 +197,12 @@ window.showSinglePost = async (fileName) => {
  * @param {string} tag - Tag selected.
  */
 window.showTagPosts = async (tag) => {
+  // Find the post with this tag
+  if (!window.tagIndex[tag]) {
+    alert(`Linked tag ${tag} not found`);
+    return;
+  }
+
   postList.innerHTML = '';
   history.replaceState(null, null, `?tag=${tag}`);
 
@@ -207,12 +213,6 @@ window.showTagPosts = async (tag) => {
       isTopSection: true,
     }),
   );
-
-  // Find the post with this tag
-  if (!window.tagIndex[tag]) {
-    alert(`Linked tag ${tag} not found`);
-    return;
-  }
 
   const promises = window.tagIndex[tag]
     .sort(descendingDateSort)

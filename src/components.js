@@ -131,7 +131,7 @@ const LeftColumn = () =>
     backgroundColor: Colors.leftColumnBackground,
     flex: DOM.isNarrowScreen() ? '1' : '0 0 240px',
     justifyContent: 'start',
-    padding: '90px 15px 0px 15px',
+    padding: `${DOM.isNarrowScreen() ? '15px' : '90px'} 15px 0px 15px`,
     borderRight: '1px solid #111',
   });
 
@@ -193,7 +193,8 @@ const CentralColumn = () =>
   DOM.create('div', {
     flex: '1',
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: DOM.isNarrowScreen() ? 'column' : 'row',
+    justifyContent: DOM.isNarrowScreen() ? 'initial' : 'center',
     minWidth: DOM.isNarrowScreen() ? '400px' : '700px',
     borderLeft: `1px solid ${Colors.lightGrey}`,
     paddingLeft: DOM.isNarrowScreen() ? '5px' : '20px',
@@ -356,7 +357,10 @@ const PostTagPill = ({ text }) => {
     }, {}, [text]),
   ]);
 
-  div.addEventListener('click', () => window.showTagPosts(text));
+  div.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.showTagPosts(text);
+  });
   return div;
 };
 
