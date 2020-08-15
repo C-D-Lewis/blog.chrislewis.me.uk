@@ -77,7 +77,7 @@ const main = () => {
     .map(toItemXml);
   const xml = TEMPLATE_START + items.join('\n') + TEMPLATE_END;
   writeFileSync(FEED_PATH, xml, 'utf8');
-  console.log(`Wrote ${FEED_PATH}`);
+  console.log('Created rss.xml');
 };
 
 main();

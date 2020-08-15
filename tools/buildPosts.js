@@ -1,9 +1,10 @@
 const { readdirSync, readFileSync, writeFileSync } = require('fs');
 
 const DATE_TIME_REGEX = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}/g;
+const HISTORY_PATH = `${__dirname}/../assets/history.json`;
+const POSTS_DIR = `${__dirname}/../posts`;
 
-const historyPath = `${__dirname}/../assets/history.json`;
-const postsDir = `${__dirname}/../posts`;
+let numRendered = 0;
 
 /**
  * Transform bits inside a paragraph
@@ -58,7 +59,7 @@ const joinCodeParagraphs = (sections) => {
  * @returns {Object} Model of the post.
  */
 const postToModel = (fileName) => {
-  const text = readFileSync(`${postsDir}/${fileName}`, 'utf8');
+  const text = readFileSync(`${POSTS_DIR}/${fileName}`, 'utf8');
   const [title, dateTime, tags] = text.split('\n').map(p => p.trim());
   if (!title.length || !dateTime.match(DATE_TIME_REGEX) || !text.includes('---\n')) {
     throw new Error(`metadata error: ${fileName}`);
@@ -107,7 +108,7 @@ const postToModel = (fileName) => {
 const main = () => {
 
   // Build post models
-  const files = readdirSync(postsDir);
+  const files = readdirSync(POSTS_DIR);
   const models = files.map(postToModel);
 
   const history = {};
@@ -117,7 +118,7 @@ const main = () => {
     const renderPath = `${__dirname}/../assets/rendered/${fileName}.json`;
     const [year, month] = model.dateTime.split('-');
     writeFileSync(renderPath, JSON.stringify(model, null, 2), 'utf8');
-    console.log(`Rendered ${renderPath}`);
+    numRendered++;
 
     // Update history file
     if (!history[year]) {
@@ -130,7 +131,9 @@ const main = () => {
     const filePath = `assets/rendered/${fileName}.json`;
     history[year][month].push({ title: model.title, file: filePath, fileName: fileName });
   });
-  writeFileSync(historyPath, JSON.stringify(history, null, 2), 'utf8');
+  console.log(`Rendered ${numRendered} posts`);
+
+  writeFileSync(HISTORY_PATH, JSON.stringify(history, null, 2), 'utf8');
   console.log('Updated history.json');
 };
 

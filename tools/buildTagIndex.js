@@ -28,7 +28,7 @@ const main = () => {
       });
     });
   writeFileSync(TAG_INDEX_PATH, JSON.stringify(tagIndex, null, 2), 'utf8');
-  console.log(`Wrote ${TAG_INDEX_PATH}`);
+  console.log('Created tagIndex.json');
 };
 
 main();

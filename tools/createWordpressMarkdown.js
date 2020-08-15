@@ -4,6 +4,8 @@ const slugify = require('slugify');
 /** Path to posts JSON */
 const POSTS_PATH = '../assets/import/posts.json';
 
+let numCreated = 0;
+
 /**
  * Replace all instances with a replacement.
  *
@@ -146,8 +148,10 @@ ${md}
     const postFilePath = `${__dirname}/../posts/${postFileName}.md`;
 
     writeFileSync(postFilePath, fileContent, 'utf8');
-    console.log(`Wrote ${postFilePath}`);
+    numCreated++;
   });
+
+  console.log(`Created ${numCreated} WordPress markdown posts`);
 };
 
 main();
