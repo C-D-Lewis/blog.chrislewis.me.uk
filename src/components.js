@@ -333,16 +333,16 @@ const PostTitle = ({ title, fileName }) => {
  *
  * @returns {HTMLElement}
  */
-const PostTag = ({ text }) =>
-  DOM.create('div', {
+const PostTag = ({ text }) => {
+  const div = DOM.create('div', {
     display: 'flex',
     alignItems: 'center',
     backgroundColor: '#bbb',
-    cursor: 'default',
+    cursor: 'pointer',
     borderRadius: '20px',
     padding: '4px 8px',
     marginLeft: '5px',
-  }, {}, [
+  }, { className: 'post-tag' }, [
     DOM.create('img', {
       width: '14px',
       height: '14px',
@@ -355,6 +355,10 @@ const PostTag = ({ text }) =>
       paddingTop: '2px',
     }, {}, [text]),
   ]);
+
+  div.addEventListener('click', () => window.showTagPosts(text));
+  return div;
+};
 
 /**
  * PostTagsList component.

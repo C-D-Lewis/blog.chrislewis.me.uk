@@ -18,3 +18,7 @@ a:hover {
 .link-anchor:hover {
   color: #444 !important;
 }
+
+.post-tag:hover {
+  background-color: #999 !important;
+}

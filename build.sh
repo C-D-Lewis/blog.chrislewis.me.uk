@@ -6,6 +6,8 @@ node tools/createWordpressMarkdown.js
 mkdir -p assets/rendered
 node tools/buildPosts.js
 
+node tools/buildTagIndex.js
+
 mkdir -p feed
 node tools/buildFeed.js
 RES=$(./tools/node_modules/.bin/feed-validator feed/rss.xml)

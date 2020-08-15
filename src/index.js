@@ -1,6 +1,7 @@
 let historyJson;
 let leftColumn;
 let postList;
+let tagIndex;
 
 /**
  * Convert month index to name.
@@ -89,6 +90,9 @@ const buildPageLayout = () => {
     onClick: () => (window.open('https://ninedof.wordpress.com/', '_blank')),
   }));
 
+  // Tags list as pills
+
+
   // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
   const archiveHeader = Components.LeftColumnHeader({ text: 'Archive' });
   DOM.addChild(leftColumn, archiveHeader);
@@ -106,11 +110,10 @@ const showPostsFrom = async (year, month) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?year=${year}&month=${month}`);
 
-  const archiveHeader = Components.LeftColumnHeader({
+  DOM.addChild(postList, Components.LeftColumnHeader({
     text: `Archive: ${monthName(month)} ${year}`,
     isTopSection: true,
-  });
-  DOM.addChild(postList, archiveHeader);
+  }));
 
   // Fetch all posts and add to the postList component as Posts
   const posts = historyJson[year][month];
@@ -130,8 +133,10 @@ window.showPost = async (fileName) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?post=${fileName}`);
 
-  const archiveHeader = Components.LeftColumnHeader({ text: 'Selected post', isTopSection: true });
-  DOM.addChild(postList, archiveHeader);
+  DOM.addChild(
+    postList,
+    Components.LeftColumnHeader({ text: 'Selected post', isTopSection: true }),
+  );
 
   // Find the post with this fileName
   let post;
@@ -156,6 +161,43 @@ window.showPost = async (fileName) => {
 };
 
 /**
+ * Show posts from a chosen tag.
+ *
+ * @param {string} tag - Tag selected.
+ */
+window.showTagPosts = async (tag) => {
+  postList.innerHTML = '';
+  history.replaceState(null, null, `?tag=${tag}`);
+
+  DOM.addChild(
+    postList,
+    Components.LeftColumnHeader({
+      text: `Tag: ${tag} (${tagIndex[tag].length} posts)`,
+      isTopSection: true,
+    }),
+  );
+
+  // Find the post with this tag
+  if (!tagIndex[tag]) {
+    alert(`Linked tag ${tag} not found`);
+    return;
+  }
+
+  const promises = tagIndex[tag]
+    .sort((a, b) => {
+      // Sort by date in descending order
+      const dateA = a.split('-').slice(0, 3).join('-');
+      const dateB = b.split('-').slice(0, 3).join('-');
+      return dateA < dateB ? 1 : -1;
+    })
+    .map(fileName => fetch(`assets/rendered/${fileName}`).then(res => res.json()));
+  const models = await Promise.all(promises);
+  models.forEach(model => DOM.addChild(postList, Components.Post({ model })));
+
+  Events.post('selectionUpdated');
+};
+
+/**
  * Integer item sort in descending order.
  */
 const integerItemSort = (a, b) => parseInt(a) > parseInt(b) ? -1 : 1;
@@ -165,6 +207,7 @@ const integerItemSort = (a, b) => parseInt(a) > parseInt(b) ? -1 : 1;
  */
 const initPostsAndHistory = async () => {
   historyJson = await fetch('assets/history.json').then(res => res.json());
+  tagIndex = await fetch('assets/tagIndex.json').then(res => res.json());
 
   // Populate the Archive section
   Object.entries(historyJson)
@@ -200,6 +243,13 @@ const loadSelection = () => {
   let month = getQueryParam('month');
   if (year && month) {
     showPostsFrom(year, month);
+    return;
+  }
+
+  // Or a tag?
+  const tag = getQueryParam('tag');
+  if (tag) {
+    showTagPosts(tag);
     return;
   }
 
