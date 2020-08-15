@@ -11,7 +11,6 @@ echo "Using aws profile $AWS_PROFILE"
 ./build.sh
 
 # Push
-aws s3 mb $BUCKET
 aws s3 cp index.html $BUCKET
 aws s3 sync src $BUCKET/src
 aws s3 sync assets $BUCKET/assets
@@ -19,4 +18,9 @@ aws s3 sync styles $BUCKET/styles
 aws s3 sync feed $BUCKET/feed
 
 # CloudFront invalidation
-aws cloudfront create-invalidation --distribution-id $CF_DIST_ID --paths "/*"
+RES=$(aws cloudfront create-invalidation --distribution-id $CF_DIST_ID --paths "/*")
+INVALIDATION_ID=$(echo $RES | jq -r '.Invalidation.Id')
+echo "Waiting for invalidation-completed for $INVALIDATION_ID..."
+aws cloudfront wait invalidation-completed --distribution-id $CF_DIST_ID --id $INVALIDATION_ID
+
+echo "Deployment complete"
