@@ -191,7 +191,8 @@ window.tagIndex = {
     "2017-03-04-Blinking-an-LED-and-Infra-Update.json",
     "2017-07-14-How-I-Write-My-Node-Apps.json",
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
-    "2018-05-19-FitBit-Development-Round-2.json"
+    "2018-05-19-FitBit-Development-Round-2.json",
+    "2020-08-15-Block-World-Lives-On.json"
   ],
   "Integration": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -268,7 +269,8 @@ window.tagIndex = {
     "2017-12-24-Simpler-Inter-service-Communication-with-MBus.json",
     "2018-02-17-Tests-With-Extra-Sweetness.json",
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
-    "2018-05-19-FitBit-Development-Round-2.json"
+    "2018-05-19-FitBit-Development-Round-2.json",
+    "2020-08-15-Block-World-Lives-On.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",

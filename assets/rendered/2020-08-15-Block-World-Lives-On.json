@@ -1,0 +1,96 @@
+{
+  "title": "Block World Lives On!",
+  "fileName": "2020-08-15-Block-World-Lives-On.md",
+  "dateTime": "2020-08-15 16:40",
+  "tags": [
+    "JavaScript",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "(Project from May 2020)"
+    },
+    {
+      "type": "paragraph",
+      "text": "Back during the development of the Pebble Time smartwatch (the first with a\ncolor e-paper display), there came day when a very first bleeding edge internal\nfirmware build was available. It wasn't stable, still used most of the UI from\nthe orignal Pebble, but it finally enabled SDK users to draw color to the\ndisplay. Granted, you had to build an SDK build yourself from the firmware,\nbut this was a really worthwhile reason to do so."
+    },
+    {
+      "type": "paragraph",
+      "text": "After the obligatory color text, images, laughing at memes on each other's\nwatches, I came across a simple way to draw isometric shapes:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\noutput.x = input.x - input.y\noutput.y = (input.x / 2) + (input.y / 2) - input.z\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "I had a play around with Java2D drawing and found it easy to draw isomatric\nrectangles, filling them in by drawing more lines vertically down the drawing\narea. Soon after I'd moved on to drawing 3D cubes in a similar way."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/08/iso-java.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Teeny Tiny Blocks"
+    },
+    {
+      "type": "paragraph",
+      "text": "So of course, it was natural to port this to the Pebble Time and have some fun\nwith it. The first person I showed who was also a die-hard Pebble tinkerer\nstraight away said \"Cool! Looks like Minecraft!\" and so I had another idea..."
+    },
+    {
+      "type": "paragraph",
+      "text": "A 3D array of blocks, each with different colors and behaviors... And so\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/block-world\">pebble-hacks/block-world</a> was born\nafter a few feverish nights coding."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/08/block-world.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "The buttons are used to moved a tiny wireframe cursor and select one of about\nfive block types to place, and there were even a few tiny moving clouds gliding\nacross the top of the box. The total size of the 3D array was limited by the\nmemory limit for external apps (had I known how to make it in as a firmware app\nI could have used much more memory, but by that point the blocks would be too\nsmall)."
+    },
+    {
+      "type": "paragraph",
+      "text": "As is my style, I thought I'd created something useful - and so published the\ncore drawing routines as a library called\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-isometric\">pebble-isometric</a>. I don't think\nanyone else used it, but it's a cool concept."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "After Pebble"
+    },
+    {
+      "type": "paragraph",
+      "text": "I recently came back across this project while I was browing for forks in my\nGitHub account I no longer needed, and while the <code>pebble-hacks</code> org\nis still available, it won't be forever. And there are lots of awesome\nopen-source repositories it would be a shame to lose."
+    },
+    {
+      "type": "paragraph",
+      "text": "So I decided to spend an afternoon porting the library <i>and</i> the\nblock-world demo to a vanilla JavaScript web library and webapp, for posterity."
+    },
+    {
+      "type": "paragraph",
+      "text": "And so, present to you the imageinatively named\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/isometric-js\">isometric-js!</a>. It includes all the\nsame basic drawing routines as well as a few interesting demos including the\nblock-world demo. It's not interactive in the same way, but still looks awesome."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/08/clouds.gif"
+    },
+    {
+      "type": "paragraph",
+      "text": "The usage is still basically the same, using routines as and when during Canvas\ndrawing:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\nIsometric.init('black', { x: 40, y: 100 });\n\nIsometric.renderScene((width, height) => {\n  const rect = { x: 0, y: 0, z: 0, width: 50, height: 50 };\n  Isometric.filledRect(rect, 'red');\n\n  const box = { x: 0, y: 0, z: 0, width: 30, height: 30 };\n  const boxHeight = 100;\n  Isometric.filledBox(box, boxHeight, 'blue');\n});\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Feel free to check out the repository and see some of the other examples\nincluded, if only to reminisce about how awesome color on Pebble proved to be."
+    }
+  ]
+}

@@ -803,6 +803,11 @@ window.postHistory = {
         "title": "Blog 2.0!",
         "file": "assets/rendered/2020-08-13-Blog-2-0.json",
         "fileName": "2020-08-13-Blog-2-0"
+      },
+      {
+        "title": "Block World Lives On!",
+        "file": "assets/rendered/2020-08-15-Block-World-Lives-On.json",
+        "fileName": "2020-08-15-Block-World-Lives-On"
       }
     ]
   }
