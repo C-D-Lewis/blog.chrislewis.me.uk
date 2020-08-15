@@ -98,6 +98,10 @@ const buildPageLayout = () => {
     text: 'Most Recent',
     onClick: () => (window.location.href = '/'),
   }));
+  DOM.addChild(leftColumn, Components.LeftColumnItem({
+    text: 'Source Repository',
+    onClick: () => (window.open('https://github.com/C-D-Lewis/blog', '_blank')),
+  }));
 
   // Other stuff
   DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Other Stuff' }));
