@@ -72,7 +72,7 @@ const buildPageLayout = () => {
   const siteHeader = Components.SiteHeader();
   DOM.addChild(rootContainer, siteHeader);
   DOM.addChild(siteHeader, Components.SiteTitle());
-  if (!DOM.isNarrowScreen()) {
+  if (!DOM.isMobile()) {
     DOM.addChild(siteHeader, Components.SiteSocials());
   }
 
@@ -81,14 +81,14 @@ const buildPageLayout = () => {
   DOM.addChild(rootContainer, contentContainer);
   leftColumn = Components.LeftColumn();
   const centralColumn = Components.CentralColumn();
-  if (DOM.isNarrowScreen()) {
+  if (DOM.isMobile()) {
     DOM.addChild(contentContainer, centralColumn);
     DOM.addChild(contentContainer, leftColumn);
   } else {
     DOM.addChild(contentContainer, leftColumn);
     DOM.addChild(contentContainer, centralColumn);
   }
-  if (DOM.isNarrowScreen()) {
+  if (DOM.isMobile()) {
     DOM.addChild(centralColumn, Components.SiteSocials());
   }
 

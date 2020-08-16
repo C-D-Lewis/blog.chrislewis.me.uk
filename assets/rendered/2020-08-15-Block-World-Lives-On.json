@@ -25,7 +25,7 @@
     },
     {
       "type": "paragraph",
-      "text": "I had a play around with Java2D drawing and found it easy to draw isomatric\nrectangles, filling them in by drawing more lines vertically down the drawing\narea. Soon after I'd moved on to drawing 3D cubes in a similar way."
+      "text": "I had a play around with Java2D drawing and found it easy to draw isomatric\nrectangles, filling them in by drawing more lines vertically down the drawing\narea. Soon after I'd moved on to drawing 3D cubes and even simple image\ntextures in a similar way."
     },
     {
       "type": "image",

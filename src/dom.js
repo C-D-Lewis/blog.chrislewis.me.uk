@@ -66,7 +66,7 @@ const addChildren = (parent, children) => children.forEach(p => parent.appendChi
  *
  * @returns {boolean} true if narrow.
  */
-const isNarrowScreen = () => window.innerWidth < MIN_WIDTH;
+const isMobile = () => window.innerWidth < MIN_WIDTH;
 
 window.DOM = {
   create,
@@ -74,5 +74,5 @@ window.DOM = {
   getHtml,
   addChild,
   addChildren,
-  isNarrowScreen,
+  isMobile,
 };

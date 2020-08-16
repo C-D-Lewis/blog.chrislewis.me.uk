@@ -68,7 +68,7 @@ const SiteTitleWord = ({ text, color, marginLeft = '10px' }) =>
     display: 'block',
     color,
     fontFamily: 'monospace',
-    fontSize: DOM.isNarrowScreen() ? '1.1rem' : '1.4rem',
+    fontSize: DOM.isMobile() ? '1.1rem' : '1.4rem',
     marginLeft,
     marginTop: '0px',
     marginBottom: '0px',
@@ -129,9 +129,9 @@ const LeftColumn = () =>
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: Colors.leftColumnBackground,
-    flex: DOM.isNarrowScreen() ? '1' : '0 0 240px',
+    flex: DOM.isMobile() ? '1' : '0 0 240px',
     justifyContent: 'start',
-    padding: `${DOM.isNarrowScreen() ? '15px' : '90px'} 15px 0px 15px`,
+    padding: `${DOM.isMobile() ? '15px' : '90px'} 15px 0px 15px`,
     borderRight: '1px solid #111',
   });
 
@@ -176,7 +176,7 @@ const LeftColumnItem = ({ text, onClick = {}, fadeIn, getIsSelected = () => {} }
 
   Events.subscribe('selectionUpdated', () => {
     const isSelected = getIsSelected();
-    a.style.color = isSelected ? 'white' : '#ccc';
+    a.style.color = isSelected ? Colors.syntax.function : '#ccc';
     a.style.fontWeight = isSelected ? 'bold' : 'initial';
   });
 
@@ -193,11 +193,11 @@ const CentralColumn = () =>
   DOM.create('div', {
     flex: '1',
     display: 'flex',
-    flexDirection: DOM.isNarrowScreen() ? 'column' : 'row',
-    justifyContent: DOM.isNarrowScreen() ? 'initial' : 'center',
-    minWidth: DOM.isNarrowScreen() ? '400px' : '700px',
+    flexDirection: DOM.isMobile() ? 'column' : 'row',
+    justifyContent: DOM.isMobile() ? 'initial' : 'center',
+    minWidth: DOM.isMobile() ? '400px' : '700px',
     borderLeft: `1px solid ${Colors.lightGrey}`,
-    paddingLeft: DOM.isNarrowScreen() ? '5px' : '20px',
+    paddingLeft: DOM.isMobile() ? '5px' : '20px',
     backgroundColor: Colors.centralColumnBackground,
     paddingTop: '90px',
   });
@@ -216,7 +216,7 @@ const SocialPill = ({ icon, text, backgroundColor, href }) =>
     backgroundColor,
     alignItems: 'center',
     textDecoration: 'none',
-    height: '25px',
+    minHeight: '25px',
   }, {
     href,
     target: '_blank',
@@ -245,17 +245,11 @@ const SocialPill = ({ icon, text, backgroundColor, href }) =>
 const SiteSocials = () =>
   DOM.create('div', {
     display: 'flex',
-    flex: DOM.isNarrowScreen() ? 'initial' : '1',
+    flex: DOM.isMobile() ? 'initial' : '1',
     marginRight: '20px',
-    justifyContent: DOM.isNarrowScreen() ? 'center' : 'flex-end',
+    justifyContent: DOM.isMobile() ? 'center' : 'flex-end',
     alignItems: 'center',
   }, {}, [
-    SocialPill({
-      icon: 'rss.png',
-      text: 'RSS',
-      backgroundColor: 'rgb(247, 171, 24)',
-      href: '/feed/rss.xml',
-    }),
     SocialPill({
       icon: 'github.png',
       text: 'C-D-Lewis',
@@ -268,6 +262,12 @@ const SiteSocials = () =>
       backgroundColor: 'rgb(29, 142, 238)',
       href: 'https://twitter.com/Chris_DL'
     }),
+    SocialPill({
+      icon: 'rss.png',
+      text: 'RSS',
+      backgroundColor: 'rgb(247, 171, 24)',
+      href: '/feed/rss.xml',
+    }),
   ]);
 
 /**
@@ -279,8 +279,8 @@ const PostList = () =>
   DOM.create('div', {
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: DOM.isNarrowScreen() ? '370px' : '800px',
-    margin: DOM.isNarrowScreen() ? '0px 5px' : '0px 20px',
+    maxWidth: DOM.isMobile() ? '370px' : '800px',
+    margin: DOM.isMobile() ? '0px 5px' : '0px 20px',
     padding: '0px 10px 40px 10px',
   });
 
@@ -305,7 +305,7 @@ const PostTitle = ({ title, fileName }) => {
     DOM.create('h1', {
       color: 'black',
       fontFamily: 'sans-serif',
-      fontSize: DOM.isNarrowScreen() ? '1.2rem': '1.5rem',
+      fontSize: DOM.isMobile() ? '1.2rem': '1.5rem',
       fontWeight: 'bold',
       marginTop: '10px',
       marginBottom: '5px',
@@ -394,7 +394,7 @@ const PostDateAndTags = ({ dateTime, tags }) =>
       marginLeft: '44px',
       cursor: 'default',
       paddingTop: '3px',
-    }, {}, [`Posted ${dateTime.split(' ')[0]}`]),
+    }, {}, [DOM.isMobile() ? dateTime.split(' ')[0] : `Posted ${dateTime.split(' ')[0]}`]),
     PostTagsList({ tags }),
   ]);
 
@@ -410,9 +410,9 @@ const PostBody = (children) =>
     fontFamily: 'sans-serif',
     fontSize: '1rem',
     marginTop: '10px',
-    marginLeft: DOM.isNarrowScreen() ? '10px' : '39px',
-    padding: DOM.isNarrowScreen() ? '0px' : '5px',
-    paddingRight: DOM.isNarrowScreen() ? '5px' : '35px',
+    marginLeft: DOM.isMobile() ? '10px' : '39px',
+    padding: DOM.isMobile() ? '0px' : '5px',
+    paddingRight: DOM.isMobile() ? '5px' : '35px',
     border: 'none',
     outline: 'none',
     backgroundColor: '#0000',
@@ -495,8 +495,8 @@ const Post = ({ model }) =>
       backgroundColor: 'white',
       borderRadius: '5px',
       overflow: 'hidden',
-      padding: DOM.isNarrowScreen () ? '5px' : '15px',
-      marginTop: '15px',
+      padding: DOM.isMobile () ? '5px' : '15px',
+      margin: '25px 0px',
     }, {}, [
       PostTitle(model),
       PostDateAndTags(model),
