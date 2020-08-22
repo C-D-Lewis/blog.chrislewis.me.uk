@@ -1,0 +1,131 @@
+{
+  "title": "Creating a Browser-based Party Game",
+  "fileName": "2020-08-22-Creating-a-Browser-based-Party-Game.md",
+  "dateTime": "2020-08-22 13:57",
+  "tags": [
+    "JavaScript",
+    "Games"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "(Project from July 2020)"
+    },
+    {
+      "type": "paragraph",
+      "text": "A long time ambition of mine has been to create a game. I play enough of them,\nand I like the idea of working on a concept and adding all sort of things to\nenhance it. I like games that have procedural generation because they can make\nendless hours of entertainmend out of a fixed number of elements. Take games\nlike Factorio, or Prison Architect. I have over 100 hours of each accumulated\nover the last 6 years or so and this factor of rearranging and redesigning using\nset elements is probably the key."
+    },
+    {
+      "type": "paragraph",
+      "text": "But sadly, each time I sit down and plan a game similar, such as a space-themed\ntop-down couch-coop shoot-em-up with procedurally generated weapons, maps, and\nNPCs, the same thing happens: I create a modular 'engine' that makes it simple\nto build maps, NPCs, etc on top, then run out of steam when it comes to\nproducing actual gameplay. Things like drawing graphics, adding menus, working\nwith controllers, generating corridors with fiddly little corners if they are\nat the end of a room all conspire to bring the project to a stale end."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Browser based fun"
+    },
+    {
+      "type": "paragraph",
+      "text": "So this time happily a different set of factors inspired me. I played\n<a class=\"link\" target=\"_blank\" href=\"skribbl.io\">https://skribbl.io</a> with some friends as a way of virtually hanging\nout, and it was great fun. The idea that a relatively simple game can be easily\naccessed in the browser, and where only a few gameplay elements should mean a\nboring game are significantly enhanced due to the fact that you are playing with\nfriends, other human beings. So the game itself is just a means to a lot of\nlaughs, fun, and other banter. I wondered if I could make something similar to\nmeet these criteria, and check this goal off the list in a much less ambitious\nway..."
+    },
+    {
+      "type": "paragraph",
+      "text": "After a few weeks of on/off work, the end result has coalesced into\n<a class=\"link\" target=\"_blank\" href=\"http://pixels.chrislewis.me.uk\">Pixels With Friends</a>. The core idea is similar\nto Connect Four, but played until the board is full, and with a couple of\nspecial patterns and opportunities allowing bonus points and capturing tiles\nfrom other players."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/08/ingame.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "The game itself consists of the following main features:"
+    },
+    {
+      "type": "paragraph",
+      "text": "- A Node.js Express-based game server with a REST API that allows clients to open game rooms, register players, etc"
+    },
+    {
+      "type": "paragraph",
+      "text": "- A React-based client that polls game state from the game server, allowing players to join rooms, place tiles, etc."
+    },
+    {
+      "type": "paragraph",
+      "text": "- Bot players that attempt to play the game and defeat runs of multiple tiles."
+    },
+    {
+      "type": "paragraph",
+      "text": "- Team colors for team-based victories and strategies."
+    },
+    {
+      "type": "paragraph",
+      "text": "- Similar infrastructure to this blog (S3 website + CloudFront) for cloud deployment."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Gameplay"
+    },
+    {
+      "type": "paragraph",
+      "text": "When a player first loads the page, they choose a player name and are given the\noption of creating a new room, or choosing from a list of existing rooms. When\na room is empty of all human players it is deleted so the list consists of only\ncurrent games."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/08/roomlist.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "When more than two players of more than two teams are present, the host is shown\nthe button to start the game. At this point the room is 'in game' and so the\ngame board is shown. A 15 second countdown is there to make sure turns are kept\nshort, and when a player places a tile the current player advances to the next.\nThe background color fades between players to give a hint about whose turn it\nis."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/08/turns.gif"
+    },
+    {
+      "type": "paragraph",
+      "text": "Players can create runs of four or more tiles in a row, and receive bonus points\nfor completing a run without being interrupted by another player. Similarly, a\nplayer can capture another player's tile by surrounding it on all four sides,\nconverting it to their color and earning bonus points. Special tile types are\nimplemented, starting with the '2x' tiles placed at random locations and\noffering double points for unearthing them. This bonus is considered when a\nrun or capture is completed, which can lead to quite large jumps in points at\nonce. It's a feature!"
+    },
+    {
+      "type": "paragraph",
+      "text": "When the board is full and no more moves are possible, the game transitions to\nthe last screen, where all player scores are shown, the overall winning team is\nidentified, and some basic stats about play styles are also shown. Players can\nopt to play again if they wish."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/08/gamefinished.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Architecture"
+    },
+    {
+      "type": "paragraph",
+      "text": "The backend service is a Node.js server running Espress, exposing the REST API\nused by the web client:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\napp.get('/rooms', handleGetRooms);\napp.get('/rooms/:roomName', handleGetRoom);\napp.put('/rooms/:roomName/player', handlePutRoomPlayer);\napp.put('/rooms/:roomName/players/:playerName/nextColor', handlePutRoomPlayerNextColor);\napp.put('/rooms/:roomName/inGame', handlePutRoomInGame);\napp.post('/rooms/:roomName/square', handlePostRoomSquare);\napp.post('/rooms/:roomName/nextTurn', handlePostRoomNextTurn);\napp.put('/rooms/:roomName/bots', handlePutRoomBot);\napp.put('/rooms/:roomName/bots/:playerName/nextLevel', handlePutRoomBotNextLevel);\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "A request to read all rooms with <code>/rooms</code> request yields details of\nall the open rooms. The state of the room's game board is omitted for brevity.\nAn example containing one room with a player and one bot is shown below, giving\nan idea of the makeup of the data model for player name, room name, player color\nand other special bits of data. The room also keeps track of its state, the\nplayer whose turn it is, and whether the board is full."
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\n{\n  \"rooms\": [\n    {\n      \"roomName\": \"FearsomeGreenPoodle\",\n      \"players\": [\n        {\n          \"playerName\": \"Chris\",\n          \"botData\": null,\n          \"score\": 0,\n          \"lastSeen\": 1598105881191,\n          \"color\": \"blue\",\n          \"index\": 0,\n          \"conversions\": 0,\n          \"runs\": 0,\n          \"bestRunLength\": 0,\n          \"isHost\": true\n        },\n        {\n          \"playerName\": \"Twobit\",\n          \"botData\": {\n            \"level\": 0,\n            \"trait\": null\n          },\n          \"score\": 0,\n          \"lastSeen\": 1598105865664,\n          \"color\": \"red\",\n          \"index\": 1,\n          \"conversions\": 0,\n          \"runs\": 0,\n          \"bestRunLength\": 0\n        }\n      ],\n      \"currentPlayer\": \"Chris\",\n      \"inGame\": false,\n      \"allSquaresFilled\": false\n    }\n  ]\n}\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Have a go"
+    },
+    {
+      "type": "paragraph",
+      "text": "Check out the <a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/pixels-with-friends\">repository</a> for\nfull source code and to discover how the whole thing works. Maybe even try and\nbeat some bots!"
+    }
+  ]
+}

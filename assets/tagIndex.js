@@ -270,7 +270,8 @@ window.tagIndex = {
     "2018-02-17-Tests-With-Extra-Sweetness.json",
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
     "2018-05-19-FitBit-Development-Round-2.json",
-    "2020-08-15-Block-World-Lives-On.json"
+    "2020-08-15-Block-World-Lives-On.json",
+    "2020-08-22-Creating-a-Browser-based-Party-Game.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
@@ -285,5 +286,8 @@ window.tagIndex = {
   ],
   "React": [
     "2020-08-13-Blog-2-0.json"
+  ],
+  "Games": [
+    "2020-08-22-Creating-a-Browser-based-Party-Game.json"
   ]
 }
