@@ -107,7 +107,7 @@ const buildPageLayout = () => {
   DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Other Stuff' }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
     text: 'Pixels With Friends',
-    onClick: () => (window.open('http://pixels.chrislewis.me.uk', '_blank')),
+    onClick: () => (window.open('https://pixels.chrislewis.me.uk', '_blank')),
   }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
     text: 'FitBit Apps',
