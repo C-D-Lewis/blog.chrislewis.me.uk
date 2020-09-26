@@ -34,7 +34,7 @@ meet these criteria, and check this goal off the list in a much less ambitious
 way...
 
 After a few weeks of on/off work, the end result has coalesced into
-[Pixels With Friends](http://pixels.chrislewis.me.uk). The core idea is similar
+[Pixels With Friends](https://pixels.chrislewis.me.uk). The core idea is similar
 to Connect Four, but played until the board is full, and with a couple of
 special patterns and opportunities allowing bonus points and capturing tiles
 from other players.
