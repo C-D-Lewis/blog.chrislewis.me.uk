@@ -814,6 +814,13 @@ window.postHistory = {
         "file": "assets/rendered/2020-08-22-Creating-a-Browser-based-Party-Game.json",
         "fileName": "2020-08-22-Creating-a-Browser-based-Party-Game"
       }
+    ],
+    "09": [
+      {
+        "title": "Integrated Raspberry Pi Enclosure",
+        "file": "assets/rendered/2020-09-27-Integrated-Pi-Enclosure.json",
+        "fileName": "2020-09-27-Integrated-Pi-Enclosure"
+      }
     ]
   }
 }

@@ -238,7 +238,8 @@ window.tagIndex = {
     "2017-07-14-How-I-Write-My-Node-Apps.json",
     "2017-09-03-Music-coloured-Backlighting-with-the-Spotify-API.json",
     "2017-12-24-Simpler-Inter-service-Communication-with-MBus.json",
-    "2018-02-17-Tests-With-Extra-Sweetness.json"
+    "2018-02-17-Tests-With-Extra-Sweetness.json",
+    "2020-09-27-Integrated-Pi-Enclosure.json"
   ],
   "C++": [
     "2013-10-13-Update.json",
