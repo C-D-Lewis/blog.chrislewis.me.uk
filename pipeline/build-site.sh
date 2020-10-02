@@ -1,15 +1,20 @@
 #!/bin/bash
 
+# Import wordpress file
 node tools/importWordpressXml.js
 
+# Generate posts from wordpress file
 mkdir -p posts
 node tools/createWordpressMarkdown.js
 
+# Build rendered posts
 mkdir -p assets/rendered
 node tools/buildPosts.js
 
+# Build tag index
 node tools/buildTagIndex.js
 
+# Build and validate RSS feed
 mkdir -p feed
 node tools/buildFeed.js
 RES=$(./tools/node_modules/.bin/feed-validator feed/rss.xml)

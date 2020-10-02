@@ -34,7 +34,7 @@ All posts in `posts` are built using their metadata to create component lists
 that are rendered on the page, and are placed in `assets/rendered`.
 
 ```
-./build.sh
+./pipeline/build-site.sh
 ```
 
 The navigation of months per year is built during `tools/buildPosts.js` as
@@ -50,8 +50,9 @@ The chosen month or post is reflected in the query for permalinking.
 ## Deployment
 
 Currently deployed as a S3 website from bucket, with a CloudFront distribution
-serving HTTPS with a ACM certificate. It can be syncronized and invalidated
-with an AWS IAM User with S3 and CloudFront permissions allowed:
+serving HTTPS with a ACM certificate. The deployment is done with a combination
+of Terraform and AWS CLI. It can be syncronized and invalidated with an AWS IAM
+User with S3 and CloudFront permissions allowed:
 
 ```
 export AWS_PROFILE=...
