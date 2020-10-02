@@ -49,6 +49,8 @@ The chosen month or post is reflected in the query for permalinking.
 
 ## Deployment
 
+![](assets/infra.png)
+
 Currently deployed as a S3 website from bucket, with a CloudFront distribution
 serving HTTPS with a ACM certificate. The deployment is done with a combination
 of Terraform and AWS CLI. It can be syncronized and invalidated with an AWS IAM
