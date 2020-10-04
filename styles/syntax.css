@@ -1,5 +1,11 @@
+.comment {
+  color: rgb(120 117 125);
+  font-style: italic;
+}
+
 .js-keyword {
   color: rgb(236, 64, 135);
+  font-weight: bold;
 }
 
 .js-blueword {

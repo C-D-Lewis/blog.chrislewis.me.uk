@@ -124,7 +124,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n// compiled from islang source\n\nfunction fibonacci (input) {\n  if (input <= 1) {\n    return input;\n  }\n\n  // return fib(n-1) + fib(n-2);\n  let n_minus_1 = input - 1;\n  let n_minus_2 = input - 2;\n  let result_1 = fibonacci(n_minus_1);\n  let result_2 = fibonacci(n_minus_2);\n  return result_1 + result_2;\n}\n\nfunction main () {\n  let fib_output = fibonacci(9);\n  console.log(`fib_output: ${fib_output}`);\n}\n\nmain();\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n<span class=\"comment\">// compiled from islang source</span>\n\n<span class=\"js-blueword\">function</span> fibonacci (input) {\n  <span class=\"js-keyword\">if</span> (input <= 1) {\n    return input;\n  }\n\n<span class=\"comment\">  // return fib(n-1) + fib(n-2);</span>\n  <span class=\"js-blueword\">let</span> n_minus_1 = input - 1;\n  <span class=\"js-blueword\">let</span> n_minus_2 = input - 2;\n  <span class=\"js-blueword\">let</span> result_1 = fibonacci(n_minus_1);\n  <span class=\"js-blueword\">let</span> result_2 = fibonacci(n_minus_2);\n  return result_1 + result_2;\n}\n\n<span class=\"js-blueword\">function</span> main () {\n  <span class=\"js-blueword\">let</span> fib_output = fibonacci(9);\n  <span class=\"js-blueword\">console</span>.log(`fib_output: ${fib_output}`);\n}\n\nmain();\n</div></pre>"
     },
     {
       "type": "paragraph",

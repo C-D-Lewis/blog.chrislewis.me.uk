@@ -21,7 +21,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\noutput.x = input.x - input.y\noutput.y = (input.x / 2) + (input.y / 2) - input.z\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\noutput.x = input.x - input.y\noutput.y = (input.x / 2) + (input.y / 2) - input.z\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -86,7 +86,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nIsometric.init('black', { x: 40, y: 100 });\n\nIsometric.renderScene((width, height) => {\n  const rect = { x: 0, y: 0, z: 0, width: 50, height: 50 };\n  Isometric.filledRect(rect, 'red');\n\n  const box = { x: 0, y: 0, z: 0, width: 30, height: 30 };\n  const boxHeight = 100;\n  Isometric.filledBox(box, boxHeight, 'blue');\n});\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nIsometric.init('black', { x: 40, y: 100 });\n\nIsometric.renderScene((width, height) => {\n  <span class=\"js-blueword\">const</span> rect = { x: 0, y: 0, z: 0, width: 50, height: 50 };\n  Isometric.filledRect(rect, 'red');\n\n  <span class=\"js-blueword\">const</span> box = { x: 0, y: 0, z: 0, width: 30, height: 30 };\n  <span class=\"js-blueword\">const</span> boxHeight = 100;\n  Isometric.filledBox(box, boxHeight, 'blue');\n});\n</div></pre>"
     },
     {
       "type": "paragraph",

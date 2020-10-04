@@ -81,7 +81,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"ready\",\n  function(e) {\n    //Register EventSource listener\n    var core = new EventSource(\"https://api.spark.io/v1/events/?access_token=\" + accessToken);\n    core.addEventListener(\"button_state\", \n      function(response) {\n        \n      }, \n      false\n    );\n\n    console.log(\"Pebble JS Ready!\");\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"ready\",\n  <span class=\"js-blueword\">function</span>(e) {\n<span class=\"comment\">    //Register EventSource listener</span>\n    var core = new EventSource(\"https://api.spark.io/v1/events/?access_token=\" + accessToken);\n    core.addEventListener(\"button_state\", \n      <span class=\"js-blueword\">function</span>(response) {\n        \n      }, \n      false\n    );\n\n    <span class=\"js-blueword\">console</span>.log(\"Pebble JS Ready!\");\n  }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -93,7 +93,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\ncore.addEventListener(\"button_state\", \n  function(response) {\n    //Interpret response as JSON\n    var json = JSON.parse(response.data);\n\n    console.log(\"Payload is '\" + json.data + \"'\");\n\n    //Send the payload\n    Pebble.sendAppMessage(\n      {\"KEY_BUTTON_STATE\":json.data},\n      function(e) {\n        console.log(\"Sent '\" + json.data + \"' to Pebble.\");\n      },\n      function(e) {\n        console.log(\"Failed to send data to Pebble!\");\n      }\n    );\n  }, \n  false\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\ncore.addEventListener(\"button_state\", \n  <span class=\"js-blueword\">function</span>(response) {\n<span class=\"comment\">    //Interpret response as JSON</span>\n    var json = JSON.parse(response.data);\n\n    <span class=\"js-blueword\">console</span>.log(\"Payload is '\" + json.data + \"'\");\n\n<span class=\"comment\">    //Send the payload</span>\n    Pebble.sendAppMessage(\n      {\"KEY_BUTTON_STATE\":json.data},\n      <span class=\"js-blueword\">function</span>(e) {\n        <span class=\"js-blueword\">console</span>.log(\"Sent '\" + json.data + \"' to Pebble.\");\n      },\n      <span class=\"js-blueword\">function</span>(e) {\n        <span class=\"js-blueword\">console</span>.log(\"Failed to send data to Pebble!\");\n      }\n    );\n  }, \n  false\n);\n</div></pre>"
     },
     {
       "type": "paragraph",

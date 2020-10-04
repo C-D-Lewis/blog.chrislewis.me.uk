@@ -4,11 +4,12 @@ const DATE_TIME_REGEX = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}/g;
 const HISTORY_PATH = `${__dirname}/../assets/postHistory.js`;
 const POSTS_DIR = `${__dirname}/../posts`;
 const TERRAFORM_KEYWORDS = [
-  'resource', 'var', 'origin ', 'launch_template ', 'website ',
-  'default_cache_behavior ', 'forwarded_values ', 'cookies ', 'restrictions ',
-  'geo_restriction ', 'viewer_certificate '];
-const JAVASCRIPT_KEYWORDS = ['if', 'for', 'else', 'throws'];
-const JAVASCRIPT_BLUEWORDS = ['const', 'let', 'Object', 'exports'];
+  'resource', 'var', 'origin ', 'launch_template ', 'website ', 'default_cache_behavior ',
+  'forwarded_values ', 'cookies ', 'restrictions ', 'geo_restriction ', 'viewer_certificate ',
+  'alias '
+];
+const JAVASCRIPT_KEYWORDS = ['if', 'for', 'else', 'throws', 'async', 'await'];
+const JAVASCRIPT_BLUEWORDS = ['const', 'let', 'Object', 'exports', 'function', 'console', 'window'];
 
 let numRendered = 0;
 
@@ -39,28 +40,46 @@ const transformParagraph = (para) => {
 /**
  * Replace key words with styled spans.
  *
- * @param {string} block - Paragraph of code.
+ * @param {string} line - Line of code.
+ * @param {string} language - Language to use
  * @return {string} Code with keywords wrapped in styled spans.
  */
-const highlight = (block) => {
-  const classes = block.split('\n')[0];
+const toHighlightedLine = (line, language) => {
 
   // Terraform
-  if (classes.includes('terraform')) {
+  if (language.includes('terraform')) {
     TERRAFORM_KEYWORDS.forEach((keyword) => {
-      block = block.split(keyword).join(`<span class="tf-keyword">${keyword}</span>`);
+      line = line.split(keyword).join(`<span class="tf-keyword">${keyword}</span>`);
     });
   }
 
   // JavaScript
-  if (classes.includes('javascript')) {
+  if (['js', 'javascript'].includes(language)) {
+    if (line.trim().startsWith('//')) return `<span class="comment">${line}</span>`;
+
     JAVASCRIPT_KEYWORDS.forEach((keyword) => {
-      block = block.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+      line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
     });
     JAVASCRIPT_BLUEWORDS.forEach((blueword) => {
-      block = block.split(blueword).join(`<span class="js-blueword">${blueword}</span>`);
+      line = line.split(blueword).join(`<span class="js-blueword">${blueword}</span>`);
     });
   }
+
+  return line;
+}
+
+/**
+ * Replace key words with styled spans in a block of code.
+ *
+ * @param {string} block - Paragraph of code.
+ * @param {string} language - Language extracted from <!-- language="js" --> above block
+ * @return {string} Code with keywords wrapped in styled spans.
+ */
+const highlight = (block, language) => {
+  if (!language) return block;
+
+  // Process each line at a time
+  block = block.split('\n').map(line => toHighlightedLine(line, language)).join('\n');
 
   return block;
 };
@@ -77,11 +96,23 @@ const joinCodeParagraphs = (sections) => {
   while (endIndex !== -1) {
     if (start === -1) break;
 
+    // Possible <!-- language="..." --> annotation at the end of the previous section
+    let language = sections[start].includes('language=')
+      ? sections[start]
+      : sections[start - 1];
+    if (language.includes('language=')) {
+      const langStart = language.indexOf('language="') + 'language="'.length;
+      const langEnd = language.indexOf('"', langStart);
+      language = language.slice(langStart, langEnd);
+    } else {
+      language = null;
+    }
+
     // Join the paragraphs between code start/end
     const end = endIndex + start + 1;
     const joinedSection = '' + sections.slice(start, end).join('\n\n');
     sections.splice(start, end - start);
-    sections.splice(start, 0, highlight(joinedSection));
+    sections.splice(start, 0, highlight(joinedSection, language));
 
     start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
     endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));

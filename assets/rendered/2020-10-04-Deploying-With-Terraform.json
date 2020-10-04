@@ -35,7 +35,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nresource \"aws_launch_template\" \"foobar\" {\n  name_prefix   = \"foobar\"\n  image_id      = \"ami-1a2b3c\"\n  instance_type = \"t2.micro\"\n}\n\nresource \"aws_autoscaling_group\" \"bar\" {\n  availability_zones = [\"us-east-1a\"]\n  desired_capacity   = 5\n  max_size           = 15\n  min_size           = 5\n\n  launch_template {\n    id      = aws_launch_template.foobar.id\n    version = \"$Latest\"\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"terraform\" -->\n<pre><div class=\"code-block\">\n<span class=\"tf-keyword\">resource</span> \"aws_launch_template\" \"foobar\" {\n  name_prefix   = \"foobar\"\n  image_id      = \"ami-1a2b3c\"\n  instance_type = \"t2.micro\"\n}\n\n<span class=\"tf-keyword\">resource</span> \"aws_autoscaling_group\" \"bar\" {\n  availability_zones = [\"us-east-1a\"]\n  desired_capacity   = 5\n  max_size           = 15\n  min_size           = 5\n\n  <span class=\"tf-keyword\">launch_template </span>{\n    id      = aws_launch_template.foobar.id\n    version = \"$Latest\"\n  }\n}\n</div></pre>"
     },
     {
       "type": "header",
@@ -75,7 +75,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nresource \"aws_s3_bucket\" \"client_bucket\" {\n  bucket        = var.domain_name\n  acl           = \"public-read\"\n  force_destroy = true\n\n  policy = EOF\n{\n  \"Version\":\"2012-10-17\",\n  \"Statement\":[\n    {\n      \"Sid\":\"AddPerm\",\n      \"Effect\":\"Allow\",\n      \"Principal\": \"*\",\n      \"Action\":[\"s3:GetObject\"],\n      \"Resource\":[\"arn:aws:s3:::${var.domain_name}/*\"]\n    }\n  ]\n}\nEOF\n\n  website {\n    index_document = \"index.html\"\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"terraform\" -->\n<pre><div class=\"code-block\">\n<span class=\"tf-keyword\">resource</span> \"aws_s3_bucket\" \"client_bucket\" {\n  bucket        = <span class=\"tf-keyword\">var</span>.domain_name\n  acl           = \"public-read\"\n  force_destroy = true\n\n  policy = EOF\n{\n  \"Version\":\"2012-10-17\",\n  \"Statement\":[\n    {\n      \"Sid\":\"AddPerm\",\n      \"Effect\":\"Allow\",\n      \"Principal\": \"*\",\n      \"Action\":[\"s3:GetObject\"],\n      \"Resource\":[\"arn:aws:s3:::${<span class=\"tf-keyword\">var</span>.domain_name}/*\"]\n    }\n  ]\n}\nEOF\n\n  <span class=\"tf-keyword\">website </span>{\n    index_document = \"index.html\"\n  }\n}\n</div></pre>"
     },
     {
       "type": "header",
@@ -88,7 +88,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nresource \"aws_cloudfront_distribution\" \"client_distribution\" {\n  aliases     = [var.domain_name]\n  price_class = \"PriceClass_100\"\n  enabled             = true\n  default_root_object = \"index.html\"\n\n  origin {\n    domain_name = aws_s3_bucket.client_bucket.bucket_regional_domain_name\n    origin_id   = local.origin_id\n  }\n\n  default_cache_behavior {\n    viewer_protocol_policy = \"https-only\"\n    compress               = true\n    allowed_methods        = [\"GET\", \"HEAD\", \"OPTIONS\"]\n    cached_methods         = [\"GET\", \"HEAD\", \"OPTIONS\"]\n    target_origin_id       = local.origin_id\n    min_ttl                = 0\n    default_ttl            = 86400\n    max_ttl                = 31536000\n\n    forwarded_values {\n      query_string = true\n      cookies {\n        forward = \"none\"\n      }\n    }\n  }\n\n  restrictions {\n    geo_restriction {\n      restriction_type = \"none\"\n    }\n  }\n\n  viewer_certificate {\n    acm_certificate_arn = var.certificate_arn\n    ssl_support_method  = \"sni-only\"\n  }\n}\n</div></pre>"
+      "text": "<!-- language=\"terraform\" -->\n<pre><div class=\"code-block\">\n<span class=\"tf-keyword\">resource</span> \"aws_cloudfront_distribution\" \"client_distribution\" {\n  aliases     = [<span class=\"tf-keyword\">var</span>.domain_name]\n  price_class = \"PriceClass_100\"\n  enabled             = true\n  default_root_object = \"index.html\"\n\n  <span class=\"tf-keyword\">origin </span>{\n    domain_name = aws_s3_bucket.client_bucket.bucket_regional_domain_name\n    origin_id   = local.origin_id\n  }\n\n  <span class=\"tf-keyword\">default_cache_behavior </span>{\n    viewer_protocol_policy = \"https-only\"\n    compress               = true\n    allowed_methods        = [\"GET\", \"HEAD\", \"OPTIONS\"]\n    cached_methods         = [\"GET\", \"HEAD\", \"OPTIONS\"]\n    target_origin_id       = local.origin_id\n    min_ttl                = 0\n    default_ttl            = 86400\n    max_ttl                = 31536000\n\n    <span class=\"tf-keyword\">forwarded_values </span>{\n      query_string = true\n      <span class=\"tf-keyword\">cookies </span>{\n        forward = \"none\"\n      }\n    }\n  }\n\n  <span class=\"tf-keyword\">restrictions </span>{\n    <span class=\"tf-keyword\">geo_restriction </span>{\n      restriction_type = \"none\"\n    }\n  }\n\n  <span class=\"tf-keyword\">viewer_certificate </span>{\n    acm_certificate_arn = <span class=\"tf-keyword\">var</span>.certificate_arn\n    ssl_support_method  = \"sni-only\"\n  }\n}\n</div></pre>"
     },
     {
       "type": "header",
@@ -101,7 +101,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nresource \"aws_route53_record\" \"client_record\" {\n  zone_id = var.zone_id\n  name    = var.domain_name\n  type    = \"A\"\n\n  alias {\n    name                   = aws_cloudfront_distribution.client_distribution.domain_name\n    zone_id                = aws_cloudfront_distribution.client_distribution.hosted_zone_id\n    evaluate_target_health = false\n  }\n\n  depends_on = [aws_cloudfront_distribution.client_distribution]\n}\n</div></pre>"
+      "text": "<!-- language=\"terraform\" -->\n<pre><div class=\"code-block\">\n<span class=\"tf-keyword\">resource</span> \"aws_route53_record\" \"client_record\" {\n  zone_id = <span class=\"tf-keyword\">var</span>.zone_id\n  name    = <span class=\"tf-keyword\">var</span>.domain_name\n  type    = \"A\"\n\n  <span class=\"tf-keyword\">alias </span>{\n    name                   = aws_cloudfront_distribution.client_distribution.domain_name\n    zone_id                = aws_cloudfront_distribution.client_distribution.hosted_zone_id\n    evaluate_target_health = false\n  }\n\n  depends_on = [aws_cloudfront_distribution.client_distribution]\n}\n</div></pre>"
     },
     {
       "type": "header",

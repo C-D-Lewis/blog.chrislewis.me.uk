@@ -5,7 +5,7 @@ a:hover {
 .code-block {
   font-size: 0.8rem;
   font-family: monospace;
-  background-color: #111;
+  background-color: rgb(26, 26, 26);
   color: #ddd;
   padding: 10px;
   padding-top: 0px;

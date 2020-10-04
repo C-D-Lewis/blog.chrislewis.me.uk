@@ -77,7 +77,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nconst mbus = require('../node-common').mbus();\n\nconst GET_MESSAGE_SCHEMA = {\n  type: 'object',\n  required: [ 'app', 'key' ],\n  properties: {\n    app: { type: 'string' },\n    key: { type: 'string' }\n  }\n};\n\nconst SET_MESSAGE_SCHEMA = {\n  type: 'object',\n  required: [ 'app', 'key', 'value' ],\n  properties: {\n    app: { type: 'string' },\n    key: { type: 'string' },\n    value: {}\n  }\n};\n\nasync function setup() {\n  await mbus.register();\n\n  mbus.addTopic('get', require('../api/get'), GET_MESSAGE_SCHEMA);\n  mbus.addTopic('set', require('../api/set'), SET_MESSAGE_SCHEMA);\n}\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n<span class=\"js-blueword\">const</span> mbus = require('../node-common').mbus();\n\n<span class=\"js-blueword\">const</span> GET_MESSAGE_SCHEMA = {\n  type: 'object',\n  required: [ 'app', 'key' ],\n  properties: {\n    app: { type: 'string' },\n    key: { type: 'string' }\n  }\n};\n\n<span class=\"js-blueword\">const</span> SET_MESSAGE_SCHEMA = {\n  type: 'object',\n  required: [ 'app', 'key', 'value' ],\n  properties: {\n    app: { type: 'string' },\n    key: { type: 'string' },\n    value: {}\n  }\n};\n\n<span class=\"js-keyword\">async</span> <span class=\"js-blueword\">function</span> setup() {\n  <span class=\"js-keyword\">await</span> mbus.register();\n\n  mbus.addTopic('get', require('../api/get'), GET_MESSAGE_SCHEMA);\n  mbus.addTopic('set', require('../api/set'), SET_MESSAGE_SCHEMA);\n}\n</div></pre>"
     },
     {
       "type": "paragraph",

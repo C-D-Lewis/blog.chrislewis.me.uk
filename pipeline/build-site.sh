@@ -17,6 +17,7 @@ node tools/buildTagIndex.js
 # Build and validate RSS feed
 mkdir -p feed
 node tools/buildFeed.js
+echo "Sending feed.xml for validation..."
 RES=$(./tools/node_modules/.bin/feed-validator feed/rss.xml)
 if [[ $RES =~ "All correct" ]]; then
   echo 'Feed is valid'

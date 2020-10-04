@@ -149,7 +149,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"webviewclosed\",\n  function(e) {\n    //Get JSON dictionary\n    var configuration = JSON.parse(decodeURIComponent(e.response));\n    console.log(\"Configuration window returned: \" + JSON.string<span class=\"js-keyword\">if</span>y(configuration));\n\n    //Send to Pebble, persist there\n    Pebble.sendAppMessage(\n      {\"KEY_INVERT\": configuration.invert},\n      function(e) {\n        console.log(\"Sending settings data...\");\n      },\n      function(e) {\n        console.log(\"Settings feedback failed!\");\n      }\n    );\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"webviewclosed\",\n  <span class=\"js-blueword\">function</span>(e) {\n<span class=\"comment\">    //Get JSON dictionary</span>\n    var configuration = JSON.parse(decodeURIComponent(e.response));\n    <span class=\"js-blueword\">console</span>.log(\"Configuration <span class=\"js-blueword\">window</span> returned: \" + JSON.string<span class=\"js-keyword\">if</span>y(configuration));\n\n<span class=\"comment\">    //Send to Pebble, persist there</span>\n    Pebble.sendAppMessage(\n      {\"KEY_INVERT\": configuration.invert},\n      <span class=\"js-blueword\">function</span>(e) {\n        <span class=\"js-blueword\">console</span>.log(\"Sending settings data...\");\n      },\n      <span class=\"js-blueword\">function</span>(e) {\n        <span class=\"js-blueword\">console</span>.log(\"Settings feedback failed!\");\n      }\n    );\n  }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -170,7 +170,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\n<script>\n  //Setup to allow easy adding more options later\n  function saveOptions() {\n    var invertSelect = document.getElementById(\"invert_select\");\n\n    var options = {\n      \"invert\": invertSelect.options[invertSelect.selectedIndex].value\n    }\n    \n    return options;\n  };\n\n  var submitButton = document.getElementById(\"save_button\");\n  submitButton.addEventListener(\"click\", \n    function() {\n      console.log(\"Submit\");\n\n      var options = saveOptions();\n      var location = \"pebblejs://close#\" + encodeURIComponent(JSON.string<span class=\"js-keyword\">if</span>y(options));\n      \n      document.location = location;\n    }, \n  false);\n</script>\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\n<script>\n<span class=\"comment\">  //Setup to allow easy adding more options later</span>\n  <span class=\"js-blueword\">function</span> saveOptions() {\n    var invertSelect = document.getElementById(\"invert_select\");\n\n    var options = {\n      \"invert\": invertSelect.options[invertSelect.selectedIndex].value\n    }\n    \n    return options;\n  };\n\n  var submitButton = document.getElementById(\"save_button\");\n  submitButton.addEventListener(\"click\", \n    <span class=\"js-blueword\">function</span>() {\n      <span class=\"js-blueword\">console</span>.log(\"Submit\");\n\n      var options = saveOptions();\n      var location = \"pebblejs://close#\" + encodeURIComponent(JSON.string<span class=\"js-keyword\">if</span>y(options));\n      \n      document.location = location;\n    }, \n  false);\n</script>\n</div></pre>"
     },
     {
       "type": "paragraph",

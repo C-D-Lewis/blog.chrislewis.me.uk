@@ -92,6 +92,7 @@ opt to play again if they wish.
 The backend service is a Node.js server running Espress, exposing the REST API
 used by the web client:
 
+<!-- language="js" -->
 <pre><div class="code-block">
 app.get('/rooms', handleGetRooms);
 app.get('/rooms/:roomName', handleGetRoom);

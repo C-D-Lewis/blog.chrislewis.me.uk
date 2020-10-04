@@ -106,7 +106,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar deviceId = \"\";\nvar accessToken = \"\";\n\nPebble.addEventListener(\"ready\",\n    function(e) {\n        console.log(\"Pebble JS Ready!\");\n    }\n);\n\nPebble.addEventListener(\"appmessage\",\n  function(dict) {\n    console.log(\"AppMessage received!\");\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar deviceId = \"\";\nvar accessToken = \"\";\n\nPebble.addEventListener(\"ready\",\n    <span class=\"js-blueword\">function</span>(e) {\n        <span class=\"js-blueword\">console</span>.log(\"Pebble JS Ready!\");\n    }\n);\n\nPebble.addEventListener(\"appmessage\",\n  <span class=\"js-blueword\">function</span>(dict) {\n    <span class=\"js-blueword\">console</span>.log(\"AppMessage received!\");\n  }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -122,7 +122,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar importjQuery = function() {\n  var script = document.createElement('script');\n  script.src = 'http://code.jquery.com/jquery-latest.min.js';\n  script.type = 'text/javascript';\n  document.getElementsByTagName('head')[0].appendChild(script);\n};\n\nPebble.addEventListener(\"ready\",\n    function(e) {\n        importjQuery();\n        console.log(\"Pebble JS Ready!\");\n    }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar importjQuery = <span class=\"js-blueword\">function</span>() {\n  var script = document.createElement('script');\n  script.src = 'http://code.jquery.com/jquery-latest.min.js';\n  script.type = 'text/javascript';\n  document.getElementsByTagName('head')[0].appendChild(script);\n};\n\nPebble.addEventListener(\"ready\",\n    <span class=\"js-blueword\">function</span>(e) {\n        importjQuery();\n        <span class=\"js-blueword\">console</span>.log(\"Pebble JS Ready!\");\n    }\n);\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -154,7 +154,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar url = \"https://api.spark.io/v1/devices/\" + deviceId + \"/toggle?access_token=\" + accessToken;\n\n//Send with jQuery\n$.ajax({\n  type: \"POST\",\n  url: url,\n  data: {\"args\":\"none\"},  //No args <span class=\"js-keyword\">for</span> the moment\n  success: function() {\n    console.log(\"POST successful!\");\n  },\n  dataType: \"json\"\n});\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar url = \"https://api.spark.io/v1/devices/\" + deviceId + \"/toggle?access_token=\" + accessToken;\n\n<span class=\"comment\">//Send with jQuery</span>\n$.ajax({\n  type: \"POST\",\n  url: url,\n  data: {\"args\":\"none\"},  //No args <span class=\"js-keyword\">for</span> the moment\n  success: <span class=\"js-blueword\">function</span>() {\n    <span class=\"js-blueword\">console</span>.log(\"POST successful!\");\n  },\n  dataType: \"json\"\n});\n</div></pre>"
     },
     {
       "type": "header",

@@ -15,6 +15,7 @@ but this was a really worthwhile reason to do so.
 After the obligatory color text, images, laughing at memes on each other's
 watches, I came across a simple way to draw isometric shapes:
 
+<!-- language="js" -->
 <pre><div class="code-block">
 output.x = input.x - input.y
 output.y = (input.x / 2) + (input.y / 2) - input.z
@@ -71,6 +72,7 @@ block-world demo. It's not interactive in the same way, but still looks awesome.
 The usage is still basically the same, using routines as and when during Canvas
 drawing:
 
+<!-- language="js" -->
 <pre><div class="code-block">
 Isometric.init('black', { x: 40, y: 100 });
 
