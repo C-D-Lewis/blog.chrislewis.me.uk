@@ -791,6 +791,13 @@ window.postHistory = {
     ]
   },
   "2020": {
+    "10": [
+      {
+        "title": "Deploying With Terraform",
+        "file": "assets/rendered/2020-10-04-Deploying-With-Terraform.json",
+        "fileName": "2020-10-04-Deploying-With-Terraform"
+      }
+    ],
     "03": [
       {
         "title": "FitBit Development - Round 3",

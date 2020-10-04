@@ -1,0 +1,116 @@
+{
+  "title": "Deploying With Terraform",
+  "fileName": "2020-10-04-Deploying-With-Terraform.md",
+  "dateTime": "2020-10-04 10:43",
+  "tags": [
+    "Integration",
+    "JavaScript"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Traditional provisioning of cloud infrastructure resources is commonly done by\nmanually creating instances, networking them together, adding storage volumes,\nsetting access policies and other controls. If more capacity is needed it can\nbe increased by hand, and decreased when no longer needed, hopefully before\noverspending. Similarly, any changes in configuration done manually runs\nthe risk of the initial values being forgotten, and lost resources could be hard\nto restore in the same way. And if the same setup is required in a different\nregion or cloud provider, it would require almost exactly the same amount of\ntime."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Infrastructure as Code"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/10/terraform-logo.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "At work, we use Terraform to provision our infrastructure resources, instead of\nmanually creating them through the AWS console. Terraform is one example of a\nconcept called Infrastructure as Code. It tries to solve the problem of creating\nor modifying infrastructure in the cloud in a safe, trackable and repeatable\nway. The way it works is you describe all of the resources you require (and\ntheir configuration) as code files, and Terraform compares it with what is\nalready deployed, and makes adjustments to align with the described state."
+    },
+    {
+      "type": "paragraph",
+      "text": "For example, suppose a service initially needs five instances. Describing an\nAuto-scaling Group of this size causes Terraform to create them, and then the\nstate reflects the fact that they now exist. The ASG can later be adjusted to\nten instances by changing a single variable and redeploying. Since the IaC files\ncan (and should) be versioned in something like Git, both the initial and latest\nconfiguration changes can be traced and used again in a different region."
+    },
+    {
+      "type": "paragraph",
+      "text": "Here is an example of a code block for such a scenario, adapted from the\n<a class=\"link\" target=\"_blank\" href=\"https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group\">official Terraform documentation</a> -\nit described an Auto-scaling Group containing between 5 and 15\n<code>t2.mirco</code> instances:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\nresource \"aws_launch_template\" \"foobar\" {\n  name_prefix   = \"foobar\"\n  image_id      = \"ami-1a2b3c\"\n  instance_type = \"t2.micro\"\n}\n\nresource \"aws_autoscaling_group\" \"bar\" {\n  availability_zones = [\"us-east-1a\"]\n  desired_capacity   = 5\n  max_size           = 15\n  min_size           = 5\n\n  launch_template {\n    id      = aws_launch_template.foobar.id\n    version = \"$Latest\"\n  }\n}\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Real-world Applications"
+    },
+    {
+      "type": "paragraph",
+      "text": "You may be wondering about a more concrete example of infrastructure deployed\nusing Terraform - and you're looking at it! As of a few days ago, the management\nof the AWS resources for this blog (S3, CloudFront, Route53) is done using\nTerraform, with the state stored in an S3 bucket. Here's a representation of\nthat setup:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/10/infra.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "And similarly for another project called\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/pixels-with-friends\">Pixels with Friends</a> which\nalso includes resources from Fargate and EC2 Load Balancing:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/10/infra-pixels.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here are some examples of these resources that are in use."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "S3 Bucket Website"
+    },
+    {
+      "type": "paragraph",
+      "text": "The blog files are pushed to a managed S3 bucket, where the\n<code>domain_name</code> variables is \"blog.chrislewis.me.uk\". It also includes\nan inline policy allowing global access - so all visitors can request and load\nthe site files."
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\nresource \"aws_s3_bucket\" \"client_bucket\" {\n  bucket        = var.domain_name\n  acl           = \"public-read\"\n  force_destroy = true\n\n  policy = EOF\n{\n  \"Version\":\"2012-10-17\",\n  \"Statement\":[\n    {\n      \"Sid\":\"AddPerm\",\n      \"Effect\":\"Allow\",\n      \"Principal\": \"*\",\n      \"Action\":[\"s3:GetObject\"],\n      \"Resource\":[\"arn:aws:s3:::${var.domain_name}/*\"]\n    }\n  ]\n}\nEOF\n\n  website {\n    index_document = \"index.html\"\n  }\n}\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "CloudFront Distribution"
+    },
+    {
+      "type": "paragraph",
+      "text": "A CloudFront Distribution allows the site files in S3 to be cached locally in\nEdge Locations around the world so they always arrive nice and fast. It's\nreferenced as the <code>domain_name</code> in the <code>origin</code> block. The\nother blocks control the cache behavior and the <code>viewer_certificate</code>,\nserved from Amazon Certificate Manager (ACM) allowing visitors to use HTTPS."
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\nresource \"aws_cloudfront_distribution\" \"client_distribution\" {\n  aliases     = [var.domain_name]\n  price_class = \"PriceClass_100\"\n  enabled             = true\n  default_root_object = \"index.html\"\n\n  origin {\n    domain_name = aws_s3_bucket.client_bucket.bucket_regional_domain_name\n    origin_id   = local.origin_id\n  }\n\n  default_cache_behavior {\n    viewer_protocol_policy = \"https-only\"\n    compress               = true\n    allowed_methods        = [\"GET\", \"HEAD\", \"OPTIONS\"]\n    cached_methods         = [\"GET\", \"HEAD\", \"OPTIONS\"]\n    target_origin_id       = local.origin_id\n    min_ttl                = 0\n    default_ttl            = 86400\n    max_ttl                = 31536000\n\n    forwarded_values {\n      query_string = true\n      cookies {\n        forward = \"none\"\n      }\n    }\n  }\n\n  restrictions {\n    geo_restriction {\n      restriction_type = \"none\"\n    }\n  }\n\n  viewer_certificate {\n    acm_certificate_arn = var.certificate_arn\n    ssl_support_method  = \"sni-only\"\n  }\n}\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Route53 Record"
+    },
+    {
+      "type": "paragraph",
+      "text": "The last piece of the puzzle is a Route53 DNS record that directs visitors\nnavigating to <code>https://blog.chrislewis.me.uk</code> to instead go to the\nCloudFront distribution URL in order to get the site served to them (also known\nas an Alias record)."
+    },
+    {
+      "type": "paragraph",
+      "text": "<pre><div class=\"code-block\">\nresource \"aws_route53_record\" \"client_record\" {\n  zone_id = var.zone_id\n  name    = var.domain_name\n  type    = \"A\"\n\n  alias {\n    name                   = aws_cloudfront_distribution.client_distribution.domain_name\n    zone_id                = aws_cloudfront_distribution.client_distribution.hosted_zone_id\n    evaluate_target_health = false\n  }\n\n  depends_on = [aws_cloudfront_distribution.client_distribution]\n}\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The Future"
+    },
+    {
+      "type": "paragraph",
+      "text": "On these two occassions, I worked out the infrastructure configuration required,\nand then created the equivalent as a Terraform description. In the future for\nnew projects, another approach is to create the infrastructure in Terraform\nfirst, so that the initial deployment can be automated from the start."
+    }
+  ]
+}
