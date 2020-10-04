@@ -154,7 +154,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar url = \"https://api.spark.io/v1/devices/\" + deviceId + \"/toggle?access_token=\" + accessToken;\n\n//Send with jQuery\n$.ajax({\n  type: \"POST\",\n  url: url,\n  data: {\"args\":\"none\"},  //No args for the moment\n  success: function() {\n    console.log(\"POST successful!\");\n  },\n  dataType: \"json\"\n});\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nvar url = \"https://api.spark.io/v1/devices/\" + deviceId + \"/toggle?access_token=\" + accessToken;\n\n//Send with jQuery\n$.ajax({\n  type: \"POST\",\n  url: url,\n  data: {\"args\":\"none\"},  //No args <span class=\"js-keyword\">for</span> the moment\n  success: function() {\n    console.log(\"POST successful!\");\n  },\n  dataType: \"json\"\n});\n</div></pre>"
     },
     {
       "type": "header",

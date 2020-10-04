@@ -3,6 +3,12 @@ const { readdirSync, readFileSync, writeFileSync } = require('fs');
 const DATE_TIME_REGEX = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}/g;
 const HISTORY_PATH = `${__dirname}/../assets/postHistory.js`;
 const POSTS_DIR = `${__dirname}/../posts`;
+const TERRAFORM_KEYWORDS = [
+  'resource', 'var', 'origin ', 'launch_template ', 'website ',
+  'default_cache_behavior ', 'forwarded_values ', 'cookies ', 'restrictions ',
+  'geo_restriction ', 'viewer_certificate '];
+const JAVASCRIPT_KEYWORDS = ['if', 'for', 'else', 'throws'];
+const JAVASCRIPT_BLUEWORDS = ['const', 'let', 'Object', 'exports'];
 
 let numRendered = 0;
 
@@ -31,6 +37,35 @@ const transformParagraph = (para) => {
 };
 
 /**
+ * Replace key words with styled spans.
+ *
+ * @param {string} block - Paragraph of code.
+ * @return {string} Code with keywords wrapped in styled spans.
+ */
+const highlight = (block) => {
+  const classes = block.split('\n')[0];
+
+  // Terraform
+  if (classes.includes('terraform')) {
+    TERRAFORM_KEYWORDS.forEach((keyword) => {
+      block = block.split(keyword).join(`<span class="tf-keyword">${keyword}</span>`);
+    });
+  }
+
+  // JavaScript
+  if (classes.includes('javascript')) {
+    JAVASCRIPT_KEYWORDS.forEach((keyword) => {
+      block = block.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+    });
+    JAVASCRIPT_BLUEWORDS.forEach((blueword) => {
+      block = block.split(blueword).join(`<span class="js-blueword">${blueword}</span>`);
+    });
+  }
+
+  return block;
+};
+
+/**
  * Join paragraphs that span a code section.
  *
  * @param {string[]} sections - List of paragraph sections.
@@ -42,10 +77,11 @@ const joinCodeParagraphs = (sections) => {
   while (endIndex !== -1) {
     if (start === -1) break;
 
+    // Join the paragraphs between code start/end
     const end = endIndex + start + 1;
     const joinedSection = '' + sections.slice(start, end).join('\n\n');
     sections.splice(start, end - start);
-    sections.splice(start, 0, joinedSection);
+    sections.splice(start, 0, highlight(joinedSection));
 
     start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
     endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
