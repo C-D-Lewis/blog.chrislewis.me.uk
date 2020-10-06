@@ -144,8 +144,9 @@ const showPostsFrom = async (year, month) => {
   history.replaceState(null, null, `?year=${year}&month=${month}`);
 
   DOM.addChild(postList, Components.LeftColumnHeader({
-    text: `Archive: ${monthName(month)} ${year}`,
+    text: `${monthName(month)} ${year}`,
     isTopSection: true,
+    isCenterSection: true,
   }));
 
   // Fetch all posts and add to the postList component as Posts
@@ -170,7 +171,11 @@ window.showSinglePost = async (fileName) => {
 
   DOM.addChild(
     postList,
-    Components.LeftColumnHeader({ text: 'Selected post', isTopSection: true }),
+    Components.LeftColumnHeader({
+      text: 'Selected post',
+      isTopSection: true,
+      isCenterSection: true,
+    }),
   );
 
   // Find the post with this fileName
@@ -215,6 +220,7 @@ window.showTagPosts = async (tag) => {
     Components.LeftColumnHeader({
       text: `Tag: ${tag} (${window.tagIndex[tag].length} posts)`,
       isTopSection: true,
+      isCenterSection: true,
     }),
   );
 
@@ -237,9 +243,9 @@ const initPostHistory = () => {
     .forEach(([year, yearData]) => {
       Object.entries(yearData)
         .sort(([month1, month2]) => integerItemSort(month1, month2))
-        .forEach(([monthIndex]) => {
+        .forEach(([monthIndex, monthData]) => {
           const monthLabel = Components.LeftColumnItem({
-            text: `${monthName(monthIndex)} ${year}`,
+            text: `${monthName(monthIndex)} ${year} (${monthData.length})`,
             onClick: () => showPostsFrom(year, monthIndex),
             getIsSelected: () => getQueryParam('year') === year && getQueryParam('month') === monthIndex,
           });

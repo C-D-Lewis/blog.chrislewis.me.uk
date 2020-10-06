@@ -11,6 +11,9 @@ const Colors = {
   }
 };
 
+const MAX_WIDTH_DESKTOP = '800px';
+const MAX_WIDTH_MOBILE = '400px';
+
 /**
  * RootContainer component.
  *
@@ -140,7 +143,7 @@ const LeftColumn = () =>
  *
  * @returns {HTMLElement}
  */
-const LeftColumnHeader = ({ text, isTopSection = false }) =>
+const LeftColumnHeader = ({ text, isTopSection = false, isCenterSection = false }) =>
   DOM.create('span', {
     display: 'block',
     color: 'white',
@@ -151,6 +154,7 @@ const LeftColumnHeader = ({ text, isTopSection = false }) =>
     paddingTop: isTopSection ? '10px' : '30px',
     cursor: 'default',
     borderTop: isTopSection ? 'none' : '1px solid #666',
+    textAlign: isCenterSection ? 'center' : 'initial',
   }, {}, [text]);
 
 /**
@@ -195,9 +199,9 @@ const CentralColumn = () =>
     display: 'flex',
     flexDirection: DOM.isMobile() ? 'column' : 'row',
     justifyContent: DOM.isMobile() ? 'initial' : 'center',
-    minWidth: DOM.isMobile() ? '400px' : '700px',
-    borderLeft: `1px solid ${Colors.lightGrey}`,
-    paddingLeft: DOM.isMobile() ? '5px' : '20px',
+    minWidth: DOM.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
+    borderLeft: DOM.isMobile() ? 'initial' : `1px solid ${Colors.lightGrey}`,
+    paddingLeft: DOM.isMobile() ? '0px' : '20px',
     backgroundColor: Colors.centralColumnBackground,
     paddingTop: '90px',
   });
@@ -279,9 +283,9 @@ const PostList = () =>
   DOM.create('div', {
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: DOM.isMobile() ? '370px' : '800px',
-    margin: DOM.isMobile() ? '0px 5px' : '0px 20px',
-    padding: '0px 10px 40px 10px',
+    maxWidth: DOM.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
+    margin: DOM.isMobile() ? '0px 0px' : '0px 20px',
+    padding: DOM.isMobile() ? '0px 0px 40px 0px' : '0px 10px 40px 10px',
   });
 
 /**
@@ -290,18 +294,30 @@ const PostList = () =>
  * @returns {HTMLElement}
  */
 const PostTitle = ({ title, fileName }) => {
+  const img = DOM.create('img', {
+    width: '38px',
+    height: '38px',
+    marginRight: '5px',
+    paddingTop: '3px',
+    transform: 'rotateZ(90deg)',
+    transition: '0.4s',
+  }, {
+    src: 'assets/icons/chevron-right.png',
+  });
+
+  let expanded = true;
+  img.addEventListener('click', () => {
+    expanded = !expanded;
+    img.style.transform = expanded ? 'rotateZ(90deg)' : 'initial';
+
+    Events.post('postExpanded', { fileName, expanded });
+  });
+
   const container = DOM.create('div', {
     display: 'flex',
     alignItems: 'center',
   }, {}, [
-    DOM.create('img', {
-      width: '38px',
-      height: '38px',
-      marginRight: '5px',
-      paddingTop: '3px',
-    }, {
-      src: 'assets/icons/bookmark-outline-grey.png',
-    }),
+    img,
     DOM.create('h1', {
       color: 'black',
       fontFamily: 'sans-serif',
@@ -326,6 +342,7 @@ const PostTitle = ({ title, fileName }) => {
     window.scrollTo(0, 0);
   });
   DOM.addChild(container, linkAnchor);
+
   return container;
 };
 
@@ -334,7 +351,7 @@ const PostTitle = ({ title, fileName }) => {
  *
  * @returns {HTMLElement}
  */
-const PostTagPill = ({ text }) => {
+const PostTagPill = ({ tag, quantity }) => {
   const div = DOM.create('div', {
     display: 'flex',
     alignItems: 'center',
@@ -343,6 +360,7 @@ const PostTagPill = ({ text }) => {
     borderRadius: '20px',
     padding: '4px 8px',
     margin: '2px',
+    // boxShadow: '1px 1px 3px 1px #5555',
   }, { className: 'post-tag' }, [
     DOM.create('img', {
       width: '14px',
@@ -353,13 +371,12 @@ const PostTagPill = ({ text }) => {
       fontFamily: 'sans-serif',
       fontSize: '0.8rem',
       marginLeft: '2px',
-      paddingTop: '2px',
-    }, {}, [text]),
+    }, {}, [quantity ? `${tag} (${quantity})` : tag]),
   ]);
 
   div.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.showTagPosts(text);
+    window.showTagPosts(tag);
   });
   return div;
 };
@@ -372,8 +389,9 @@ const PostTagPill = ({ text }) => {
 const PostTagsList = ({ tags }) =>
   DOM.create('div', {
     display: 'flex',
-    marginLeft: '10px'
-  }, {}, [...tags.map(tag => PostTagPill({ text: tag }))]);
+    marginLeft: '10px',
+    flexWrap: 'wrap',
+  }, {}, [...tags.map(tag => PostTagPill({ tag }))]);
 
 /**
  * PostDateAndTags component.
@@ -384,7 +402,6 @@ const PostDateAndTags = ({ dateTime, tags }) =>
   DOM.create('div', {
     display: 'flex',
     alignItems: 'center',
-    borderBottom: '1px solid #eee',
     paddingBottom: '10px',
   }, {}, [
     DOM.create('div', {
@@ -403,8 +420,8 @@ const PostDateAndTags = ({ dateTime, tags }) =>
  *
  * @returns {HTMLElement}
  */
-const PostBody = (children) =>
-  DOM.create('div', {
+const PostBody = (model) => {
+  const bodyDiv = DOM.create('div', {
     display: 'block',
     color: 'black',
     fontFamily: 'sans-serif',
@@ -413,12 +430,18 @@ const PostBody = (children) =>
     marginLeft: DOM.isMobile() ? '10px' : '39px',
     padding: DOM.isMobile() ? '0px' : '5px',
     paddingRight: DOM.isMobile() ? '5px' : '35px',
-    border: 'none',
-    outline: 'none',
+    borderTop: '1px solid #eee',
     backgroundColor: '#0000',
-  }, {
-    disabled: 'true',
-  }, children);
+  }, {}, createPostComponents(model.components));
+
+  Events.subscribe('postExpanded', ({ fileName, expanded }) => {
+    if (fileName !== model.fileName) return;
+
+    bodyDiv.style.display = expanded ? 'initial' : 'none';
+  });
+
+  return bodyDiv;
+};
 
 /**
  * PostImage component.
@@ -438,6 +461,7 @@ const PostImage = ({ src }) =>
       maxHeight: '600px',
       borderRadius: '5px',
       overflow: 'hidden',
+      boxShadow: '2px 2px 3px 1px #5555',
     }, { src }),
   ]);
 
@@ -497,19 +521,40 @@ const Post = ({ model }) =>
       overflow: 'hidden',
       padding: DOM.isMobile () ? '5px' : '15px',
       margin: '25px 0px',
+      minWidth: DOM.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
     }, {}, [
       PostTitle(model),
       PostDateAndTags(model),
-      PostBody(createPostComponents(model.components)),
+      PostBody(model),
     ])
   ]);
 
-const TagCloud = ({ tags }) =>
-  DOM.create('div', {
-    display: 'flex',
-    flexWrap: 'wrap',
-    paddingTop: '5px',
-  }, {}, [...tags.map(tag => PostTagPill({ text: tag }))]);
+/**
+ * Create a tag with its number of posts.
+ *
+ * @param {string} tag - Tag name.
+ * @returns {HTMLElement}
+ */
+const toTag = tag => PostTagPill({ tag, quantity: window.tagIndex[tag].length });
+
+/**
+ * TagCloud component.
+ *
+ * @returns {HTMLElement}
+ */
+const TagCloud = ({ tags }) => {
+  const tagPills = tags
+    .sort((a, b) => window.tagIndex[a].length > window.tagIndex[b].length ? -1 : 1)
+    .map(toTag);
+
+  return (
+    DOM.create('div', {
+      display: 'flex',
+      flexWrap: 'wrap',
+      paddingTop: '10px',
+    }, {}, [...tagPills])
+  );
+};
 
 window.Components = {
   RootContainer,

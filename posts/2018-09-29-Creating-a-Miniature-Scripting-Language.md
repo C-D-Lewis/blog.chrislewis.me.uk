@@ -1,6 +1,6 @@
 Creating a Miniature Scripting Language
 2018-09-29 21:10:48
-Other Programming
+JavaScript
 ---
 
 After using a number of proper programming languages for various projects over the last several years, one couple stood out as an interesting concepts - the DCPU-16 language from <a href="https://en.wikipedia.org/wiki/0x10c">0x10c</a>, used to program an in-game computer. This was sadly never fully realised beyond community emulators after the project was abandoned, but the idea was to provide a simple language that players could learn to use to advantage themselves. For example, to tell a weapon how to track another ship, given its bearing and speed.

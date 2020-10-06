@@ -45,7 +45,6 @@ const transformParagraph = (para) => {
  * @return {string} Code with keywords wrapped in styled spans.
  */
 const toHighlightedLine = (line, language) => {
-
   // Terraform
   if (language.includes('terraform')) {
     TERRAFORM_KEYWORDS.forEach((keyword) => {
@@ -94,6 +93,7 @@ const joinCodeParagraphs = (sections) => {
   let start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
   let endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
   while (endIndex !== -1) {
+    // Not a code paragraph (TODO: annotate for component, not inline HTML)
     if (start === -1) break;
 
     // Possible <!-- language="..." --> annotation at the end of the previous section

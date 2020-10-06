@@ -45457,7 +45457,7 @@ If you're interested, check out some of the <a href="https://github.com/C-D-Lewi
 		<wp:post_type>post</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="other-programming"><![CDATA[Other Programming]]></category>
+		<category domain="category" nicename="javascript"><![CDATA[JavaScript]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[47609224]]></wp:meta_value>

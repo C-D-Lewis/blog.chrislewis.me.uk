@@ -13,7 +13,7 @@ const subscribe = (eventName, callback) => {
 const post = (eventName, params) => {
   if (!subscriptions[eventName]) return;
 
-  subscriptions[eventName].forEach(callback => callback(eventName, params));
+  subscriptions[eventName].forEach(callback => callback(params));
 };
 
 window.Events = {
