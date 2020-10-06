@@ -14,6 +14,19 @@ const Colors = {
 const MAX_WIDTH_DESKTOP = '800px';
 const MAX_WIDTH_MOBILE = '400px';
 
+// Lazy load images since some tags are very large
+const imgObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.intersectionRatio > 0) {
+      entry.target.src = entry.target.dataset.src;
+      imgObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  rootMargin: '100px',
+  threshold: 1.0,
+});
+
 /**
  * RootContainer component.
  *
@@ -448,22 +461,28 @@ const PostBody = (model) => {
  *
  * @returns {HTMLElement}
  */
-const PostImage = ({ src }) =>
-  DOM.create('div', {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    margin: '30px 0px',
-  }, {}, [
-    DOM.create('img', {
-      maxWidth: '90%',
-      height: 'auto',
-      maxHeight: '600px',
-      borderRadius: '5px',
-      overflow: 'hidden',
-      boxShadow: '2px 2px 3px 1px #5555',
-    }, { src }),
-  ]);
+const PostImage = ({ src }) => {
+  const img = DOM.create('img', {
+    maxWidth: '90%',
+    height: 'auto',
+    maxHeight: '600px',
+    borderRadius: '5px',
+    overflow: 'hidden',
+    boxShadow: '2px 2px 3px 1px #5555',
+  });
+  img.dataset.src = src;
+
+  imgObserver.observe(img);
+
+  return (
+    DOM.create('div', {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      margin: '30px 0px',
+    }, {}, [img])
+  );
+};
 
 /**
  * PostHeader component.
