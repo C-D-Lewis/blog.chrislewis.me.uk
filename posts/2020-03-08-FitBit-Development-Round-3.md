@@ -1,6 +1,6 @@
 FitBit Development - Round 3
 2020-03-08 15:52:29
-Android,FitBit
+Android,FitBit,Pebble
 ---
 
 It's been a while since the last post! I guess that's what happens when you go even deeper into your hobby as your job... I now work on frontend and backend projects and services instead of writing documentation for those at EVRYTHNG, and it's just about as varied, challenging, and rewarding as I expected, which is great. I've been working with many new libraries and technologies including:

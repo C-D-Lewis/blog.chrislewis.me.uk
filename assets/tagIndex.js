@@ -192,6 +192,7 @@ window.tagIndex = {
     "2017-07-14-How-I-Write-My-Node-Apps.json",
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
     "2018-05-19-FitBit-Development-Round-2.json",
+    "2020-03-08-FitBit-Development-Round-3.json",
     "2020-08-15-Block-World-Lives-On.json"
   ],
   "Integration": [
@@ -286,7 +287,8 @@ window.tagIndex = {
     "2020-08-13-Blog-2-0.json"
   ],
   "React": [
-    "2020-08-13-Blog-2-0.json"
+    "2020-08-13-Blog-2-0.json",
+    "2020-10-04-Deploying-With-Terraform.json"
   ],
   "Games": [
     "2020-08-22-Creating-a-Browser-based-Party-Game.json"

@@ -45537,6 +45537,7 @@ That's all for now, hopefully more projects and FitBit apps to come. I'd like to
 		<wp:is_sticky>0</wp:is_sticky>
 		<category domain="category" nicename="android"><![CDATA[Android]]></category>
 		<category domain="category" nicename="fitbit"><![CDATA[FitBit]]></category>
+		<category domain="category" nicename="pebble"><![CDATA[Pebble]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[47609224]]></wp:meta_value>
