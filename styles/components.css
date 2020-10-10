@@ -14,11 +14,3 @@ a:hover {
   line-height: 1.1;
   overflow: scroll;
 }
-
-.link-anchor:hover {
-  color: #444 !important;
-}
-
-.post-tag:hover {
-  filter: brightness(0.8) !important;
-}

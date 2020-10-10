@@ -68,6 +68,17 @@ const addChildren = (parent, children) => children.forEach(p => parent.appendChi
  */
 const isMobile = () => window.innerWidth < MIN_WIDTH;
 
+/**
+ * Easily manage hover changes.
+ *
+ * @param {HTMLElement} el - The element.
+ * @param {Function} callback - Callback receiving the new hover state.
+ */
+const onHover = (el, callback) => {
+  el.addEventListener('mouseenter', () => callback(true));
+  el.addEventListener('mouseleave', () => callback(false));
+};
+
 window.DOM = {
   create,
   setHtml,
@@ -75,4 +86,5 @@ window.DOM = {
   addChild,
   addChildren,
   isMobile,
+  onHover,
 };

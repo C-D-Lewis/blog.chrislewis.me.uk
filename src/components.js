@@ -13,6 +13,7 @@ const Colors = {
 
 const MAX_WIDTH_DESKTOP = '800px';
 const MAX_WIDTH_MOBILE = '400px';
+const BOX_SHADOW_MATERIAL = '2px 2px 3px 1px #5555';
 
 // Lazy load images since some tags are very large
 const imgObserver = new IntersectionObserver((entries) => {
@@ -72,6 +73,7 @@ const SiteHeader = () =>
     borderBottom: '1px solid #111',
     backgroundColor: Colors.syntax.background,
     position: 'fixed',
+    zIndex: 999,
   });
 
 /**
@@ -166,7 +168,6 @@ const LeftColumnHeader = ({ text, isTopSection = false, isCenterSection = false 
     marginTop: '10px',
     paddingTop: isTopSection ? '10px' : '30px',
     cursor: 'default',
-    borderTop: isTopSection ? 'none' : '1px solid #666',
     textAlign: isCenterSection ? 'center' : 'initial',
   }, {}, [text]);
 
@@ -254,11 +255,8 @@ const SocialPill = ({ icon, text, backgroundColor, href }) => {
     target: '_blank',
   }, [img, span]);
 
-  a.addEventListener('mouseenter', () => {
-    span.style.display = 'initial';
-  });
-  a.addEventListener('mouseleave', () => {
-    span.style.display = 'none';
+  DOM.onHover(a, (isHovered) => {
+    span.style.display = isHovered ? 'initial' : 'none';
   });
   return a;
 };
@@ -278,13 +276,13 @@ const SiteSocials = () =>
   }, {}, [
     SocialPill({
       icon: 'github.png',
-      text: 'C-D-Lewis',
+      text: 'GitHub',
       backgroundColor: 'black',
       href: 'https://github.com/C-D-Lewis'
     }),
     SocialPill({
       icon: 'twitter.png',
-      text: 'Chris_DL',
+      text: 'Twitter',
       backgroundColor: 'rgb(29, 142, 238)',
       href: 'https://twitter.com/Chris_DL'
     }),
@@ -364,7 +362,10 @@ const PostTitle = ({ title, fileName }) => {
     fontWeight: 'bold',
     marginLeft: '10px',
     paddingTop: '6px',
-  }, { className: 'link-anchor' }, ['#']);
+  }, {}, ['#']);
+  DOM.onHover(linkAnchor, (isHovered) => {
+    linkAnchor.style.color = isHovered ? '#444' : 'lightgrey';
+  });
   linkAnchor.addEventListener('click', () => {
     window.showSinglePost(fileName.split('.')[0]);
     window.scrollTo(0, 0);
@@ -388,8 +389,7 @@ const PostTagPill = ({ tag, quantity }) => {
     borderRadius: '20px',
     padding: '4px 8px',
     margin: '2px',
-    // boxShadow: '1px 1px 3px 1px #5555',
-  }, { className: 'post-tag' }, [
+  }, {}, [
     DOM.create('img', {
       width: '14px',
       height: '14px',
@@ -402,6 +402,9 @@ const PostTagPill = ({ tag, quantity }) => {
     }, {}, [quantity ? `${tag} (${quantity})` : tag]),
   ]);
 
+  DOM.onHover(div, (isHovered) => {
+    div.style.filter = `brightness(${isHovered ? '0.8' : '1'})`;
+  });
   div.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.showTagPosts(tag);
@@ -458,7 +461,6 @@ const PostBody = (model) => {
     marginLeft: DOM.isMobile() ? '10px' : '39px',
     padding: DOM.isMobile() ? '0px' : '5px',
     paddingRight: DOM.isMobile() ? '5px' : '35px',
-    borderTop: '1px solid #eee',
     backgroundColor: '#0000',
   }, {}, createPostComponents(model.components));
 
@@ -483,7 +485,7 @@ const PostImage = ({ src }) => {
     maxHeight: '600px',
     borderRadius: '5px',
     overflow: 'hidden',
-    boxShadow: '2px 2px 3px 1px #5555',
+    boxShadow: BOX_SHADOW_MATERIAL,
   });
   img.dataset.src = src;
 
@@ -556,6 +558,7 @@ const Post = ({ model }) =>
       padding: DOM.isMobile () ? '5px' : '15px',
       margin: '25px 0px',
       minWidth: DOM.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
+      boxShadow: BOX_SHADOW_MATERIAL,
     }, {}, [
       PostTitle(model),
       PostDateAndTags(model),
