@@ -224,8 +224,23 @@ const CentralColumn = () =>
  *
  * @returns {HTMLElement}
  */
-const SocialPill = ({ icon, text, backgroundColor, href }) =>
-  DOM.create('a', {
+const SocialPill = ({ icon, text, backgroundColor, href }) => {
+  const img = DOM.create('img', {
+    display: 'block',
+    width: '24px',
+    height: '24px',
+  }, {
+    src: `./assets/icons/${icon}`,
+  });
+  const span = DOM.create('span', {
+    color: 'white',
+    fontFamily: 'sans-serif',
+    paddingTop: '2px',
+    fontSize: '0.9rem',
+    marginLeft: '5px',
+    display: 'none',
+  }, {}, [text]);
+  const a = DOM.create('a', {
     display: 'flex',
     padding: '5px 10px',
     borderRadius: '55px',
@@ -237,22 +252,16 @@ const SocialPill = ({ icon, text, backgroundColor, href }) =>
   }, {
     href,
     target: '_blank',
-  }, [
-    DOM.create('img', {
-      display: 'block',
-      width: '24px',
-      height: '24px',
-      marginRight: '5px',
-    }, {
-      src: `./assets/icons/${icon}`,
-    }),
-    DOM.create('span', {
-      color: 'white',
-      fontFamily: 'sans-serif',
-      paddingTop: '2px',
-      fontSize: '0.9rem',
-    }, {}, [text]),
-  ]);
+  }, [img, span]);
+
+  a.addEventListener('mouseenter', () => {
+    span.style.display = 'initial';
+  });
+  a.addEventListener('mouseleave', () => {
+    span.style.display = 'none';
+  });
+  return a;
+};
 
 /**
  * SiteSocials component.
@@ -278,6 +287,12 @@ const SiteSocials = () =>
       text: 'Chris_DL',
       backgroundColor: 'rgb(29, 142, 238)',
       href: 'https://twitter.com/Chris_DL'
+    }),
+    SocialPill({
+      icon: 'linkedin.png',
+      text: 'LinkedIn',
+      backgroundColor: 'rgb(2, 76, 184)',
+      href: 'https://www.linkedin.com/in/chris-lewis-030503117',
     }),
     SocialPill({
       icon: 'rss.png',
