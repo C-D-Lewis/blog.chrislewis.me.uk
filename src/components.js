@@ -211,7 +211,7 @@ const CentralColumn = () =>
     flex: '1',
     display: 'flex',
     flexDirection: DOM.isMobile() ? 'column' : 'row',
-    justifyContent: DOM.isMobile() ? 'initial' : 'center',
+    // justifyContent: DOM.isMobile() ? 'initial' : 'center',
     minWidth: DOM.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
     borderLeft: DOM.isMobile() ? 'initial' : `1px solid ${Colors.lightGrey}`,
     paddingLeft: DOM.isMobile() ? '0px' : '20px',
@@ -508,8 +508,8 @@ const PostHeader = ({ level, text }) =>
   DOM.create(`h${level}`, {
     color: 'black',
     fontSize: '1.4rem',
-    marginTop: '25px',
-    marginBottom: '5px',
+    marginTop: '35px',
+    marginBottom: '10px',
   }, {}, [text]);
 
 /**
