@@ -8,7 +8,9 @@ const TERRAFORM_KEYWORDS = [
   'forwarded_values ', 'cookies ', 'restrictions ', 'geo_restriction ', 'viewer_certificate ',
   'alias '
 ];
-const JAVASCRIPT_KEYWORDS = ['if', 'for', 'else', 'throws', 'async', 'await'];
+const JAVASCRIPT_KEYWORDS = [
+  'if', 'for', 'else', 'throws', 'async', 'await', 'return', 'break', '&&', '||',
+];
 const JAVASCRIPT_BLUEWORDS = ['const', 'let', 'Object', 'exports', 'function', 'console', 'window'];
 
 let numRendered = 0;
@@ -37,6 +39,33 @@ const transformParagraph = (para) => {
   return para;
 };
 
+const highlightStrings = (line) => {
+  const delimiters = ['"', '\'', '`'];
+
+  delimiters.forEach((d) => {
+    const strings = [];
+
+    // Gather stings
+    let strStart = line.indexOf(d);
+    while (strStart >= 0) {
+      const strEnd = line.indexOf(d, strStart + 1) + 1;  // Include ending delimiter
+
+      strings.push(line.substring(strStart, strEnd));
+
+      strStart = line.indexOf(d, strEnd + 1);
+    }
+
+    // Replace with classes
+    strings.forEach((string) => {
+      line = line
+        .split(string)
+        .join(`<span class="string">${string}</span>`)
+    })
+  });
+
+  return line;
+};
+
 /**
  * Replace key words with styled spans.
  *
@@ -45,8 +74,13 @@ const transformParagraph = (para) => {
  * @return {string} Code with keywords wrapped in styled spans.
  */
 const toHighlightedLine = (line, language) => {
+  // Don't modify the <pre><div class=code-block>...
+  if (['<pre>', '!--'].some(p => line.includes(p))) return line;
+
   // Terraform
   if (language.includes('terraform')) {
+    line = highlightStrings(line);
+
     TERRAFORM_KEYWORDS.forEach((keyword) => {
       line = line.split(keyword).join(`<span class="tf-keyword">${keyword}</span>`);
     });
@@ -55,6 +89,7 @@ const toHighlightedLine = (line, language) => {
   // JavaScript
   if (['js', 'javascript'].includes(language)) {
     if (line.trim().startsWith('//')) return `<span class="comment">${line}</span>`;
+    line = highlightStrings(line);
 
     JAVASCRIPT_KEYWORDS.forEach((keyword) => {
       line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
@@ -62,6 +97,7 @@ const toHighlightedLine = (line, language) => {
     JAVASCRIPT_BLUEWORDS.forEach((blueword) => {
       line = line.split(blueword).join(`<span class="js-blueword">${blueword}</span>`);
     });
+
   }
 
   return line;

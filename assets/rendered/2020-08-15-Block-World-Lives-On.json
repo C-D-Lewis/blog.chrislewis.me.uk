@@ -86,7 +86,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nIsometric.init('black', { x: 40, y: 100 });\n\nIsometric.renderScene((width, height) => {\n  <span class=\"js-blueword\">const</span> rect = { x: 0, y: 0, z: 0, width: 50, height: 50 };\n  Isometric.filledRect(rect, 'red');\n\n  <span class=\"js-blueword\">const</span> box = { x: 0, y: 0, z: 0, width: 30, height: 30 };\n  <span class=\"js-blueword\">const</span> boxHeight = 100;\n  Isometric.filledBox(box, boxHeight, 'blue');\n});\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nIsometric.init(<span class=\"string\">'black'</span>, { x: 40, y: 100 });\n\nIsometric.renderScene((width, height) => {\n  <span class=\"js-blueword\">const</span> rect = { x: 0, y: 0, z: 0, width: 50, height: 50 };\n  Isometric.filledRect(rect, <span class=\"string\">'red'</span>);\n\n  <span class=\"js-blueword\">const</span> box = { x: 0, y: 0, z: 0, width: 30, height: 30 };\n  <span class=\"js-blueword\">const</span> boxHeight = 100;\n  Isometric.filledBox(box, boxHeight, <span class=\"string\">'blue'</span>);\n});\n</div></pre>"
     },
     {
       "type": "paragraph",
