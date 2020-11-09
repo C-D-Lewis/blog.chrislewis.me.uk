@@ -227,7 +227,8 @@ window.tagIndex = {
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
     "2018-05-19-FitBit-Development-Round-2.json",
     "2020-10-04-Deploying-With-Terraform.json",
-    "2020-11-09-Mimicker-A-Simple-Twitter-Bot.json"
+    "2020-11-09-Mimicker-A-Simple-Twitter-Bot.json",
+    "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json"
   ],
   "Raspberry Pi": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -278,7 +279,8 @@ window.tagIndex = {
     "2020-08-15-Block-World-Lives-On.json",
     "2020-08-22-Creating-a-Browser-based-Party-Game.json",
     "2020-10-04-Deploying-With-Terraform.json",
-    "2020-11-09-Mimicker-A-Simple-Twitter-Bot.json"
+    "2020-11-09-Mimicker-A-Simple-Twitter-Bot.json",
+    "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",

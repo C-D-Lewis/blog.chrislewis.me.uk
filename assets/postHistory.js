@@ -800,9 +800,9 @@ window.postHistory = {
     ],
     "11": [
       {
-        "title": "Mimicker - A Simple Twitter Bot",
-        "file": "assets/rendered/2020-11-09-Mimicker-A-Simple-Twitter-Bot.json",
-        "fileName": "2020-11-09-Mimicker-A-Simple-Twitter-Bot"
+        "title": "Mimicker - A Simple Twitter Personality",
+        "file": "assets/rendered/2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
+        "fileName": "2020-11-09-Mimicker-A-Simple-Twitter-Personality"
       }
     ],
     "03": [

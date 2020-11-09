@@ -1,6 +1,6 @@
 {
-  "title": "Mimicker - A Simple Twitter Bot",
-  "fileName": "2020-11-09-Mimicker-A-Simple-Twitter-Bot.md",
+  "title": "Mimicker - A Simple Twitter Personality",
+  "fileName": "2020-11-09-Mimicker-A-Simple-Twitter-Personality.md",
   "dateTime": "2020-11-09 19:43",
   "tags": [
     "Integration",
@@ -97,7 +97,7 @@
     },
     {
       "type": "paragraph",
-      "text": "Perhaps the reusable nature of the project begs the question as to who should\nbe portrayed as one of billions of exasperated internet voices next... If you\nareinspired -\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/mimicker\">check out the complete project here</a>."
+      "text": "Perhaps the reusable nature of the project begs the question as to who should\nbe portrayed as one of billions of exasperated internet voices next... If you\nare inspired -\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/mimicker\">check out the complete project here</a>."
     }
   ]
 }

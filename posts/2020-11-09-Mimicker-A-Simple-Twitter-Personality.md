@@ -1,4 +1,4 @@
-Mimicker - A Simple Twitter Bot
+Mimicker - A Simple Twitter Personality
 2020-11-09 19:43
 Integration,JavaScript
 ---
