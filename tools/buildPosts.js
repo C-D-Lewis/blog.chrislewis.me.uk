@@ -9,7 +9,8 @@ const TERRAFORM_KEYWORDS = [
   'alias '
 ];
 const JAVASCRIPT_KEYWORDS = [
-  'new', 'if', 'for', 'else', 'throws', 'async', 'await', 'return', 'break', '&&', '||',
+  'new', 'if', 'for', 'else', 'throws', 'async', 'await', 'return', 'break', '&&', '||', 'try',
+  'catch',
 ];
 const JAVASCRIPT_BLUEWORDS = [
   'const', 'let', 'Object', 'exports', 'function', 'console', 'window', 'process', 'env',

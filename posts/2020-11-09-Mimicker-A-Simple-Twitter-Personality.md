@@ -87,7 +87,29 @@ bot to use. Originally this was going to be a fixed part of the project
 repository, but I decided to make it generic - given any Twitter credentials and
 simply a URL where to find the list of quotes and the same code can easily be
 re-used for any other popular character, or other instances where regular bits
-of random text or data should be inflicted upon the wider world.
+of random text or data should be inflicted upon the wider world. The natural
+choice for this is Amazon S3.
+
+<!-- language="js" -->
+<pre><div class="code-block">
+try {
+  // Fetch quotes file
+  const quotes = await fetch(QUOTES_FILE_URL)
+    .then(r => r.text())
+    .then(d => d.split('\n'));
+
+  // Choose one at random
+  const index = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[index].trim();
+
+  // Tweet it
+  const res = await client.post('statuses/update', { status: quote });
+  console.log({ res });
+  return res;
+} catch (e) {
+  console.log('I am untethered and my rage knowns no bounds!');
+}
+</div></pre>
 
 And so, we can now observe Dennis' inevitable descent into complete mania at
 regular intervals.
