@@ -528,6 +528,14 @@ const PostParagraph = ({ text }) =>
   }, {}, [text]);
 
 /**
+ * PostHtml component.
+ *
+ * @returns {HTMLElement}
+ */
+const PostHtml = ({ html }) =>
+  DOM.create('div', {}, {}, [html]);
+
+/**
  * Generate the list of post components based on the model generated from Markdown.
  *
  * @param {Object[]} components - List of models to convert.
@@ -539,6 +547,7 @@ const createPostComponents = components =>
       case 'image': return PostImage(component);
       case 'header': return PostHeader(component);
       case 'paragraph': return PostParagraph(component);
+      case 'html': return PostHtml(component);
     }
   });
 

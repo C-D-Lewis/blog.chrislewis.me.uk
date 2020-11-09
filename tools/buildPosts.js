@@ -9,9 +9,13 @@ const TERRAFORM_KEYWORDS = [
   'alias '
 ];
 const JAVASCRIPT_KEYWORDS = [
-  'if', 'for', 'else', 'throws', 'async', 'await', 'return', 'break', '&&', '||',
+  'new', 'if', 'for', 'else', 'throws', 'async', 'await', 'return', 'break', '&&', '||',
 ];
-const JAVASCRIPT_BLUEWORDS = ['const', 'let', 'Object', 'exports', 'function', 'console', 'window'];
+const JAVASCRIPT_BLUEWORDS = [
+  'const', 'let', 'Object', 'exports', 'function', 'console', 'window', 'process', 'env',
+];
+const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';'];
+const STRING_DELIMITERS = ['"', '\'', '`'];
 
 let numRendered = 0;
 
@@ -39,17 +43,20 @@ const transformParagraph = (para) => {
   return para;
 };
 
+/**
+ * Highlight strings in code blocks.
+ *
+ * @param {string} line - Input line of code.
+ * @returns {string} Formatted with classes.
+ */
 const highlightStrings = (line) => {
-  const delimiters = ['"', '\'', '`'];
-
-  delimiters.forEach((d) => {
+  STRING_DELIMITERS.forEach((d) => {
     const strings = [];
 
     // Gather stings
     let strStart = line.indexOf(d);
     while (strStart >= 0) {
       const strEnd = line.indexOf(d, strStart + 1) + 1;  // Include ending delimiter
-
       strings.push(line.substring(strStart, strEnd));
 
       strStart = line.indexOf(d, strEnd + 1);
@@ -57,9 +64,7 @@ const highlightStrings = (line) => {
 
     // Replace with classes
     strings.forEach((string) => {
-      line = line
-        .split(string)
-        .join(`<span class="string">${string}</span>`)
+      line = line.split(string).join(`<span class="string">${string}</span>`);
     })
   });
 
@@ -97,7 +102,9 @@ const toHighlightedLine = (line, language) => {
     JAVASCRIPT_BLUEWORDS.forEach((blueword) => {
       line = line.split(blueword).join(`<span class="js-blueword">${blueword}</span>`);
     });
-
+    JAVASCRIPT_SYNTAX.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
   }
 
   return line;
@@ -198,7 +205,13 @@ const postToModel = (fileName) => {
       return;
     }
 
-    // Paragraph
+    // HTML block - untested
+    // if (section.startsWith('<') && section.endsWith('>')) {
+    //   model.components.push({ type: 'html', html: section });
+    //   return;
+    // }
+
+    // Paragraph of text
     model.components.push({ type: 'paragraph', text: transformParagraph(section) });
   });
 

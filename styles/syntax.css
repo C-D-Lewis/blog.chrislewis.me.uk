@@ -1,5 +1,5 @@
 .comment {
-  color: rgb(120 117 125);
+  color: rgb(120, 117, 125);
   font-style: italic;
 }
 
@@ -10,6 +10,10 @@
 
 .js-blueword {
   color: rgb(69, 195, 216);
+}
+
+.js-syntax {
+  color: rgb(120, 117, 125);
 }
 
 .tf-keyword {

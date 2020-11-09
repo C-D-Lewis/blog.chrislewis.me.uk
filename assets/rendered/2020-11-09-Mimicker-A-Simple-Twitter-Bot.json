@@ -1,0 +1,103 @@
+{
+  "title": "Mimicker - A Simple Twitter Bot",
+  "fileName": "2020-11-09-Mimicker-A-Simple-Twitter-Bot.md",
+  "dateTime": "2020-11-09 19:43",
+  "tags": [
+    "Integration",
+    "JavaScript"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "I'm a big fan of novelty Twitter accounts. Accounts like\n<a class=\"link\" target=\"_blank\" href=\"https://twitter.com/RikerGoogling\">@RikerGoogling</a>,\n<a class=\"link\" target=\"_blank\" href=\"https://twitter.com/PicardTips\">@PicardTips</a>, and even accounts linked to\nsome kind of smart device, garden plant monitoring, or based on large data set\nstatistics all interest me and help break up the extreme swings between\nsmiling and despairing that is the modern Twitter experience."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/11/rikergoogling.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "So naturally, unlike my failed attempt to make a Slack bot a few years ago, I\ndecided I would have a go at creating my own. But I've learned that the key to\nsuccessfully completing a side project is to keep it simple. If I want to go on\nand make it more complex or add more features, later is the time for that. Also\nit means you can put it in front of others sooner."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Imitating the Imitator"
+    },
+    {
+      "type": "paragraph",
+      "text": "I decided upon a simple use-case inspired by @RikerGoogling (which is\nhuman-created) - a Twitter account posing as a character from a TV show, with a\nprofile photo, bio, and image to match, and with tweet content derived from a\nvery long list of quotes fitting the account's character. And it had to be\ncompletely automated so that I could set it up, follow it, and be pleasantly\namused at unpredictable times in the future when scrolling though my feed."
+    },
+    {
+      "type": "paragraph",
+      "text": "But which character to imitate? I settled on Dennis Reynolds from It's Always\nSunny in Philadelphia."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/11/dennis.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Why? Well, he's extremely quotable and random outbursts\nof delusion and vanity I find very amusing, and can work in pretty much any\ncontext. If you're not acquainted with Dennis,\n<a class=\"link\" target=\"_blank\" href=\"https://www.youtube.com/watch?v=hbtg3ZNSzts\">here's a fine introduction</a>."
+    },
+    {
+      "type": "paragraph",
+      "text": "So, of course, the first step was to precure (read: spend a happy hour chucking\nat top ten quote lists, rundowns, gif blogs, and best-of videos) a list of\nfitting quotes for my own pet Golden God. But I only selected those that would\nsuit a Dennis who is permanently enraged at everything he's seeing online, and\nin his own life. This list eventually reached around 90 items - not a bad\nnumber."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Hello, World"
+    },
+    {
+      "type": "paragraph",
+      "text": "The next step was to actually write some code. After creating the fictitious\nTwitter account and enrolling in Twitter's developer program (which already had\na category for bot accounts), I found that there were several libraries\navailable to choose from to make the tweeting process easy to do from Node. In\nthe end I selected <a class=\"link\" target=\"_blank\" href=\"https://www.npmjs.com/package/twitter-lite\">twitter-lite</a>\nfor its simple interface and being recently maintained."
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n<span class=\"comment\">// Create the client</span>\n<span class=\"js-blueword\">const</span> client = <span class=\"js-keyword\">new</span> TwitterLite<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n  consumer_key: <span class=\"js-blueword\">process</span>.<span class=\"js-blueword\">env</span>.CONSUMER_KEY<span class=\"js-syntax\">,</span>\n  consumer_secret: <span class=\"js-blueword\">process</span>.<span class=\"js-blueword\">env</span>.CONSUMER_SECRET<span class=\"js-syntax\">,</span>\n  access_token_key: <span class=\"js-blueword\">process</span>.<span class=\"js-blueword\">env</span>.ACCESS_TOKEN_KEY<span class=\"js-syntax\">,</span>\n  access_token_secret: <span class=\"js-blueword\">process</span>.<span class=\"js-blueword\">env</span>.ACCESS_TOKEN_SECRET<span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// Send a tweet!</span>\n<span class=\"js-blueword\">const</span> data = <span class=\"js-syntax\">{</span> status: <span class=\"string\"><span class=\"js-syntax\">'</span>I am a Golden God!<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n<span class=\"js-blueword\">const</span> res = <span class=\"js-keyword\">await</span> client.post<span class=\"js-syntax\">(</span><span class=\"string\"><span class=\"js-syntax\">'</span>statuses/update<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> data<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> res <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The result is worth the effort so far!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/11/golden-god.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Like Clockwork"
+    },
+    {
+      "type": "paragraph",
+      "text": "For the platform - AWS Lambda is the obvious choice for a script that does one\nthing on a regular basis, and takes very little actual runtime. When combined\nwith EventBridge, it is trivial to create a trigger for the Lambda function\nbased on a cron-like schedule, such as every six hours."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/11/lambda-config.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "The final piece of the puzzle was to include the list of possible quotes for the\nbot to use. Originally this was going to be a fixed part of the project\nrepository, but I decided to make it generic - given any Twitter credentials and\nsimply a URL where to find the list of quotes and the same code can easily be\nre-used for any other popular character, or other instances where regular bits\nof random text or data should be inflicted upon the wider world."
+    },
+    {
+      "type": "paragraph",
+      "text": "And so, we can now observe Dennis' inevitable descent into complete mania at\nregular intervals."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/11/golden-feed.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Perhaps the reusable nature of the project begs the question as to who should\nbe portrayed as one of billions of exasperated internet voices next... If you\nareinspired -\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/mimicker\">check out the complete project here</a>."
+    }
+  ]
+}

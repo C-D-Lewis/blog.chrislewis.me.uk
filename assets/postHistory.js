@@ -798,6 +798,13 @@ window.postHistory = {
         "fileName": "2020-10-04-Deploying-With-Terraform"
       }
     ],
+    "11": [
+      {
+        "title": "Mimicker - A Simple Twitter Bot",
+        "file": "assets/rendered/2020-11-09-Mimicker-A-Simple-Twitter-Bot.json",
+        "fileName": "2020-11-09-Mimicker-A-Simple-Twitter-Bot"
+      }
+    ],
     "03": [
       {
         "title": "FitBit Development - Round 3",
