@@ -107,7 +107,7 @@ try {
   console.log({ res });
   return res;
 } catch (e) {
-  console.log('I am untethered and my rage knowns no bounds!');
+  console.log('I am untethered and my rage knows no bounds!');
 }
 </div></pre>
 
