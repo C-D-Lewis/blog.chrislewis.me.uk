@@ -278,7 +278,8 @@ window.tagIndex = {
     "2020-08-15-Block-World-Lives-On.json",
     "2020-08-22-Creating-a-Browser-based-Party-Game.json",
     "2020-10-04-Deploying-With-Terraform.json",
-    "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json"
+    "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
+    "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
@@ -290,7 +291,8 @@ window.tagIndex = {
   ],
   "React": [
     "2020-08-13-Blog-2-0.json",
-    "2020-10-04-Deploying-With-Terraform.json"
+    "2020-10-04-Deploying-With-Terraform.json",
+    "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json"
   ],
   "Games": [
     "2020-08-22-Creating-a-Browser-based-Party-Game.json"

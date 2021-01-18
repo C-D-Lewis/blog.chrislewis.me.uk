@@ -836,5 +836,14 @@ window.postHistory = {
         "fileName": "2020-09-27-Integrated-Pi-Enclosure"
       }
     ]
+  },
+  "2021": {
+    "01": [
+      {
+        "title": "Stack Chat - A Simple Chat Webapp",
+        "file": "assets/rendered/2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
+        "fileName": "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp"
+      }
+    ]
   }
 }

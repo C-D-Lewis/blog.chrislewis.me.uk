@@ -9,13 +9,13 @@ const TERRAFORM_KEYWORDS = [
   'alias '
 ];
 const JAVASCRIPT_KEYWORDS = [
-  'new', 'if', 'for', 'else', 'throws', 'async', 'await', 'return', 'break', '&&', '||', 'try',
-  'catch',
+  'new ', 'if ', 'for ', 'else ', 'throws ', 'async ', 'await ', 'return ', 'break', '&&', '||', 'try ',
+  'catch ', ' = ', ' => ', '!==', '===', 'export ', ' ? ', ' : ',
 ];
 const JAVASCRIPT_BLUEWORDS = [
   'const', 'let', 'Object', 'exports', 'function', 'console', 'window', 'process', 'env',
 ];
-const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';'];
+const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']'];
 const STRING_DELIMITERS = ['"', '\'', '`'];
 
 let numRendered = 0;
@@ -94,7 +94,15 @@ const toHighlightedLine = (line, language) => {
 
   // JavaScript
   if (['js', 'javascript'].includes(language)) {
-    if (line.trim().startsWith('//')) return `<span class="comment">${line}</span>`;
+    // Code comments
+    if (
+      line.trim().startsWith('//')
+      || line.includes('/**')
+      || line.includes(' * ')
+      || line.includes(' */')) {
+      return `<span class="comment">${line}</span>`;
+    }
+    
     line = highlightStrings(line);
 
     JAVASCRIPT_KEYWORDS.forEach((keyword) => {
