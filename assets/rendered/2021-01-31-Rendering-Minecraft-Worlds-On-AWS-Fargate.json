@@ -155,7 +155,7 @@
     },
     {
       "type": "paragraph",
-      "text": "So, once the infrastructure is deployed (all the required Terraform\nconfiguration) is included in the project, the last thing to put in place is a\n'task' file that describes which scenes to render to what depth in which world."
+      "text": "So, once the infrastructure is deployed (all the required Terraform\nconfiguration is included in the project), the last thing to put in place is a\n'task' file that describes which scenes to render to what depth in which world."
     },
     {
       "type": "paragraph",

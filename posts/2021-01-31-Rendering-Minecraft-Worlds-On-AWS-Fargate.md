@@ -248,7 +248,7 @@ together when the IAM policy failed to work...
 ## Final results in action
 
 So, once the infrastructure is deployed (all the required Terraform
-configuration) is included in the project, the last thing to put in place is a
+configuration is included in the project), the last thing to put in place is a
 'task' file that describes which scenes to render to what depth in which world.
 
 Here is an example that allows the S3 bucket notification to kick off a large
