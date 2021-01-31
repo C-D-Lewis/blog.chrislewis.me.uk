@@ -239,7 +239,7 @@ console.log({ name, targetSpp, taskArn });
 </div></pre>
 
 Performing this sort of AWS resource manipulation in AWS Lambda is made easy
-by the automatic incusion of the AWS SDK for Node.js.
+by the automatic inclusion of the AWS SDK for Node.js.
 
 What was perhaps not so easy was failing to see that the function also required
 permissions for EC2 and taking an extraordinarily long time to put two and two

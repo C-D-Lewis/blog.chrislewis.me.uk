@@ -13,7 +13,7 @@ const JAVASCRIPT_KEYWORDS = [
   'catch ', ' = ', ' => ', '!==', '===', 'export ', ' ? ', ' : ',
 ];
 const JAVASCRIPT_BLUEWORDS = [
-  'const', 'let', ' Object', 'exports', 'function', 'console', 'window', 'process', 'env',
+  'const', 'let', ' Object', 'exports', 'function', 'console', 'window', 'process',
 ];
 const DOCKERFILE_KEYWORDS = [
   'FROM', 'RUN', 'WORKDIR', 'ENV', 'ARG', 'ENTRYPOINT', 'COPY',
