@@ -296,10 +296,13 @@ launched for each scene to produce a render.
 
 Quite a long post, but a high quality personal project including skills from
 work and previous projects, with a result that's reusable for current and future
-Minecraft worlds and community services, as well as another prood point for
-activities on AWS!
+Minecraft worlds and community servers, as well as another proof point for
+projects on AWS!
 
-As always, check out all the source code in the
-[GitHub repository](https://github.com/C-D-Lewis/chunky-fargate).
+You can check out all the source code in the
+[GitHub repository](https://github.com/C-D-Lewis/chunky-fargate) to spin this
+up for your own personal use - just provide you AWS credentials to Terraform.
+
+One last pretty render...
 
 ![](assets/media/2021/01/chunky-fargate-stereo.png)

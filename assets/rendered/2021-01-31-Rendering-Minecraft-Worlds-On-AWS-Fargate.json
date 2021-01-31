@@ -181,11 +181,15 @@
     },
     {
       "type": "paragraph",
-      "text": "Quite a long post, but a high quality personal project including skills from\nwork and previous projects, with a result that's reusable for current and future\nMinecraft worlds and community services, as well as another prood point for\nactivities on AWS!"
+      "text": "Quite a long post, but a high quality personal project including skills from\nwork and previous projects, with a result that's reusable for current and future\nMinecraft worlds and community servers, as well as another proof point for\nprojects on AWS!"
     },
     {
       "type": "paragraph",
-      "text": "As always, check out all the source code in the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/chunky-fargate\">GitHub repository</a>."
+      "text": "You can check out all the source code in the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/chunky-fargate\">GitHub repository</a> to spin this\nup for your own personal use - just provide you AWS credentials to Terraform."
+    },
+    {
+      "type": "paragraph",
+      "text": "One last pretty render..."
     },
     {
       "type": "image",
