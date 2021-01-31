@@ -109,13 +109,88 @@
       "src": "assets/media/2021/01/chunky-fargate-architecture.png"
     },
     {
+      "type": "paragraph",
+      "text": "The key piece of this puzzle is a feature of S3 called bucket notifications.\nThis allows a Lambda function to run when certain events (such as a new file\nuploaded) occur in a particular bucket. In this case, a new zip file containing\nan updated copy of the Minecraft world to be rendered. In Terraform, this is\neasy to achieve:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"terraform\" -->\n<pre><div class=\"code-block\">\n<span class=\"tf-keyword\">resource</span> <span class=\"string\">\"aws_s3_bucket_notification\"</span> <span class=\"string\">\"bucket_notification\"</span> <span class=\"js-syntax\">{</span>\n  count = <span class=\"tf-keyword\">var</span>.upload_trigger_enabled ? 1 : 0\n\n  bucket = data.aws_s3_bucket.selected.id\n\n  lambda_function <span class=\"js-syntax\">{</span>\n    lambda_function_arn = aws_lambda_function.upload_function<span class=\"js-syntax\">[</span>0<span class=\"js-syntax\">]</span>.arn\n    events              = <span class=\"js-syntax\">[</span><span class=\"string\">\"s3:ObjectCreated:*\"</span><span class=\"js-syntax\">]</span>\n    filter_prefix       = <span class=\"string\">\"chunky-fargate/worlds/\"</span>\n    filter_suffix       = <span class=\"string\">\".zip\"</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "You can see the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/chunky-fargate/blob/main/lambda/upload-function.js\">full function code</a>\nfor all the details, but the most important parts are reading the file uploaded:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Main Lambda event handler.</span>\n<span class=\"comment\"> * </span>\n<span class=\"comment\"> * @param {object} event - S3 notification event.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">exports</span>.handler<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">async </span><span class=\"js-syntax\">(</span>event<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">const</span> <span class=\"js-syntax\">{</span> \n    object: <span class=\"js-syntax\">{</span> key <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    bucket: <span class=\"js-syntax\">{</span> name: Bucket <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>event.Records<span class=\"js-syntax\">[</span>0<span class=\"js-syntax\">]</span>.s3<span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  /* ... */</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Checking for task files that include the same world name:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n<span class=\"comment\">// Read all tasks</span>\n<span class=\"js-blueword\">const</span> listObjectsParms<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span> Bucket<span class=\"js-syntax\">,</span> Prefix: <span class=\"string\"><span class=\"js-syntax\">'</span>chunky-fargate/tasks/<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n<span class=\"js-blueword\">const</span> <span class=\"js-syntax\">{</span> Contents <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>s3.listObjects<span class=\"js-syntax\">(</span>listObjectsParms<span class=\"js-syntax\">)</span>.promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// Select the relevant one to render</span>\n<span class=\"js-blueword\">const</span> <span class=\"js-syntax\">[</span>taskFile<span class=\"js-syntax\">]</span><span class=\"js-keyword\"> = </span>Contents.filter<span class=\"js-syntax\">(</span>p<span class=\"js-keyword\"> => </span>p.Key.includes<span class=\"js-syntax\">(</span><span class=\"string\"><span class=\"js-syntax\">'</span>json<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">&&</span> p.Key.includes<span class=\"js-syntax\">(</span>newFileName<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>!taskFile<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span><span class=\"string\">`No task found that includes $<span class=\"js-syntax\">{</span>newFileName<span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span> not triggering`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  return<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">/* ... */</span>\n\n<span class=\"js-blueword\">const</span> getObjectParams<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span> Bucket<span class=\"js-syntax\">,</span> Key: taskFile.Key <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n<span class=\"js-blueword\">const</span> getObjectRes<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>s3.getObject<span class=\"js-syntax\">(</span>getObjectParams<span class=\"js-syntax\">)</span>.promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-blueword\">const</span> <span class=\"js-syntax\">{</span> world<span class=\"js-syntax\">,</span> scenes <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>JSON.parse<span class=\"js-syntax\">(</span>getObjectRes.Body.toString<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And starting a new Fargate task with overriden environment variables controlling\nthe scene and world used, as well as the target SPP:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n<span class=\"js-blueword\">const</span> res<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>ecs.runTask<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n  cluster: CLUSTER_NAME<span class=\"js-syntax\">,</span>\n  taskDefinition: FAMILY<span class=\"js-syntax\">,</span>\n  count: 1<span class=\"js-syntax\">,</span>\n  launchType: <span class=\"string\"><span class=\"js-syntax\">'</span>FARGATE<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  networkConfiguration: <span class=\"js-syntax\">{</span>\n    awsvpcConfiguration: <span class=\"js-syntax\">{</span>\n      subnets: <span class=\"js-syntax\">[</span>SubnetId<span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n      securityGroups: <span class=\"js-syntax\">[</span>GroupId<span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n      assignPublicIp:<span class=\"string\"><span class=\"js-syntax\">'</span>ENABLED<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  overrides: <span class=\"js-syntax\">{</span>\n    containerOverrides: <span class=\"js-syntax\">[</span><span class=\"js-syntax\">{</span>\n      name: TASK_DEF_NAME<span class=\"js-syntax\">,</span>\n      <span class=\"js-blueword\">env</span>ironment: <span class=\"js-syntax\">[</span>\n        <span class=\"js-syntax\">{</span> name: <span class=\"string\"><span class=\"js-syntax\">'</span>WORLD_NAME<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> value: world <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n        <span class=\"js-syntax\">{</span> name: <span class=\"string\"><span class=\"js-syntax\">'</span>SCENE_NAME<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> value: name <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n        <span class=\"js-syntax\">{</span> name: <span class=\"string\"><span class=\"js-syntax\">'</span>TARGET_SPP<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> value: <span class=\"string\">`$<span class=\"js-syntax\">{</span>targetSpp<span class=\"js-syntax\">}</span>`</span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n        <span class=\"js-syntax\">{</span> name: <span class=\"string\"><span class=\"js-syntax\">'</span>BUCKET<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> value: Bucket <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n      <span class=\"js-syntax\">]</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">]</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>.promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const</span> <span class=\"js-syntax\">{</span> taskArn <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>res.tasks<span class=\"js-syntax\">[</span>0<span class=\"js-syntax\">]</span><span class=\"js-syntax\">;</span>\n<span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> name<span class=\"js-syntax\">,</span> targetSpp<span class=\"js-syntax\">,</span> taskArn <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Performing this sort of AWS resource manipulation in AWS Lambda is made easy\nby the automatic incusion of the AWS SDK for Node.js."
+    },
+    {
+      "type": "paragraph",
+      "text": "What was perhaps not so easy was failing to see that the function also required\npermissions for EC2 and taking an extraordinarily long time to put two and two\ntogether when the IAM policy failed to work..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Final results in action"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, once the infrastructure is deployed (all the required Terraform\nconfiguration) is included in the project, the last thing to put in place is a\n'task' file that describes which scenes to render to what depth in which world."
+    },
+    {
+      "type": "paragraph",
+      "text": "Here is an example that allows the S3 bucket notification to kick off a large\nset of tasks rendering many fixed scenes in parallel:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"json\" -->\n<pre><div class=\"code-block\">\n\n<span class=\"js-syntax\">{</span>\n  <span class=\"string\">\"bucket\"</span>: <span class=\"string\">\"example-bucket.chrislewis.me.uk\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"string\">\"world\"</span>: <span class=\"string\">\"xmas-village\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"string\">\"scenes\"</span>: <span class=\"js-syntax\">[</span>\n    <span class=\"js-syntax\">{</span>\n      <span class=\"string\">\"name\"</span>: <span class=\"string\">\"village-iso-farm\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"string\">\"targetSpp\"</span>: 150\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">{</span>\n      <span class=\"string\">\"name\"</span>: <span class=\"string\">\"village-iso-stable\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"string\">\"targetSpp\"</span>: 200\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">{</span>\n      <span class=\"string\">\"name\"</span>: <span class=\"string\">\"village-iso-smith\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"string\">\"targetSpp\"</span>: 200\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">{</span>\n      <span class=\"string\">\"name\"</span>: <span class=\"string\">\"village-iso-faire\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"string\">\"targetSpp\"</span>: 150\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">{</span>\n      <span class=\"string\">\"name\"</span>: <span class=\"string\">\"village-church\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"string\">\"targetSpp\"</span>: 400\n    <span class=\"js-syntax\">}</span>\n  <span class=\"js-syntax\">]</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "When a new version of <code>xmas-village-world.zip</code> (containing the value\nfor <code>world</code> above) is uploaded to the\n<code>/chunky-fargate/worlds</code> folder in the bucket, a Fargate task is\nlaunched for each scene to produce a render."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/01/chunky-fargate-tasks.png"
+    },
+    {
       "type": "header",
       "level": 2,
       "text": "Conclusion"
     },
     {
       "type": "paragraph",
-      "text": "As always, check out all the source code in the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/stack-chat\">GitHub repository</a>."
+      "text": "Quite a long post, but a high quality personal project including skills from\nwork and previous projects, with a result that's reusable for current and future\nMinecraft worlds and community services, as well as another prood point for\nactivities on AWS!"
+    },
+    {
+      "type": "paragraph",
+      "text": "As always, check out all the source code in the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/chunky-fargate\">GitHub repository</a>."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/01/chunky-fargate-stereo.png"
     }
   ]
 }

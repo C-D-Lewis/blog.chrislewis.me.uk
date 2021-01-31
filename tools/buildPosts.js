@@ -13,7 +13,7 @@ const JAVASCRIPT_KEYWORDS = [
   'catch ', ' = ', ' => ', '!==', '===', 'export ', ' ? ', ' : ',
 ];
 const JAVASCRIPT_BLUEWORDS = [
-  'const', 'let', 'Object', 'exports', 'function', 'console', 'window', 'process', 'env',
+  'const', 'let', ' Object', 'exports', 'function', 'console', 'window', 'process', 'env',
 ];
 const DOCKERFILE_KEYWORDS = [
   'FROM', 'RUN', 'WORKDIR', 'ENV', 'ARG', 'ENTRYPOINT', 'COPY',
@@ -94,10 +94,23 @@ const toHighlightedLine = (line, language) => {
     TERRAFORM_KEYWORDS.forEach((keyword) => {
       line = line.split(keyword).join(`<span class="tf-keyword">${keyword}</span>`);
     });
+    JAVASCRIPT_SYNTAX.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
+  }
+
+  // JSON
+  else if (language.includes('json')) {
+    // Strings
+    line = highlightStrings(line);
+
+    JAVASCRIPT_SYNTAX.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
   }
 
   // JavaScript
-  if (['js', 'javascript'].includes(language)) {
+  else if (['js', 'javascript'].includes(language)) {
     // Code comments
     if (
       line.trim().startsWith('//')
@@ -122,7 +135,7 @@ const toHighlightedLine = (line, language) => {
   }
 
   // Shell
-  if (['shell', 'bash'].includes(language)) {
+  else if (['shell', 'bash'].includes(language)) {
     // Code comments
     if (line.trim().startsWith('#')) {
       return `<span class="comment">${line}</span>`;
@@ -133,7 +146,7 @@ const toHighlightedLine = (line, language) => {
   }
 
   // Dockerfile
-  if (['dockerfile', 'Dockerfile'].includes(language)) {
+  else if (['dockerfile', 'Dockerfile'].includes(language)) {
     // Code comments
     if (line.trim().startsWith('#')) {
       return `<span class="comment">${line}</span>`;

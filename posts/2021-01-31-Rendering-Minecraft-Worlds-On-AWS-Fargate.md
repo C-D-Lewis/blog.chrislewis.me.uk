@@ -140,7 +140,166 @@ The process is shown in the diagram below:
 
 ![](assets/media/2021/01/chunky-fargate-architecture.png)
 
+The key piece of this puzzle is a feature of S3 called bucket notifications.
+This allows a Lambda function to run when certain events (such as a new file
+uploaded) occur in a particular bucket. In this case, a new zip file containing
+an updated copy of the Minecraft world to be rendered. In Terraform, this is
+easy to achieve:
+
+<!-- language="terraform" -->
+<pre><div class="code-block">
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  count = var.upload_trigger_enabled ? 1 : 0
+
+  bucket = data.aws_s3_bucket.selected.id
+
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.upload_function[0].arn
+    events              = ["s3:ObjectCreated:*"]
+    filter_prefix       = "chunky-fargate/worlds/"
+    filter_suffix       = ".zip"
+  }
+}
+</div></pre>
+
+You can see the
+[full function code](https://github.com/C-D-Lewis/chunky-fargate/blob/main/lambda/upload-function.js)
+for all the details, but the most important parts are reading the file uploaded:
+
+<!-- language="js" -->
+<pre><div class="code-block">
+/**
+ * Main Lambda event handler.
+ * 
+ * @param {object} event - S3 notification event.
+ */
+exports.handler = async (event) => {
+  const { 
+    object: { key },
+    bucket: { name: Bucket },
+  } = event.Records[0].s3;
+
+  /* ... */
+</div></pre>
+
+Checking for task files that include the same world name:
+
+<!-- language="js" -->
+<pre><div class="code-block">
+// Read all tasks
+const listObjectsParms = { Bucket, Prefix: 'chunky-fargate/tasks/' };
+const { Contents } = await s3.listObjects(listObjectsParms).promise();
+
+// Select the relevant one to render
+const [taskFile] = Contents.filter(p => p.Key.includes('json') && p.Key.includes(newFileName));
+if (!taskFile) {
+  console.log(`No task found that includes ${newFileName}, not triggering`);
+  return;
+}
+
+/* ... */
+
+const getObjectParams = { Bucket, Key: taskFile.Key };
+const getObjectRes = await s3.getObject(getObjectParams).promise();
+const { world, scenes } = JSON.parse(getObjectRes.Body.toString());
+</div></pre>
+
+And starting a new Fargate task with overriden environment variables controlling
+the scene and world used, as well as the target SPP:
+
+<!-- language="js" -->
+<pre><div class="code-block">
+const res = await ecs.runTask({
+  cluster: CLUSTER_NAME,
+  taskDefinition: FAMILY,
+  count: 1,
+  launchType: 'FARGATE',
+  networkConfiguration: {
+    awsvpcConfiguration: {
+      subnets: [SubnetId],
+      securityGroups: [GroupId],
+      assignPublicIp:'ENABLED',
+    },
+  },
+  overrides: {
+    containerOverrides: [{
+      name: TASK_DEF_NAME,
+      environment: [
+        { name: 'WORLD_NAME', value: world },
+        { name: 'SCENE_NAME', value: name },
+        { name: 'TARGET_SPP', value: `${targetSpp}` },
+        { name: 'BUCKET', value: Bucket },
+      ]
+    }]
+  },
+}).promise();
+
+const { taskArn } = res.tasks[0];
+console.log({ name, targetSpp, taskArn });
+</div></pre>
+
+Performing this sort of AWS resource manipulation in AWS Lambda is made easy
+by the automatic incusion of the AWS SDK for Node.js.
+
+What was perhaps not so easy was failing to see that the function also required
+permissions for EC2 and taking an extraordinarily long time to put two and two
+together when the IAM policy failed to work...
+
+## Final results in action
+
+So, once the infrastructure is deployed (all the required Terraform
+configuration) is included in the project, the last thing to put in place is a
+'task' file that describes which scenes to render to what depth in which world.
+
+Here is an example that allows the S3 bucket notification to kick off a large
+set of tasks rendering many fixed scenes in parallel:
+
+<!-- language="json" -->
+<pre><div class="code-block">
+
+{
+  "bucket": "example-bucket.chrislewis.me.uk",
+  "world": "xmas-village",
+  "scenes": [
+    {
+      "name": "village-iso-farm",
+      "targetSpp": 150
+    },
+    {
+      "name": "village-iso-stable",
+      "targetSpp": 200
+    },
+    {
+      "name": "village-iso-smith",
+      "targetSpp": 200
+    },
+    {
+      "name": "village-iso-faire",
+      "targetSpp": 150
+    },
+    {
+      "name": "village-church",
+      "targetSpp": 400
+    }
+  ]
+}
+</div></pre>
+
+When a new version of <code>xmas-village-world.zip</code> (containing the value
+for <code>world</code> above) is uploaded to the
+<code>/chunky-fargate/worlds</code> folder in the bucket, a Fargate task is
+launched for each scene to produce a render.
+
+![](assets/media/2021/01/chunky-fargate-tasks.png)
+
 ## Conclusion
 
+Quite a long post, but a high quality personal project including skills from
+work and previous projects, with a result that's reusable for current and future
+Minecraft worlds and community services, as well as another prood point for
+activities on AWS!
+
 As always, check out all the source code in the
-[GitHub repository](https://github.com/C-D-Lewis/stack-chat).
+[GitHub repository](https://github.com/C-D-Lewis/chunky-fargate).
+
+![](assets/media/2021/01/chunky-fargate-stereo.png)
