@@ -62,6 +62,53 @@
       "text": "<!-- language=\"dockerfile\" -->\n<pre><div class=\"code-block\">\n<span class=\"dockerfile-keyword\">FROM</span> ubuntu:18.04\n\n<span class=\"dockerfile-keyword\">WORKDIR</span> /chunky\n\n<span class=\"comment\"># Environment variables</span>\n<span class=\"dockerfile-keyword\">ENV</span> MC_VERSION=<span class=\"string\">\"1.16.4\"</span>\n\n<span class=\"comment\"># For tzdata dependency</span>\n<span class=\"dockerfile-keyword\">ARG</span> DEBIAN_FRONTEND=noninteractive\n<span class=\"dockerfile-keyword\">ENV</span> TZ=Europe/London\n\n<span class=\"comment\"># Dependencies</span>\n<span class=\"dockerfile-keyword\">RUN</span> apt-get update && apt-get install -y --no-install-recommends \\\n  default-jdk libopenjfx-java libcontrolsfx-java jq wget unzip awscli \\\n  && rm -rf /var/lib/apt/lists/*\n\n<span class=\"comment\"># Chunky files</span>\n<span class=\"dockerfile-keyword\">COPY</span> ChunkyLauncher.jar /chunky/ChunkyLauncher.jar\n\n<span class=\"comment\"># Initialize Chunky and Minecraft textures</span>\n<span class=\"dockerfile-keyword\">RUN</span> cd /chunky\n<span class=\"dockerfile-keyword\">RUN</span> java -Dchunky.home=<span class=\"string\">\"$(pwd)\"</span> -jar ChunkyLauncher.jar --update\n<span class=\"dockerfile-keyword\">RUN</span> java -Dchunky.home=<span class=\"string\">\"$(pwd)\"</span> -jar ChunkyLauncher.jar -download-mc $MC_VERSION\n\n<span class=\"comment\"># Pipeline</span>\n<span class=\"dockerfile-keyword\">COPY</span> pipeline /chunky/pipeline\n\n<span class=\"dockerfile-keyword\">ENTRYPOINT</span> [<span class=\"string\">\"./pipeline/pipeline.sh\"</span>]\n</div></pre>"
     },
     {
+      "type": "paragraph",
+      "text": "With a suitable Docker image prepared, it can be pushed to AWS Elastic Container\nRegistry to be used in a Fargate task definition."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "S3 as a store"
+    },
+    {
+      "type": "paragraph",
+      "text": "Since Fargate tasks run in AWS, it's not suitable for them to attempt to use\nany local files on my development machine. Yet Chunky requires world files and\nscene files in order to produce a render. To manage this, the project contains\nseveral shell scripts that use the <code>aws s3</code> command from\n<code>awscli</code> to fetch previously uploaded scene and world files from\nAmazon S3."
+    },
+    {
+      "type": "paragraph",
+      "text": "To try and ensure the setup is as easy to do as possible, the user is required\nto nominate a pre-existing S3 bucket, and a fixed subdirectory is used to\nprescribe input and output file locations. It is shown in summary with some\nexample files below:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"none\" -->\n<pre><div class=\"code-block\">\ns3://$BUCKET/\n  - chunky-fargate/\n    - worlds/\n      - village-world.zip\n    - scenes/\n      - village-church-interior.json\n    - renders/\n      - $DATE/\n        - snapshot.png\n        - ...\n    - tasks/\n        village-all-scenes.json\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As can probably be inferred, <code>worlds</code> contains Minecraft world\ndirectories in a zip file, <code>scenes</code> contains scenes from Chunky GUI,\nand <code>renders</code> contains the output PNG files in a directory per date."
+    },
+    {
+      "type": "paragraph",
+      "text": "The last directory called <code>tasks</code> contains JSON files that detail\none or more scenes in relation to a world name. More on that later."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Automatic rendering on world files upload"
+    },
+    {
+      "type": "paragraph",
+      "text": "As it stands, it's easy to run Chunky locally, or start a single remote Fargate\ntask to render a chosen scene on demand. But, the key reason to put all this\ninfrastructure in place is this - be able to nominate a set of scene files to be\nrendered automatically whenever a new version of an ongoing world is uploaded\nby the Minecraft server admin. This makes it trivial to have consistent scenes\nrendered showing progress of a set of builds over time, all offloaded to the\nAWS cloud."
+    },
+    {
+      "type": "paragraph",
+      "text": "The process is shown in the diagram below:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/01/chunky-fargate-architecture.png"
+    },
+    {
       "type": "header",
       "level": 2,
       "text": "Conclusion"
