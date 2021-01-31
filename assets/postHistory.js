@@ -843,6 +843,11 @@ window.postHistory = {
         "title": "Stack Chat - A Simple Chat Webapp",
         "file": "assets/rendered/2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
         "fileName": "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp"
+      },
+      {
+        "title": "Rendering Minecraft Worlds on AWS Fargate",
+        "file": "assets/rendered/2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
+        "fileName": "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate"
       }
     ]
   }

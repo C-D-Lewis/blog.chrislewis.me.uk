@@ -1,0 +1,66 @@
+{
+  "title": "Rendering Minecraft Worlds on AWS Fargate",
+  "fileName": "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.md",
+  "dateTime": "2021-01-31 13:31",
+  "tags": [
+    "JavaScript",
+    "Integration",
+    "Java",
+    "AWS"
+  ],
+  "components": [
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/01/chunky-fargate-sample.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "This personal project is one of those rare beasts - one that has long-lasting\nusefulness beyond the initial building of it. It doesn't have to be the case to\nbe a worthwhile project, but it helps!"
+    },
+    {
+      "type": "paragraph",
+      "text": "For a long time I've been keeping an eye on a niche open source project in the\nMinecraft community called <a class=\"link\" target=\"_blank\" href=\"https://chunky.llbit.se/\">Chunky</a>. It's a Java-based\napp that loads chunks from a Minecraft world, allows you to set up a scene with\naspects such as lighting, camera, material properties, etc., and finally to\nperform ray-traced rendering of that scene. The results offer a very pretty\nview of a world that myself or a group of friends have worked hard on and gives\nan opportunity to showcase it. Here's an example of a recent world rendered from\na Christmas community server:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/01/chunky-fargate-village.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Chunky"
+    },
+    {
+      "type": "paragraph",
+      "text": "After arranging a scene in Chunky, the output is a JSON file containing all the\nparameters that set up the shot including all the factors mentioned above. You\ncan run the <code>ChunkyLancher.jar</code> file with many parameters to perform\nthe same rendering from a terminal as in the Chunky GUI. The number of samples\nper pixel (iterations) and the name of the scene are the main parameters:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"shell\" -->\n<pre><div class=\"code-block\">\n# Run Chunky in terminal\njava \\\n  --module-path \"/usr/share/maven-repo/org/openjfx/javafx-controls/11/:/usr/share/maven-repo/org/openjfx/javafx-base/11/:/usr/share/maven-repo/org/openjfx/javafx-graphics/11/:/usr/share/maven-repo/org/openjfx/javafx-fxml/11/\" \\\n  --add-modules=javafx.controls,javafx.base,javafx.graphics,javafx.fxml \\\n  -Dchunky.home=\"$(pwd)\" \\\n  -jar ChunkyLauncher.jar \\\n  -f \\\n  -target $TARGET_SPP \\\n  -render $SCENE_NAME\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This is the first step towards automation. On to Docker!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Dockerisation"
+    },
+    {
+      "type": "paragraph",
+      "text": ""
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "As always, check out all the source code in the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/stack-chat\">GitHub repository</a>."
+    }
+  ]
+}

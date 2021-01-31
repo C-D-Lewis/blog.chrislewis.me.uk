@@ -1,6 +1,6 @@
 Creating a Browser-based Party Game
 2020-08-22 13:57
-JavaScript,Games
+JavaScript,Games,AWS
 ---
 
 (Project from July 2020)

@@ -497,7 +497,10 @@ const PostImage = ({ src }) => {
       display: 'flex',
       justifyContent: 'center',
       margin: '30px 0px',
-    }, {}, [img])
+      cursor: 'pointer',
+    }, {
+      onclick: () => window.open(src, '_blank'),
+    }, [img])
   );
 };
 

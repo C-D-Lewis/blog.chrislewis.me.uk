@@ -85,6 +85,7 @@ const toHighlightedLine = (line, language) => {
 
   // Terraform
   if (language.includes('terraform')) {
+    // Strings
     line = highlightStrings(line);
 
     TERRAFORM_KEYWORDS.forEach((keyword) => {
@@ -103,6 +104,7 @@ const toHighlightedLine = (line, language) => {
       return `<span class="comment">${line}</span>`;
     }
     
+    // Strings
     line = highlightStrings(line);
 
     JAVASCRIPT_KEYWORDS.forEach((keyword) => {
@@ -114,6 +116,17 @@ const toHighlightedLine = (line, language) => {
     JAVASCRIPT_SYNTAX.forEach((syntax) => {
       line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
     });
+  }
+
+  // Shell
+  if (['shell', 'bash'].includes(language)) {
+    // Code comments
+    if (line.trim().startsWith('#')) {
+      return `<span class="comment">${line}</span>`;
+    }
+
+    // Strings
+    line = highlightStrings(line);
   }
 
   return line;
@@ -142,32 +155,32 @@ const highlight = (block, language) => {
  * @returns {string[]} sections - Modified list of paragraph sections.
  */
 const joinCodeParagraphs = (sections) => {
-  let start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
-  let endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
+  let startIndex = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
+  let endIndex = sections.slice(startIndex).findIndex(p => p.includes('</pre'));
   while (endIndex !== -1) {
     // Not a code paragraph (TODO: annotate for component, not inline HTML)
-    if (start === -1) break;
+    if (startIndex === -1) break;
 
     // Possible <!-- language="..." --> annotation at the end of the previous section
-    let language = sections[start].includes('language=')
-      ? sections[start]
-      : sections[start - 1];
-    if (language.includes('language=')) {
-      const langStart = language.indexOf('language="') + 'language="'.length;
-      const langEnd = language.indexOf('"', langStart);
-      language = language.slice(langStart, langEnd);
+    let languageLine = sections[startIndex].includes('language=')
+      ? sections[startIndex]
+      : sections[startIndex - 1];
+    if (languageLine.includes('language=')) {
+      const langStart = languageLine.indexOf('language="') + 'language="'.length;
+      const langEnd = languageLine.indexOf('"', langStart);
+      languageLine = languageLine.slice(langStart, langEnd);
     } else {
-      language = null;
+      languageLine = null;
     }
 
     // Join the paragraphs between code start/end
-    const end = endIndex + start + 1;
-    const joinedSection = '' + sections.slice(start, end).join('\n\n');
-    sections.splice(start, end - start);
-    sections.splice(start, 0, highlight(joinedSection, language));
+    const end = endIndex + startIndex + 1;
+    const joinedSection = '' + sections.slice(startIndex, end).join('\n\n');
+    sections.splice(startIndex, end - startIndex);
+    sections.splice(startIndex, 0, highlight(joinedSection, languageLine));
 
-    start = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
-    endIndex = sections.slice(start).findIndex(p => p.includes('</pre'));
+    startIndex = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
+    endIndex = sections.slice(startIndex).findIndex(p => p.includes('</pre'));
   }
 };
 

@@ -31,7 +31,8 @@ window.tagIndex = {
     "2016-06-14-SceneEngine-Java-Game-Engine.json",
     "2016-07-20-Dash-API-For-Easy-Pebble-and-Android-Integration.json",
     "2016-11-20-Dynamic-PC-Backlight-with-Raspberry-Pi-and-Blinkt.json",
-    "2016-12-18-Dashboard-Now-Open-source.json"
+    "2016-12-18-Dashboard-Now-Open-source.json",
+    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json"
   ],
   "Releases": [
     "2013-03-25-Filing-Cabinet-Initial-Release.json",
@@ -227,7 +228,8 @@ window.tagIndex = {
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
     "2018-05-19-FitBit-Development-Round-2.json",
     "2020-10-04-Deploying-With-Terraform.json",
-    "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json"
+    "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
+    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json"
   ],
   "Raspberry Pi": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -275,11 +277,13 @@ window.tagIndex = {
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
     "2018-05-19-FitBit-Development-Round-2.json",
     "2018-09-29-Creating-a-Miniature-Scripting-Language.json",
+    "2020-08-13-Blog-2-0.json",
     "2020-08-15-Block-World-Lives-On.json",
     "2020-08-22-Creating-a-Browser-based-Party-Game.json",
     "2020-10-04-Deploying-With-Terraform.json",
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
-    "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json"
+    "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
+    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
@@ -293,6 +297,14 @@ window.tagIndex = {
     "2020-08-13-Blog-2-0.json",
     "2020-10-04-Deploying-With-Terraform.json",
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json"
+  ],
+  "AWS": [
+    "2020-08-13-Blog-2-0.json",
+    "2020-08-22-Creating-a-Browser-based-Party-Game.json",
+    "2020-10-04-Deploying-With-Terraform.json",
+    "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
+    "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
+    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json"
   ],
   "Games": [
     "2020-08-22-Creating-a-Browser-based-Party-Game.json"

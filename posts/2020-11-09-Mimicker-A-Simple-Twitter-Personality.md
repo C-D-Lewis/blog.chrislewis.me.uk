@@ -1,6 +1,6 @@
 Mimicker - A Simple Twitter Personality
 2020-11-09 19:43
-Integration,JavaScript
+Integration,JavaScript,AWS
 ---
 
 I'm a big fan of novelty Twitter accounts. Accounts like

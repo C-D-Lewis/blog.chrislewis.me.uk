@@ -1,6 +1,6 @@
 Deploying With Terraform
 2020-10-04 10:43
-Integration,JavaScript,React
+Integration,JavaScript,React,AWS
 ---
 
 Traditional provisioning of cloud infrastructure resources is commonly done by

@@ -1,6 +1,6 @@
 Stack Chat - A Simple Chat Webapp
 2021-01-18 19:05
-React,JavaScript
+React,JavaScript,AWS
 ---
 
 I know it's a cliche use-case, but a simple chat application is something I have
