@@ -23,3 +23,8 @@
 .string {
   color: rgb(252, 228, 73);
 }
+
+.dockerfile-keyword {
+  color: rgb(236, 64, 135);
+  font-weight: bold;
+}

@@ -15,6 +15,9 @@ const JAVASCRIPT_KEYWORDS = [
 const JAVASCRIPT_BLUEWORDS = [
   'const', 'let', 'Object', 'exports', 'function', 'console', 'window', 'process', 'env',
 ];
+const DOCKERFILE_KEYWORDS = [
+  'FROM', 'RUN', 'WORKDIR', 'ENV', 'ARG', 'ENTRYPOINT', 'COPY',
+];
 const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']'];
 const STRING_DELIMITERS = ['"', '\'', '`'];
 
@@ -127,6 +130,21 @@ const toHighlightedLine = (line, language) => {
 
     // Strings
     line = highlightStrings(line);
+  }
+
+  // Dockerfile
+  if (['dockerfile', 'Dockerfile'].includes(language)) {
+    // Code comments
+    if (line.trim().startsWith('#')) {
+      return `<span class="comment">${line}</span>`;
+    }
+
+    // Strings
+    line = highlightStrings(line);
+
+    DOCKERFILE_KEYWORDS.forEach((keyword) => {
+      line = line.split(keyword).join(`<span class="dockerfile-keyword">${keyword}</span>`);
+    });
   }
 
   return line;

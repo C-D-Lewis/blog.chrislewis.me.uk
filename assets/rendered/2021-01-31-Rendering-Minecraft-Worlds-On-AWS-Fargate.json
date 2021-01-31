@@ -38,20 +38,28 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"shell\" -->\n<pre><div class=\"code-block\">\n# Run Chunky in terminal\njava \\\n  --module-path \"/usr/share/maven-repo/org/openjfx/javafx-controls/11/:/usr/share/maven-repo/org/openjfx/javafx-base/11/:/usr/share/maven-repo/org/openjfx/javafx-graphics/11/:/usr/share/maven-repo/org/openjfx/javafx-fxml/11/\" \\\n  --add-modules=javafx.controls,javafx.base,javafx.graphics,javafx.fxml \\\n  -Dchunky.home=\"$(pwd)\" \\\n  -jar ChunkyLauncher.jar \\\n  -f \\\n  -target $TARGET_SPP \\\n  -render $SCENE_NAME\n</div></pre>"
+      "text": "<!-- language=\"shell\" -->\n<pre><div class=\"code-block\">\n\njava \\\n  --module-path <span class=\"string\">\"/usr/share/maven-repo/org/openjfx/javafx-controls/11/:/usr/share/maven-repo/org/openjfx/javafx-base/11/:/usr/share/maven-repo/org/openjfx/javafx-graphics/11/:/usr/share/maven-repo/org/openjfx/javafx-fxml/11/\"</span> \\\n  --add-modules=javafx.controls,javafx.base,javafx.graphics,javafx.fxml \\\n  -Dchunky.home=<span class=\"string\">\"$(pwd)\"</span> \\\n  -jar ChunkyLauncher.jar \\\n  -f \\\n  -target $TARGET_SPP \\\n  -render $SCENE_NAME\n</div></pre>"
     },
     {
       "type": "paragraph",
-      "text": "This is the first step towards automation. On to Docker!"
+      "text": "This is the first step towards automation on AWS Fargate, where containerized\nDocker apps can be run on demand and cost only while they are running."
+    },
+    {
+      "type": "paragraph",
+      "text": "Onwards to Docker!"
     },
     {
       "type": "header",
       "level": 2,
-      "text": "Dockerisation"
+      "text": "Dockerization"
     },
     {
       "type": "paragraph",
-      "text": ""
+      "text": "Since Chunky can be run from a Linux terminal, it is fairly trivial to run in\nDocker - it's just a case of choosing a suitable base image, adding the required\ndependencies and then using scripts to break up the process into manageable\nchunks. The <code>Dockerfile</code> for the finished project is shown below and\nincludes all these steps:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"dockerfile\" -->\n<pre><div class=\"code-block\">\n<span class=\"dockerfile-keyword\">FROM</span> ubuntu:18.04\n\n<span class=\"dockerfile-keyword\">WORKDIR</span> /chunky\n\n<span class=\"comment\"># Environment variables</span>\n<span class=\"dockerfile-keyword\">ENV</span> MC_VERSION=<span class=\"string\">\"1.16.4\"</span>\n\n<span class=\"comment\"># For tzdata dependency</span>\n<span class=\"dockerfile-keyword\">ARG</span> DEBIAN_FRONTEND=noninteractive\n<span class=\"dockerfile-keyword\">ENV</span> TZ=Europe/London\n\n<span class=\"comment\"># Dependencies</span>\n<span class=\"dockerfile-keyword\">RUN</span> apt-get update && apt-get install -y --no-install-recommends \\\n  default-jdk libopenjfx-java libcontrolsfx-java jq wget unzip awscli \\\n  && rm -rf /var/lib/apt/lists/*\n\n<span class=\"comment\"># Chunky files</span>\n<span class=\"dockerfile-keyword\">COPY</span> ChunkyLauncher.jar /chunky/ChunkyLauncher.jar\n\n<span class=\"comment\"># Initialize Chunky and Minecraft textures</span>\n<span class=\"dockerfile-keyword\">RUN</span> cd /chunky\n<span class=\"dockerfile-keyword\">RUN</span> java -Dchunky.home=<span class=\"string\">\"$(pwd)\"</span> -jar ChunkyLauncher.jar --update\n<span class=\"dockerfile-keyword\">RUN</span> java -Dchunky.home=<span class=\"string\">\"$(pwd)\"</span> -jar ChunkyLauncher.jar -download-mc $MC_VERSION\n\n<span class=\"comment\"># Pipeline</span>\n<span class=\"dockerfile-keyword\">COPY</span> pipeline /chunky/pipeline\n\n<span class=\"dockerfile-keyword\">ENTRYPOINT</span> [<span class=\"string\">\"./pipeline/pipeline.sh\"</span>]\n</div></pre>"
     },
     {
       "type": "header",
