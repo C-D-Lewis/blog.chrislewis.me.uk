@@ -11,12 +11,12 @@ agenda, etc to view at a glance while getting dressed or while passing by.
 
 I liked this project, except for two key aspects:
 
-1. Most solutions were either entirely pre-packaged, or required fiddling about
-   with sealed monitors units and their bespoke driver boards and large power
-   supplies.
+- Most solutions were either entirely pre-packaged, or required fiddling about
+  with sealed monitors units and their bespoke driver boards and large power
+  supplies.
 
-2. I'm generally averse to looking at myself in the mirror beyond my morning
-   routine.
+- I'm generally averse to looking at myself in the mirror beyond my morning
+  routine.
 
 Then, a month or so ago I saw a twist on this idea that replaced the LCD display
 and one-way mirror material with an old friend - an e-paper display. The desire
@@ -38,20 +38,23 @@ By default, the main widgets are as follows:
 
 - Date and time
 
-- Current weather conditions (icon, temperature, day high/low, chance of rain and current wind speed).
+- Current weather conditions (icon, temperature, day high/low, chance of rain
+  and current wind speed).
 
 - Icon and status of two UK rail companies I (usually) regularly use
 
-- Amount and daily change in Bitcoin and Ethereum cryptocurrencies, adjusted for the amount I actually own.
+- Amount and daily change in Bitcoin and Ethereum cryptocurrencies, adjusted for
+  the amount I actually own.
 
 The remaining third of the display on the right is a set of pages that rotate
-once a minute:
+once a minute, progress through the set denoted with a line of paging dots:
 
 - Five day weather forecast (icon, high/low, chance of rain, wind speed)
 
 - Five news stories from BBC News from a configurable category of news.
 
-- The most recent tweet (name, icon, text, likes, replies, time) from a configurable Twitter account.
+- The most recent tweet (name, icon, text, likes, replies, time) from a
+  configurable Twitter account.
 
 Here's another image showing the news in Technology today:
 
@@ -62,16 +65,60 @@ And the current most recent tweet from a chosen novely account
 
 ![](assets/media/2021/03/e-paper-picard.jpg)
 
+And of course, the reverse side is less glamorous, but still fairly neatly
+organised:
+
+![](assets/media/2021/03/e-paper-reverse.jpg)
+
 ## Python?
+
+Yes, keen-eyed readers will note that this project does not use JavaScript at
+all. The kind folks at Waveshare provided a Python library to drive the display
+and I'm not petting enough to wrap a whole bunch of slow text, shape, and image
+drawing routines in JavaScript for the sake it.
+
+I actually really enjoy using Python, but rarely need to. Indeed, the first
+version of
+[node-microservies](https://github.com/c-d-lewis/node-microservices) was a
+single-file Python script that monitored weather and rail delays. Things seem
+to have come full circle...
+
+So, this is a good opportunity to dust my basic Python off and maybe learn a few
+more new things in the process.
+
+## Testing
+
+It's slow to continuously <code>rsync</code> or <code>git push</code> changes
+and wait for fetch and display refresh, so I implemented a compatibility layer
+to allow testing on non-ARM devices. If run on a Mac, for instance, the display
+image rendered is saved to a file for easy inspection. Starting and stopping
+the display is also taken care of:
 
 <!-- language="python" -->
 <pre><div class="code-block">
+RUNNING_ON_PI = 'arm' in platform.machine()
+
 # Initialise the display
 def init_display():
   if RUNNING_ON_PI:
     epd.init()
   else:
     print('[TEST] epd.init()')
+
+# Handle updating the display
+def update_display(image):
+  if RUNNING_ON_PI:
+    epd.display(epd.getbuffer(image))
+  else:
+    image.save('render.png')
+    print('[TEST] epd.display()')
+
+# Handle sleeping the display
+def sleep_display():
+  if RUNNING_ON_PI:
+    epd.sleep()
+  else:
+    print('[TEST] epd.sleep()')
 </div></pre>
 
 ## Conclusion

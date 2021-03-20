@@ -44,23 +44,23 @@
     },
     {
       "type": "paragraph",
-      "text": "- A Node.js Express-based game server with a REST API that allows clients to open game rooms, register players, etc"
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>A Node.js Express-based game server with a REST API that allows clients to open game rooms, register players, etc</td>\n              </tr>\n            </table>"
     },
     {
       "type": "paragraph",
-      "text": "- A React-based client that polls game state from the game server, allowing players to join rooms, place tiles, etc."
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>A React-based client that polls game state from the game server, allowing players to join rooms, place tiles, etc.</td>\n              </tr>\n            </table>"
     },
     {
       "type": "paragraph",
-      "text": "- Bot players that attempt to play the game and defeat runs of multiple tiles."
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Bot players that attempt to play the game and defeat runs of multiple tiles.</td>\n              </tr>\n            </table>"
     },
     {
       "type": "paragraph",
-      "text": "- Team colors for team-based victories and strategies."
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Team colors for team-based victories and strategies.</td>\n              </tr>\n            </table>"
     },
     {
       "type": "paragraph",
-      "text": "- Similar infrastructure to this blog (S3 website + CloudFront) for cloud deployment."
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Similar infrastructure to this blog (S3 website + CloudFront) for cloud deployment.</td>\n              </tr>\n            </table>"
     },
     {
       "type": "header",

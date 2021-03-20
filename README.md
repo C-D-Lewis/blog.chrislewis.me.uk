@@ -27,6 +27,8 @@ later converted into JSON objects that can be rendered as components:
 
 * Links are converted to anchors.
 
+* Lines starting with '- ' are converted to bullet lists using tables.
+
 
 ## Building the blog
 

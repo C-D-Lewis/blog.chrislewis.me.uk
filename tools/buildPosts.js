@@ -18,7 +18,14 @@ const JAVASCRIPT_BLUEWORDS = [
 const DOCKERFILE_KEYWORDS = [
   'FROM', 'RUN', 'WORKDIR', 'ENV', 'ARG', 'ENTRYPOINT', 'COPY',
 ];
+const PYTHON_KEYWORDS = [
+  'if ', ' else', ' = '
+];
+const PYTHON_BLUEWORDS = [
+  'def ',
+];
 const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']'];
+const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':'];
 const STRING_DELIMITERS = ['"', '\'', '`'];
 
 let numRendered = 0;
@@ -42,6 +49,18 @@ const transformParagraph = (para) => {
     para = para.substring(0, labelStart)
      + `<a class="link" target="_blank" href="${location}">${label}</a>`
      + para.substring(locationEnd + 1);
+  }
+
+  // Lists
+  if (para.startsWith('- ')) {
+    const [, text] = para.split('- ');
+    
+    return `<table>
+              <tr>
+                <td style="padding-right:10px">•</td>
+                <td>${text}</td>
+              </tr>
+            </table>`;
   }
 
   return para;
@@ -69,10 +88,25 @@ const highlightStrings = (line) => {
     // Replace with classes
     strings.forEach((string) => {
       line = line.split(string).join(`<span class="string">${string}</span>`);
-    })
+    });
   });
 
   return line;
+};
+
+/**
+ * Format name and args for a Python 'def'
+ *
+ * @param {string} line - The line to process.
+ * @returns {string}
+ */
+const handlePythonDef = (line) => {
+  const [, rest] = line.split('def ');
+  const [name, args] = rest.split('(');
+  const [argStr] = args.split(')');
+  const argNames = argStr.split(',');
+
+  return `<span class="python-def">def </span>`
 };
 
 /**
@@ -157,6 +191,29 @@ const toHighlightedLine = (line, language) => {
 
     DOCKERFILE_KEYWORDS.forEach((keyword) => {
       line = line.split(keyword).join(`<span class="dockerfile-keyword">${keyword}</span>`);
+    });
+  }
+
+  // Python
+  else if (language.includes('python')) {
+    // Strings
+    line = highlightStrings(line);
+
+    // Code comments
+    if (line.trim().startsWith('#')) {
+      return `<span class="comment">${line}</span>`;
+    }
+
+    // For def, the token after is a function
+    if (line.includes('def ')) {
+      line = handlePythonDef(line);
+    }
+
+    PYTHON_KEYWORDS.forEach((keyword) => {
+      line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+    });
+    PYTHON_SYNTAX.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
     });
   }
 
