@@ -1,0 +1,118 @@
+{
+  "title": "Keeping Up To Date With E-Paper Frame",
+  "fileName": "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Frame.md",
+  "dateTime": "2021-03-20 17:11",
+  "tags": [
+    "Python",
+    "Integration",
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A project that caught my eye a long time ago was the\n<a class=\"link\" target=\"_blank\" href=\"https://magicmirror.builders/\">magic mirror</a> - using one-way mirror-like\nmaterial over an LCD panel extracted from a PC monitor to show white text and\nicons glowing over your reflection. Typical uses included weather, email, news,\nagenda, etc to view at a glance while getting dressed or while passing by."
+    },
+    {
+      "type": "paragraph",
+      "text": "I liked this project, except for two key aspects:"
+    },
+    {
+      "type": "paragraph",
+      "text": "1. Most solutions were either entirely pre-packaged, or required fiddling about\n   with sealed monitors units and their bespoke driver boards and large power\n   supplies."
+    },
+    {
+      "type": "paragraph",
+      "text": "2. I'm generally averse to looking at myself in the mirror beyond my morning\n   routine."
+    },
+    {
+      "type": "paragraph",
+      "text": "Then, a month or so ago I saw a twist on this idea that replaced the LCD display\nand one-way mirror material with an old friend - an e-paper display. The desire\nto make one of these became real when I saw a project that put the display\ninside a wooden picture frame - a housing and stand in one! They even hid the\nRaspberry pi (obligatory at this point) round the back on the fold out stand."
+    },
+    {
+      "type": "paragraph",
+      "text": "So I bought a 7.5 inch e-paper display (complete with driver HAT for Raspberry\nPi), a frame, and yet another Raspberry Pi Zero W and got to work. A few days\npixel-pushing and Googling how to do the simplest fetch/file/drawing tasks in\nPython the result is the imaginatively named\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/e-paper-frame\">e-paper frame</a>!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/03/e-paper-frame.jpg"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Features"
+    },
+    {
+      "type": "paragraph",
+      "text": "By default, the main widgets are as follows:"
+    },
+    {
+      "type": "paragraph",
+      "text": "- Date and time"
+    },
+    {
+      "type": "paragraph",
+      "text": "- Current weather conditions (icon, temperature, day high/low, chance of rain and current wind speed)."
+    },
+    {
+      "type": "paragraph",
+      "text": "- Icon and status of two UK rail companies I (usually) regularly use"
+    },
+    {
+      "type": "paragraph",
+      "text": "- Amount and daily change in Bitcoin and Ethereum cryptocurrencies, adjusted for the amount I actually own."
+    },
+    {
+      "type": "paragraph",
+      "text": "The remaining third of the display on the right is a set of pages that rotate\nonce a minute:"
+    },
+    {
+      "type": "paragraph",
+      "text": "- Five day weather forecast (icon, high/low, chance of rain, wind speed)"
+    },
+    {
+      "type": "paragraph",
+      "text": "- Five news stories from BBC News from a configurable category of news."
+    },
+    {
+      "type": "paragraph",
+      "text": "- The most recent tweet (name, icon, text, likes, replies, time) from a configurable Twitter account."
+    },
+    {
+      "type": "paragraph",
+      "text": "Here's another image showing the news in Technology today:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/03/e-paper-news.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "And the current most recent tweet from a chosen novely account\n(<a class=\"link\" target=\"_blank\" href=\"https://twitter.com/PicardTips\">@PicardTips</a>):"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/03/e-paper-picard.jpg"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Python?"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\n# Initialise the display\ndef init_display():\n  if RUNNING_ON_PI:\n    epd.init()\n  else:\n    print('[TEST] epd.init()')\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "Text"
+    }
+  ]
+}
