@@ -108,7 +108,7 @@
     {
       "type": "header",
       "level": 2,
-      "text": "Python?"
+      "text": "Python!?"
     },
     {
       "type": "paragraph",
@@ -125,6 +125,48 @@
     {
       "type": "header",
       "level": 2,
+      "text": "Overview"
+    },
+    {
+      "type": "paragraph",
+      "text": "The general structure of the project is a core loop that redraws the display\nonce per minute (on the minute), and updates all the widgets' data sources\nin a configurable interval, currently 15 minutes. "
+    },
+    {
+      "type": "paragraph",
+      "text": "Each widget has an <code>update_data()</code> function that implements this\nfetch and processing of new data and a <code>draw()</code> function that is\npassed the <code>Image</code> and <code>ImageDraw</code> from the PIL library\nto write it's information to the overall canvas."
+    },
+    {
+      "type": "paragraph",
+      "text": "Once this is done for all widgets, the finished rendered image is pushed to the\ndisplay, which takes about five seconds to fully refresh, which is acceptable\nfor a passive use-case such as this."
+    },
+    {
+      "type": "paragraph",
+      "text": "In addition, each widget file can make use of the many helper files for tasks\nsuch as accessing configuration, drawing helpers, drawing images, using fonts,\nand fetching text or JSON from the internet."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Configuration"
+    },
+    {
+      "type": "paragraph",
+      "text": "Most widgets require some configuration value or secrets to work, and these are\nread from a local <code>config.json</code> file, an example of which fields are\nused is included in the repository. These values are detailed in the project\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/e-paper-dashboard/blob/main/README.md#configuration\">README.md</a>\nfile, but include:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>API keys for Nomics and Darksky APIs.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Latitude and longitude for weather forecast fetching.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Amount of Bitcoin and Ethereum owned, so that the market rate value can be\n  adjusted to show a more relvant piece of information (usually a more tangible\n  amount lost than gained!)</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "header",
+      "level": 2,
       "text": "Testing"
     },
     {
@@ -133,7 +175,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\nRUNNING_ON_PI<span class=\"js-keyword\"> = </span><span class=\"string\">'arm'</span> in platform.machine<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Initialise the display</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">init_display</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\"></span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.init<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n    print<span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.init<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Handle updating the display</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">update_display</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\">image</span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.display<span class=\"js-syntax\">(</span>epd.getbuffer<span class=\"js-syntax\">(</span>image<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n    image.save<span class=\"js-syntax\">(</span><span class=\"string\">'render.png'</span><span class=\"js-syntax\">)</span>\n    print<span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.display<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Handle sleeping the display</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">sleep_display</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\"></span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.sleep<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n    print<span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.sleep<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n</div></pre>"
+      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\nRUNNING_ON_PI<span class=\"js-keyword\"> = </span><span class=\"string\">'arm'</span> in platform.machine<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Initialise the display</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">init_display</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\"></span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.init<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n   <span class=\"python-green\"> print</span><span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.init<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Handle updating the display</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">update_display</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\">image</span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.display<span class=\"js-syntax\">(</span>epd.getbuffer<span class=\"js-syntax\">(</span>image<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n    image.save<span class=\"js-syntax\">(</span><span class=\"string\">'render.png'</span><span class=\"js-syntax\">)</span>\n   <span class=\"python-green\"> print</span><span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.display<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Handle sleeping the display</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">sleep_display</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\"></span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.sleep<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n   <span class=\"python-green\"> print</span><span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.sleep<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n</div></pre>"
     },
     {
       "type": "header",
@@ -142,7 +184,16 @@
     },
     {
       "type": "paragraph",
-      "text": "Text"
+      "text": "So there it is - idea realized in a fairly nicely presented and useful\nat-a-glance final result. And of course it can be adjusted in the future - the\nconcept of paginating the right hand side allows much more to be added in the\nfuture with the same amount of real estage."
+    },
+    {
+      "type": "paragraph",
+      "text": "Check out the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/e-paper-dashboard\">project repository</a> for all the\ncode and documentation in case you want to run it yourself."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/03/e-paper-hello.jpg"
     }
   ]
 }

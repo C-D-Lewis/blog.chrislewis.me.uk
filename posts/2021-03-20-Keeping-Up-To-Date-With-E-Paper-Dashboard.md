@@ -70,7 +70,7 @@ organised:
 
 ![](assets/media/2021/03/e-paper-reverse.jpg)
 
-## Python?
+## Python!?
 
 Yes, keen-eyed readers will note that this project does not use JavaScript at
 all. The kind folks at Waveshare provided a Python library to drive the display
@@ -85,6 +85,41 @@ to have come full circle...
 
 So, this is a good opportunity to dust my basic Python off and maybe learn a few
 more new things in the process.
+
+## Overview
+
+The general structure of the project is a core loop that redraws the display
+once per minute (on the minute), and updates all the widgets' data sources
+in a configurable interval, currently 15 minutes. 
+
+Each widget has an <code>update_data()</code> function that implements this
+fetch and processing of new data and a <code>draw()</code> function that is
+passed the <code>Image</code> and <code>ImageDraw</code> from the PIL library
+to write it's information to the overall canvas.
+
+Once this is done for all widgets, the finished rendered image is pushed to the
+display, which takes about five seconds to fully refresh, which is acceptable
+for a passive use-case such as this.
+
+In addition, each widget file can make use of the many helper files for tasks
+such as accessing configuration, drawing helpers, drawing images, using fonts,
+and fetching text or JSON from the internet.
+
+## Configuration
+
+Most widgets require some configuration value or secrets to work, and these are
+read from a local <code>config.json</code> file, an example of which fields are
+used is included in the repository. These values are detailed in the project
+[README.md](https://github.com/C-D-Lewis/e-paper-dashboard/blob/main/README.md#configuration)
+file, but include:
+
+- API keys for Nomics and Darksky APIs.
+
+- Latitude and longitude for weather forecast fetching.
+
+- Amount of Bitcoin and Ethereum owned, so that the market rate value can be
+  adjusted to show a more relvant piece of information (usually a more tangible
+  amount lost than gained!)
 
 ## Testing
 
@@ -123,4 +158,13 @@ def sleep_display():
 
 ## Conclusion
 
-Text
+So there it is - idea realized in a fairly nicely presented and useful
+at-a-glance final result. And of course it can be adjusted in the future - the
+concept of paginating the right hand side allows much more to be added in the
+future with the same amount of real estage.
+
+Check out the
+[project repository](https://github.com/C-D-Lewis/e-paper-dashboard) for all the
+code and documentation in case you want to run it yourself.
+
+![](assets/media/2021/03/e-paper-hello.jpg)

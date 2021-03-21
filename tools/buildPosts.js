@@ -21,8 +21,8 @@ const DOCKERFILE_KEYWORDS = [
 const PYTHON_KEYWORDS = [
   'if ', ' else', ' = '
 ];
-const PYTHON_BLUEWORDS = [
-  'def ',
+const PYTHON_GREENWORDS = [
+  ' print',
 ];
 const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']'];
 const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':'];
@@ -223,6 +223,9 @@ const toHighlightedLine = (line, language) => {
     });
     PYTHON_SYNTAX.forEach((syntax) => {
       line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
+    PYTHON_GREENWORDS.forEach((greenword) => {
+      line = line.split(greenword).join(`<span class="python-green">${greenword}</span>`);
     });
   }
 
