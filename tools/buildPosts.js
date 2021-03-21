@@ -106,7 +106,16 @@ const handlePythonDef = (line) => {
   const [argStr] = args.split(')');
   const argNames = argStr.split(',');
 
-  return `<span class="python-def">def </span>`
+  let output = `<span class="python-blue">def </span><span class="python-green">${name}</span><span class="js-syntax">(</span>`;
+  argNames.forEach((arg, i) => {
+    output += `<span class="python-orange">${arg}</span>`;
+
+    if (i != argNames.length - 1) {
+      output += '<span class="js-syntax">,</span>';
+    }
+  });
+  output += '<span class="js-syntax">):</span>';
+  return output;
 };
 
 /**

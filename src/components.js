@@ -81,7 +81,7 @@ const SiteHeader = () =>
  *
  * @returns {HTMLElement}
  */
-const SiteTitleWord = ({ text, color, marginLeft = '10px' }) =>
+const SiteTitleWord = ({ text, color, marginLeft = '8px' }) =>
   DOM.create('h2', {
     display: 'block',
     color,

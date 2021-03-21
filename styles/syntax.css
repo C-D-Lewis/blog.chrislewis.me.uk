@@ -29,6 +29,14 @@
   font-weight: bold;
 }
 
-.python-def {
+.python-blue {
   color: rgb(69, 195, 216);
+}
+
+.python-green {
+  color: rgb(123, 216, 143);
+}
+
+.python-orange {
+  color: rgb(253, 147, 83);
 }
