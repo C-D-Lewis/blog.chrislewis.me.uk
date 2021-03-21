@@ -1,4 +1,4 @@
-Keeping Up To Date With E-Paper Frame
+Keeping Up To Date With E-Paper Dashboard
 2021-03-20 17:11
 Python,Integration,Raspberry Pi
 ---
@@ -28,7 +28,7 @@ So I bought a 7.5 inch e-paper display (complete with driver HAT for Raspberry
 Pi), a frame, and yet another Raspberry Pi Zero W and got to work. A few days
 pixel-pushing and Googling how to do the simplest fetch/file/drawing tasks in
 Python the result is the imaginatively named
-[e-paper frame](https://github.com/C-D-Lewis/e-paper-frame)!
+[e-paper-dashboard](https://github.com/C-D-Lewis/e-paper-dashboard)!
 
 ![](assets/media/2021/03/e-paper-frame.jpg)
 
@@ -74,12 +74,12 @@ organised:
 
 Yes, keen-eyed readers will note that this project does not use JavaScript at
 all. The kind folks at Waveshare provided a Python library to drive the display
-and I'm not petting enough to wrap a whole bunch of slow text, shape, and image
+and I'm not petty enough to wrap a whole bunch of slow text, shape, and image
 drawing routines in JavaScript for the sake it.
 
 I actually really enjoy using Python, but rarely need to. Indeed, the first
 version of
-[node-microservies](https://github.com/c-d-lewis/node-microservices) was a
+[node-microservices](https://github.com/c-d-lewis/node-microservices) was a
 single-file Python script that monitored weather and rail delays. Things seem
 to have come full circle...
 
