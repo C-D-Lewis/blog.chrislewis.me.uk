@@ -1,0 +1,148 @@
+{
+  "title": "Keeping Up To Date With E-Paper Dashboard",
+  "fileName": "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.md",
+  "dateTime": "2021-03-20 17:11",
+  "tags": [
+    "Python",
+    "Integration",
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A project that caught my eye a long time ago was the\n<a class=\"link\" target=\"_blank\" href=\"https://magicmirror.builders/\">magic mirror</a> - using one-way mirror-like\nmaterial over an LCD panel extracted from a PC monitor to show white text and\nicons glowing over your reflection. Typical uses included weather, email, news,\nagenda, etc to view at a glance while getting dressed or while passing by."
+    },
+    {
+      "type": "paragraph",
+      "text": "I liked this project, except for two key aspects:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Most solutions were either entirely pre-packaged, or required fiddling about\n  with sealed monitors units and their bespoke driver boards and large power\n  supplies.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>I'm generally averse to looking at myself in the mirror beyond my morning\n  routine.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Then, a month or so ago I saw a twist on this idea that replaced the LCD display\nand one-way mirror material with an old friend - an e-paper display. The desire\nto make one of these became real when I saw a project that put the display\ninside a wooden picture frame - a housing and stand in one! They even hid the\nRaspberry pi (obligatory at this point) round the back on the fold out stand."
+    },
+    {
+      "type": "paragraph",
+      "text": "So I bought a 7.5 inch e-paper display (complete with driver HAT for Raspberry\nPi), a frame, and yet another Raspberry Pi Zero W and got to work. A few days\npixel-pushing and Googling how to do the simplest fetch/file/drawing tasks in\nPython the result is the imaginatively named\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/e-paper-dashboard\">e-paper-dashboard</a>!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/03/e-paper-frame.jpg"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Features"
+    },
+    {
+      "type": "paragraph",
+      "text": "By default, the main widgets are as follows:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Date and time</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Current weather conditions (icon, temperature, day high/low, chance of rain\n  and current wind speed).</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Icon and status of two UK rail companies I (usually) regularly use</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Amount and daily change in Bitcoin and Ethereum cryptocurrencies, adjusted for\n  the amount I actually own.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The remaining third of the display on the right is a set of pages that rotate\nonce a minute, progress through the set denoted with a line of paging dots:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Five day weather forecast (icon, high/low, chance of rain, wind speed)</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>Five news stories from BBC News from a configurable category of news.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>The most recent tweet (name, icon, text, likes, replies, time) from a\n  configurable Twitter account.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here's another image showing the news in Technology today:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/03/e-paper-news.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "And the current most recent tweet from a chosen novely account\n(<a class=\"link\" target=\"_blank\" href=\"https://twitter.com/PicardTips\">@PicardTips</a>):"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/03/e-paper-picard.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "And of course, the reverse side is less glamorous, but still fairly neatly\norganised:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/03/e-paper-reverse.jpg"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Python?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Yes, keen-eyed readers will note that this project does not use JavaScript at\nall. The kind folks at Waveshare provided a Python library to drive the display\nand I'm not petty enough to wrap a whole bunch of slow text, shape, and image\ndrawing routines in JavaScript for the sake it."
+    },
+    {
+      "type": "paragraph",
+      "text": "I actually really enjoy using Python, but rarely need to. Indeed, the first\nversion of\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/node-microservices\">node-microservices</a> was a\nsingle-file Python script that monitored weather and rail delays. Things seem\nto have come full circle..."
+    },
+    {
+      "type": "paragraph",
+      "text": "So, this is a good opportunity to dust my basic Python off and maybe learn a few\nmore new things in the process."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Testing"
+    },
+    {
+      "type": "paragraph",
+      "text": "It's slow to continuously <code>rsync</code> or <code>git push</code> changes\nand wait for fetch and display refresh, so I implemented a compatibility layer\nto allow testing on non-ARM devices. If run on a Mac, for instance, the display\nimage rendered is saved to a file for easy inspection. Starting and stopping\nthe display is also taken care of:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"python\" -->\n<pre><div class=\"code-block\">\nRUNNING_ON_PI<span class=\"js-keyword\"> = </span><span class=\"string\">'arm'</span> in platform.machine<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Initialise the display</span>\n<span class=\"python-def\">def </span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.init<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n    print<span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.init<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Handle updating the display</span>\n<span class=\"python-def\">def </span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.display<span class=\"js-syntax\">(</span>epd.getbuffer<span class=\"js-syntax\">(</span>image<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n    image.save<span class=\"js-syntax\">(</span><span class=\"string\">'render.png'</span><span class=\"js-syntax\">)</span>\n    print<span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.display<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Handle sleeping the display</span>\n<span class=\"python-def\">def </span>\n  <span class=\"js-keyword\">if </span>RUNNING_ON_PI<span class=\"js-syntax\">:</span>\n    epd.sleep<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n    print<span class=\"js-syntax\">(</span><span class=\"string\">'<span class=\"js-syntax\">[</span>TEST<span class=\"js-syntax\">]</span> epd.sleep<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>'</span><span class=\"js-syntax\">)</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "Text"
+    }
+  ]
+}
