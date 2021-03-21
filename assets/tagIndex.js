@@ -230,8 +230,7 @@ window.tagIndex = {
     "2020-10-04-Deploying-With-Terraform.json",
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
-    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
-    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Frame.json"
+    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json"
   ],
   "Raspberry Pi": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -247,8 +246,7 @@ window.tagIndex = {
     "2017-12-24-Simpler-Inter-service-Communication-with-MBus.json",
     "2018-02-17-Tests-With-Extra-Sweetness.json",
     "2020-09-27-Integrated-Pi-Enclosure.json",
-    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
-    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Frame.json"
+    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json"
   ],
   "C++": [
     "2013-10-13-Update.json",
@@ -314,7 +312,6 @@ window.tagIndex = {
     "2020-08-22-Creating-a-Browser-based-Party-Game.json"
   ],
   "Python": [
-    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
-    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Frame.json"
+    "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json"
   ]
 }
