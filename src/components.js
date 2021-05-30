@@ -166,7 +166,7 @@ const LeftColumnHeader = ({ text, isTopSection = false, isCenterSection = false 
     fontSize: '1.2rem',
     fontWeight: 'bold',
     marginTop: '10px',
-    paddingTop: isTopSection ? '10px' : '30px',
+    paddingTop: isTopSection ? '10px' : '15px',
     cursor: 'default',
     textAlign: isCenterSection ? 'center' : 'initial',
   }, {}, [text]);
@@ -225,7 +225,7 @@ const CentralColumn = () =>
  *
  * @returns {HTMLElement}
  */
-const SocialPill = ({ icon, text, backgroundColor, href }) => {
+const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
   const img = DOM.create('img', {
     display: 'block',
     width: '24px',
@@ -240,16 +240,20 @@ const SocialPill = ({ icon, text, backgroundColor, href }) => {
     fontSize: '0.9rem',
     marginLeft: '5px',
     display: 'none',
+    fontWeight: 'bold',
   }, {}, [text]);
   const a = DOM.create('a', {
     display: 'flex',
     padding: '5px 10px',
+    width: '24px',
     borderRadius: '55px',
     margin: '5px',
     backgroundColor,
     alignItems: 'center',
     textDecoration: 'none',
     minHeight: '25px',
+    transition: '0.3s',
+    overflow: 'hidden',
   }, {
     href,
     target: '_blank',
@@ -257,6 +261,7 @@ const SocialPill = ({ icon, text, backgroundColor, href }) => {
 
   DOM.onHover(a, (isHovered) => {
     span.style.display = isHovered ? 'initial' : 'none';
+    a.style.width = isHovered ? `${maxWidth}px` : '24px';
   });
   return a;
 };
@@ -278,25 +283,29 @@ const SiteSocials = () =>
       icon: 'github.png',
       text: 'GitHub',
       backgroundColor: 'black',
-      href: 'https://github.com/C-D-Lewis'
+      href: 'https://github.com/C-D-Lewis',
+      maxWidth: 80,
     }),
     SocialPill({
       icon: 'twitter.png',
       text: 'Twitter',
       backgroundColor: 'rgb(29, 142, 238)',
-      href: 'https://twitter.com/Chris_DL'
+      href: 'https://twitter.com/Chris_DL',
+      maxWidth: 80,
     }),
     SocialPill({
       icon: 'linkedin.png',
       text: 'LinkedIn',
       backgroundColor: 'rgb(2, 76, 184)',
       href: 'https://www.linkedin.com/in/chris-lewis-030503117',
+      maxWidth: 90,
     }),
     SocialPill({
       icon: 'rss.png',
       text: 'RSS',
       backgroundColor: 'rgb(247, 171, 24)',
       href: '/feed/rss.xml',
+      maxWidth: 60,
     }),
   ]);
 
