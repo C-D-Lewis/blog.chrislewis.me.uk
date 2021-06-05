@@ -142,19 +142,21 @@ pitch, and duration.
 <pre><div class="code-block">
 // GENERATED WITH compile.py
 
-#define NUM_NOTES 2880
+#define NUM_NOTES 5155
 
 // Order is track, pitch, on_at, off_at
 static const float* NOTE_TABLE[] = {
-  (float[]){ 0, 35, 0.0, 0.25 },
-  (float[]){ 1, 35, 0.0, 0.25 },
-  (float[]){ 0, 35, 0.25, 0.5 },
-  (float[]){ 1, 35, 0.25, 0.5 },
-  (float[]){ 0, 35, 0.5, 0.75 },
-  (float[]){ 1, 35, 0.5, 0.75 },
-  (float[]){ 0, 35, 0.75, 1.0 },
-  (float[]){ 1, 35, 0.75, 1.0 },
-  (float[]){ 0, 35, 1.0, 1.25 },
+  (float[]){ 0, 60, 0.0, 1.86046 },
+  (float[]){ 0, 63, 0.11628, 1.74418 },
+  (float[]){ 0, 67, 0.23256, 1.62791 },
+  (float[]){ 0, 72, 0.34884, 1.51163 },
+  (float[]){ 0, 75, 0.46512, 1.39535 },
+  (float[]){ 0, 79, 0.58139, 0.81395 },
+  (float[]){ 0, 84, 0.69767, 0.93023 },
+  (float[]){ 0, 87, 0.81395, 1.04651 },
+  (float[]){ 0, 91, 0.93023, 1.16279 },
+  (float[]){ 0, 87, 1.04651, 1.27907 },
+  (float[]){ 0, 84, 1.16279, 2.55814 },
 
   // and so on...
 </div></pre>
