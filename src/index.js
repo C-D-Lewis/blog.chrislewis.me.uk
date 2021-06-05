@@ -106,10 +106,6 @@ const buildPageLayout = () => {
   // Other stuff
   DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Other Stuff' }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
-    text: 'Pixels With Friends',
-    onClick: () => (window.open('https://pixels.chrislewis.me.uk', '_blank')),
-  }));
-  DOM.addChild(leftColumn, Components.LeftColumnItem({
     text: 'FitBit Apps',
     onClick: () => (window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank')),
   }));
@@ -118,16 +114,20 @@ const buildPageLayout = () => {
     onClick: () => (window.open('https://github.com/C-D-Lewis/pebble', '_blank')),
   }));
   DOM.addChild(leftColumn, Components.LeftColumnItem({
+    text: 'Pixels With Friends',
+    onClick: () => (window.open('https://pixels.chrislewis.me.uk', '_blank')),
+  }));
+  DOM.addChild(leftColumn, Components.LeftColumnItem({
     text: 'Old WordPress Blog',
     onClick: () => (window.open('https://ninedof.wordpress.com/', '_blank')),
   }));
 
   // Tags list as pills
-  DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Tags' }));
+  DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Posts by tag' }));
   DOM.addChild(leftColumn, Components.TagCloud({ tags: Object.keys(window.tagIndex) }));
 
   // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
-  const archiveHeader = Components.LeftColumnHeader({ text: 'Archive' });
+  const archiveHeader = Components.LeftColumnHeader({ text: 'Posts by month' });
   DOM.addChild(leftColumn, archiveHeader);
   postList = Components.PostList();
   DOM.addChild(centralColumn, postList);
@@ -155,7 +155,12 @@ const showPostsFrom = async (year, month) => {
     .sort(descendingPostSort)
     .map(({ file }) => fetch(file).then(res => res.json()));
   const models = await Promise.all(promises);
-  models.forEach(model => DOM.addChild(postList, Components.Post({ model })));
+  models.forEach((model) => {
+    DOM.addChild(
+      postList,
+      Components.Post({ model, startExpanded: posts.length === 1 })
+    );
+  });
 
   Events.post('selectionUpdated');
 };
@@ -228,7 +233,12 @@ window.showTagPosts = async (tag) => {
     .sort(descendingDateSort)
     .map(fileName => fetch(`assets/rendered/${fileName}`).then(res => res.json()));
   const models = await Promise.all(promises);
-  models.forEach(model => DOM.addChild(postList, Components.Post({ model })));
+  models.forEach((model) => {
+    DOM.addChild(
+      postList,
+      Components.Post({ model, startExpanded: models.length === 1 })
+    );
+  });
 
   Events.post('selectionUpdated');
 };
