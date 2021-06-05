@@ -588,7 +588,7 @@ const Post = ({ model, startExpanded = true }) =>
       overflow: 'hidden',
       padding: DOM.isMobile () ? '5px' : '15px',
       margin: '25px 0px',
-      minWidth: DOM.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
+      minWidth: DOM.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
       boxShadow: BOX_SHADOW_MATERIAL,
     }, {}, [
       PostTitle({ model, startExpanded }),
