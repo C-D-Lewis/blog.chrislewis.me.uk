@@ -24,7 +24,7 @@ a Christmas community server:
 
 After arranging a scene in Chunky, the output is a JSON file containing all the
 parameters that set up the shot including all the factors mentioned above. You
-can run the <code>ChunkyLancher.jar</code> file with many parameters to perform
+can run the <code>ChunkyLauncher.jar</code> file with many parameters to perform
 the same rendering from a terminal as in the Chunky GUI. The number of samples
 per pixel (iterations) and the name of the scene are the main parameters:
 

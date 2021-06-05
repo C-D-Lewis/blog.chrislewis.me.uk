@@ -2,9 +2,7 @@
 
 set -eu
 
-COMMIT=$(git rev-parse --short HEAD)
 BUCKET=s3://blog.chrislewis.me.uk
-PROJECT_NAME=blog
 SITE_URL=blog.chrislewis.me.uk
 
 export AWS_DEFAULT_REGION=us-east-1

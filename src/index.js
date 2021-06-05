@@ -174,15 +174,6 @@ window.showSinglePost = async (fileName) => {
   postList.innerHTML = '';
   history.replaceState(null, null, `?post=${fileName}`);
 
-  DOM.addChild(
-    postList,
-    Components.LeftColumnHeader({
-      text: 'Selected post',
-      isTopSection: true,
-      isCenterSection: true,
-    }),
-  );
-
   // Find the post with this fileName
   let post;
   Object.entries(window.postHistory).forEach(([year, yearData]) => {

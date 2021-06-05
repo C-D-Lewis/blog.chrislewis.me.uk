@@ -856,6 +856,13 @@ window.postHistory = {
         "file": "assets/rendered/2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
         "fileName": "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard"
       }
+    ],
+    "06": [
+      {
+        "title": "Making MIDI Music With Raspberry Pi Pico",
+        "file": "assets/rendered/2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
+        "fileName": "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico"
+      }
     ]
   }
 }

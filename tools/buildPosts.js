@@ -19,14 +19,19 @@ const DOCKERFILE_KEYWORDS = [
   'FROM', 'RUN', 'WORKDIR', 'ENV', 'ARG', 'ENTRYPOINT', 'COPY',
 ];
 const PYTHON_KEYWORDS = [
-  'if ', ' else', ' = '
+  'if ', ' else', ' = ', 'import ', ' not ', ' in ', 'for ',
 ];
 const PYTHON_GREENWORDS = [
   ' print',
 ];
 const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']'];
-const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':'];
+const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}'];
 const STRING_DELIMITERS = ['"', '\'', '`'];
+const C_KEYWORDS = [
+  'define', 'static', 'const', ' = ', 'return ', '->', 'if ', 'while ', '+= ', '&',
+];
+const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';'];
+const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void '];
 
 let numRendered = 0;
 
@@ -226,6 +231,27 @@ const toHighlightedLine = (line, language) => {
     });
     PYTHON_GREENWORDS.forEach((greenword) => {
       line = line.split(greenword).join(`<span class="python-green">${greenword}</span>`);
+    });
+  }
+
+  // C/C++
+  else if (['c', 'c++'].includes(language)) {
+    // Strings
+    line = highlightStrings(line);
+
+    // Code comments
+    if (['//', '/**', '* ', '*/'].find(p => line.trim().startsWith(p))) {
+      return `<span class="comment">${line}</span>`;
+    }
+
+    C_KEYWORDS.forEach((keyword) => {
+      line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+    });
+    C_SYNTAX.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
+    C_BLUEWORDS.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-blueword">${syntax}</span>`);
     });
   }
 
