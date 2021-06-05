@@ -97,11 +97,12 @@ const SiteTitleWord = ({ text, color, marginLeft = '8px' }) =>
  *
  * @returns {HTMLElement}
  */
-const SiteTitle = () =>
-  DOM.create('div', {
+const SiteTitle = () => {
+  const div = DOM.create('div', {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    cursor: 'pointer',
   }, {}, [
     SiteTitleWord({
       text: '// A blog by Chris Lewis',
@@ -121,6 +122,16 @@ const SiteTitle = () =>
       SiteTitleWord({ text: '}', color: Theme.syntax.comment }),
     ]),
   ]);
+
+  div.addEventListener('click', () => {
+    window.location.href = '/';
+  });
+  DOM.onHover(div, (isHovered) => {
+    div.style.filter = `brightness(${isHovered ? '1.2' : '1'})`;
+  });
+
+  return div;
+};
 
 /**
  * ContentContainer component.
@@ -176,7 +187,7 @@ const LeftColumnHeader = ({ text, isTopSection = false, isCenterSection = false 
  *
  * @returns {HTMLElement}
  */
-const LeftColumnItem = ({ text, onClick = {}, fadeIn, getIsSelected = () => {} }) => {
+const LeftColumnItem = ({ text, onClick = {}, getIsSelected = () => {} }) => {
   const a = DOM.create('a', {
     color: '#ccc',
     display: 'block',
@@ -198,8 +209,7 @@ const LeftColumnItem = ({ text, onClick = {}, fadeIn, getIsSelected = () => {} }
     a.style.fontWeight = isSelected ? 'bold' : 'initial';
   });
 
-  const fader = Fader([a]);
-  return fadeIn ? fader : a;
+  return a;
 };
 
 /**
@@ -336,15 +346,14 @@ const PostTitle = ({ model, startExpanded = true }) => {
     height: '38px',
     marginRight: '5px',
     paddingTop: '3px',
-    transform: 'rotateZ(90deg)',
+    transform: startExpanded ? 'rotateZ(90deg)' : 'initial',
     transition: '0.4s',
+    cursor: 'pointer',
   }, {
     src: 'assets/icons/chevron-right.png',
   });
 
-  // Start expanded?
-  img.style.transform = startExpanded ? 'rotateZ(90deg)' : 'initial';
-
+  // Click to toggle expanded state
   let expanded = startExpanded;
   img.addEventListener('click', () => {
     expanded = !expanded;
@@ -353,22 +362,22 @@ const PostTitle = ({ model, startExpanded = true }) => {
     Events.post('postExpanded', { fileName, expanded });
   });
 
+  const h1 = DOM.create('h1', {
+    color: 'black',
+    fontFamily: 'sans-serif',
+    fontSize: DOM.isMobile() ? '1.2rem': '1.5rem',
+    fontWeight: 'bold',
+    marginTop: '10px',
+    marginBottom: '5px',
+    border: 'none',
+    cursor: 'default',
+  }, {}, [title]);
+
   const container = DOM.create('div', {
     display: 'flex',
     alignItems: 'center',
-  }, {}, [
-    img,
-    DOM.create('h1', {
-      color: 'black',
-      fontFamily: 'sans-serif',
-      fontSize: DOM.isMobile() ? '1.2rem': '1.5rem',
-      fontWeight: 'bold',
-      marginTop: '10px',
-      marginBottom: '5px',
-      border: 'none',
-      cursor: 'default',
-    }, {}, [title]),
-  ]);
+  }, {}, [img, h1]);
+
   const linkAnchor = DOM.create('span', {
     color: 'lightgrey',
     fontSize: '1.4rem',
@@ -384,7 +393,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
     window.showSinglePost(fileName.split('.')[0]);
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
   });
-  DOM.addChild(container, linkAnchor);
+  DOM.addChild(h1, linkAnchor);
 
   return container;
 };
@@ -418,7 +427,7 @@ const PostTagPill = ({ tag, quantity }) => {
   ]);
 
   DOM.onHover(div, (isHovered) => {
-    div.style.filter = `brightness(${isHovered ? '0.8' : '1'})`;
+    div.style.filter = `brightness(${isHovered ? '1.1' : '1'})`;
   });
   div.addEventListener('click', () => {
     window.showTagPosts(tag);
@@ -444,22 +453,28 @@ const PostTagsList = ({ tags }) =>
  *
  * @returns {HTMLElement}
  */
-const PostDateAndTags = ({ dateTime, tags }) =>
-  DOM.create('div', {
-    display: 'flex',
-    alignItems: 'center',
-    paddingBottom: '10px',
-  }, {}, [
+const PostDateAndTags = ({ dateTime, tags }) => {
+  const [date] = dateTime.split(' ');
+
+  return (
     DOM.create('div', {
-      color: '#999',
-      fontFamily: 'sans-serif',
-      fontSize: '1rem',
-      marginLeft: '44px',
-      cursor: 'default',
-      paddingTop: '3px',
-    }, {}, [DOM.isMobile() ? dateTime.split(' ')[0] : `Posted ${dateTime.split(' ')[0]}`]),
-    PostTagsList({ tags }),
-  ]);
+      display: 'flex',
+      alignItems: 'center',
+      paddingBottom: '10px',
+    }, {}, [
+      DOM.create('div', {
+        color: '#999',
+        fontFamily: 'sans-serif',
+        fontSize: '1rem',
+        marginLeft: '44px',
+        cursor: 'default',
+        paddingTop: '3px',
+        minWidth: '90px',
+      }, {}, [DOM.isMobile() ? date : `Posted ${date}`]),
+      PostTagsList({ tags }),
+    ])
+  );
+};
 
 /**
  * PostBody component.
@@ -472,11 +487,12 @@ const PostBody = ({ model, startExpanded = true }) => {
     color: 'black',
     fontFamily: 'sans-serif',
     fontSize: '1rem',
-    marginTop: '10px',
     marginLeft: DOM.isMobile() ? '10px' : '39px',
+    marginRight: DOM.isMobile() ? '5px' : '35px',
     padding: DOM.isMobile() ? '0px' : '5px',
-    paddingRight: DOM.isMobile() ? '5px' : '35px',
+    paddingTop: '10px',
     backgroundColor: '#0000',
+    borderTop: 'solid 2px #4444',
   }, {}, createPostComponents(model.components));
 
   // Start expanded?
@@ -587,7 +603,7 @@ const Post = ({ model, startExpanded = true }) =>
       borderRadius: '5px',
       overflow: 'hidden',
       padding: DOM.isMobile () ? '5px' : '15px',
-      margin: '25px 0px',
+      margin: '25px 5px 5px 5px',
       minWidth: DOM.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
       boxShadow: BOX_SHADOW_MATERIAL,
     }, {}, [
