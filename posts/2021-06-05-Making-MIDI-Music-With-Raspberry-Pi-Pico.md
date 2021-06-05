@@ -7,12 +7,12 @@ Since some of the earlier years of YouTube, one of the coolest types of project
 I've seen is making music using unusual instruments. Typically these could be
 floppy disk drives or hard disk drives, which have one common ingredient - high
 precision stepper motors. These kinds of motors 'step' one eighth or sixteenth
-of an increment whenever a single pulse is issued to a driver board (since the
-motors have many wires for multiple sets of windings).
+of an increment whenever a single pulse signal is issued to a driver board
+(required since the motors have many wires for multiple sets of windings).
 
 As it happens, the frequency of these steps results in different overall speeds,
 but also different musical tones. After all, what are different musical notes
-except different frequencies. For example, a middle C is 262 Hz. More recently,
+except different frequencies? For example, a middle C is 262 Hz. More recently,
 I saw a few more modern projects that use only these motors and driver boards
 to produce music.
 
@@ -20,7 +20,7 @@ The common MIDI file format is just a set of notes, with
 pitch, instrument type, and duration of notes. The job of machines and musical
 instruments that play these files is to emulate those notes without a real
 physical instrument. Using stepper motors to do this translation of musical
-pitch to step frequency is just another example of sych musical synthesis.
+pitch to step frequency is just another example of such musical synthesis.
 
 This post will go into detail about compiling MIDI files to C++ headers and how
 the Pico controls the motors to sound musical notes, but keep reading for a
@@ -35,10 +35,11 @@ instrument that is powered by the new Raspberry Pi Pico - a slimmed down
 microcontroller-esque incarnation of the popular mini-computer that is closer
 to a single-program Arduino than a fully capable Linux PC system.
 
-In its role as a microcontroller it has a large number of digial and analog
+In its role as a microcontroller it has a large number of digital and analog
 input and output pins, which are perfect for issuing high-precision pulses
-to the A4988 stepper motors (designed for 3D Printer drivers, but suitable
-enough). It can be programmed in C, or micropython.
+to the A4988 stepper motor driver boards (designed for 3D Printer drivers, but
+suitable enough). It can be programmed in C, or micropython using the official
+[Raspberry Pi Pico SDKs](https://www.raspberrypi.org/documentation/rp2040/getting-started/).
 
 Combined with a sticky-back breadboard, a 9V socket and wall adapter, and
 minimalistic (to put it kindly) case 3D printed by my brother, it forms a

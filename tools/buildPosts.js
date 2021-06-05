@@ -19,7 +19,7 @@ const DOCKERFILE_KEYWORDS = [
   'FROM', 'RUN', 'WORKDIR', 'ENV', 'ARG', 'ENTRYPOINT', 'COPY',
 ];
 const PYTHON_KEYWORDS = [
-  'if ', ' else', ' = ', 'import ', ' not ', ' in ', 'for ',
+  'if ', ' else', ' = ', 'import ', 'not ', ' in ', 'for ',
 ];
 const PYTHON_GREENWORDS = [
   ' print',
@@ -28,7 +28,7 @@ const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']'];
 const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}'];
 const STRING_DELIMITERS = ['"', '\'', '`'];
 const C_KEYWORDS = [
-  'define', 'static', 'const', ' = ', 'return ', '->', 'if ', 'while ', '+= ', '&', ' else ',
+  'define', 'static', 'const', ' = ', 'return ', '->', 'if ', 'while ', '+= ', '&', ' else ', '== ',
 ];
 const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';'];
 const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void '];
