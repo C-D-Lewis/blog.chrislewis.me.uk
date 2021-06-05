@@ -12,7 +12,7 @@ const Theme = {
 };
 
 const MAX_WIDTH_DESKTOP = '800px';
-const MAX_WIDTH_MOBILE = '400px';
+const MAX_WIDTH_MOBILE = '390px';
 const BOX_SHADOW_MATERIAL = '2px 2px 3px 1px #5555';
 
 // Lazy load images since some tags are very large
