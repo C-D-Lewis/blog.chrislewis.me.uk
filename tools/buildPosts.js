@@ -28,7 +28,7 @@ const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']'];
 const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}'];
 const STRING_DELIMITERS = ['"', '\'', '`'];
 const C_KEYWORDS = [
-  'define', 'static', 'const', ' = ', 'return ', '->', 'if ', 'while ', '+= ', '&',
+  'define', 'static', 'const', ' = ', 'return ', '->', 'if ', 'while ', '+= ', '&', ' else ',
 ];
 const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';'];
 const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void '];
