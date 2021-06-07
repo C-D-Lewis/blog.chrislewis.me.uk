@@ -11,7 +11,7 @@ const Theme = {
   }
 };
 
-const MAX_WIDTH_DESKTOP = '800px';
+const MAX_WIDTH_DESKTOP = '790px';
 const MAX_WIDTH_MOBILE = '390px';
 const BOX_SHADOW_MATERIAL = '2px 2px 3px 1px #5555';
 
@@ -141,7 +141,7 @@ const SiteTitle = () => {
 const ContentContainer = () =>
   DOM.create('div', {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: DOM.isMobile() ? 'column' : 'row',
     flexWrap: 'wrap',
     width: '100%',
     margin: 0,
@@ -222,12 +222,16 @@ const CentralColumn = () =>
     flex: '1',
     display: 'flex',
     flexDirection: DOM.isMobile() ? 'column' : 'row',
-    // justifyContent: DOM.isMobile() ? 'initial' : 'center',
     minWidth: DOM.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
-    borderLeft: DOM.isMobile() ? 'initial' : `1px solid ${Theme.lightGrey}`,
+    maxWidth: '100vw',
     paddingLeft: DOM.isMobile() ? '0px' : '20px',
     backgroundColor: Theme.centralColumnBackground,
     paddingTop: '90px',
+
+    // Center on page
+    position: DOM.isMobile() ? 'initial' : 'absolute',
+    left: DOM.isMobile() ? 'initial' : '25%',
+    margin: 'auto',
   });
 
 /**
@@ -444,7 +448,9 @@ const PostTagPill = ({ tag, quantity }) => {
 const PostTagsList = ({ tags }) =>
   DOM.create('div', {
     display: 'flex',
-    marginLeft: '10px',
+    flexDirection: 'row',
+    marginLeft: DOM.isMobile() ? '40px': '10px',
+    marginTop: DOM.isMobile() ? '10px' : 'initial',
     flexWrap: 'wrap',
   }, {}, [...tags.map(tag => PostTagPill({ tag }))]);
 
@@ -459,14 +465,15 @@ const PostDateAndTags = ({ dateTime, tags }) => {
   return (
     DOM.create('div', {
       display: 'flex',
-      alignItems: 'center',
-      paddingBottom: '10px',
+      flexDirection: DOM.isMobile() ? 'column' : 'row',
+      alignItems: DOM.isMobile() ? 'start': 'center',
+      paddingBottom: '15px',
     }, {}, [
       DOM.create('div', {
-        color: '#999',
+        color: '#777',
         fontFamily: 'sans-serif',
         fontSize: '1rem',
-        marginLeft: '44px',
+        marginLeft: '42px',
         cursor: 'default',
         paddingTop: '3px',
         minWidth: '90px',
