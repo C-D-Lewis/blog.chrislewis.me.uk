@@ -37,7 +37,7 @@ of delusion and vanity I find very amusing, and can work in pretty much any
 context. If you're not acquainted with Dennis,
 [here's a fine introduction](https://www.youtube.com/watch?v=hbtg3ZNSzts).
 
-So, of course, the first step was to procure (read: spend a happy hour chucking
+So, of course, the first step was to procure (read: spend a happy hour chuckling
 at top ten quote lists, rundowns, gif blogs, and best-of videos) a list of
 fitting quotes for my own pet Golden God. But I only selected those that would
 suit a Dennis who is permanently enraged at everything he's seeing online, and

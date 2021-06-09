@@ -1,5 +1,5 @@
 a:hover {
-  color: #eee !important;
+  filter: brightness(1.3) !important;
 }
 
 .code-block {

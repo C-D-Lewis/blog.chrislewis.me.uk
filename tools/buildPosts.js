@@ -159,12 +159,14 @@ const toHighlightedLine = (line, language) => {
 
   // JavaScript
   else if (['js', 'javascript'].includes(language)) {
+    const trimmed = line.trim();
+
     // Code comments
     if (
-      line.trim().startsWith('//')
-      || line.includes('/**')
-      || line.includes(' * ')
-      || line.includes(' */')) {
+      trimmed.startsWith('//')
+      || trimmed.startsWith('/**')
+      || trimmed.startsWith('* ')
+      || trimmed.startsWith('*/')) {
       return `<span class="comment">${line}</span>`;
     }
     
