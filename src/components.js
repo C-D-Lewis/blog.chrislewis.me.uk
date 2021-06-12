@@ -545,7 +545,8 @@ const PostTagPill = ({ tag, quantity }) => {
     {
       display: 'flex',
       alignItems: 'center',
-      backgroundColor: Theme.syntax.function,
+      border: `solid 2px ${Theme.syntax.function}`,
+      backgroundColor: quantity ? 'none' : Theme.syntax.function,
       cursor: 'pointer',
       borderRadius: '20px',
       padding: '4px 8px',
@@ -559,7 +560,11 @@ const PostTagPill = ({ tag, quantity }) => {
   );
 
   DOM.onHover(container, (isHovered) => {
-    container.style.filter = `brightness(${isHovered ? '1.1' : '1'})`;
+    if (quantity) {
+      container.style.background = isHovered ? Theme.syntax.function : 'none';
+    } else {
+      container.style.filter = `brightness(${isHovered ? '1.1' : '1'})`;
+    }
   });
 
   container.addEventListener('click', () => {
