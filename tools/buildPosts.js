@@ -165,11 +165,11 @@ const toHighlightedLine = (line, language) => {
     if (
       trimmed.startsWith('//')
       || trimmed.startsWith('/**')
-      || trimmed.startsWith('* ')
+      || trimmed.startsWith('*')
       || trimmed.startsWith('*/')) {
       return `<span class="comment">${line}</span>`;
     }
-    
+
     // Strings
     line = highlightStrings(line);
 
