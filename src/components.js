@@ -737,7 +737,7 @@ const PostParagraph = ({ text }) =>
     'p',
     {
       color: '#222',
-      fontSize: '1.1rem',
+      fontSize: DOM.isMobile() ? '1rem' : '1.1rem',
       marginTop: '8px',
       marginBottom: '8px',
       lineHeight: '1.3',
