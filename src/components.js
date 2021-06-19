@@ -737,10 +737,10 @@ const PostParagraph = ({ text }) =>
     'p',
     {
       color: '#222',
-      fontSize: '1rem',
+      fontSize: '1.1rem',
       marginTop: '8px',
       marginBottom: '8px',
-      lineHeight: '1.2',
+      lineHeight: '1.3',
     },
     {},
     [text]
