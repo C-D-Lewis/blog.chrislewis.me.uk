@@ -256,7 +256,7 @@ const initPostHistory = () => {
         .forEach(([monthIndex, monthData]) => {
           const isThisMonth = getQueryParam('year') === year && getQueryParam('month') === monthIndex;
           const monthLabel = Components.LeftColumnItem({ getIsSelected: () => isThisMonth })
-            .setText(`${monthName(monthIndex)} ${year} (${monthData.length}) [${year} ${monthIndex}]`)
+            .setText(`${monthName(monthIndex)} ${year} (${monthData.length})`)
             .onClick(() => showPostsFrom(year, monthIndex));
 
           leftColumn.addChildren([monthLabel]);
