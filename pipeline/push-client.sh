@@ -7,6 +7,7 @@ BUCKET=$1
 # Push
 aws s3 cp index.html $BUCKET
 aws s3 cp favicon.ico $BUCKET
+aws s3 sync src $BUCKET/lib
 aws s3 sync src $BUCKET/src
 aws s3 sync assets $BUCKET/assets
 aws s3 sync styles $BUCKET/styles
