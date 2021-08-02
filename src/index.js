@@ -59,7 +59,7 @@ const descendingPostSort = (a, b) => {
 /**
  * Integer item sort in descending order.
  */
-const integerItemSort = (a, b) => parseInt(a) > parseInt(b) ? -1 : 1;
+const integerItemSort = (a, b) => parseInt(a, 10) > parseInt(b, 10) ? -1 : 1;
 
 /**
  * Setup the UI.
@@ -244,7 +244,7 @@ window.showTagPosts = async (tag) => {
 };
 
 /**
- * Fetch the post history file.
+ * Fetch the post history file, then populate the last leftColumn section - the archive.
  */
 const initPostHistory = () => {
   // Populate the Archive section
@@ -252,11 +252,11 @@ const initPostHistory = () => {
     .sort(([year1], [year2]) => integerItemSort(year1, year2))
     .forEach(([year, yearData]) => {
       Object.entries(yearData)
-        .sort(([month1, month2]) => integerItemSort(month1, month2))
+        .sort(([month1], [month2]) => integerItemSort(month1, month2))
         .forEach(([monthIndex, monthData]) => {
           const isThisMonth = getQueryParam('year') === year && getQueryParam('month') === monthIndex;
           const monthLabel = Components.LeftColumnItem({ getIsSelected: () => isThisMonth })
-            .setText(`${monthName(monthIndex)} ${year} (${monthData.length})`)
+            .setText(`${monthName(monthIndex)} ${year} (${monthData.length}) [${year} ${monthIndex}]`)
             .onClick(() => showPostsFrom(year, monthIndex));
 
           leftColumn.addChildren([monthLabel]);

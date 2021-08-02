@@ -171,7 +171,7 @@ const LeftColumn = () => fabricate('div')
     flex: fabricate.isMobile() ? '1' : '0 0 265px',
     maxWidth: fabricate.isMobile() ? '100%' : '280px',
     justifyContent: 'start',
-    padding: `${fabricate.isMobile() ? '15px' : '90px'} 15px 0px 15px`,
+    padding: `${fabricate.isMobile() ? '15px' : '90px'} 15px 30px 15px`,
     borderRight: '1px solid #111',
   });
 
