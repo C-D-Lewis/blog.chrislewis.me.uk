@@ -43,7 +43,7 @@ const goToTop = () => setTimeout(() => window.scrollTo({ top: 0, behavior: 'smoo
  */
 const RootContainer = () => fabricate('div')
   .asFlex('column')
-  .addStyles({
+  .withStyles({
     width: '100%',
     height: '100%',
     margin: 0,
@@ -57,13 +57,13 @@ const RootContainer = () => fabricate('div')
  */
 const Fader = (children) => {
   const div = fabricate('div')
-    .addStyles({
+    .withStyles({
       opacity: 0,
       transition: '0.3s',
     })
     .addChildren(children);
 
-  setTimeout(() => div.addStyles({ opacity: 1 }), 100);
+  setTimeout(() => div.withStyles({ opacity: 1 }), 100);
   return div;
 };
 
@@ -74,7 +74,7 @@ const Fader = (children) => {
  */
 const SiteHeader = () => fabricate('div')
   .asFlex('row')
-  .addStyles({
+  .withStyles({
     width: '100vw',
     minHeight: '80px',
     padding: 15,
@@ -91,7 +91,7 @@ const SiteHeader = () => fabricate('div')
  * @returns {HTMLElement}
  */
 const SiteTitleWord = () => fabricate('h2')
-  .addStyles({
+  .withStyles({
     display: 'block',
     fontFamily: 'monospace',
     fontSize: fabricate.isMobile() ? '1.1rem' : '1.4rem',
@@ -108,30 +108,30 @@ const SiteTitleWord = () => fabricate('h2')
 const SiteTitle = () => {
   const siteMainTitle = fabricate('div')
     .asFlex('row')
-    .addStyles({ marginLeft: '8px' })
+    .withStyles({ marginLeft: '8px' })
     .addChildren([
-      SiteTitleWord().setText('try').addStyles({ color: Theme.syntax.keyword }),
-      SiteTitleWord().setText('{').addStyles({ color: Theme.syntax.comment }),
-      SiteTitleWord().setText('work').addStyles({ color: Theme.syntax.function }),
-      SiteTitleWord().setText('();').addStyles({ color: Theme.syntax.comment, marginLeft: '0px' }),
-      SiteTitleWord().setText('}').addStyles({ color: Theme.syntax.comment }),
-      SiteTitleWord().setText('finally').addStyles({ color: Theme.syntax.keyword }),
-      SiteTitleWord().setText('{').addStyles({ color: Theme.syntax.comment }),
-      SiteTitleWord().setText('code').addStyles({ color: Theme.syntax.function }),
-      SiteTitleWord().setText('();').addStyles({ color: Theme.syntax.comment, marginLeft: '0px' }),
-      SiteTitleWord().setText('}').addStyles({ color: Theme.syntax.comment }),
+      SiteTitleWord().setText('try').withStyles({ color: Theme.syntax.keyword }),
+      SiteTitleWord().setText('{').withStyles({ color: Theme.syntax.comment }),
+      SiteTitleWord().setText('work').withStyles({ color: Theme.syntax.function }),
+      SiteTitleWord().setText('();').withStyles({ color: Theme.syntax.comment, marginLeft: '0px' }),
+      SiteTitleWord().setText('}').withStyles({ color: Theme.syntax.comment }),
+      SiteTitleWord().setText('finally').withStyles({ color: Theme.syntax.keyword }),
+      SiteTitleWord().setText('{').withStyles({ color: Theme.syntax.comment }),
+      SiteTitleWord().setText('code').withStyles({ color: Theme.syntax.function }),
+      SiteTitleWord().setText('();').withStyles({ color: Theme.syntax.comment, marginLeft: '0px' }),
+      SiteTitleWord().setText('}').withStyles({ color: Theme.syntax.comment }),
     ]);
 
   const siteTitleComment = SiteTitleWord()
     .setText('// A blog by Chris Lewis')
-    .addStyles({
+    .withStyles({
       color: Theme.syntax.comment,
       marginLeft: '18px',
     });
 
   const titleWrapper = fabricate('div')
     .asFlex('column')
-    .addStyles({
+    .withStyles({
       justifyContent: 'center',
       cursor: 'pointer',
     })
@@ -140,10 +140,7 @@ const SiteTitle = () => {
       siteMainTitle,
     ])
     .onClick(() => (window.location.href = '/'))
-    .onHover({
-      start: el => el.addStyles({ filter: 'brightness(1.2)' }),
-      end: el => el.addStyles({ filter: 'brightness(1)' }),
-    });
+    .onHover((el, hovering) => el.addStyles({ filter: `brightness(${hovering ? '1.2' : '1'})` }));
 
   return titleWrapper;
 };
@@ -155,7 +152,7 @@ const SiteTitle = () => {
  */
 const ContentContainer = () => fabricate('div')
   .asFlex(fabricate.isMobile() ? 'column' : 'row')
-  .addStyles({
+  .withStyles({
     flexWrap: 'wrap',
     width: '100%',
     margin: 0,
@@ -169,7 +166,7 @@ const ContentContainer = () => fabricate('div')
  */
 const LeftColumn = () => fabricate('div')
   .asFlex('column')
-  .addStyles({
+  .withStyles({
     backgroundColor: Theme.leftColumnBackground,
     flex: fabricate.isMobile() ? '1' : '0 0 265px',
     maxWidth: fabricate.isMobile() ? '100%' : '280px',
@@ -184,7 +181,7 @@ const LeftColumn = () => fabricate('div')
  * @returns {HTMLElement}
  */
 const LeftColumnHeader = ({ isTopSection = false, isCenterSection = false } = {}) => fabricate('span')
-  .addStyles({
+  .withStyles({
     display: 'block',
     color: 'white',
     fontFamily: 'sans-serif',
@@ -203,7 +200,7 @@ const LeftColumnHeader = ({ isTopSection = false, isCenterSection = false } = {}
  */
 const LeftColumnItem = ({ getIsSelected } = {}) => {
   const anchor = fabricate('a')
-    .addStyles({
+    .withStyles({
       color: '#ccc',
       display: 'block',
       fontFamily: 'sans-serif',
@@ -211,13 +208,13 @@ const LeftColumnItem = ({ getIsSelected } = {}) => {
       marginTop: '10px',
       cursor: 'pointer',
     })
-    .addAttributes({ target: '_blank' })
+    .withAttributes({ target: '_blank' })
     .onClick(() => goToTop());
 
   Events.subscribe('selectionUpdated', () => {
     const isSelected = getIsSelected ? getIsSelected() : false;
 
-    anchor.addStyles({
+    anchor.withStyles({
       color: isSelected ? Theme.syntax.function : '#ccc',
       fontWeight: isSelected ? 'bold' : 'initial',
     });
@@ -233,7 +230,7 @@ const LeftColumnItem = ({ getIsSelected } = {}) => {
  */
 const CentralColumn = () => fabricate('div')
   .asFlex(fabricate.isMobile() ? 'column' : 'row')
-  .addStyles({
+  .withStyles({
     flex: '1',
     minWidth: fabricate.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
     maxWidth: '100vw',
@@ -254,15 +251,15 @@ const CentralColumn = () => fabricate('div')
  */
 const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
   const img = fabricate('img')
-    .addStyles({
+    .withStyles({
       display: 'block',
       width: '24px',
       height: '24px',
     })
-    .addAttributes({ src: `./assets/icons/${icon}` });
+    .withAttributes({ src: `./assets/icons/${icon}` });
 
   const label = fabricate('span')
-    .addStyles({
+    .withStyles({
       color: 'white',
       fontFamily: 'sans-serif',
       paddingTop: '2px',
@@ -275,7 +272,7 @@ const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
 
   const anchor = fabricate('a')
     .asFlex('row')
-    .addStyles({
+    .withStyles({
       padding: '5px 10px',
       width: '24px',
       borderRadius: '55px',
@@ -287,7 +284,7 @@ const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
       transition: '0.3s',
       overflow: 'hidden',
     })
-    .addAttributes({
+    .withAttributes({
       href,
       target: '_blank',
     })
@@ -295,15 +292,9 @@ const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
       img,
       label,
     ])
-    .onHover({
-      start: el => {
-        label.addStyles({ display: 'initial' });
-        el.addStyles({ width: `${maxWidth}px` });
-      },
-      end: el => {
-        label.addStyles({ display: 'none' });
-        el.addStyles({ width: '24px' });
-      },
+    .onHover((el, hovering) => {
+      label.addStyles({ display: hovering ? 'initial' : 'none' });
+      el.addStyles({ width: hovering ? `${maxWidth}px` : '24px' });
     });
 
   return anchor;
@@ -316,7 +307,7 @@ const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
  */
 const SiteSocials = () => fabricate('div')
   .asFlex('row')
-  .addStyles({
+  .withStyles({
     flex: fabricate.isMobile() ? 'initial' : '1',
     marginRight: '20px',
     justifyContent: fabricate.isMobile() ? 'center' : 'flex-end',
@@ -360,7 +351,7 @@ const SiteSocials = () => fabricate('div')
  */
 const PostList = () => fabricate('div')
   .asFlex('column')
-  .addStyles({
+  .withStyles({
     maxWidth: fabricate.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
     margin: fabricate.isMobile() ? '0px 0px' : '0px 20px',
     padding: fabricate.isMobile() ? '0px 0px 40px 0px' : '0px 10px 40px 10px',
@@ -376,7 +367,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
 
   let expanded = startExpanded;
   const icon = fabricate('img')
-    .addStyles({
+    .withStyles({
       width: '38px',
       height: '38px',
       marginRight: '5px',
@@ -385,18 +376,18 @@ const PostTitle = ({ model, startExpanded = true }) => {
       transition: '0.4s',
       cursor: 'pointer',
     })
-    .addAttributes({ src: 'assets/icons/chevron-right.png' })
+    .withAttributes({ src: 'assets/icons/chevron-right.png' })
     .onClick((el) => {
       // Click to toggle expanded state
       expanded = !expanded;
-      el.addStyles({ transform: expanded ? 'rotateZ(90deg)' : 'initial' });
+      el.withStyles({ transform: expanded ? 'rotateZ(90deg)' : 'initial' });
   
       // Notify the body component
       Events.post('postExpanded', { fileName, expanded });
     });
 
   const linkAnchor = fabricate('span')
-    .addStyles({
+    .withStyles({
       color: 'lightgrey',
       fontSize: '1.4rem',
       cursor: 'pointer',
@@ -405,17 +396,14 @@ const PostTitle = ({ model, startExpanded = true }) => {
       paddingTop: '6px',
     })
     .setText('#')
-    .onHover({
-      start: el => el.addStyles({ color: '#444' }),
-      end: el => el.addStyles({ color: 'lightgrey' }),
-    })
+    .onHover((el, hovering) => el.addStyles({ color: hovering ? '#444' : 'lightgrey' }))
     .onClick(() => {
       window.showSinglePost(fileName.split('.')[0]);
       goToTop();
     });
 
   const h1 = fabricate('h1')
-    .addStyles({
+    .withStyles({
       color: 'black',
       fontFamily: 'sans-serif',
       fontSize: fabricate.isMobile() ? '1.2rem': '1.5rem',
@@ -429,7 +417,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
 
   const container = fabricate('div')
     .asFlex('row')
-    .addStyles({ alignItems: 'center' })
+    .withStyles({ alignItems: 'center' })
     .addChildren([icon, h1]);
 
   return container;
@@ -442,15 +430,15 @@ const PostTitle = ({ model, startExpanded = true }) => {
  */
 const PostTagPill = ({ tag, quantity }) => {
   const img = fabricate('img')
-    .addStyles({
+    .withStyles({
       width: '14px',
       height: '14px',
     })
-    .addAttributes({ src: 'assets/icons/tag-outline.png' });
+    .withAttributes({ src: 'assets/icons/tag-outline.png' });
 
   const label = fabricate('div')
     .asFlex('column')
-    .addStyles({
+    .withStyles({
       color: 'white',
       fontFamily: 'sans-serif',
       fontSize: '0.8rem',
@@ -462,7 +450,7 @@ const PostTagPill = ({ tag, quantity }) => {
 
   const container = fabricate('div')
     .asFlex('row')
-    .addStyles({
+    .withStyles({
       alignItems: 'center',
       border: `solid 2px ${Theme.syntax.function}`,
       backgroundColor: quantity ? 'none' : Theme.syntax.function,
@@ -472,21 +460,12 @@ const PostTagPill = ({ tag, quantity }) => {
       margin: '2px',
     })
     .addChildren([img, label])
-    .onHover({
-      start: el => {
-        if (quantity) {
-          el.addStyles({ background: Theme.syntax.function });
-        } else {
-          el.addStyles({ filter: 'brightness(1.1)' });
-        }
-      },
-      end: el => {
-        if (quantity) {
-          el.addStyles({ background: 'none' });
-        } else {
-          el.addStyles({ filter: 'brightness(1)' });
-        }
-      },
+    .onHover((el, hovering) => {
+      if (quantity) {
+        el.addStyles({ background: hovering ? Theme.syntax.function : 'none' });
+      } else {
+        el.addStyles({ filter: hovering ? 'brightness(1.1)' : 'brightness(1)' });
+      }
     })
     .onClick(() => {
       window.showTagPosts(tag);
@@ -503,7 +482,7 @@ const PostTagPill = ({ tag, quantity }) => {
  */
 const PostTagsList = ({ tags }) => fabricate('div')
   .asFlex('row')
-  .addStyles({
+  .withStyles({
     marginLeft: fabricate.isMobile() ? '40px': '10px',
     marginTop: fabricate.isMobile() ? '10px' : 'initial',
     flexWrap: 'wrap',
@@ -519,20 +498,20 @@ const PostDateAndTags = ({ dateTime, tags }) => {
   const [date] = dateTime.split(' ');
 
   const dateSpan = fabricate('span')
-    .addStyles({
+    .withStyles({
       color: '#777',
       fontFamily: 'sans-serif',
       fontSize: '1rem',
       marginLeft: '42px',
       cursor: 'default',
       paddingTop: '3px',
-      minWidth: '100px',
+      minWidth: fabricate.isMobile () ? '100px' : '140px',
     })
     .setText(fabricate.isMobile() ? date : `Posted ${date}`);
 
   const container = fabricate('div')
     .asFlex(fabricate.isMobile() ? 'column' : 'row')
-    .addStyles({
+    .withStyles({
       alignItems: fabricate.isMobile() ? 'start': 'center',
       paddingBottom: '15px',
     })
@@ -551,7 +530,7 @@ const PostDateAndTags = ({ dateTime, tags }) => {
  */
 const PostBody = ({ model, startExpanded = true }) => {
   const container = fabricate('div')
-    .addStyles({
+    .withStyles({
       display: startExpanded ? 'block' : 'none',
       color: 'black',
       fontFamily: 'sans-serif',
@@ -569,7 +548,7 @@ const PostBody = ({ model, startExpanded = true }) => {
   Events.subscribe('postExpanded', ({ fileName, expanded }) => {
     if (fileName !== model.fileName) return;
 
-    container.addStyles({ display: expanded ? 'initial' : 'none' });
+    container.withStyles({ display: expanded ? 'initial' : 'none' });
   });
 
   return container;
@@ -582,7 +561,7 @@ const PostBody = ({ model, startExpanded = true }) => {
  */
 const PostImage = ({ src }) => {
   const img = fabricate('img')
-    .addStyles({
+    .withStyles({
       maxWidth: '90%',
       height: 'auto',
       maxHeight: '600px',
@@ -597,7 +576,7 @@ const PostImage = ({ src }) => {
 
   const container = fabricate('div')
     .asFlex('row')
-    .addStyles({
+    .withStyles({
       width: '100%',
       justifyContent: 'center',
       margin: '30px 0px',
@@ -615,7 +594,7 @@ const PostImage = ({ src }) => {
  * @returns {HTMLElement}
  */
 const PostHeader = ({ level, text }) => fabricate(`h${level}`)
-  .addStyles({
+  .withStyles({
     color: 'black',
     fontSize: '1.4rem',
     marginTop: '35px',
@@ -631,7 +610,7 @@ const PostHeader = ({ level, text }) => fabricate(`h${level}`)
  * @returns {HTMLElement}
  */
 const PostParagraph = ({ text }) => fabricate('p')
-  .addStyles({
+  .withStyles({
     color: '#222',
     fontSize: fabricate.isMobile() ? '1rem' : '1.05rem',
     marginTop: '8px',
@@ -672,7 +651,7 @@ const Post = ({ model, startExpanded = true }) =>
   Fader([
     fabricate('div')
       .asFlex('column')
-      .addStyles({
+      .withStyles({
         backgroundColor: 'white',
         borderRadius: '5px',
         overflow: 'hidden',
@@ -700,7 +679,7 @@ const TagCloud = ({ tags }) => {
 
   const container = fabricate('div')
     .asFlex('row')
-    .addStyles({
+    .withStyles({
       flexWrap: 'wrap',
       paddingTop: '10px',
     })
