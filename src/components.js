@@ -141,8 +141,8 @@ const SiteTitle = () => {
     ])
     .onClick(() => (window.location.href = '/'))
     .onHover({
-      start: el => el.setStyles({ filter: 'brightness(1.2)' }),
-      end: el => el.setStyles({ filter: 'brightness(1)' }),
+      start: el => el.addStyles({ filter: 'brightness(1.2)' }),
+      end: el => el.addStyles({ filter: 'brightness(1)' }),
     });
 
   return titleWrapper;
@@ -172,6 +172,7 @@ const LeftColumn = () => fabricate('div')
   .addStyles({
     backgroundColor: Theme.leftColumnBackground,
     flex: fabricate.isMobile() ? '1' : '0 0 265px',
+    maxWidth: fabricate.isMobile() ? '100%' : '280px',
     justifyContent: 'start',
     padding: `${fabricate.isMobile() ? '15px' : '90px'} 15px 0px 15px`,
     borderRight: '1px solid #111',
@@ -182,7 +183,7 @@ const LeftColumn = () => fabricate('div')
  *
  * @returns {HTMLElement}
  */
-const LeftColumnHeader = ({ isTopSection = false, isCenterSection = false }) => fabricate('span')
+const LeftColumnHeader = ({ isTopSection = false, isCenterSection = false } = {}) => fabricate('span')
   .addStyles({
     display: 'block',
     color: 'white',
@@ -200,7 +201,7 @@ const LeftColumnHeader = ({ isTopSection = false, isCenterSection = false }) => 
  *
  * @returns {HTMLElement}
  */
-const LeftColumnItem = ({ getIsSelected }) => {
+const LeftColumnItem = ({ getIsSelected } = {}) => {
   const anchor = fabricate('a')
     .addStyles({
       color: '#ccc',
@@ -447,13 +448,15 @@ const PostTagPill = ({ tag, quantity }) => {
     })
     .addAttributes({ src: 'assets/icons/tag-outline.png' });
 
-  const label = fabricate('span')
+  const label = fabricate('div')
+    .asFlex('column')
     .addStyles({
       color: 'white',
       fontFamily: 'sans-serif',
       fontSize: '0.8rem',
       marginLeft: '2px',
-      marginTop: '2px',
+      justifyContent: 'center',
+      fontWeight: 'bold',
     })
     .setText(quantity ? `${tag} (${quantity})` : tag);
 
@@ -523,7 +526,7 @@ const PostDateAndTags = ({ dateTime, tags }) => {
       marginLeft: '42px',
       cursor: 'default',
       paddingTop: '3px',
-      minWidth: '90px',
+      minWidth: '100px',
     })
     .setText(fabricate.isMobile() ? date : `Posted ${date}`);
 
@@ -622,18 +625,20 @@ const PostHeader = ({ level, text }) => fabricate(`h${level}`)
 
 /**
  * PostParagraph component.
+ * 
+ * Note: uses addChildren() to work with embedded HTML fragments.
  *
  * @returns {HTMLElement}
  */
 const PostParagraph = ({ text }) => fabricate('p')
   .addStyles({
     color: '#222',
-    fontSize: fabricate.isMobile() ? '1rem' : '1.1rem',
+    fontSize: fabricate.isMobile() ? '1rem' : '1.05rem',
     marginTop: '8px',
     marginBottom: '8px',
-    lineHeight: '1.3',
+    lineHeight: '1.35',
   })
-  .setText(text);
+  .addChildren([text]);
 
 /**
  * PostHtml component.
@@ -704,6 +709,13 @@ const TagCloud = ({ tags }) => {
   return container;
 };
 
+/**
+ * Empty component.
+ *
+ * @returns {HTMLElement}
+ */
+const Nothing = () => fabricate('div');
+
 window.Components = {
   RootContainer,
   SiteHeader,
@@ -717,4 +729,5 @@ window.Components = {
   PostList,
   Post,
   TagCloud,
+  Nothing,
 };

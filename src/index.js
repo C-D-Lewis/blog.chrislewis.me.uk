@@ -68,7 +68,7 @@ const buildPageLayout = () => {
   const siteHeader = Components.SiteHeader()
     .addChildren([
       Components.SiteTitle(),
-      fabricate.isMobile() ? Components.SiteSocials() : undefined,
+      fabricate.isMobile() ? Components.Nothing() : Components.SiteSocials(),
     ]);
   
   const contentContainer = Components.ContentContainer();
