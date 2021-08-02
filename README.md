@@ -4,9 +4,6 @@ Time to roll my own. So long, WordPress!
 
 ![](assets/screenshot.png)
 
-## TODO
-
-* Missing images in very old posts
 
 ## Post format
 

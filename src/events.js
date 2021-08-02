@@ -1,5 +1,12 @@
 const subscriptions = {};
 
+/**
+ * Subscribe to an event.
+ *
+ * @param {string} eventName - Name of the event, like a topic.
+ * @param {function} callback - Callback to be notified.
+ * @returns {undefined}
+ */
 const subscribe = (eventName, callback) => {
   if (!subscriptions[eventName]) {
     subscriptions[eventName] = [];
@@ -10,6 +17,13 @@ const subscribe = (eventName, callback) => {
   subscriptions[eventName].push(callback);
 };
 
+/**
+ * Post an event.
+ *
+ * @param {string} eventName - Name of the event, like a topic.
+ * @param {object} params - Event data.
+ * @returns {undefined}
+ */
 const post = (eventName, params) => {
   if (!subscriptions[eventName]) return;
 

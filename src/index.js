@@ -65,72 +65,87 @@ const integerItemSort = (a, b) => parseInt(a) > parseInt(b) ? -1 : 1;
  * Setup the UI.
  */
 const buildPageLayout = () => {
-  const rootContainer = Components.RootContainer();
-  DOM.addChild(document.getElementById('app'), rootContainer);
-
-  // Header
-  const siteHeader = Components.SiteHeader();
-  DOM.addChild(rootContainer, siteHeader);
-  DOM.addChild(siteHeader, Components.SiteTitle());
-  if (!DOM.isMobile()) {
-    DOM.addChild(siteHeader, Components.SiteSocials());
-  }
-
-  // Containers
+  const siteHeader = Components.SiteHeader()
+    .addChildren([
+      Components.SiteTitle(),
+      fabricate.isMobile() ? Components.SiteSocials() : undefined,
+    ]);
+  
   const contentContainer = Components.ContentContainer();
-  DOM.addChild(rootContainer, contentContainer);
-  leftColumn = Components.LeftColumn();
   const centralColumn = Components.CentralColumn();
-  if (DOM.isMobile()) {
-    DOM.addChild(contentContainer, centralColumn);
-    DOM.addChild(contentContainer, leftColumn);
-  } else {
-    DOM.addChild(contentContainer, leftColumn);
-    DOM.addChild(contentContainer, centralColumn);
-  }
-  if (DOM.isMobile()) {
-    DOM.addChild(centralColumn, Components.SiteSocials());
+  leftColumn = Components.LeftColumn();
+
+  // Left, then right for mobile to flex flow, else other way
+  contentContainer.addChildren(fabricate.isMobile()
+    ? [centralColumn, leftColumn]
+    : [leftColumn, centralColumn]
+  );
+
+  // On mobile the socials go before the post
+  if (fabricate.isMobile()) {
+    centralColumn.addChildren([Components.SiteSocials()]);
   }
 
-  // Blog sections
-  DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Blog', isTopSection: true }));
-  DOM.addChild(leftColumn, Components.LeftColumnItem({
-    text: 'Most Recent',
-    onClick: () => (window.location.href = '/'),
-  }));
-  DOM.addChild(leftColumn, Components.LeftColumnItem({
-    text: 'Source Repository',
-    onClick: () => (window.open('https://github.com/C-D-Lewis/blog', '_blank')),
-  }));
+  // Blog main sections
+  const blogHeader = Components.LeftColumnHeader({ isTopSection: true }).setText('Blog');
+  const recentItem = Components.LeftColumnItem()
+    .setText('Most Recent')
+    .onClick(() => (window.location.href = '/'));
+  const repoItem = Components.LeftColumnItem()
+    .setText('Source Repository')
+    .onClick(() => window.open('https://github.com/C-D-Lewis/blog', '_blank'));
 
   // Other stuff
-  DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Other Stuff' }));
-  DOM.addChild(leftColumn, Components.LeftColumnItem({
-    text: 'FitBit Apps',
-    onClick: () => (window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank')),
-  }));
-  DOM.addChild(leftColumn, Components.LeftColumnItem({
-    text: 'Pebble Apps',
-    onClick: () => (window.open('https://github.com/C-D-Lewis/pebble', '_blank')),
-  }));
-  DOM.addChild(leftColumn, Components.LeftColumnItem({
-    text: 'Pixels With Friends',
-    onClick: () => (window.open('https://pixels.chrislewis.me.uk', '_blank')),
-  }));
-  DOM.addChild(leftColumn, Components.LeftColumnItem({
-    text: 'Old WordPress Blog',
-    onClick: () => (window.open('https://ninedof.wordpress.com/', '_blank')),
-  }));
+  const otherHeader = Components.LeftColumnHeader().setText('Other Stuff');
+  const fitbitItem = Components.LeftColumnItem()
+    .setText('FitBit Apps')
+    .onClick(() => window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank'));
+  const pebbleItem = Components.LeftColumnItem()
+    .setText('Pebble Apps')
+    .onClick(() => window.open('https://github.com/C-D-Lewis/pebble', '_blank'));
+  const pixelsItem = Components.LeftColumnItem()
+    .setText('Pixels With Friends')
+    .onClick(() => window.open('https://github.com/c-d-lewis/pixels-with-friends', '_blank'));
+  const oldItem = Components.LeftColumnItem()
+    .setText('Old WordPress Blog')
+    .onClick(() => window.open('https://ninedof.wordpress.com/', '_blank'));
 
   // Tags list as pills
-  DOM.addChild(leftColumn, Components.LeftColumnHeader({ text: 'Posts by tag' }));
-  DOM.addChild(leftColumn, Components.TagCloud({ tags: Object.keys(window.tagIndex) }));
+  const tagsHeader = Components.LeftColumnHeader().setText('Posts by tag');
+  const tagCloud = Components.TagCloud({ tags: Object.keys(window.tagIndex) });
 
   // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
-  const archiveHeader = Components.LeftColumnHeader({ text: 'Posts by month' });
-  DOM.addChild(leftColumn, archiveHeader);
+  const archiveHeader = Components.LeftColumnHeader().setText('Posts by month');
+
+  leftColumn.addChildren([
+    blogHeader,
+    recentItem,
+    repoItem,
+
+    otherHeader,
+    fitbitItem,
+    pebbleItem,
+    pixelsItem,
+    oldItem,
+
+    tagsHeader,
+    tagCloud,
+
+    archiveHeader,
+  ]);
+
+  // Post list in the middle
   postList = Components.PostList();
-  DOM.addChild(centralColumn, postList);
+  centralColumn.addChildren([postList]);
+
+  const rootContainer = Components.RootContainer()
+    .addChildren([
+      siteHeader,
+      contentContainer,
+      leftColumn,
+    ]);
+
+  fabricate.app(rootContainer);
 };
 
 /**
@@ -140,14 +155,16 @@ const buildPageLayout = () => {
  * @param {string} month - Month selected
  */
 const showPostsFrom = async (year, month) => {
-  postList.innerHTML = '';
+  postList.clear();
   history.replaceState(null, null, `?year=${year}&month=${month}`);
 
-  DOM.addChild(postList, Components.LeftColumnHeader({
-    text: `${monthName(month)} ${year}`,
-    isTopSection: true,
-    isCenterSection: true,
-  }));
+  postList.addChildren([
+    Components.LeftColumnHeader({
+      isTopSection: true,
+      isCenterSection: true,
+    })
+    .setText(`${monthName(month)} ${year}`),
+  ]);
 
   // Fetch all posts and add to the postList component as Posts
   const posts = window.postHistory[year][month];
@@ -155,13 +172,9 @@ const showPostsFrom = async (year, month) => {
     .sort(descendingPostSort)
     .map(({ file }) => fetch(file).then(res => res.json()));
   const models = await Promise.all(promises);
-  models.forEach((model) => {
-    DOM.addChild(
-      postList,
-      Components.Post({ model, startExpanded: posts.length === 1 })
-    );
-  });
+  postList.addChildren(models.map((model) => Components.Post({ model, startExpanded: models.length === 1 })));
 
+  // Notify expanders
   Events.post('selectionUpdated');
 };
 
@@ -171,13 +184,12 @@ const showPostsFrom = async (year, month) => {
  * @param {string} fileName - Post fileName selected
  */
 window.showSinglePost = async (fileName) => {
-  postList.innerHTML = '';
   history.replaceState(null, null, `?post=${fileName}`);
 
-  // Find the post with this fileName
+  // Find the post with this fileName - TODO: use reduce()?
   let post;
-  Object.entries(window.postHistory).forEach(([year, yearData]) => {
-    Object.entries(yearData).forEach(([monthIndex, posts]) => {
+  Object.entries(window.postHistory).forEach(([, yearData]) => {
+    Object.entries(yearData).forEach(([, posts]) => {
       const found = posts.find(p => p.fileName === fileName);
       if (found) {
         post = found;
@@ -191,8 +203,10 @@ window.showSinglePost = async (fileName) => {
   }
 
   const model = await fetch(post.file).then(res => res.json());
-  DOM.addChild(postList, Components.Post({ model }));
+  postList.clear();
+  postList.addChildren([Components.Post({ model })]);
 
+  // Notify expanders
   Events.post('selectionUpdated');
 };
 
@@ -208,29 +222,24 @@ window.showTagPosts = async (tag) => {
     return;
   }
 
-  postList.innerHTML = '';
   history.replaceState(null, null, `?tag=${tag}`);
 
-  DOM.addChild(
-    postList,
+  postList.clear();
+  postList.addChildren([
     Components.LeftColumnHeader({
-      text: `Tag: ${tag} (${window.tagIndex[tag].length} posts)`,
       isTopSection: true,
       isCenterSection: true,
-    }),
-  );
+    })
+    .setText(`Tag: ${tag} (${window.tagIndex[tag].length} posts)`),
+  ]);
 
   const promises = window.tagIndex[tag]
     .sort(descendingDateSort)
     .map(fileName => fetch(`assets/rendered/${fileName}`).then(res => res.json()));
   const models = await Promise.all(promises);
-  models.forEach((model) => {
-    DOM.addChild(
-      postList,
-      Components.Post({ model, startExpanded: models.length === 1 })
-    );
-  });
+  postList.addChildren(models.map((model) => Components.Post({ model, startExpanded: models.length === 1 })));
 
+  // Notify expanders
   Events.post('selectionUpdated');
 };
 
@@ -245,12 +254,12 @@ const initPostHistory = () => {
       Object.entries(yearData)
         .sort(([month1, month2]) => integerItemSort(month1, month2))
         .forEach(([monthIndex, monthData]) => {
-          const monthLabel = Components.LeftColumnItem({
-            text: `${monthName(monthIndex)} ${year} (${monthData.length})`,
-            onClick: () => showPostsFrom(year, monthIndex),
-            getIsSelected: () => getQueryParam('year') === year && getQueryParam('month') === monthIndex,
-          });
-          DOM.addChild(leftColumn, monthLabel);
+          const isThisMonth = getQueryParam('year') === year && getQueryParam('month') === monthIndex;
+          const monthLabel = Components.LeftColumnItem({ getIsSelected: () => isThisMonth })
+            .setText(`${monthName(monthIndex)} ${year} (${monthData.length})`)
+            .onClick(() => showPostsFrom(year, monthIndex));
+
+          leftColumn.addChildren([monthLabel]);
         });
     });
 };
@@ -258,7 +267,7 @@ const initPostHistory = () => {
 /**
  * Load the posts to display, if the query specifies a month/year or post slug.
  */
-const loadSelection = () => {
+const loadSelectionFromQuery = () => {
   // Does the URL contain a selection?
   const post = getQueryParam('post');
   if (post) {
@@ -293,7 +302,7 @@ const loadSelection = () => {
 const main = () => {
   buildPageLayout();
   initPostHistory();
-  loadSelection();
+  loadSelectionFromQuery();
 };
 
 main();
