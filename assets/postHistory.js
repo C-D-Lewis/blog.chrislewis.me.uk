@@ -863,6 +863,13 @@ window.postHistory = {
         "file": "assets/rendered/2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
         "fileName": "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico"
       }
+    ],
+    "08": [
+      {
+        "title": "Better JSON Schema Analysis",
+        "file": "assets/rendered/2021-08-25-Better-JSON-Schema-Analysis.json",
+        "fileName": "2021-08-25-Better-JSON-Schema-Analysis"
+      }
     ]
   }
 }

@@ -1,0 +1,53 @@
+{
+  "title": "Better JSON Schema Analysis",
+  "fileName": "2021-08-25-Better-JSON-Schema-Analysis.md",
+  "dateTime": "2021-08-25 21:58",
+  "tags": [
+    "JavaScript"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Many times in my career this far I have encountered JSON Schema schemas as a\nmeans of validating JSON data, either as data from some API or from a file. It's\na concise and flexible format with good documentation, and I'm a big fan."
+    },
+    {
+      "type": "paragraph",
+      "text": "If you're not already aware, here's an example schema describing a car:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"json\" -->\n<pre><div class=\"code-block\">\ns\n\n<span class=\"js-syntax\">{</span>\n  <span class=\"string\">\"type\"</span>: <span class=\"string\">\"object\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"string\">\"required\"</span>: <span class=\"js-syntax\">[</span><span class=\"string\">\"color\"</span><span class=\"js-syntax\">,</span> <span class=\"string\">\"length\"</span><span class=\"js-syntax\">,</span> <span class=\"string\">\"topSpeed\"</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  <span class=\"string\">\"properties\"</span>: <span class=\"js-syntax\">{</span>\n    <span class=\"string\">\"color\"</span>: <span class=\"js-syntax\">{</span>\n      <span class=<span class=\"string\">\"string\"</span>>\"type\"</span>: <span class=\"string\">\"string\"</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"string\">\"length\"</span>: <span class=\"js-syntax\">{</span>\n      <span class=\"string\">\"type\"</span>: <span class=\"string\">\"number\"</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"string\">\"numDoors\"</span>: <span class=\"js-syntax\">{</span>\n      <span class=\"string\">\"type\"</span>: <span class=\"string\">\"number\"</span>\n      <span class=\"string\">\"minimum\"</span>: 2\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"string\">\"topSpeed\"</span>: <span class=\"js-syntax\">{</span>\n      <span class=\"string\">\"type\"</span>: <span class=\"string\">\"number\"</span>\n    <span class=\"js-syntax\">}</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Heading"
+    },
+    {
+      "type": "paragraph",
+      "text": "Text"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/08/jsr-example.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "Text"
+    },
+    {
+      "type": "paragraph",
+      "text": "Check out the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/json-schema-report\">project repository</a> for all\nthe code and documentation in case you want to use it yourself!"
+    }
+  ]
+}

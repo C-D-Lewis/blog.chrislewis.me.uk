@@ -235,7 +235,6 @@ const CentralColumn = () => fabricate('div')
     minWidth: fabricate.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
     maxWidth: '100vw',
     paddingLeft: fabricate.isMobile() ? '0px' : '20px',
-    backgroundColor: Theme.centralColumnBackground,
     paddingTop: '90px',
 
     // Center on page
@@ -605,7 +604,7 @@ const PostHeader = ({ level, text }) => fabricate(`h${level}`)
 /**
  * PostParagraph component.
  * 
- * Note: uses addChildren() to work with embedded HTML fragments.
+ * Note: uses withChildren() to work with embedded HTML fragments.
  *
  * @returns {HTMLElement}
  */
