@@ -61,7 +61,7 @@ const Fader = (children) => {
       opacity: 0,
       transition: '0.3s',
     })
-    .addChildren(children);
+    .withChildren(children);
 
   setTimeout(() => div.withStyles({ opacity: 1 }), 100);
   return div;
@@ -109,7 +109,7 @@ const SiteTitle = () => {
   const siteMainTitle = fabricate('div')
     .asFlex('row')
     .withStyles({ marginLeft: '8px' })
-    .addChildren([
+    .withChildren([
       SiteTitleWord().setText('try').withStyles({ color: Theme.syntax.keyword }),
       SiteTitleWord().setText('{').withStyles({ color: Theme.syntax.comment }),
       SiteTitleWord().setText('work').withStyles({ color: Theme.syntax.function }),
@@ -135,7 +135,7 @@ const SiteTitle = () => {
       justifyContent: 'center',
       cursor: 'pointer',
     })
-    .addChildren([
+    .withChildren([
       siteTitleComment,
       siteMainTitle,
     ])
@@ -288,7 +288,7 @@ const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
       href,
       target: '_blank',
     })
-    .addChildren([
+    .withChildren([
       img,
       label,
     ])
@@ -313,7 +313,7 @@ const SiteSocials = () => fabricate('div')
     justifyContent: fabricate.isMobile() ? 'center' : 'flex-end',
     alignItems: 'center',
   })
-  .addChildren([
+  .withChildren([
     SocialPill({
       icon: 'github.png',
       text: 'GitHub',
@@ -413,12 +413,12 @@ const PostTitle = ({ model, startExpanded = true }) => {
       border: 'none',
       cursor: 'default',
     })
-    .addChildren([title, linkAnchor]);
+    .withChildren([title, linkAnchor]);
 
   const container = fabricate('div')
     .asFlex('row')
     .withStyles({ alignItems: 'center' })
-    .addChildren([icon, h1]);
+    .withChildren([icon, h1]);
 
   return container;
 };
@@ -459,7 +459,7 @@ const PostTagPill = ({ tag, quantity }) => {
       padding: '4px 8px',
       margin: '2px',
     })
-    .addChildren([img, label])
+    .withChildren([img, label])
     .onHover((el, hovering) => {
       if (quantity) {
         el.addStyles({ background: hovering ? Theme.syntax.function : 'none' });
@@ -487,7 +487,7 @@ const PostTagsList = ({ tags }) => fabricate('div')
     marginTop: fabricate.isMobile() ? '10px' : 'initial',
     flexWrap: 'wrap',
   })
-  .addChildren(tags.map(tag => PostTagPill({ tag })));
+  .withChildren(tags.map(tag => PostTagPill({ tag })));
 
 /**
  * PostDateAndTags component.
@@ -515,7 +515,7 @@ const PostDateAndTags = ({ dateTime, tags }) => {
       alignItems: fabricate.isMobile() ? 'start': 'center',
       paddingBottom: '15px',
     })
-    .addChildren([
+    .withChildren([
       dateSpan,
       PostTagsList({ tags }),
     ]);
@@ -542,7 +542,7 @@ const PostBody = ({ model, startExpanded = true }) => {
       backgroundColor: '#0000',
       borderTop: 'solid 2px #4444',
     })
-    .addChildren(createPostComponents(model.components));
+    .withChildren(createPostComponents(model.components));
 
   // Start expanded?
   Events.subscribe('postExpanded', ({ fileName, expanded }) => {
@@ -583,7 +583,7 @@ const PostImage = ({ src }) => {
       cursor: 'pointer',
     })
     .onClick(() => window.open(src, '_blank'))
-    .addChildren([img]);
+    .withChildren([img]);
 
   return container;
 };
@@ -617,7 +617,7 @@ const PostParagraph = ({ text }) => fabricate('p')
     marginBottom: '8px',
     lineHeight: '1.35',
   })
-  .addChildren([text]);
+  .withChildren([text]);
 
 /**
  * PostHtml component.
@@ -660,7 +660,7 @@ const Post = ({ model, startExpanded = true }) =>
         minWidth: fabricate.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
         boxShadow: BOX_SHADOW_MATERIAL,
       })
-      .addChildren([
+      .withChildren([
         PostTitle({ model, startExpanded }),
         PostDateAndTags(model),
         PostBody({ model, startExpanded }),
@@ -683,7 +683,7 @@ const TagCloud = ({ tags }) => {
       flexWrap: 'wrap',
       paddingTop: '10px',
     })
-    .addChildren(postTagPills);
+    .withChildren(postTagPills);
 
   return container;
 };
