@@ -2,12 +2,11 @@
 
 set -eu
 
-# Import wordpress file
-node tools/importWordpressXml.js
-
-# Generate posts from wordpress file
-mkdir -p posts
-node tools/createWordpressMarkdown.js
+# Import wordpress file and generate initial posts
+#   Note: Deactivated 29/08/2021 - Modify posts/** instead now!
+# node tools/importWordpressXml.js
+# mkdir -p posts
+# node tools/createWordpressMarkdown.js
 
 # Build rendered posts
 mkdir -p assets/rendered
