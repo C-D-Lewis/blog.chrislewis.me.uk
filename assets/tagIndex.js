@@ -289,6 +289,7 @@ window.tagIndex = {
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
+    "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.json",
     "2021-08-25-Better-JSON-Schema-Analysis.json"
   ],
   "FitBit": [

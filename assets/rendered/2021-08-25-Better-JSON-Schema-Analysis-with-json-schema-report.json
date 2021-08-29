@@ -1,6 +1,6 @@
 {
-  "title": "Better JSON Schema Analysis",
-  "fileName": "2021-08-25-Better-JSON-Schema-Analysis.md",
+  "title": "Better JSON Schema Analysis with json-schema-report",
+  "fileName": "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.md",
   "dateTime": "2021-08-25 21:58",
   "tags": [
     "JavaScript"
@@ -11,13 +11,26 @@
       "text": "Many times in my career this far I have encountered JSON Schema schemas as a\nmeans of validating JSON data, either as data from some API or from a file. It's\na concise and flexible format with good documentation, and I'm a big fan."
     },
     {
+      "type": "paragraph",
+      "text": "With simple schemas and data, validation is very useful and can give API users\ngood helpful feedback about why their request failed. But in cases of extremely\nlarge or complex schemas, common validators fail to provide the key details that\nhelp those same users correct their submissions."
+    },
+    {
+      "type": "paragraph",
+      "text": "In this post, I will detail how such validators are useful, when they are not\nso useful, and a tool I've created called\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/json-schema-report\">json-schema-report</a> that makes\nit much easier to debug such large schemas and save a lot of time."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/08/jsr.png"
+    },
+    {
       "type": "header",
       "level": 2,
       "text": "A quick intro"
     },
     {
       "type": "paragraph",
-      "text": "If you're not already aware, here's an example JSON Schema schema\ndescribing a car type of object:"
+      "text": "If you're not already aware, here's an example JSON Schema schema\ndescribing a car type of object and what it should look like:"
     },
     {
       "type": "paragraph",
@@ -25,7 +38,7 @@
     },
     {
       "type": "paragraph",
-      "text": "It describes the 'shape' of objects that are a valid 'car' type -\n<code>color</code> should be a string, <code>numDors</code> should be a number\ngreater than or equal to two - you get the idea. So the following data will be\nvalidated as labelled:"
+      "text": "It describes the 'shape' of objects that are a valid 'car' type -\n<code>color</code> should be a string, <code>numDoors</code> should be a number\ngreater than or equal to two - you get the idea. So the following data will be\nvalidated as labelled:"
     },
     {
       "type": "paragraph",
@@ -79,7 +92,66 @@
     },
     {
       "type": "paragraph",
-      "text": "In debugging these bad events, the usual course of action is to painstakingly\ncompare the huge EPCIS schema against the failing data after the fact, and use\nour eyes to spot the format/data mistakes."
+      "text": "In debugging these bad events, the usual course of action is to painstakingly\ncompare the huge EPCIS schema against the failing data after the fact, and use\nour eyes to spot the format/data mistakes on a field-by-field basis, which can\ntake a lot of time. What was needed was a way to see all validation results,\nnot just the first error encoutered which causes some validator to stop early."
+    },
+    {
+      "type": "paragraph",
+      "text": "Other kinds of validators go a step further and return all errors for all of the\npartually matching sub-schemas for different event types, but this makes both\na poor developer experience in an API response, and doesn't give a quick\nindication of which was the closest possible match. For EPCIS events, this was\nusually over 100 errors to consider, most of which were not relevant because\nthey were for types of event other than the one we were trying to send, such as\nan <code>AggregationEvent</code."
+    },
+    {
+      "type": "paragraph",
+      "text": "I had a quick look around for such a tool or library that gave a detailed\nbreakdown of schema validation results, but came up with very little or nothing\nthat was relevant enough, so on a weekend earlier in the year I decided to\nhave a go at it myself."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "json-schema-report"
+    },
+    {
+      "type": "paragraph",
+      "text": "My approach was this - for each property in the schema, see if it is present\nand correct in the provided instance being validated."
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>If it is a basic type such as <code>string</code> validate it.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>If it is an object with properties inside, or an array of objects, go one\nlevel deeper and check those child properties recursively.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n              <tr>\n                <td style=\"padding-right:10px\">•</td>\n                <td>If it is a 'multi-schema', such as <code>oneOf</code>, <code>anyOf</code>,\nand <code>allOf</code>, check each sub-schema against the data in the same\nrecursive fashion, and once all are checked, apply the required logic for those\noperators. For example, if it's a <code>oneOf</code> only validate if one of\nthe schemas matched the data and the other candidates did not.</td>\n              </tr>\n            </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This last part was the most complicated to implement, given that it should be\nmade relatively easy to see which of many possible sub-schemas is the most\ncorrect one, which can make the difference between seeing only one or two\nerrors that actually need to be corrected, and a dozed errors that are not\nrelevant and are then a distraction."
+    },
+    {
+      "type": "paragraph",
+      "text": "In any case, the structure of the data is shown visually with color coding,\nshowing which properties validated, which did not, which were missing, and which\nwere optional in the schema's eyes, but omitted from the data itself."
+    },
+    {
+      "type": "paragraph",
+      "text": "To demonstrate this improved power to deduce more quickly which properties\nshould be corrected, here is an example output for an EPCIS event with only one\nactual error, in the more helpful color-coded summary style, expressing also the\nstructure of the schema:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/08/jsr-objectevent.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "We can see from the top level down to <code>onlyValidEvent</code> that if we\nintended to send an <code>objectEvent</code> then the only issue is that we\nforgot to include the <code>action</code> property - an easy fix. In addition\nwe are warned that at the top document level that <code>schemaVersion</code>\nis not a string, but in fact was a number - another easy fix."
+    },
+    {
+      "type": "paragraph",
+      "text": "To contrast, if we were not sure what the intended event type was, a look at the\nsection of the output for <code>transformationEvent</code> tells us visually\nand in detail that it is very unlikely that the data contained an attempted\nevent of that type due to the large number of missing required properties. This\nexample also shows the complex nature of the schema itself, with many layers of\n'multi-schema' clauses:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/08/jsr-transformationevent.png"
     },
     {
       "type": "header",
@@ -88,7 +160,7 @@
     },
     {
       "type": "paragraph",
-      "text": "Text"
+      "text": "The first version was quickly thrown together and then left alone after the\ninitial need for it went away, but I recently finished it up"
     },
     {
       "type": "paragraph",

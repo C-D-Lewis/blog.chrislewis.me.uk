@@ -866,9 +866,9 @@ window.postHistory = {
     ],
     "08": [
       {
-        "title": "Better JSON Schema Analysis",
-        "file": "assets/rendered/2021-08-25-Better-JSON-Schema-Analysis.json",
-        "fileName": "2021-08-25-Better-JSON-Schema-Analysis"
+        "title": "Better JSON Schema Analysis with json-schema-report",
+        "file": "assets/rendered/2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.json",
+        "fileName": "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report"
       }
     ]
   }

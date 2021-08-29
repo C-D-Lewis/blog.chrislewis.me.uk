@@ -92,7 +92,8 @@ const highlightStrings = (line) => {
 
     // Replace with classes
     strings.forEach((string) => {
-      line = line.split(string).join(`<span class="string">${string}</span>`);
+      // Note: JSON with "type": "string" breaks if classname is 'string'
+      line = line.split(string).join(`<span class="_string">${string}</span>`);
     });
   });
 
@@ -133,6 +134,9 @@ const handlePythonDef = (line) => {
 const toHighlightedLine = (line, language) => {
   // Don't modify the <pre><div class=code-block> or language comment
   if (['<pre>', '<!--'].some(p => line.includes(p))) return line;
+
+  // No highlighting please
+  if (['none', 'text'].includes(language)) return line;
 
   // Terraform
   if (language.includes('terraform')) {

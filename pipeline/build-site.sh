@@ -25,3 +25,5 @@ if [[ $RES =~ "All correct" ]]; then
 else
   echo $RES
 fi
+
+printf "\nBuild complete!\n"
