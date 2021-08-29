@@ -177,7 +177,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"ready\",\n  function(e) {\n    //App is ready to receive JS messages\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener<span class=\"js-syntax\">(</span><span class=\"string\">\"ready\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-blueword\">function</span><span class=\"js-syntax\">(</span>e<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">    //App is ready to receive JS messages</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -197,7 +197,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nfunction HTTPGET(url) {\n  var req = new XMLHttpRequest();\n  req.open(\"GET\", url, false);\n  req.send(null);\n  return req.responseText;\n}\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\n<span class=\"js-blueword\">function</span> HTTPGET<span class=\"js-syntax\">(</span>url<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  var req<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">new </span>XMLHttpRequest<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  req.open<span class=\"js-syntax\">(</span><span class=\"string\">\"GET\"</span><span class=\"js-syntax\">,</span> url<span class=\"js-syntax\">,</span> false<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  req.send<span class=\"js-syntax\">(</span>null<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">return </span>req.responseText<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -271,7 +271,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"appmessage\",\n  function(e) {\n    //Watch wants new data!\n  getWeather();\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener<span class=\"js-syntax\">(</span><span class=\"string\">\"appmessage\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-blueword\">function</span><span class=\"js-syntax\">(</span>e<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">    //Watch wants new data!</span>\n  getWeather<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
     },
     {
       "type": "paragraph",

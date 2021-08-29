@@ -131,8 +131,8 @@ const handlePythonDef = (line) => {
  * @return {string} Code with keywords wrapped in styled spans.
  */
 const toHighlightedLine = (line, language) => {
-  // Don't modify the <pre><div class=code-block>...
-  if (['<pre>', '!--'].some(p => line.includes(p))) return line;
+  // Don't modify the <pre><div class=code-block> or language comment
+  if (['<pre>', '<!--'].some(p => line.includes(p))) return line;
 
   // Terraform
   if (language.includes('terraform')) {
@@ -267,49 +267,64 @@ const toHighlightedLine = (line, language) => {
  * @param {string} language - Language extracted from <!-- language="js" --> above block
  * @return {string} Code with keywords wrapped in styled spans.
  */
-const highlight = (block, language) => {
-  if (!language) return block;
-
-  // Process each line at a time
-  block = block.split('\n').map(line => toHighlightedLine(line, language)).join('\n');
-
-  return block;
-};
+const highlight = (block, language) => !language
+  ? block
+  : block
+    .split('\n')
+    .map(line => toHighlightedLine(line, language))
+    .join('\n');
 
 /**
- * Join paragraphs that span a code section.
+ * Join paragraphs that span a code section and apply highlighting
  *
  * @param {string[]} sections - List of paragraph sections.
  * @returns {string[]} sections - Modified list of paragraph sections.
  */
-const joinCodeParagraphs = (sections) => {
-  let startIndex = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
-  let endIndex = sections.slice(startIndex).findIndex(p => p.includes('</pre'));
-  while (endIndex !== -1) {
-    // Not a code paragraph (TODO: annotate for component, not inline HTML)
-    if (startIndex === -1) break;
+const highlightCodeParagraphs = (sections) => {
+  let resultSections = [];
 
-    // Possible <!-- language="..." --> annotation at the end of the previous section
-    let languageLine = sections[startIndex].includes('language=')
-      ? sections[startIndex]
-      : sections[startIndex - 1];
-    if (languageLine.includes('language=')) {
-      const langStart = languageLine.indexOf('language="') + 'language="'.length;
-      const langEnd = languageLine.indexOf('"', langStart);
-      languageLine = languageLine.slice(langStart, langEnd);
-    } else {
-      languageLine = null;
+  // For each section
+  let language;
+  let isCodeBlock = false;
+  let joinableSections = [];
+  sections.forEach((section) => {
+    // If contains <pre>, set isCodeBlock
+    if (section.includes('<pre')) {
+      isCodeBlock = true;
     }
 
-    // Join the paragraphs between code start/end
-    const end = endIndex + startIndex + 1;
-    const joinedSection = '' + sections.slice(startIndex, end).join('\n\n');
-    sections.splice(startIndex, end - startIndex);
-    sections.splice(startIndex, 0, highlight(joinedSection, languageLine));
+    // If !isCodeBlock, just add it section
+    if (!isCodeBlock) {
+      resultSections.push(section);
+      return;
+    }
 
-    startIndex = sections.findIndex(p => p.includes('<pre') && !p.includes('</pre>'));
-    endIndex = sections.slice(startIndex).findIndex(p => p.includes('</pre'));
-  }
+    // If contains language=, set language
+    if (section.includes('<!-- language=')) {
+      const langStart = section.indexOf('language="') + 'language="'.length;
+      const langEnd = section.indexOf('"', langStart);
+      language = section.slice(langStart, langEnd);
+    }
+
+    // Highlight and gather joinable sections
+    if (isCodeBlock) {
+      // Add joinable sections
+      joinableSections.push(section);
+
+      // If contains </pre> unset isCodeBlock - could be the same section if just one paragraph
+      if (section.includes('</pre')) {
+        const highlightedSection = highlight(joinableSections.join('\n\n'), language);
+        resultSections.push(highlightedSection);
+
+        // Reset for next code block
+        isCodeBlock = false;
+        language = null;
+        joinableSections = [];
+      }
+    }
+  });
+
+  return resultSections;
 };
 
 /**
@@ -332,11 +347,13 @@ const postToModel = (fileName) => {
     tags: tags !== '---' ? tags.split(',') : [],
     components: [],
   };
+
+  // Body is aftet YAML metadata
   const body = text.split('---')[1].trim();
-  const sections = body.split('\n\n');
+  const rawSections = body.split('\n\n');
 
   // Join paragraphs inside code blocks
-  joinCodeParagraphs(sections);
+  const sections = highlightCodeParagraphs(rawSections);
 
   sections.forEach((section) => {
     // Image

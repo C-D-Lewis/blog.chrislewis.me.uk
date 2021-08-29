@@ -21,7 +21,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\noutput.x = input.x - input.y\noutput.y = (input.x / 2) + (input.y / 2) - input.z\n</div></pre>"
+      "text": "<!-- language=\"js\" -->\n<pre><div class=\"code-block\">\noutput.x<span class=\"js-keyword\"> = </span>input.x - input.y\noutput.y<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span>input.x / 2<span class=\"js-syntax\">)</span> + <span class=\"js-syntax\">(</span>input.y / 2<span class=\"js-syntax\">)</span> - input.z\n</div></pre>"
     },
     {
       "type": "paragraph",

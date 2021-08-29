@@ -11,8 +11,6 @@ If you're not already aware, here's an example schema describing a car:
 
 <!-- language="json" -->
 <pre><div class="code-block">
-s
-
 {
   "type": "object",
   "required": ["color", "length", "topSpeed"],
@@ -39,11 +37,6 @@ s
 Text
 
 ![](assets/media/2021/08/jsr-example.png)
-
-<!-- language="js" -->
-<pre><div class="code-block">
-
-</div></pre>
 
 ## Conclusion
 

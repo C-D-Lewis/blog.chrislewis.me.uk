@@ -114,7 +114,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nif(typeof dict.payload[\"KEY_TOGGLE\"] !== \"undefined\") {\n  console.log(\"KEY_TOGGLE received!\");\n}\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nif<span class=\"js-syntax\">(</span>typeof dict.payload<span class=\"js-syntax\">[</span><span class=\"string\">\"KEY_TOGGLE\"</span><span class=\"js-syntax\">]</span> <span class=\"js-keyword\">!==</span> <span class=\"string\">\"undefined\"</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span><span class=\"string\">\"KEY_TOGGLE received!\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
     },
     {
       "type": "paragraph",

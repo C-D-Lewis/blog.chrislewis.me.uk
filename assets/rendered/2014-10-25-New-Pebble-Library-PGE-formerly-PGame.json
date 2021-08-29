@@ -32,7 +32,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\nstatic void main_window_unload(Window *window) {\n  // Destroy all game resources\n  pge_finish(s_game);\n}\n</div></pre>"
+      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\n<span class=\"js-keyword\">static</span> <span class=\"js-blueword\">void </span>main_window_unload<span class=\"js-syntax\">(</span>Window *window<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">  // Destroy all game resources</span>\n  pge_finish<span class=\"js-syntax\">(</span>s_game<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
     },
     {
       "type": "paragraph",

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 # Import wordpress file
 node tools/importWordpressXml.js
 

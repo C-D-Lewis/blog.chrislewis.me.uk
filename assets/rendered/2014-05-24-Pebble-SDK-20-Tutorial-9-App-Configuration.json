@@ -124,7 +124,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"ready\",\n  function(e) {\n    console.log(\"PebbleKit JS ready!\");\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener<span class=\"js-syntax\">(</span><span class=\"string\">\"ready\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-blueword\">function</span><span class=\"js-syntax\">(</span>e<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    <span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span><span class=\"string\">\"PebbleKit JS ready!\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -141,7 +141,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener(\"showConfiguration\",\n  function(e) {\n    //Load the remote config page\n    Pebble.openURL(\"https://dl.dropboxusercontent.com/u/10824180/pebble%20config%20pages/sdktut9-config.html\");\n  }\n);\n</div></pre>"
+      "text": "<!-- language=\"javascript\" -->\n<pre><div class=\"code-block\">\nPebble.addEventListener<span class=\"js-syntax\">(</span><span class=\"string\">\"showConfiguration\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-blueword\">function</span><span class=\"js-syntax\">(</span>e<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">    //Load the remote config page</span>\n    Pebble.openURL<span class=\"js-syntax\">(</span><span class=\"string\">\"https://dl.dropboxusercontent.com/u/10824180/pebble%20config%20pages/sdktut9-config.html\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
     },
     {
       "type": "paragraph",

@@ -15,7 +15,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\ndigitalWrite(13, HIGH);\ndelay(1000);\ndigitalWrite(13, LOW);\n</div></pre>"
+      "text": "<!-- language=\"c\" -->\n<pre><div class=\"code-block\">\ndigitalWrite<span class=\"js-syntax\">(</span>13<span class=\"js-syntax\">,</span> HIGH<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\ndelay<span class=\"js-syntax\">(</span>1000<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\ndigitalWrite<span class=\"js-syntax\">(</span>13<span class=\"js-syntax\">,</span> LOW<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
