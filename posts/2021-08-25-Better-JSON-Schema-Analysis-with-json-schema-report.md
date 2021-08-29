@@ -148,7 +148,8 @@ a poor developer experience in an API response, and doesn't give a quick
 indication of which was the closest possible match. For EPCIS events, this was
 usually over 100 errors to consider, most of which were not relevant because
 they were for types of event other than the one we were trying to send, such as
-an <code>AggregationEvent</code.
+an <code>AggregationEvent</code> when we were actually sending
+<code>ObjectEvent</code>.
 
 I had a quick look around for such a tool or library that gave a detailed
 breakdown of schema validation results, but came up with very little or nothing

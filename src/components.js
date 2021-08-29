@@ -596,8 +596,10 @@ const PostHeader = ({ level, text }) => fabricate(`h${level}`)
   .withStyles({
     color: 'black',
     fontSize: '1.4rem',
-    marginTop: '35px',
+    marginTop: '10px',
     marginBottom: '10px',
+    paddingTop: '45px',
+    borderTop: 'solid 1px #4444',
   })
   .setText(text);
 

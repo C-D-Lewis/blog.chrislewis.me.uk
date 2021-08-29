@@ -24,7 +24,7 @@ const PYTHON_KEYWORDS = [
 const PYTHON_GREENWORDS = [
   ' print',
 ];
-const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']'];
+const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']', ': '];
 const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}'];
 const STRING_DELIMITERS = ['"', '\'', '`'];
 const C_KEYWORDS = [
