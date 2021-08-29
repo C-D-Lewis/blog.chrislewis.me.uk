@@ -83,6 +83,10 @@
     },
     {
       "type": "paragraph",
+      "text": "Not very useful for debugging..."
+    },
+    {
+      "type": "paragraph",
       "text": "In this instance, the data failed to match any sub-schema for each of the five\nmajor event types. Out of the 20+ potential properties of all of the event types\nwe have no way of knowing which type of event was the closest to being correct\n(for example, one bad date format can invalidate the entire event type\nsub-schema) or which properties caused validation to fail."
     },
     {
@@ -160,11 +164,31 @@
     },
     {
       "type": "paragraph",
-      "text": "The first version was quickly thrown together and then left alone after the\ninitial need for it went away, but I recently finished it up"
+      "text": "The first version was quickly thrown together and then left alone after the\ninitial need for it went away, but I recently finished it up and made it much\nmore useful for these kinds of complex schemas. Hopefully it will assist me in\nmy future EPCIS-related endevours when data is not valid and time to spend\ndebugging it is short."
     },
     {
       "type": "paragraph",
-      "text": "Check out the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/json-schema-report\">project repository</a> for all\nthe code and documentation in case you want to use it yourself!"
+      "text": "As a visual aid, it does the job well. But where the true value lies is in\nbringing the same improvements in ease-of-debugging to API users. Instead of\na single unhelpful statement, or a list of 100+ possibly-relevant errors,\nperhaps some future version could act as a library that buckets errors based on\neach sub-schema, and provides some measure of probability of completeness to\nhelp determine where to focus debugging efforts and time spent."
+    },
+    {
+      "type": "paragraph",
+      "text": "Check out the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/json-schema-report\">project repository</a> for all\nthe code and documentation in case you want to use it yourself! It also includes\na set of unit tests that give examples of all the types of schema supported."
+    },
+    {
+      "type": "paragraph",
+      "text": "You can also install it directly from npm:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"test\" -->\n<pre><div class=\"code-block\">\nnpm i -g json-schema-report\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And then use it with a schema file and data instance file:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<!-- language=\"test\" -->\n<pre><div class=\"code-block\">\n$ jsr ./car-schema.json carSample.json\n</div></pre>"
     }
   ]
 }
