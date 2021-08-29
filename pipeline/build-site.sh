@@ -15,11 +15,6 @@ node tools/buildPosts.js
 # Build tag index
 node tools/buildTagIndex.js
 
-# Update postHistory version to fix cached script issues
-DATENOW=$(date +%s)
-sed -i.bak "s/DATENOW/$DATENOW/g" index.html
-rm index.html.bak
-
 # Build and validate RSS feed
 mkdir -p feed
 node tools/buildFeed.js
