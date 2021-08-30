@@ -58,7 +58,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"js-syntax\">[</span>\n  <span class=\"_string\"><span class=\"js-syntax\">'</span>instance.length is not of a type<span class=\"js-syntax\">(</span>s<span class=\"js-syntax\">)</span> number<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\"><span class=\"js-syntax\">'</span>instance.topSpeed is not of a type<span class=\"js-syntax\">(</span>s<span class=\"js-syntax\">)</span> number<span class=\"js-syntax\">'</span></span>\n<span class=\"js-syntax\">]</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"js-syntax\">[</span>\n  <span class=\"_string\">\"instance.length is not of a type<span class=\"js-syntax\">(</span>s<span class=\"js-syntax\">)</span> number\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"instance.topSpeed is not of a type<span class=\"js-syntax\">(</span>s<span class=\"js-syntax\">)</span> number\"</span>\n<span class=\"js-syntax\">]</span>\n</div></pre>"
     },
     {
       "type": "header",
@@ -79,7 +79,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\ninstance failed to match exactly one schema <span class=\"js-syntax\">(</span>matched 0 out of 5<span class=\"js-syntax\">)</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\ninstance failed to match exactly one schema (matched 0 out of 5)\n</div></pre>"
     },
     {
       "type": "paragraph",

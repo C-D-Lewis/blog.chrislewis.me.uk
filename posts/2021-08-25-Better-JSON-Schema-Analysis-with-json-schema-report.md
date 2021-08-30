@@ -97,8 +97,8 @@ This shows us some hints about why the data isn't valid:
 <!-- language="js" -->
 <pre><div class="code-block">
 [
-  'instance.length is not of a type(s) number',
-  'instance.topSpeed is not of a type(s) number'
+  "instance.length is not of a type(s) number",
+  "instance.topSpeed is not of a type(s) number"
 ]
 </div></pre>
 
@@ -121,7 +121,7 @@ advanced JSON Schema features such as <code>oneOf</code>, <code>anyOf</code>,
 and <code>allOf</code>), the errors we get back are a lot less helpful both for
 us as well as anybody that might want to send us EPCIS events.
 
-<!-- language="js" -->
+<!-- language="text" -->
 <pre><div class="code-block">
 instance failed to match exactly one schema (matched 0 out of 5)
 </div></pre>
