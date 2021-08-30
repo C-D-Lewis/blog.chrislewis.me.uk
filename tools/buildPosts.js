@@ -52,8 +52,8 @@ const transformParagraph = (para) => {
     const location = para.substring(locationStart, locationEnd);
 
     para = para.substring(0, labelStart)
-     + `<a class="link" target="_blank" href="${location}">${label}</a>`
-     + para.substring(locationEnd + 1);
+      + `<a class="link" target="_blank" href="${location}">${label}</a>`
+      + para.substring(locationEnd + 1);
   }
 
   // Lists
@@ -61,11 +61,11 @@ const transformParagraph = (para) => {
     const [, text] = para.split('- ');
     
     return `<table>
-              <tr>
-                <td style="padding-right:10px">•</td>
-                <td>${text}</td>
-              </tr>
-            </table>`;
+      <tr>
+        <td style="padding-right:10px">•</td>
+        <td>${text}</td>
+      </tr>
+    </table>`;
   }
 
   return para;
@@ -82,6 +82,7 @@ const highlightStrings = (line) => {
     const strings = [];
 
     // Gather stings
+    // Note - a single quote inside double quoted string causes an infinite loop
     let strStart = line.indexOf(d);
     while (strStart >= 0) {
       const strEnd = line.indexOf(d, strStart + 1) + 1;  // Include ending delimiter
