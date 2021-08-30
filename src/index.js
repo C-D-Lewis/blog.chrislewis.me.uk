@@ -2,30 +2,6 @@ let leftColumn;
 let postList;
 
 /**
- * Convert month index to name.
- *
- * @param {string} index - Two character index string.
- * @returns {string} Month name.
- */
-const monthName = index => {
-  const map = {
-    '01': 'January',
-    '02': 'February',
-    '03': 'March',
-    '04': 'April',
-    '05': 'May',
-    '06': 'June',
-    '07': 'July',
-    '08': 'August',
-    '09': 'September',
-    '10': 'October',
-    '11': 'November',
-    '12': 'December',
-  };
-  return map[index] || "???";
-};
-
-/**
  * Get a query param value.
  */
 const getQueryParam = name => new URLSearchParams(window.location.search).get(name);
@@ -115,7 +91,7 @@ const buildPageLayout = () => {
   const tagCloud = Components.TagCloud({ tags: Object.keys(window.tagIndex) });
 
   // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
-  const archiveHeader = Components.LeftColumnHeader().setText('Posts by month');
+  const archiveHeader = Components.LeftColumnHeader().setText('Posts by year');
 
   leftColumn.addChildren([
     blogHeader,
@@ -152,23 +128,23 @@ const buildPageLayout = () => {
  * Update the posts for the archive location selected.
  *
  * @param {string} year - Year selected
- * @param {string} month - Month selected
  */
-const showPostsFrom = async (year, month) => {
+const showPostsFrom = async (year) => {
   postList.clear();
-  history.replaceState(null, null, `?year=${year}&month=${month}`);
+  history.replaceState(null, null, `?year=${year}`);
 
   postList.addChildren([
     Components.LeftColumnHeader({
       isTopSection: true,
       isCenterSection: true,
     })
-    .setText(`${monthName(month)} ${year}`),
+    .setText(`${year}`),
   ]);
 
   // Fetch all posts and add to the postList component as Posts
-  const posts = window.postHistory[year][month];
-  const promises = posts
+  const yearPosts = Object.entries(window.postHistory[year])
+    .reduce((acc, [, posts]) => [...acc, ...posts], []);
+  const promises = yearPosts
     .sort(descendingPostSort)
     .map(({ file }) => fetch(file).then(res => res.json()));
   const models = await Promise.all(promises);
@@ -251,35 +227,32 @@ const initPostHistory = () => {
   Object.entries(window.postHistory)
     .sort(([year1], [year2]) => integerItemSort(year1, year2))
     .forEach(([year, yearData]) => {
-      Object.entries(yearData)
-        .sort(([month1], [month2]) => integerItemSort(month1, month2))
-        .forEach(([monthIndex, monthData]) => {
-          const isThisMonth = getQueryParam('year') === year && getQueryParam('month') === monthIndex;
-          const monthLabel = Components.LeftColumnItem({ getIsSelected: () => isThisMonth })
-            .setText(`${monthName(monthIndex)} ${year} (${monthData.length})`)
-            .onClick(() => showPostsFrom(year, monthIndex));
+      const yearPosts = Object.entries(yearData).reduce((acc, [, posts]) => [...acc, ...posts], []);
 
-          leftColumn.addChildren([monthLabel]);
-        });
+      const yearSelected = getQueryParam('year') === year;
+      const yearLabel = Components.LeftColumnItem({ getIsSelected: () => yearSelected })
+        .setText(`${year} (${yearPosts.length})`)
+        .onClick(() => showPostsFrom(year));
+
+      leftColumn.addChildren([yearLabel]);
     });
 };
 
 /**
- * Load the posts to display, if the query specifies a month/year or post slug.
+ * Load the posts to display, if the query specifies a year or post slug.
  */
 const loadSelectionFromQuery = () => {
   // Does the URL contain a selection?
-  const post = getQueryParam('post');
+  let post = getQueryParam('post');
   if (post) {
     showSinglePost(post);
     return;
   }
 
-  // Or else a month page?
+  // Or else a year page?
   let year = getQueryParam('year');
-  let month = getQueryParam('month');
-  if (year && month) {
-    showPostsFrom(year, month);
+  if (year) {
+    showPostsFrom(year);
     return;
   }
 
@@ -290,10 +263,10 @@ const loadSelectionFromQuery = () => {
     return;
   }
 
-  // Auto load most recent month
+  // Auto load most recent post
   year = Object.keys(window.postHistory).sort(integerItemSort)[0];
-  month = Object.keys(window.postHistory[year]).sort(integerItemSort)[0];
-  showPostsFrom(year, month);
+  let month = Object.keys(window.postHistory[year]).sort(integerItemSort)[0];
+  showSinglePost(window.postHistory[year][month][0].fileName);
 };
 
 /**
