@@ -9,8 +9,8 @@ a:hover {
   color: whitesmoke;
   padding: 10px;
   padding-top: 0px;
-  border-top: 5px solid rgb(100, 204, 118);
-  border-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   line-height: 17px;
   overflow: scroll;
 }
@@ -21,4 +21,69 @@ code {
   padding: 2px 3px;
   border-radius: 2px;
   font-size: 0.8rem;
+}
+
+pre {
+  margin: 0px auto;
+}
+
+.lang-label {
+  background-color: grey;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 0.7rem;
+  padding: 4px 4px 2px 10px;
+  font-weight: bold;
+}
+
+.lang-js, .lang-javascript {
+  background-color: rgb(235, 215, 62);
+  color: black;
+}
+
+.lang-json {
+  background-color: orange;
+  color: black;
+}
+
+.lang-text, .lang-none {
+  height: 3px;
+  background-color: #444;
+  color: #1110;
+}
+
+.lang-cpp {
+  background-color: rgb(89,203,232);
+  color: black;
+}
+
+.lang-c {
+  background-color: royalblue;
+  color: white;
+}
+
+.lang-python {
+  background-color: rgb(42, 98, 156);
+  color: white;
+}
+
+.lang-shell {
+  background-color: #444;
+  color: white;
+}
+
+.lang-terraform {
+  background-color: rgb(75, 36, 227);
+  color: white;
+}
+
+.lang-dockerfile {
+  background-color: rgb(32, 129, 232);
+  color: white;
+}
+
+.lang-java {
+  background-color: rgb(228, 0, 29);
+  color: white;
 }

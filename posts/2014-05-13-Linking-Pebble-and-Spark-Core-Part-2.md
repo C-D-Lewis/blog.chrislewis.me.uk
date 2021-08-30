@@ -96,7 +96,7 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context)
   //Get first tuple (should be KEY_BUTTON_STATE)
   Tuple *t = dict_read_first(iterator);
 
-  //If it's there
+  //If it is there
   if(t)
   {
     if(strcmp("HIGH", t->value->cstring) == 0)

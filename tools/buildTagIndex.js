@@ -28,7 +28,10 @@ const main = () => {
       });
     });
   writeFileSync(TAG_INDEX_PATH, `window.tagIndex = ${JSON.stringify(tagIndex, null, 2)}`, 'utf8');
-  console.log('Created tagIndex.js');
+  console.log('Created tagIndex.js:');
+  Object.entries(tagIndex)
+    .sort(([, a], [, b]) => a.length < b.length ? 1 : -1)
+    .forEach(([tag, posts]) => console.log(`  - ${tag}: ${posts.length}`));
 };
 
 main();

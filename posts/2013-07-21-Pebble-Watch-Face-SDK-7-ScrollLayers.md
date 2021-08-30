@@ -27,7 +27,7 @@ To make use of this Layer type in a watch app, you will need something to displa
 
 <!-- language="cpp" -->
 <pre><div class="code-block">
-char scrollText[] = "Pebble is the first watch built for the 21st century. It's infinitely customizable, with beautiful downloadable watchfaces and useful internet-connected apps. Pebble connects to iPhone and Android smartphones using Bluetooth, alerting you with a silent vibration to incoming calls, emails and messages. While designing Pebble, we strove to create a minimalist yet fashionable product that seamlessly blends into everyday life.";
+char scrollText[] = "Pebble is the first watch built for the 21st century. It is infinitely customizable, with beautiful downloadable watchfaces and useful internet-connected apps. Pebble connects to iPhone and Android smartphones using Bluetooth, alerting you with a silent vibration to incoming calls, emails and messages. While designing Pebble, we strove to create a minimalist yet fashionable product that seamlessly blends into everyday life.";
 </div></pre>
 
 You can use other Layer types, but this is good for simplicity.

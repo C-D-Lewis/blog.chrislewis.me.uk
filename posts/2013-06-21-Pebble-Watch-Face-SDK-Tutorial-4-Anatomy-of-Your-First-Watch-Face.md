@@ -125,7 +125,7 @@ text_layer_set_text_alignment(&timeLayer, GTextAlignmentLeft);
 //Add to window
 layer_add_child(&window.layer, &timeLayer.layer);
 
-//Set initial time so display isn't blank
+//Set initial time so display is not blank
 PblTm time;
 get_time(&time);
 setTime(&time);

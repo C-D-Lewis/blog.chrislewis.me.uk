@@ -30,6 +30,7 @@ I've not yet gotten around to adding configuration to any of my watchfaces (alth
 Let's get started!
 
 ## Watchapp Setup
+
 The watchapp we will be creating will have a single option to keep things simple - the option to invert the colours. To begin with, create a new project and use the following code as a starting point:
 
 <!-- language="cpp" -->
@@ -88,6 +89,7 @@ This should be familiar: a basic app that has a single <code>TextLayer</code> st
 4. Write the HTML page that presents an interface to the user to allow them to choose their options.
 
 ## Setting Up AppMessage
+
 We will start by declaring the key we will be using to receive the option to invert the watchapp. Don't forget to declare this in Settings on CloudPebble or in <code>appinfo.json</code> if you are working with the native SDK:
 
 <!-- language="cpp" -->
@@ -108,7 +110,7 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context)
     switch(t->key)
     {
     case KEY_INVERT:
-      //It's the KEY_INVERT key
+      //It is the KEY_INVERT key
       if(strcmp(t->value->cstring, "on") == 0)
       {
         //Set and save as inverted
@@ -177,6 +179,7 @@ static void window_load(Window *window)
 Now the C code is complete!
 
 ## PebbleKit JS Setup
+
 The PebbleKit JS component of the app is the part responsible for loading the configuration page and sends the results of the user interaction to the watch to be processed as we just set up. This is done through the "showConfiguration" and "webviewclosed" events. Here is our initial JS code. Add a new JS file in CloudPebble or to the <code>src/js/pebble-js-app.js</code> if coding natively:
 
 <!-- language="javascript" -->
@@ -231,6 +234,7 @@ Pebble.addEventListener("webviewclosed",
 That concludes the PebbleKit JS setup. Now for the last part - HTML!
 
 ## Configuration HTML Page Setup
+
 The final piece of the puzzle is the part the user will actually see and takes the form of a HTML page consisting of form elements such as checkboxes, selectors and buttons. We will just use one selector and one button to let the user choose if they want the watchapp to be inverted or not. Here's the layout code:
 
 <!-- language="html" -->
@@ -250,42 +254,38 @@ The final piece of the puzzle is the part the user will actually see and takes t
       <option value="on">On</option>
     </select>
     
-
-    
     <button id="save_button">Save</button>
     
   </body>
 </html>
 </div></pre>
 
-With this done we add a script to add a click listener to the button and a function to assemble the JSON option dictionary. This dictionary is then encoded into the URL and handed to the PebbleKit JS code to be sent to the watch in the "webviewclosed" event. Insert this into the HTML page:
+With this done we add a script to add a click listener to the button and a function to assemble the JSON option dictionary. This dictionary is then encoded into the URL and handed to the PebbleKit JS code to be sent to the watch in the "webviewclosed" event. Insert this into the HTML page in a script tag:
 
 <!-- language="javascript" -->
 <pre><div class="code-block">
-<script>
-  //Setup to allow easy adding more options later
-  function saveOptions() {
-    var invertSelect = document.getElementById("invert_select");
+//Setup to allow easy adding more options later
+function saveOptions() {
+  var invertSelect = document.getElementById("invert_select");
 
-    var options = {
-      "invert": invertSelect.options[invertSelect.selectedIndex].value
-    }
-    
-    return options;
-  };
+  var options = {
+    "invert": invertSelect.options[invertSelect.selectedIndex].value
+  }
 
-  var submitButton = document.getElementById("save_button");
-  submitButton.addEventListener("click", 
-    function() {
-      console.log("Submit");
+  return options;
+};
 
-      var options = saveOptions();
-      var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(options));
-      
-      document.location = location;
-    }, 
-  false);
-</script>
+var submitButton = document.getElementById("save_button");
+submitButton.addEventListener("click",
+  function() {
+    console.log("Submit");
+
+    var options = saveOptions();
+    var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(options));
+
+    document.location = location;
+  },
+false);
 </div></pre>
 
 That completes the page that will get the user's option choices and also the app itself! Compile the app and install on your watch. By choosing either 'On' or 'Off' on the configuration page you should be able to toggle the colour used in the watchapp. This should look like that shown below:

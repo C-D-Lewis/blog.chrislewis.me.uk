@@ -30,7 +30,6 @@ per pixel (iterations) and the name of the scene are the main parameters:
 
 <!-- language="shell" -->
 <pre><div class="code-block">
-
 java \
   --module-path "/usr/share/maven-repo/org/openjfx/javafx-controls/11/:/usr/share/maven-repo/org/openjfx/javafx-base/11/:/usr/share/maven-repo/org/openjfx/javafx-graphics/11/:/usr/share/maven-repo/org/openjfx/javafx-fxml/11/" \
   --add-modules=javafx.controls,javafx.base,javafx.graphics,javafx.fxml \
@@ -256,7 +255,6 @@ set of tasks rendering many fixed scenes in parallel:
 
 <!-- language="json" -->
 <pre><div class="code-block">
-
 {
   "bucket": "example-bucket.chrislewis.me.uk",
   "world": "xmas-village",

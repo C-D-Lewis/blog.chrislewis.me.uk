@@ -226,14 +226,14 @@ a set of unit tests that give examples of all the types of schema supported.
 
 You can also install it directly from npm:
 
-<!-- language="test" -->
+<!-- language="text" -->
 <pre><div class="code-block">
 npm i -g json-schema-report
 </div></pre>
 
 And then use it with a schema file and data instance file:
 
-<!-- language="test" -->
+<!-- language="text" -->
 <pre><div class="code-block">
 $ jsr ./car-schema.json carSample.json
 </div></pre>

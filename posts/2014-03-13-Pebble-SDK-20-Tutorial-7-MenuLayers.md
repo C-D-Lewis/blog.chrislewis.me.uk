@@ -139,7 +139,7 @@ void draw_row_callback(GContext *ctx, Layer *cell_layer, MenuIndex *cell_index, 
     menu_cell_basic_draw(ctx, cell_layer, "5. Tomato", "Extremely versatile!", NULL);
     break;
   case 5:
-    menu_cell_basic_draw(ctx, cell_layer, "6. Grape", "Bunches of 'em!", NULL);
+    menu_cell_basic_draw(ctx, cell_layer, "6. Grape", "Bunches of em!", NULL);
     break;
   case 6:
     menu_cell_basic_draw(ctx, cell_layer, "7. Melon", "Only three left!", NULL);

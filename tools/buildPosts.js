@@ -13,7 +13,7 @@ const JAVASCRIPT_KEYWORDS = [
   'catch ', ' = ', ' => ', '!==', '===', 'export ', ' ? ', ' : ',
 ];
 const JAVASCRIPT_BLUEWORDS = [
-  'const', 'let', ' Object', 'exports', 'function', 'console', 'window', 'process',
+  'const', 'let', ' Object', 'exports', 'function', 'console', 'window', 'process', 'var ',
 ];
 const DOCKERFILE_KEYWORDS = [
   'FROM', 'RUN', 'WORKDIR', 'ENV', 'ARG', 'ENTRYPOINT', 'COPY',
@@ -28,10 +28,11 @@ const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']', ': '];
 const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}'];
 const STRING_DELIMITERS = ['"', '\'', '`'];
 const C_KEYWORDS = [
-  'define', 'static', 'const', ' = ', 'return ', '->', 'if ', 'while ', '+= ', '&', ' else ', '== ',
+  'define', 'include ', 'static', 'const', ' = ', 'return ', '->', 'if', ' else', 'while ', '+= ', '&', ' else ', '== ', ' break',
 ];
 const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';'];
-const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void '];
+const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void ', 'bool ', ' true', ' false'];
+const JAVA_KEYWORDS = ['public', 'static', 'final', 'private', 'void'];
 
 let numRendered = 0;
 
@@ -81,6 +82,7 @@ const highlightStrings = (line) => {
   STRING_DELIMITERS.forEach((d) => {
     const strings = [];
 
+
     // Gather stings
     // Note - a single quote inside double quoted string causes an infinite loop
     let strStart = line.indexOf(d);
@@ -126,6 +128,33 @@ const handlePythonDef = (line) => {
 };
 
 /**
+ * Map a friendly language name for display.
+ *
+ * @param {string} language - Language identifier.
+ * @returns {string} Human friendly language name.
+ */
+const friendlyLangName = (language) => {
+  const map = {
+    js: 'JavaScript',
+    javascript: 'JavaScript',
+    json: 'JSON',
+    text: 'Text',
+    cpp: 'C++',
+    none: 'Text',
+    python: 'Python',
+    terraform: 'Terraform',
+    c: 'C',
+    shell: 'Shell',
+    dockerfile: 'Dockerfile',
+    java: 'Java',
+    html: 'HTML',
+  };
+  if (!map[language]) throw new Error(`Unmappable language name: ${language}`);
+
+  return map[language];
+}
+
+/**
  * Replace key words with styled spans.
  *
  * @param {string} line - Line of code.
@@ -133,8 +162,14 @@ const handlePythonDef = (line) => {
  * @return {string} Code with keywords wrapped in styled spans.
  */
 const toHighlightedLine = (line, language) => {
-  // Don't modify the <pre><div class=code-block> or language comment
-  if (['<pre>', '<!--'].some(p => line.includes(p))) return line;
+  // Insert language annotation
+  if (line.includes('<!-- language=')) {
+    line = `<div class="lang-label lang-${language}">${friendlyLangName(language)}</div>`;
+    return line;
+  }
+
+  // Don't modify the <pre><div class=code-block>
+  if (line.includes('<pre>')) return line;
 
   // No highlighting please
   if (['none', 'text'].includes(language)) return line;
@@ -186,6 +221,30 @@ const toHighlightedLine = (line, language) => {
     });
     JAVASCRIPT_SYNTAX.forEach((syntax) => {
       line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
+  }
+
+  // Java
+  else if (['java'].includes(language)) {
+    const trimmed = line.trim();
+
+    // Code comments
+    if (
+      trimmed.startsWith('//')
+      || trimmed.startsWith('/**')
+      || trimmed.startsWith('*')
+      || trimmed.startsWith('*/')) {
+      return `<span class="comment">${line}</span>`;
+    }
+
+    // Strings
+    line = highlightStrings(line);
+
+    JAVASCRIPT_SYNTAX.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
+    JAVA_KEYWORDS.forEach((keyword) => {
+      line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
     });
   }
 
@@ -242,7 +301,7 @@ const toHighlightedLine = (line, language) => {
   }
 
   // C/C++
-  else if (['c', 'c++'].includes(language)) {
+  else if (['c', 'c++', 'cpp'].includes(language)) {
     // Strings
     line = highlightStrings(line);
 

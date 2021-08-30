@@ -124,12 +124,12 @@ Window *window;
 
 void window_load(Window *window)
 {
-  //We will add the creation of the Window's elements here soon!
+  //We will add the creation of the Window elements here soon!
 }
 
 void window_unload(Window *window)
 {
-  //We will safely destroy the Window's elements here!
+  //We will safely destroy the Window elements here!
 }
 
 void init()
@@ -163,7 +163,7 @@ The next step as a responsible app developer is to make sure we de-initialize an
 <pre><div class="code-block">
 void deinit()
 {
-  //We will safely destroy the Window's elements here!
+  //We will safely destroy the Window elements here!
   window_destroy(window);
 }
 </div></pre>

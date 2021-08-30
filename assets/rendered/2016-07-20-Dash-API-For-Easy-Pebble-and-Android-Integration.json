@@ -58,7 +58,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\n#include ;\n#include \n\n#define APP_NAME \"My App\"\n\nstatic void error_callback(ErrorCode code) {\n  // Receive error codes here\n}\n\nstatic void init() {\n  dash_api_init(APP_NAME, error_callback);\n  events_app_message_open();\n\n  /* Other init code */\n}\n</div></pre>"
+      "text": "<div class=\"lang-label lang-cpp\">C++</div>\n<pre><div class=\"code-block\">\n#<span class=\"js-keyword\">include </span><span class=\"js-syntax\">;</span>\n#<span class=\"js-keyword\">include </span>\n\n#<span class=\"js-keyword\">define</span> APP_NAME <span class=\"_string\">\"My App\"</span>\n\n<span class=\"js-keyword\">static</span> <span class=\"js-blueword\">void </span>error_callback<span class=\"js-syntax\">(</span>ErrorCode code<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">  // Receive error codes here</span>\n<span class=\"js-syntax\">}</span>\n\n<span class=\"js-keyword\">static</span> <span class=\"js-blueword\">void </span>init<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  dash_api_init<span class=\"js-syntax\">(</span>APP_NAME<span class=\"js-syntax\">,</span> error_callback<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  events_app_message_open<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n  /* Other init code */\n<span class=\"js-syntax\">}</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -66,7 +66,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<!-- language=\"cpp\" -->\n<pre><div class=\"code-block\">\ndash_api_check_is_available();\n</div></pre>"
+      "text": "<div class=\"lang-label lang-cpp\">C++</div>\n<pre><div class=\"code-block\">\ndash_api_check_is_available<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
     },
     {
       "type": "paragraph",

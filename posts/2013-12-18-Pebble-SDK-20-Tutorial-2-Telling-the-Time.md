@@ -74,7 +74,7 @@ But what if we want to start the watchface with the time already showing? We can
 
 <!-- language="cpp" -->
 <pre><div class="code-block">
-//Get a time structure so that the face doesn't start blank
+//Get a time structure so that the face does not start blank
 struct tm *t;
 time_t temp;
 temp = time(NULL);
@@ -127,7 +127,7 @@ But we're still not done! Remember we must destroy what we create in the <code>w
 <pre><div class="code-block">
 void window_unload(Window *window)
 {
-  //We will safely destroy the Window's elements here!
+  //We will safely destroy the Window elements here!
   text_layer_destroy(text_layer);
 
   inverter_layer_destroy(inv_layer);
