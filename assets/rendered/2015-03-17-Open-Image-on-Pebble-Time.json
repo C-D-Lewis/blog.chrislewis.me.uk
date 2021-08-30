@@ -35,50 +35,6 @@
     },
     {
       "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
-      "text": "&nbsp;"
-    },
-    {
-      "type": "paragraph",
       "text": "The app sends a built-in image of a tree as a default option when it is launched by itself, or another image if presented one using 'Open With' actions, such as from file managers or emails. The result of sending the tree image is thus:"
     },
     {

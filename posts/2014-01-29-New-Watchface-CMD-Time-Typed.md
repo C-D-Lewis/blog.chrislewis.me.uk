@@ -1,6 +1,6 @@
 New Watchface: CMD Time Typed
 2014-01-29 14:47:23
-Pebble
+Pebble,Releases
 ---
 
 After being inspired by a post on Reddit, I made a watch face that imitates the '<code>time /t</code>' and '<code>date /t</code>' commands in the Windows Command Prompt. This was the result:

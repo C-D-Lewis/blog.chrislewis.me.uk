@@ -323,11 +323,6 @@ window.postHistory = {
     ],
     "08": [
       {
-        "title": "New Project:",
-        "file": "assets/rendered/2013-08-16-New-Project.json",
-        "fileName": "2013-08-16-New-Project"
-      },
-      {
         "title": "Update on posts",
         "file": "assets/rendered/2013-08-20-Update-on-posts.json",
         "fileName": "2013-08-20-Update-on-posts"
@@ -391,11 +386,6 @@ window.postHistory = {
         "title": "Update: Back to Work",
         "file": "assets/rendered/2014-01-04-Update-Back-to-Work.json",
         "fileName": "2014-01-04-Update-Back-to-Work"
-      },
-      {
-        "title": "The Three Stages of Coding for Android (So Far)",
-        "file": "assets/rendered/2014-01-05-The-Three-Stages-of-Coding-for-Android-So-Far.json",
-        "fileName": "2014-01-05-The-Three-Stages-of-Coding-for-Android-So-Far"
       },
       {
         "title": "Appeal for Testers for Watch Trigger Update",

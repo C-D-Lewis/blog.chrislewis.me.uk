@@ -1,6 +1,6 @@
 Watch Trigger 1.9: Biggest update yet
 2013-09-13 01:46:52
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 ![](/assets/import/media/2013/09/icon.png?w=300)

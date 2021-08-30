@@ -1,6 +1,6 @@
 Wristponder v2.0.0: Favourite Contacts and UI Redesign
 2014-04-27 00:38:00
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 One of the most requested features for Wristponder I get is the ability to manually choose a small set of 'favourite' contacts, perhaps as only having the last contacts and cumulative incoming contacts wasn't enough. I realised that after adding favourite contacts the main menu would get much longer, and so the UI would need an overhaul to better navigate the list of contacts. So the menu was redesigned to contain Last SMS, Last Call, Top Incoming -> Incoming contacts, Favourites -> Favourite contacts. This way it's quicker to navigate where you want to go, as opposed to always scrolling the whole list.

@@ -1,6 +1,6 @@
 New App: BBC Weather
 2014-03-15 22:33:04
-Pebble
+Pebble,Releases
 ---
 
 In a bit of downtime I thought I'd make myself a small app to give me local weather using PebbleKit JS to interpret a <a href="http://bbc.co.uk/weather" title="BBC Weather">BBC Weather</a> feed for my local town.

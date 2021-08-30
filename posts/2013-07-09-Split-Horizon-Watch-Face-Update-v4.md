@@ -1,6 +1,6 @@
 Split Horizon Watch Face Update (v4)
 2013-07-09 19:09:19
-Pebble
+Pebble,Releases
 ---
 
 Here's another update to the Split Horizon watch faces, this time adding a 'AM/PM' indicator when the watch is in 12 hour mode, by user request. Also, small font artefacts are fixed by reducing the month font size by a point.

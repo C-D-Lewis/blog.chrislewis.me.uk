@@ -1,6 +1,6 @@
 Watch Trigger (& +) Updated to SDK 2.0
 2013-11-10 00:36:23
-Pebble
+Pebble,Releases
 ---
 
 If you're a user of my <a title="Watch Trigger 1.9: Biggest update yet" href="http://ninedof.wordpress.com/2013/09/13/watch-trigger-1-9-biggest-update-yet/">Watch Trigger</a> or <a title="Watch Trigger + for Pebble: Initial Release" href="http://ninedof.wordpress.com/2013/09/22/watch-trigger-for-pebble-initial-release/">Watch Trigger +</a> Pebble watch apps and also love the newest watch firmware, do not despair: They are both now 2.0 compatible!

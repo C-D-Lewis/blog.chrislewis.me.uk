@@ -1,6 +1,6 @@
 Filing Cabinet Initial Release
 2013-03-25 18:43:34
-Releases
+Releases,Java
 ---
 
 Just for laughs, here is a release for the Filing Cabinet. Its pretty basic software, but I've been using it to organize notes that were previously fragmented between Google Tasks, Windows 7 Sticky Note gadget and a plain text file. For me, having these notes all in one place seems like a good idea, and doing it myself helps me learn in the process. Without further ado, <a title="here is the link" href="https://www.dropbox.com/s/fn2z12rfd21qkcw/FilingCabinet%20release%200.1.zip">here is the link</a>.

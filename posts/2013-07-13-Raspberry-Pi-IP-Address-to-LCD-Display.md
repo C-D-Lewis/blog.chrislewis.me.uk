@@ -1,6 +1,6 @@
 Raspberry Pi: IP Address to LCD Display
 2013-07-13 17:30:18
-Raspberry Pi
+Raspberry Pi,Java,Python
 ---
 
 So a few days ago I acquired a Raspberry Pi. This amazing board is a SoC (System on a Chip) that runs a version of Debian Linux called Raspbian. Since then I've been poking around and finding out how to do my favourite useful stuff (networking, Arduino etc), aided in a way by the basic knowledge of Linux commands obtained from dabbling in Ubuntu.

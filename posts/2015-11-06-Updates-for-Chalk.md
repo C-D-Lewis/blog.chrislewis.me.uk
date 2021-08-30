@@ -1,6 +1,6 @@
 Updates for Chalk
 2015-11-06 06:49:36
-Pebble
+Pebble,Releases
 ---
 
 First of all, an apology to my app users - I've been slow updating my apps, and fixing new bugs!

@@ -1,6 +1,6 @@
 Dashboard for Pebble 1.13 - Lollipop Consequences
 2014-11-23 00:51:00
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 Dashboard for Pebble is now version 1.13. This version contains a new Materially design, as well as fixes to the Data and ringer toggles as a result of the changes in Android 5.0 Lollipop.

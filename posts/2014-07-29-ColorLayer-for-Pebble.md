@@ -1,6 +1,6 @@
 ColorLayer for Pebble
 2014-07-29 14:55:30
-Pebble
+Pebble,Releases
 ---
 
 <strong>Edit: 100th post!
@@ -10,6 +10,7 @@ Quick post to share  a 'new' <code>Layer</code> type I created for an upcoming 
 I normally choose the latter, so for the umpteenth time of doing so I decided to wrap it up to make it a bit simpler to use. Here's the result!
 
 ## ColorLayer.h
+
 <!-- language="cpp" -->
 <pre><div class="code-block">
 /**
@@ -36,6 +37,7 @@ Layer* color_layer_get_layer(ColorLayer *this);
 </div></pre>
 
 ## ColorLayer.c
+
 <!-- language="cpp" -->
 <pre><div class="code-block">
 #include "color_layer.h"

@@ -4,7 +4,9 @@
   "dateTime": "2014-03-28 19:46:25",
   "tags": [
     "Android",
-    "Pebble"
+    "Pebble",
+    "Integration",
+    "C++"
   ],
   "components": [
     {

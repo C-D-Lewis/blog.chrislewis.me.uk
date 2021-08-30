@@ -1,6 +1,6 @@
 New Pebble Watchapp: BBC News Headlines
 2014-05-29 22:35:06
-Integration,Pebble
+Integration,Pebble,Releases
 ---
 
 <strong>Updates:

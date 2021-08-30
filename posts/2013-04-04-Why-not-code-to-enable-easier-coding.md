@@ -1,6 +1,6 @@
 Why not code to enable easier coding?
 2013-04-04 00:51:35
-Android
+Android,Java
 ---
 
 In a moment not quite unlike hearing your programming lecturer has written a debugger for debugging a debugger, I decided to have a delve into Swing and AWT to produce a small tool that would enable me to make better use of Eclipse and the Android SDK's features. 

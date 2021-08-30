@@ -1,6 +1,6 @@
 Pebble Library: ToastLayer For Pop Up Notifications
 2014-10-17 04:36:31
-Pebble
+Pebble,Releases
 ---
 
 A while ago I created a simple <a title="Pebble Alert Lib" href="https://github.com/C-D-Lewis/pebble-alert-lib">Alert Library</a>, which provides functions to show and hide a set of layers to show an 'alert window' for a time that tells the user of an event without changing Window.

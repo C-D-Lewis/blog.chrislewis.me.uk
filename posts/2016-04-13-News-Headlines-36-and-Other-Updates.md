@@ -1,6 +1,6 @@
 News Headlines 3.6 and Other Updates
 2016-04-13 12:49:04
-Integration,JavaScript,Pebble
+Integration,JavaScript,Pebble,Releases
 ---
 
 Once again, it's been a while! The last update talked about updating apps for Chalk (Pebble Time Round), and it was around that time that I was aiming for stability on the 'Big Three' apps (namely Dashboard, News Headlines, and Wristponder), as well as a couple of the more popular watchfaces (namely Thin, Beam Up, Isotime, etc), so I could not be doing Pebble development all day and all night.

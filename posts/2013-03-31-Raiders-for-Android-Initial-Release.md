@@ -1,6 +1,6 @@
 Raiders for Android Initial Release!
 2013-03-31 23:17:45
-Android,Releases
+Android,Releases,Java
 ---
 
 ![](/assets/import/media/2013/03/raiders-title1.png)

@@ -1,6 +1,6 @@
 Streaming Pebble Accelerometer Data
 2014-03-28 19:46:25
-Android,Pebble
+Android,Pebble,Integration,C++
 ---
 
 <strong>Updates

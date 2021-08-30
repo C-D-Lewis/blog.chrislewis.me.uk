@@ -1,6 +1,6 @@
 Revisiting Beam Up for Pebble with SDK 3.0
 2015-04-28 03:12:21
-Pebble
+Pebble,Releases
 ---
 
 According to the Pebble dev portal, the last version of Beam Up to be released was December 14th, 2014. If I remember correctly, that version was the much required update that rolled all the different versions (inverted, with date, with battery etc.) into one version. This was a move away from the SDK 1.x hangover where app config pages did not exist, so multiple apps were required.

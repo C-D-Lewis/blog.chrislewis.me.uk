@@ -26,6 +26,7 @@ With my adventures in Node and discovering convenient or standardised ways of do
 ## File Layout
 
 As you can see from any of the linked repositories above, the basic layout for one of my Node apps goes as follows:
+<pre><div class="code-block">
 src/
   modules/
     app-specific-module.js
@@ -35,7 +36,9 @@ src/
   main.js
 package.json
 config.json
-.gitignore   // 'config.json'</pre>
+.gitignore   // 'config.json'
+</div></pre>
+
 The <code>src</code> folder contains <code>modules</code> (modules that are specific to the app), and <code>common</code> (using common modules shared between all apps, such as <code>log.js</code> (standard logger, <code>pid</code> logging, and <code>uncaughtException</code> & <code>unhandledRejection</code> handlers), as well as <code>main.js</code>, which initialises the app.
 
 This pattern allows all apps to use common modules that can be guaranteed not only the presence of each other, but of a common <code>config.json</code> that they can all use to draw configuration information (such as log level, API keys, latitude and longitude, etc.).
@@ -53,13 +56,18 @@ Of particular interest is the <code>config.js</code> module, which all modules t
  • Allow access to the app's launch directory context.
 
 For example, a fictitious module may require an API key to be present in the <code>ENV</code> member of <code>config.json</code>:
+
+<!-- language="js" -->
+<pre><div class="code-block">
 const config = require('../common/config');
 
 config.requireKeys('fictitious.js', {
   ENV: {
     API_KEY: ''
   }
-});</pre>
+});
+</div></pre>
+
 The way <code>config.js</code> behaves, if this structure is not present in <code>config.json</code>, the app will not start, and will tell the operator (i.e: me!) that the value should be provided. Handy!
 
 ## Standard Modules

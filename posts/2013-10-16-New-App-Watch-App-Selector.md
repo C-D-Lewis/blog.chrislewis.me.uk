@@ -1,6 +1,6 @@
 New App: Watch App Selector
 2013-10-16 16:47:45
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 Every once in a while programming you get stuck on a problem and you think to yourself 'There must be an easier way to do this!', and most often you'll be right. It's just a case of casting around for another approach or thinking outside the box. In this case it was for a mini project I've been working on for some weeks, on and off. A single free app through which to distribute all my past and future Pebble watch apps and watch faces. I think it's been done before, but I like elegance of the idea. Problem was, I got stuck on how to best present all the apps.

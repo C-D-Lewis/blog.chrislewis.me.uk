@@ -1,6 +1,6 @@
 New Watch Face: Beam Up
 2013-06-17 21:16:47
-Pebble
+Pebble,Releases
 ---
 
 I've had another watch face idea! And it's almost completely implemented. This time around, any digit about to change gets 'beamed up' by an <code>InverterLayer</code>, changed, then replaced a moment later. Before I go into the interesting specifics, here's a preview image (although rather crudely created):

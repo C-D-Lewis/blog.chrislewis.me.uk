@@ -1,6 +1,6 @@
 Isometric Library in Java
 2015-05-03 19:44:07
-Java,Pebble
+Java,Pebble,Releases
 ---
 
 A feverish evening spent with little else to do resulted in a quick port of my <a href="http://github.com/C-D-Lewis/isometric">isometric Pebble library</a> to Java Canvas with Graphics2D. Might prove useful for an isometric tile game or such if the mood takes me. There's something distinctly satisfying about seeing the same results on a different platform.

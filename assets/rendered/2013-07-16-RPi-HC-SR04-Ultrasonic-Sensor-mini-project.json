@@ -3,7 +3,8 @@
   "fileName": "2013-07-16-RPi-HC-SR04-Ultrasonic-Sensor-mini-project.md",
   "dateTime": "2013-07-16 22:50:08",
   "tags": [
-    "Raspberry Pi"
+    "Raspberry Pi",
+    "C++"
   ],
   "components": [
     {

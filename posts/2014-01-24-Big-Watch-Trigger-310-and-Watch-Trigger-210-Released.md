@@ -1,6 +1,6 @@
 Big Watch Trigger 3.1.0 and Watch Trigger + 2.1.0 Released!
 2014-01-24 02:22:53
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 It's been a long time since the last release that had any major changes, but after much work the re-write is now complete, and released to Google Play!

@@ -1,6 +1,6 @@
 New Watchapp: Data Toggle for Pebble (Android)
 2013-12-21 16:34:31
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 I've recently upgraded my now 3-year old Galaxy S to a Nexus 5, and one difference I noticed in the stock 4.4.2 Kit Kat Android is that instead of toggling the radios (as would happen in the pull-down menu on CM 10.1), I was taken to the actual menu and then needed to perform the toggling myself.

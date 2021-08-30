@@ -4,7 +4,8 @@
   "dateTime": "2013-12-23 23:47:44",
   "tags": [
     "Integration",
-    "Spark Core"
+    "Spark Core",
+    "C++"
   ],
   "components": [
     {

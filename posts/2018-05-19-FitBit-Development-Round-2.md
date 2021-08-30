@@ -1,6 +1,6 @@
 FitBit Development - Round 2
 2018-05-19 14:36:47
-FitBit,Integration,JavaScript,Pebble,Releases,Uncategorized
+FitBit,Integration,JavaScript,Pebble
 ---
 
 ![](/assets/import/media/2018/05/banner2.png)

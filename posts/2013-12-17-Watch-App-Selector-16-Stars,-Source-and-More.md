@@ -1,6 +1,6 @@
 Watch App Selector 1.6: Stars, Source & More
 2013-12-17 01:25:23
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 Watch App Selector for Android just received a bumper update. It features a new layout, showing compatibility and source code availability:

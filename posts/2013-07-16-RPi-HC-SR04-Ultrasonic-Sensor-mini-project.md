@@ -1,6 +1,6 @@
 RPi: HC-SR04 Ultrasonic Sensor mini-project
 2013-07-16 22:50:08
-Raspberry Pi
+Raspberry Pi,C++
 ---
 
 <strong>In an almost biblical revelation, I have found it IS indeed possible to post source code in a proper fashion on Wordpress, making a virtual mockery of my Pebble SDK Tutorial pages, which I might update, but not for now. The code segments are available in source links in each post. 

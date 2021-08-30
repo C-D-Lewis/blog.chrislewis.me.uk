@@ -56,7 +56,11 @@
     },
     {
       "type": "paragraph",
-      "text": "As you can see from any of the linked repositories above, the basic layout for one of my Node apps goes as follows:\nsrc/\n  modules/\n    app-specific-module.js\n  common/\n    config.js\n    log.js\n  main.js\npackage.json\nconfig.json\n.gitignore   // 'config.json'</pre>\nThe <code>src</code> folder contains <code>modules</code> (modules that are specific to the app), and <code>common</code> (using common modules shared between all apps, such as <code>log.js</code> (standard logger, <code>pid</code> logging, and <code>uncaughtException</code> & <code>unhandledRejection</code> handlers), as well as <code>main.js</code>, which initialises the app."
+      "text": "As you can see from any of the linked repositories above, the basic layout for one of my Node apps goes as follows:\n<pre><div class=\"code-block\">\nsrc/\n  modules/\n    app-specific-module.js\n  common/\n    config.js\n    log.js\n  main.js\npackage.json\nconfig.json\n.gitignore   // 'config.json'\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The <code>src</code> folder contains <code>modules</code> (modules that are specific to the app), and <code>common</code> (using common modules shared between all apps, such as <code>log.js</code> (standard logger, <code>pid</code> logging, and <code>uncaughtException</code> & <code>unhandledRejection</code> handlers), as well as <code>main.js</code>, which initialises the app."
     },
     {
       "type": "paragraph",
@@ -89,11 +93,15 @@
     },
     {
       "type": "paragraph",
-      "text": "For example, a fictitious module may require an API key to be present in the <code>ENV</code> member of <code>config.json</code>:\nconst config = require('../common/config');"
+      "text": "For example, a fictitious module may require an API key to be present in the <code>ENV</code> member of <code>config.json</code>:"
     },
     {
       "type": "paragraph",
-      "text": "config.requireKeys('fictitious.js', {\n  ENV: {\n    API_KEY: ''\n  }\n});</pre>\nThe way <code>config.js</code> behaves, if this structure is not present in <code>config.json</code>, the app will not start, and will tell the operator (i.e: me!) that the value should be provided. Handy!"
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"js-blueword\">const</span> config<span class=\"js-keyword\"> = </span>require<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>../common/config<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\nconfig.requireKeys<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>fictitious.js<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span>\n  ENV<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    API_KEY<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span><span class=\"js-syntax\">'</span></span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The way <code>config.js</code> behaves, if this structure is not present in <code>config.json</code>, the app will not start, and will tell the operator (i.e: me!) that the value should be provided. Handy!"
     },
     {
       "type": "header",

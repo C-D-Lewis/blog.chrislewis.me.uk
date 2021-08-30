@@ -1,6 +1,6 @@
 Java to Arduino LCD Output
 2013-05-22 22:01:40
-Integration,Java
+Integration,Java,C++
 ---
 
 So, seeing as I enjoy programming and system integration more than semi-conductor physics (Here's looking at you, exam!) I decided to find a new use for an old GDM1601c 16x1 LCD display from an old kit I had when I was younger.

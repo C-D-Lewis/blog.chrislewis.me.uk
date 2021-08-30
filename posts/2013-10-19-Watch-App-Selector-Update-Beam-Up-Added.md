@@ -1,6 +1,6 @@
 Watch App Selector Update: Beam Up Added
 2013-10-19 01:29:49
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 A while ago<a title="New Watch Face: Beam Up" href="http://ninedof.wordpress.com/2013/06/17/new-watch-face-beam-up/"> I wrote</a> about a prototype watch face called Beam Up. Spurred on by the exciting potential the <a title="New App: Watch App Selector" href="http://ninedof.wordpress.com/2013/10/16/new-app-watch-app-selector/">Watch App Selector</a> now permits, I've finished it up.

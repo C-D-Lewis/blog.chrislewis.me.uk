@@ -1,6 +1,6 @@
 Watch Trigger 3.0.1 and Watch Trigger + 2.0.1 Released: Don't Trust Old Code
 2013-12-31 14:21:25
-Pebble
+Pebble,Releases
 ---
 
 Woke up today to multiple bug reports. Apparently I didn't test the new versions of the Android apps against the 1.X versions of the watchapps enough! Downgrading is easy enough a process, so after a while I had found that changing the old <code>AppSync</code> implementation for my newer <code>AppMessage</code> paradigm (Package whole Dictionaries, iterate and process all Tuples for each Dictionary received) seemed to resolve the problems!

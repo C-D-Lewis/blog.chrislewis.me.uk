@@ -1,6 +1,6 @@
 Beam Up v2.1.0: Infamous 'stuck' Bug Most Likely Fixed
 2014-03-11 14:01:20
-Pebble
+Pebble,Releases
 ---
 
 <strong>UPDATE: 

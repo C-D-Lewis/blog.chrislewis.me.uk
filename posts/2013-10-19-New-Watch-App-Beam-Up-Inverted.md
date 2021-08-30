@@ -1,6 +1,6 @@
 New Watch App: Beam Up Inverted
 2013-10-19 16:09:42
-Pebble
+Pebble,Releases
 ---
 
 By request, I have made an inverted version of the <a title="Beam Up at MyPebbleFaces" href="http://www.mypebblefaces.com/apps/3905/6741/">Beam Up</a> watch face:

@@ -1,6 +1,6 @@
 Big Changes to PGE
 2015-06-15 03:08:45
-Integration,JavaScript,Pebble
+Integration,JavaScript,Pebble,Games
 ---
 
 After integration of the <a href="https://github.com/C-D-Lewis/pge/blob/master/docs/pge_isometric.md">Isometric</a> and <a href="https://github.com/C-D-Lewis/pge/blob/master/docs/pge_ws.md">WebSocket</a> modules (previously 'additional') into <a href="https://github.com/C-D-Lewis/pge">PGE</a>, I took some time to do something I'd wanted to do for a while: make it a repo usable directly after <code>git clone</code>. Previously the repo was an example project which could be cloned and played around with, but to use the engine in a new game required knowing which files to copy into the new project.

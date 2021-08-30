@@ -1,6 +1,6 @@
 Alert lib for Pebble: Very Small Library for a Simple Alert
 2014-02-20 17:52:44
-Pebble
+Pebble,Releases
 ---
 
 In making improvements to <a title="Wristponder for Pebble: Send Custom SMS Messages from your wrist!" href="http://ninedof.wordpress.com/2014/02/14/wristponder-for-pebble-send-custom-sms-messages-from-your-wrist/">Wristponder</a>, I developed a mechanism that I've gone on to make into a small library that I'll doubtless reuse again in the future, as can you!

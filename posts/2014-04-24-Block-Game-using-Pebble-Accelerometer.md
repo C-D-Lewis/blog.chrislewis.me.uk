@@ -1,6 +1,6 @@
 Block Game using Pebble Accelerometer
 2014-04-24 16:35:38
-Android,Integration,Pebble
+Android,Integration,Pebble,Games
 ---
 
 <strong>Edit: A gist of the PebbleGestureModel.java file is <a title="PGM" href="https://gist.github.com/C-D-Lewis/ba1349bb0ebdee76b0cf">now available</a>, but not polished.

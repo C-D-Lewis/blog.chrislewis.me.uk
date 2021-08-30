@@ -1,6 +1,6 @@
 Pebble Watch App: Watch Trigger
 2013-08-30 00:22:22
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 <strong>Updates:

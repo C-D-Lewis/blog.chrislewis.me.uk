@@ -1,6 +1,6 @@
 News Headlines for Pebble v1.5: New Design, Timeline Pins & On-Watch Config
 2015-05-10 22:52:59
-JavaScript,Pebble
+JavaScript,Pebble,Releases
 ---
 
 On <a title="New Pebble Watchapp: BBC News Headlines" href="https://ninedof.wordpress.com/2014/05/29/new-pebble-watchapp-bbc-news-headlines/">May 29th, 2014</a> I released 'BBC News Headlines', an app I had used personally for a while to read BBC News stories on my wrist to keep up on current affairs with minimal effort. With the config page, I added some settings (category selection, font size, etc.) and it worked well.

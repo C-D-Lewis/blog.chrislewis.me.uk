@@ -1,6 +1,6 @@
 New Pebble Library: PGE (formerly PGame)
 2014-10-25 19:48:24
-Pebble
+Pebble,Releases,Games
 ---
 
 For a couple of my existing <a href="https://apps.getpebble.com/applications/529e8742d7894b189c000012" title="Pebble Tube Status">watchapps</a> and <a href="https://apps.getpebble.com/applications/52cd48ecc296577c6c00002f" title="Starfield Smooth">watchfaces</a> I have implemented a smooth animation using an <code>AppTimer</code>. This involves something like the snippet below:

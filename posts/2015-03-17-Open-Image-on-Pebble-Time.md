@@ -15,28 +15,6 @@ Once debugged, however, the result is an app that sends a complete uncompressed 
 
 ![](/assets/import/media/2015/03/transfer.png)
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
 The app sends a built-in image of a tree as a default option when it is launched by itself, or another image if presented one using 'Open With' actions, such as from file managers or emails. The result of sending the tree image is thus:
 
 ![](/assets/import/media/2015/03/img_20150308_182032-e1425865838845.jpg?w=242)

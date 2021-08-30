@@ -1,6 +1,6 @@
 Wristponder v1.6.0 - Longer Responses, Auto-start, Notifications and more!
 2014-04-15 14:17:23
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 After finishing my engineering dissertation, today is a day to get some coding done before starting on the next assignment sprint tomorrow.

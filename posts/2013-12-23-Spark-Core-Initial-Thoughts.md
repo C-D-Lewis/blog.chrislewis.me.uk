@@ -1,6 +1,6 @@
 Spark Core: Initial Thoughts
 2013-12-23 23:47:44
-Integration,Spark Core
+Integration,Spark Core,C++
 ---
 
 As with the Pebble smartwatch, I also backed another project called <a title="Spark Core" href="http://spark.io">Spark Core</a>, which promised the idea of a small, compact and easy to use Wi-Fi-enabled Arduino like device. And I must say, they certainly delivered!

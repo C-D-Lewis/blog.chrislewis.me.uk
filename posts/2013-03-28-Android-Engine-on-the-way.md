@@ -1,6 +1,6 @@
 Android Engine on the way?
 2013-03-28 17:56:48
-Android
+Android,Java
 ---
 
 For a while I've wanted to make a simple game in Android. I've done simple apps before, such as a scalable test app for A* Pathfinding (which I will write about later) and silly soundboards, but nothing that can actually be played like a game.

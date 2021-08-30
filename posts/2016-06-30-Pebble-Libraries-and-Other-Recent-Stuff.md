@@ -1,6 +1,6 @@
 Pebble Libraries and Other Recent Stuff
 2016-06-30 00:41:04
-Pebble
+Pebble,Releases
 ---
 
 So Pebble recently added proper library support to their SDK. Fantastic! Now I have a streamlined outlet for all my obsessive and productive refactoring. A lot of my apps and watchfaces contain modular elements that get reused. I also have a strange draw to making libraries, examples of which you can find in <a href="https://github.com/C-D-Lewis/pebble">this handy GitHub README</a>.

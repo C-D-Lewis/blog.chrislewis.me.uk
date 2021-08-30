@@ -1,6 +1,6 @@
 New Pebble Watch Face: Split Horizon
 2013-06-03 17:19:34
-Pebble
+Pebble,Releases
 ---
 
 Over the last year or so since I installed CM10.0 to my Galaxy S, I've noticed that it's become very sluggish, sometimes to the point of being completely unresponsive. However, this seems to happen in fits and bouts, so I reflashed CM10.0 and installed the bare minimum apps I regularly use, and once again I'm amazed how slick and responsive it is. Goes to show that a single core 1GHz Snapdragon with 358MB RAM is more than enough for a fast, snappy Android experience, if your phone hasn't accumulated a years worth of bulk and mess behind the scenes.

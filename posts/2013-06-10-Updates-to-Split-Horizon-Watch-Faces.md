@@ -1,6 +1,6 @@
 Updates to Split Horizon Watch Faces
 2013-06-10 13:02:13
-Pebble
+Pebble,Releases
 ---
 
 I've made new versions of the Split Horizon watch faces to have a sharper, more readable font and better alignment. Here's a preview image!

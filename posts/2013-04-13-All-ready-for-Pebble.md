@@ -11,4 +11,4 @@ The fantastic thing about it is that it is completely open, and there are lots o
 
 As a sample of what the community has already achieved, here is John Cleese as a watchface app. <a title="Watchface" href="http://www.reddit.com/r/pebble/comments/1c8bho/swalks_watch_face_loads_fine_with_current_pebble/">Source here</a>.
 
-[caption id="" align="aligncenter" width="2448"]<a href="http://i.imgur.com/zr92fnO.jpg">![](http://i.imgur.com/zr92fnO.jpg)</a> John Cleese Silly Walks Watchface[/caption]
+<a href="http://i.imgur.com/zr92fnO.jpg">![](http://i.imgur.com/zr92fnO.jpg)</a> John Cleese Silly Walks Watchface

@@ -1,6 +1,6 @@
 PTubeStatus: TFL Status on Your Wrist
 2013-11-24 18:22:28
-Integration,Pebble
+Integration,Pebble,Releases
 ---
 
 <strong></strong>I had an idea a couple of days ago while I was casting around for a way to make use of the promising abilities offered by the new <a title="PebbleJS" href="https://developer.getpebble.com/2/guides/javascript-guide.html">PebbleJS</a> feature of <a title="Pebble SDK 2.0" href="https://developer.getpebble.com/2/">Pebble SDK 2.0</a>. It essentially cuts out the 'man in the middle' apps needed for communication with the web, which can limit the audience if the developer (such as myself!) is only familiar with one platform, such as Android.

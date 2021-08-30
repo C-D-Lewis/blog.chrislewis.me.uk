@@ -1,6 +1,6 @@
 Watch Trigger + for Pebble: Initial Release 
 2013-09-22 20:56:21
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 ![](/assets/import/media/2013/09/logosrc.png)<strong>Introduction</strong>

@@ -1,6 +1,6 @@
 Wristponder for Pebble: Send Custom SMS Messages from your wrist!
 2014-02-14 17:12:35
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 <h2><strong>Introduction</strong></h2>

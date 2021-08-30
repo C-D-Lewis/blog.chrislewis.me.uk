@@ -1,6 +1,6 @@
 A Brief Overview of 'dungeons' so far
 2013-03-27 01:11:21
-Java
+Java,Games
 ---
 
 'dungeons' is the 2D dungeon crawler I<a title="Current Projects" href="http://ninedof.wordpress.com/2013/03/24/current-projects/"> mentioned earlier</a>. The main focus is on procedural generation of 'levels' with a number of randomly scattered features; rooms, keys, gold and enemies, for the moment.

@@ -1,6 +1,6 @@
 Wristponder for Pebble 1.2.1 Released
 2014-02-28 16:25:46
-Android,Pebble
+Android,Pebble,Releases
 ---
 
 <strong>UPDATES: 
