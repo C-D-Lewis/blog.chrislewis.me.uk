@@ -2,8 +2,6 @@ window.tagIndex = {
   "Uncategorized": [
     "2013-03-21-Here-it-is.json",
     "2013-07-11-Upcoming-Posts.json",
-    "2013-08-16-New-Project.json",
-    "2014-01-05-The-Three-Stages-of-Coding-for-Android-So-Far.json",
     "2017-01-15-Vector-Dev-11-Headlines-Stream.json"
   ],
   "Java": [
