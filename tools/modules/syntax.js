@@ -97,6 +97,7 @@ const friendlyLangName = (language) => {
     json: 'JSON',
     text: 'Text',
     cpp: 'C++',
+    'c++': 'C++',
     none: 'Text',
     python: 'Python',
     terraform: 'Terraform',
@@ -328,12 +329,10 @@ const highlightCodeParagraphs = (sections) => {
       // If contains ``` unset isCodeBlock - could be the same section if just one paragraph
       if (section.endsWith('```')) {
         // Add styling and store
-        const highlightedSnippet = `
-<div class="lang-label lang-${language}">${friendlyLangName(language)}</div>
+        const highlightedSnippet = `<div class="lang-label lang-${language}">${friendlyLangName(language)}</div>
 <pre><div class="code-block">
 ${highlight(snippetSections.join('\n\n'), language).trim()}
-</div></pre>
-`;
+</div></pre>`;
         resultSections.push(highlightedSnippet);
 
         // Reset for next code block

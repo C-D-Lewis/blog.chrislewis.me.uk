@@ -92,8 +92,7 @@ opt to play again if they wish.
 The backend service is a Node.js server running Espress, exposing the REST API
 used by the web client:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 app.get('/rooms', handleGetRooms);
 app.get('/rooms/:roomName', handleGetRoom);
 app.put('/rooms/:roomName/player', handlePutRoomPlayer);
@@ -103,7 +102,7 @@ app.post('/rooms/:roomName/square', handlePostRoomSquare);
 app.post('/rooms/:roomName/nextTurn', handlePostRoomNextTurn);
 app.put('/rooms/:roomName/bots', handlePutRoomBot);
 app.put('/rooms/:roomName/bots/:playerName/nextLevel', handlePutRoomBotNextLevel);
-</div></pre>
+```
 
 A request to read all rooms with <code>/rooms</code> request yields details of
 all the open rooms. The state of the room's game board is omitted for brevity.
@@ -112,7 +111,6 @@ an idea of the makeup of the data model for player name, room name, player color
 and other special bits of data. The room also keeps track of its state, the
 player whose turn it is, and whether the board is full.
 
-<pre><div class="code-block">
 {
   "rooms": [
     {
@@ -151,7 +149,7 @@ player whose turn it is, and whether the board is full.
     }
   ]
 }
-</div></pre>
+```
 
 ## Have a go
 

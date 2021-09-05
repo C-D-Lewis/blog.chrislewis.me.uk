@@ -9,8 +9,7 @@ A feverish evening spent with little else to do resulted in a quick port of my <
 
 To use, create a context where a <code>Graphics2D</code> object is available, then use static methods of the <code>Isometric</code> class to draw stuff.
 
-<!-- language="java" -->
-<pre><div class="code-block">
+```java
 public void program(Graphics2D g2d) {
   // Black background
   g2d.setColor(Color.BLACK);
@@ -22,6 +21,6 @@ public void program(Graphics2D g2d) {
   Isometric.fillBox(g2d, new Vec3(150, 150, 150), new Dimension(25, 25), 25, Color.YELLOW);
   Isometric.drawBox(g2d, new Vec3(150, 150, 150), new Dimension(25, 25), 25, Color.BLACK);
 }
-</div></pre>
+```
 
 You can see all the applicable code <a title="GitHub repo" href="https://github.com/C-D-Lewis/isometric-java">on GitHub</a>.

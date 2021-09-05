@@ -21,43 +21,38 @@ So, create a new cloudpebble project and paste in the code you wrote in the last
 
 The next step is to create the empty handler function we will use to update the time display when the minute ticks over. Here's how you'd go about doing that:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 {
   //Here we will update the watchface display
 }
-</div></pre>
+```
 
 The 'tick_time' argument contains the time data and 'units_changed' contains which unit was changed. You could use this to run an <code>Animation</code> once every hour, for example. Make sure the function is, as always, defined BEFORE it is first encountered. So in this case above where <code>window_load()</code> is defined.
 
 You register this handler function with the tick event service using the function below, inserted into <code>init()</code>.
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 tick_timer_service_subscribe(MINUTE_UNIT, (TickHandler) tick_handler);
-</div></pre>
+```
 
 The MINUTE_UNIT specifier tells the tick service that we want an update on each new minute, and no more often. You can choose other types from the API list <a title="Tick Units" href="https://developer.getpebble.com/2/api-reference/group___wall_time.html#ga0423d00e0eb199de523a92031b5a1107">here</a>.
 
 Once again, we can undo what we set up when the watch face is unloaded, so add the corresponding unsubscribe call in <code>deinit()</code>. This is virtually redundant as nothing can happen once the watchface is closed, but is a good practice to get into:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 tick_timer_service_unsubscribe();
-</div></pre>
+```
 
 So now we will be getting our timely updates, we can update the <code>TextLayer</code> we created last time to show the time to the user. First, reserve a global character buffer that will live as long as the <code>TextLayer</code> below the pointers at the top of the file (as the text is not copied when being set as the <code>TextLayer</code>'s current text):
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 char buffer[] = "00:00";
-</div></pre>
+```
 
 Next, add the following calls to your tick handler to format the character buffer with the time and set it as the <code>TextLayer</code>'s new text:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 {
   //Format the buffer string using tick_time as the time source
@@ -66,14 +61,13 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed)
   //Change the TextLayer text to show the new time!
   text_layer_set_text(text_layer, buffer);
 }
-</div></pre>
+```
 
 A full listing of the modifiers can be found <a title="strftime" href="http://php.net/strftime">here</a>. Now when the tick event service counts a new minute, it will call our handler function, which in turn updates the time shown to the user. Nifty! Go to 'Compilation' and try it.
 
 But what if we want to start the watchface with the time already showing? We can just call out tick handler (it is, after all, just a function!) and supply the current time and tick interval it is expecting. The code segment below shows how this is accomplished, placed at the end of <code>window_load()</code>:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Get a time structure so that the face does not start blank
 struct tm *t;
 time_t temp;
@@ -82,14 +76,13 @@ t = localtime(&temp);
 
 //Manually call the tick handler when the window is loading
 tick_handler(t, MINUTE_UNIT);
-</div></pre>
+```
 
 ## Aesthetic Touches
 
 At the moment this watch face is pretty dull. Let's make it a bit more pleasing to the eye! You can use the <code>text_layer_set_*</code> functions (<a title="TextLayer" href="https://developer.getpebble.com/2/api-reference/group___text_layer.html">found here</a>) to change how the <code>TextLayer</code> looks. Here's an example replacement of the relevant code segment in <code>window_load()</code> that looks a little more realistic:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 text_layer = text_layer_create(GRect(0, 53, 132, 168));
 text_layer_set_background_color(text_layer, GColorClear);
 text_layer_set_text_color(text_layer, GColorBlack);
@@ -97,7 +90,7 @@ text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
 text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
 
 layer_add_child(window_get_root_layer(window), (Layer*) text_layer);
-</div></pre>
+```
 
 Now that the current time is large, front and center, we will add one final aesthetic touch before moving on to <code>GBitmap</code>s, custom <code>GFont</code>s, <code>Animation</code>s etc in the next section of the tutorial.
 
@@ -105,26 +98,23 @@ Introducing the <code>InverterLayer</code>! When placed on top of other layers, 
 
 First, declare an <code>InverterLayer</code> pointer at the top of the file in global scope:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 InverterLayer *inv_layer;
-</div></pre>
+```
 
 Next, add the relevant function calls in <code>window_load()</code> to create and position the <code>InverterLayer</code>. Make sure it is added as a child layer AFTER the <code>TextLayer</code>, or the <code>TextLayer</code> won't be subject to its inverting effects (it won't be below it):
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Inverter layer
 inv_layer = inverter_layer_create(GRect(0, 50, 144, 62));
 layer_add_child(window_get_root_layer(window), (Layer*) inv_layer);
-</div></pre>
+```
 
 Re-compile and install from the Compilation screen and you should see a smart banner of black across the middle of your watch face, inverting the previously black time text to white.
 
 But we're still not done! Remember we must destroy what we create in the <code>window_unload()</code> function. Here's how said function should look now:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void window_unload(Window *window)
 {
   //We will safely destroy the Window elements here!
@@ -132,7 +122,7 @@ void window_unload(Window *window)
 
   inverter_layer_destroy(inv_layer);
 }
-</div></pre>
+```
 
 ## Conclusion
 

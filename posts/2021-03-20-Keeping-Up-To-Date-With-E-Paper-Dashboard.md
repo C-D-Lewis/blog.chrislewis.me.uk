@@ -90,7 +90,7 @@ more new things in the process.
 
 The general structure of the project is a core loop that redraws the display
 once per minute (on the minute), and updates all the widgets' data sources
-in a configurable interval, currently 15 minutes. 
+in a configurable interval, currently 15 minutes.
 
 Each widget has an <code>update_data()</code> function that implements this
 fetch and processing of new data and a <code>draw()</code> function that is
@@ -129,8 +129,7 @@ to allow testing on non-ARM devices. If run on a Mac, for instance, the display
 image rendered is saved to a file for easy inspection. Starting and stopping
 the display is also taken care of:
 
-<!-- language="python" -->
-<pre><div class="code-block">
+```python
 RUNNING_ON_PI = 'arm' in platform.machine()
 
 # Initialise the display
@@ -154,7 +153,7 @@ def sleep_display():
     epd.sleep()
   else:
     print('[TEST] epd.sleep()')
-</div></pre>
+```
 
 ## Conclusion
 

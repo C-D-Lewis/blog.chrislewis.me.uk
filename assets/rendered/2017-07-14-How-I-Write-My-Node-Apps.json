@@ -56,7 +56,7 @@
     },
     {
       "type": "paragraph",
-      "text": "As you can see from any of the linked repositories above, the basic layout for one of my Node apps goes as follows:\n<pre><div class=\"code-block\">\nsrc/\n  modules/\n    app-specific-module.js\n  common/\n    config.js\n    log.js\n  main.js\npackage.json\nconfig.json\n.gitignore   // 'config.json'\n</div></pre>"
+      "text": "As you can see from any of the linked repositories above, the basic layout for one of my Node apps goes as follows:\nsrc/\n  modules/\n    app-specific-module.js\n  common/\n    config.js\n    log.js\n  main.js\npackage.json\nconfig.json\n.gitignore   // 'config.json'\n```"
     },
     {
       "type": "paragraph",

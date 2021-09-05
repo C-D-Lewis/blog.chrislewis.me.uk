@@ -17,7 +17,6 @@ To this end I set out (in my typically enjoyed 'do it yourself' style) to try an
 
 So without further ado, here is a sample program that implements a typical 'greeter' scenario:
 
-<pre><div class="code-block">
 task greet gets name
   log 'Hello there, {name}!'
 end
@@ -28,7 +27,7 @@ task main
 end
 
 run main
-</div></pre>
+```
 
 Hopefully you'll notice that there aren't many special characters. Even the indentation isn't really necessary, but as always aids readability. The structure is based on classic variables, sub-routines (here called 'tasks'), and the concepts of assignment and calling those tasks.
 
@@ -48,21 +47,18 @@ Let's break it down:
 
 The output is thus:
 
-<pre><div class="code-block">
 Hello there, Chris!
-</div></pre>
+```
 
 ## Compilation
 
 Take a look at the project on <a href="https://github.com/C-D-Lewis/islang">GitHub</a>, specifically '<a href="https://github.com/C-D-Lewis/islang/blob/master/src/transform.js">transform.js</a>', which uses a sequence of conventional rules to mould the input line (and its 'tokens', the individual words in the line) into the output line of JavaScript. This function is includes by 'index.js' and processes every line in the source '.is' file into one output JavaScript files called 'build.js'. The programmer can then run their program using node as usual.
 
-<pre><div class="code-block">
 npm run compile ./my_program.is
-</div></pre>
+```
 
-<pre><div class="code-block">
 node build.js
-</div></pre>
+```
 
 In this manner, more rules can be added, though it is limited right now to one rule per line, and only a few cases where combinations occur (such as returning a function call). This could be made more sophisticated in the future, but I confess as an Electronic Engineering graduate I have never studied how real compilers work!
 
@@ -70,7 +66,6 @@ In this manner, more rules can be added, though it is limited right now to one r
 
 Here's a slightly more complex example that calculates the result of a series of Fibonacci calculations:
 
-<pre><div class="code-block">
 task fibonacci gets input
   when input <= 1
     return input
@@ -90,14 +85,13 @@ task main
 end
 
 run main
-</div></pre>
+```
 
 The pattern is similar, with tasks set up and called from a 'main' task. Another task performs the 'f(n-1) + f(n-2)' calculation and results the result, using some other features of the language.
 
 Here's the resulting JavaScript:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 // compiled from islang source
 
 function fibonacci (input) {
@@ -119,11 +113,10 @@ function main () {
 }
 
 main();
-</div></pre>
+```
 
-<pre><div class="code-block">
 fib_output: 34
-</div></pre>
+```
 
 Looks familiar, right?
 
@@ -133,40 +126,36 @@ Right now those are:
 
  • Variables - declaration and assignment using literal numbers and strings, expressions (simple arithmetic etc.) and as function results.
 
-<pre><div class="code-block">
 value my_value is 10
 
 my_value is 20
 
 my_value is run increment my_value
-</div></pre>
+```
 
  • Functions - tasks can take zero or more arguments, and return values.
 
-<pre><div class="code-block">
 task increment gets input_value
   return input_value + 1
 end
-</div></pre>
+```
 
  • Control - 'when' and 'until' allow use of 'if' and 'while' loop control statements using ordinary simple JavaScript operators.
 
-<pre><div class="code-block">
 when temperature  15
   log 'Might be cold out there'
   temperature is temperature + 1
 end
-</div></pre>
+```
 
  • Objects - 'object' and 'property' keywords allow contruction of simple objects.
 
-<pre><div class="code-block">
 object car
 car property color is 'red'
 car property num_wheels is 4
 
 log 'This {car.color} car has only {car.num_wheels} wheels!'
-</div></pre>
+```
 
 ## Wrapping Up
 

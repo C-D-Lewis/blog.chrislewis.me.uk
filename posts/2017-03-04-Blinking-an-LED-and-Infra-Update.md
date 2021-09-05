@@ -5,12 +5,11 @@ Integration,JavaScript,Pebble,Raspberry Pi
 
 For some just beginning their programming journeys a common example to conquer is blinking an LED, which usually goes something like this:
 
-<!-- language="c" -->
-<pre><div class="code-block">
+```c
 digitalWrite(13, HIGH);
 delay(1000);
 digitalWrite(13, LOW);
-</div></pre>
+```
 
 For me, I decided to try a much harder approach, in a fiddly effort that could be regarded as virtually pointless. Nevertheless, I persisted, because I thought it would be cool.
 

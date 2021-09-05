@@ -15,8 +15,7 @@ After playing around with setting text in the Spark IDE, I expanded the firmware
 
 Two useful code snippets I created for re-use in future LCD projects are sending the Spark Cloud request in Android:
 
-<!-- language="java" -->
-<pre><div class="code-block">
+```java
 public static String cloudRequest(String deviceId, String accessToken, String functionOrVariableName, String argString) {
   try {
     //Setup connection
@@ -49,12 +48,11 @@ public static String cloudRequest(String deviceId, String accessToken, String fu
     return "FAILED";
   }
 }
-</div></pre>
+```
 
 And also performing simple word wrapping between lines 0 and 1 of the LCD display:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Check overrun
 if(msg.charAt(15) != ' ' && msg.charAt(16) != ' ')
 {
@@ -72,5 +70,5 @@ if(msg.charAt(15) != ' ' && msg.charAt(16) != ' ')
     lcd.setCursor(0, 1);
     lcd.print(two);
 }
-</div></pre>
+```
 

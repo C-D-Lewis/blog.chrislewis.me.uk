@@ -11,14 +11,13 @@ I normally choose the latter, so for the umpteenth time of doing so I decided to
 
 ## ColorLayer.h
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 /**
  * Layer on top of TextLayer used just for coloring areas without using LayerUpdateProc
  * Author: Chris Lewis (@Chris_DL)
  * Version 1.0.0
  */
-#include 
+#include
 
 #ifndef COLOR_LAYER_H
 #define COLOR_LAYER_H
@@ -34,12 +33,11 @@ void color_layer_set_frame(ColorLayer *this, GRect bounds);
 Layer* color_layer_get_layer(ColorLayer *this);
 
 #endif
-</div></pre>
+```
 
 ## ColorLayer.c
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 #include "color_layer.h"
 
 ColorLayer* color_layer_create(GRect bounds, GColor fill_color)
@@ -71,6 +69,6 @@ Layer* color_layer_get_layer(ColorLayer *this)
 {
   return text_layer_get_layer(this->layer);
 }
-</div></pre>
+```
 
 It could be argued that it's such a thin layer you may as well not bother, but I find it to be sufficiently easier to setup and read (as well as avoiding confusion with <code>TextLayer</code>s that actually show text), so once again I'm glad coding allows a degree of personal preference and style!

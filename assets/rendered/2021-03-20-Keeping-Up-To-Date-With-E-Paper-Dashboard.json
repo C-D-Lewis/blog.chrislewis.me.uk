@@ -129,7 +129,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The general structure of the project is a core loop that redraws the display\nonce per minute (on the minute), and updates all the widgets' data sources\nin a configurable interval, currently 15 minutes. "
+      "text": "The general structure of the project is a core loop that redraws the display\nonce per minute (on the minute), and updates all the widgets' data sources\nin a configurable interval, currently 15 minutes."
     },
     {
       "type": "paragraph",

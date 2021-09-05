@@ -1,4 +1,4 @@
-Watch Trigger + for Pebble: Initial Release 
+Watch Trigger + for Pebble: Initial Release
 2013-09-22 20:56:21
 Android,Pebble,Releases
 ---
@@ -46,8 +46,8 @@ First, the process for capturing video on Android is very different from photo c
 <div></div>
 <div>Eventually I managed to get video capture to work after making assumptions about camera hardware, encoder options and file formats, which when considering to release to a device-fragmented ecosystem such as Android, is scary enough. A few more days work enabled me to eliminate most of these assumptions which should provide the best compatibility. In case you were led here by struggles re-creating the Camera app for video recording, here is my code which works (at least for a CM10.1 Galaxy S, stock HTC One, stock 2.3.3 Galaxy Ace and stock Galaxy Y (I still pity Galaxy Y users):</div>
 <div></div>
-<!-- language="java" -->
-<pre><div class="code-block">
+
+```java
   /**
    * THANK YOU: http://stackoverflow.com/a/17397920
    * @return true if successful
@@ -115,8 +115,7 @@ First, the process for capturing video on Android is very different from photo c
       Log.d(TAG, "MediaRecorder released successfully.");
     Globals.addToDebugLog(TAG, "MediaRecorder released successfully");
   }
-
-</div></pre>
+```
 
 ## If you are working in this area of Android app development heed my warning and ALWAYS USE TRY/CATCH TO RELEASE THE CAMERA LOCK AND MEDIARECORDER LOCK IF ANY CODE SEGMENT INVOLVING THEM FAILS! Failure to do this means if your app FCs or ANRs and you have to kill it, you will be unable to access the Camera in ANY app until you restart your device!
 
@@ -130,43 +129,41 @@ Finally in this section, notes on supporting Android 2.3.3 Gingerbread and upwar
 
 After a few requests and accepting that I should support all the devices that Pebble do themselves, I worked to include those older devices into the Watch Trigger fold. In doing so, I had to write replacement imitation ActionBar layout items and buttons to provide the closest possible similarity between device versions. Originally I had great difficulties with implementing media scanning (to add the captures media files to the system Gallery so they can be viewed immediately) on Gingerbread, but no problems with Honeycomb upwards. I got round this like so:
 
-<!-- language="java" -->
-<pre><div class="code-block">
-  //Check Android version
-  public static boolean isHoneycombPlus() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB;
-  }
+```java
+//Check Android version
+public static boolean isHoneycombPlus() {
+  return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB;
+}
 
 .............................................................
 
-  if(Globals.isHoneycombPlus()) {
-    MediaScannerConnection.scanFile(getContext(), paths, mimes, new MediaScannerConnection.OnScanCompletedListener() {
+if(Globals.isHoneycombPlus()) {
+  MediaScannerConnection.scanFile(getContext(), paths, mimes, new MediaScannerConnection.OnScanCompletedListener() {
 
-      @Override
-      public void onScanCompleted(String path, Uri uri) {
-        if(Globals.DEBUG_MODE)
-          Log.d(TAG, "Finished scanning " + path + " to gallery");
-        Globals.addToDebugLog(TAG, "Finished scanning video into Gallery");
-        VideoViewfinder.overlayNotify("Media scan complete.");
+    @Override
+    public void onScanCompleted(String path, Uri uri) {
+      if(Globals.DEBUG_MODE)
+        Log.d(TAG, "Finished scanning " + path + " to gallery");
+      Globals.addToDebugLog(TAG, "Finished scanning video into Gallery");
+      VideoViewfinder.overlayNotify("Media scan complete.");
 
-        //Finally
-        readyToCapture = true;
-      }
+      //Finally
+      readyToCapture = true;
+    }
 
-    });
-  } else {
-    //Media scan intent?
-    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-    intent.setData(Uri.fromFile(currentFile));
-    getContext().sendBroadcast(intent);
+  });
+} else {
+  //Media scan intent?
+  Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+  intent.setData(Uri.fromFile(currentFile));
+  getContext().sendBroadcast(intent);
 
-    VideoViewfinder.overlayNotify("Media scan requested.");
+  VideoViewfinder.overlayNotify("Media scan requested.");
 
-    //Finally
-    readyToCapture = true;
-  }
-
-</div></pre>
+  //Finally
+  readyToCapture = true;
+}
+```
 
 Thus, in many other places including the one shown above, the app takes a different path depending on the device platform version.
 

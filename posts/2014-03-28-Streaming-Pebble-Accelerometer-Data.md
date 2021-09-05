@@ -12,8 +12,7 @@ An ideal use case for this is some sort of accelerometer data stream, so I set t
 
 Gathering the accelerometer data asynchronously into a global storage array:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static void accel_new_data(AccelData *data, uint32_t num_samples)
 {
   for(uint32_t i = 0; i < num_samples; i++)
@@ -23,12 +22,11 @@ static void accel_new_data(AccelData *data, uint32_t num_samples)
     latest_data[(i * 3) + 2] = (int)(0 + data[i].z);  //2, 5, 8
   }
 }
-</div></pre>
+```
 
 And sending it when the previous message has been <code>ACK</code>nowledged:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static void send_next_data()
 {
   DictionaryIterator *iter;
@@ -61,14 +59,13 @@ static void out_sent_handler(DictionaryIterator *iter, void *context)
   text_layer_set_text(y_layer, buffs[1]);
   text_layer_set_text(z_layer, buffs[2]);
 }
-</div></pre>
+```
 
 An additional measure that helps speed things up is temporarily reducing the 'sniff interval' of the Bluetooth module to '<code>SNIFF_INTERVAL_REDUCED</code>':
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 app_comm_set_sniff_interval(SNIFF_INTERVAL_REDUCED);
-</div></pre>
+```
 
 And collecting accelerometer data at a faster rate than it is consumed, to avoid sending duplicate frames. This appears to be about 15 <code>AppMessage</code>s per second, each packed with 30 <code>int</code>s representing 10 time-spliced samples from the accelerometer, with a total throughput of approximately 1.6 KBps.
 

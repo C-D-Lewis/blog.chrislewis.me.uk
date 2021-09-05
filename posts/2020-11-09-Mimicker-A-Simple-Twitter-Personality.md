@@ -53,8 +53,7 @@ available to choose from to make the tweeting process easy to do from Node. In
 the end I selected [twitter-lite](https://www.npmjs.com/package/twitter-lite)
 for its simple interface and being recently maintained.
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 // Create the client
 const client = new TwitterLite({
   consumer_key: process.env.CONSUMER_KEY,
@@ -67,7 +66,7 @@ const client = new TwitterLite({
 const data = { status: 'I am a Golden God!' };
 const res = await client.post('statuses/update', data);
 console.log({ res });
-</div></pre>
+```
 
 The result is worth the effort so far!
 
@@ -90,8 +89,7 @@ re-used for any other popular character, or other instances where regular bits
 of random text or data should be inflicted upon the wider world. The natural
 choice for this is Amazon S3.
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 try {
   // Fetch quotes file
   const quotes = await fetch(QUOTES_FILE_URL)
@@ -109,7 +107,7 @@ try {
 } catch (e) {
   console.log('I am untethered and my rage knows no bounds!');
 }
-</div></pre>
+```
 
 And so, we can now observe Dennis' inevitable descent into complete mania at
 regular intervals.

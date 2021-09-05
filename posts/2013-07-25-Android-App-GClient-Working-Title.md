@@ -33,8 +33,7 @@ So, upon opening the app, this is what is seen:
 
 To continue the spirit of a general purpose app, I created static methods for setting up these customizable UI elements, shown below:
 
-<!-- language="java" -->
-<pre><div class="code-block">
+```java
 public class GClientTools {
   //Protocol configuration
   private static final String PROTOCOL_TITLE = "TITLE";
@@ -68,7 +67,7 @@ public class GClientTools {
   }
 
 }
-</div></pre>
+```
 
 As a test case, I wrote a quick application server that accepts the GClient connection and makes use of these static methods to set the Activity title and one custom Button. The I/O Traffic bar has filled up green and the Log History shows all events:
 

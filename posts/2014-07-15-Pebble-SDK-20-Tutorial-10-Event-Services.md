@@ -39,9 +39,8 @@ In this section of the tutorial series, I will be covering some of the Event Ser
 
 To begin with, we will be using the blank template from before, shown below for convenience. Create a new CloudPebble project and start a new C file with the template as its contents:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-#include 
+```cpp
+#include
 
 static Window* window;
 
@@ -77,20 +76,18 @@ int main(void)
   app_event_loop();
   deinit();
 }
-</div></pre>
+```
 
 ## Bluetooth Connection Service
 The first Event Service we will be using is the Bluetooth Connection Service, which allows us to see the current connection status as well as subscribe to updates (only while Bluetooth is actually connected, so be careful with debug logs), much in the same way as with the <code>TickTimerService</code>. Firstly, we will create a <code>TextLayer</code> in <code>window_load()</code> to use for showing the events happening. First is the global pointer:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static TextLayer *bt_layer;
-</div></pre>
+```
 
 then creation proper in <code>window_load()</code>. Note the use of <code>bluetooth_connection_service_peek()</code> to show the state of the connection at the time of creation. As always we also add the corresponding destruction function call to free memory:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static void window_load(Window *window)
 {
   //Setup BT Layer
@@ -111,12 +108,11 @@ static void window_unload(Window *window)
 {
   text_layer_destroy(bt_layer);
 }
-</div></pre>
+```
 
 Next we will subscribe to the <code>BluetoothConnectionService</code> to update this <code>TextLayer</code> whenever the status of the Bluetooth connection to the phone changes. Like a <code>TickHandler</code>, we start by creating a function to use as a handler with the correct signature, and fill it with logic to change the text displayed. This should be placed before <code>init()</code>, where it will be registered:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static void bt_handler(bool connected)
 {
   if(connected == true)
@@ -128,30 +124,27 @@ static void bt_handler(bool connected)
     text_layer_set_text(bt_layer, "BT: DISCONNECTED");
   }
 }
-</div></pre>
+```
 
 The final step is to perform the actual subscription, which is very easy to do, and happens in <code>init()</code>:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Subscribe to BluetoothConnectionService
 bluetooth_connection_service_subscribe(bt_handler);
-</div></pre>
+```
 
 After compiling and installing the project, try disconnecting and re-connecting your phone's Bluetooth radio a few times and observe the result.
 
 ## Battery State Service
 The next Event Service we will be adding will be the Battery State Service, which provides information on the Pebble's battery. It provides more detail than a simple <code>bool</code>, including charging status and whether the cable is plugged in or not. As before, we will create a new <code>TextLayer</code> to show the output. Add the pointer to the last one in the declaration:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static TextLayer *bt_layer, *batt_layer;
-</div></pre>
+```
 
 Then, perform the proper creation in <code>window_load()</code>. This time, the information provided by the Battery State Service comes in the form on the <code>BatteryChargeState</code> data structure, with fields <a title="BatteryChargeState" href="https://developer.getpebble.com/2/api-reference/group___battery_state_service.html#struct_battery_charge_state">as shown in the documentation</a>. It is worth noting that the Service only returns the battery charge in increments of 10. The setup of the new <code>TextLayer</code> is shown below:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Setup Battery Layer
 batt_layer = text_layer_create(GRect(5, 25, 144, 30));
 text_layer_set_font(batt_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));
@@ -162,7 +155,7 @@ BatteryChargeState state = battery_state_service_peek();
 static char buffer[] = "Battery: 100/100";
 snprintf(buffer, sizeof("Battery: 100/100"), "Battery: %d/100", state.charge_percent);
 text_layer_set_text(batt_layer, buffer);
-</div></pre>
+```
 
 After re-compiling, the battery charge percentage should be shown below the Bluetooth status.
 
@@ -171,26 +164,23 @@ The Accelerometer Service operates in a very similar manner to the previous two 
 
 First, we create a further <code>TextLayer</code> to show the output data:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static TextLayer *bt_layer, *batt_layer, *accel_layer;
-</div></pre>
+```
 
 The first mode we will use is the tap mode. Let's create the <code>TextLayer</code> proper in <code>window_load()</code>:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Setup Accel Layer
 accel_layer = text_layer_create(GRect(5, 45, 144, 30));
 text_layer_set_font(accel_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));
 text_layer_set_text(accel_layer, "Accel tap: N/A");
 layer_add_child(window_get_root_layer(window), text_layer_get_layer(accel_layer));
-</div></pre>
+```
 
 Next, we will create the handler function to be called whenever a tap is detected, and furnish it with logic to show what kind of tap was detected:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static void accel_tap_handler(AccelAxisType axis, int32_t direction)
 {
   switch(axis)
@@ -227,15 +217,14 @@ static void accel_tap_handler(AccelAxisType axis, int32_t direction)
     break;
   }
 }
-</div></pre>
+```
 
 Finally, we subscribe our handler function to the Accelerometer Event Service in <code>init()</code>:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Subscribe to AccelerometerService
 accel_tap_service_subscribe(accel_tap_handler);
-</div></pre>
+```
 
 You should now be able to see the result of tapping the watch. Personally I've found that shaking the wrist is a more reliable way of triggering events (such as showing more information on a watchface), but taps can still be used as an option.
 
@@ -246,24 +235,22 @@ In the raw data mode, the data values arrive at a specific interval chosen with 
 
 Next, we will create a new handler function to let us access the data that arrives from the Event Service. Accessing the data is as simple as reading the fields in the <code>data</code> parameter in the handler, as shown below:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static void accel_raw_handler(AccelData *data, uint32_t num_samples)
 {
   static char buffer[] = "XYZ: 9999 / 9999 / 9999";
   snprintf(buffer, sizeof("XYZ: 9999 / 9999 / 9999"), "XYZ: %d / %d / %d", data[0].x, data[0].y, data[0].z);
   text_layer_set_text(accel_layer, buffer);
 }
-</div></pre>
+```
 
 Finally, we add the new subscription, making sure we have disabled the one one in <code>init()</code>:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Subscribe to AccelerometerService (uncomment one to choose)
 //accel_tap_service_subscribe(accel_tap_handler);
 accel_data_service_subscribe(1, accel_raw_handler);
-</div></pre>
+```
 
 Now this is all in place, re-compile and re-install the watch app to see the live values. Try tilting the watch in each axis to see the <a title="g" href="http://en.wikipedia.org/wiki/Standard_gravity">constant g acceleration</a> act on each in turn.
 

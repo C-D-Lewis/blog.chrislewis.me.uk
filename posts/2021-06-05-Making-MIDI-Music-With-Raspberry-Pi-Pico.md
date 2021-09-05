@@ -71,8 +71,7 @@ to open a MIDI file and get a list of all instruments, and which notes they
 play. This is done using the handy
 [pretty_midi](https://github.com/craffel/pretty-midi) library.
 
-<!-- language="python" -->
-<pre><div class="code-block">
+```python
 # Load midi file
 midi_data = pretty_midi.PrettyMIDI(file_name)
 
@@ -90,13 +89,12 @@ for i, instrument in enumerate(midi_data.instruments):
     }
 
     non_drum_instruments.append(selected)
-</div></pre>
+```
 
 The <code>PROGRAM_MAP</code> variable is a long map of instrument codes to names
 of those instruments.
 
-<!-- language="python" -->
-<pre><div class="code-block">
+```python
 PROGRAM_MAP = {
   1: 'Acoustic Grand Piano',
   2: 'Bright Acoustic Piano',
@@ -108,7 +106,7 @@ PROGRAM_MAP = {
   8: 'Clavinet',
 
   # And so on...
-</div></pre>
+```
 
 This allows the <code>compile.py</code> program to give
 a list of track numbers and instrument names, as well as how many notes each
@@ -116,8 +114,7 @@ will play. This is useful because we can only have as many instruments as motors
 which in this case is 4, but could be more in the future. An example is shown
 below:
 
-<!-- language="text" -->
-<pre><div class="code-block">
+```text
 $ python3 compile.py ~/Downloads/starlight.mid
 
 file_name: /Users/chrislewis/Downloads/starlight.mid
@@ -133,14 +130,13 @@ file_name: /Users/chrislewis/Downloads/starlight.mid
 8: Track 9 (Pad 1 (new age)): 640 notes
 9: Track 10 (Voice Oohs): 512 notes
 10: Track 11 (Voice Oohs): 312 notes
-</div></pre>
+```
 
 Re-running the script with four track numbers as the last parameter will cause
 it to generate a C++ header file, with an array of notes with track number,
 pitch, and duration.
 
-<!-- language="c" -->
-<pre><div class="code-block">
+```c
 // GENERATED WITH compile.py
 
 #define NUM_NOTES 5155
@@ -160,7 +156,7 @@ static const float* NOTE_TABLE[] = {
   (float[]){ 0, 84, 1.16279, 2.55814 },
 
   // and so on...
-</div></pre>
+```
 
 ## Timing steppers from notes
 
@@ -182,8 +178,7 @@ microseconds between steps (calculated from the frequency table corresponding
 to the currently playing note), when the note started, and the millisecond
 duration of the note.
 
-<!-- language="c" -->
-<pre><div class="code-block">
+```c
 struct Motor {
   int pin;
   int is_on;
@@ -211,7 +206,7 @@ struct Motor motor_create(int pin) {
 
   return m;
 };
-</div></pre>
+```
 
 When the program advances through the compiled note list from
 <code>compile.py</code>, the motor corresponding to the track number in the MIDI
@@ -219,8 +214,7 @@ file is updated with the new note, which contains pitch, on time, and duration.
 A separate <code>struct</code> is used with the item in the note list header
 file.
 
-<!-- language="c" -->
-<pre><div class="code-block">
+```c
 /**
  * Update a motor with a new note event.
  */
@@ -234,14 +228,13 @@ void motor_set_note(struct Motor *m, struct Note n) {
   // Set delay from pitch frequency
   m->step_delay_us = 1000000 / pitch_get_freq(n.pitch);
 };
-</div></pre>
+```
 
 Lastly, as long as there are notes left to play, the main program loop 'ticks'
 each motor, allowing it to step if enough time has passed from the last step, at
 the correct rate for the desired note frequency:
 
-<!-- language="c" -->
-<pre><div class="code-block">
+```c
 /**
  * Tick a motor.
  */
@@ -264,13 +257,12 @@ void motor_tick(struct Motor *m) {
     }
   }
 };
-</div></pre>
+```
 
 Thus, the main loop is actually quite succinct, thanks to the choice to use
 loops and <code>struct</code>s:
 
-<!-- language="c" -->
-<pre><div class="code-block">
+```c
 /**
  * Entry point.
  */
@@ -312,7 +304,7 @@ int main() {
     }
   }
 };
-</div></pre>
+```
 
 ## Medley video
 

@@ -37,8 +37,7 @@ Here is an example of a code block for such a scenario, adapted from the
 it described an Auto-scaling Group containing between 5 and 15
 <code>t2.mirco</code> instances:
 
-<!-- language="terraform" -->
-<pre><div class="code-block">
+```terraform
 resource "aws_launch_template" "foobar" {
   name_prefix   = "foobar"
   image_id      = "ami-1a2b3c"
@@ -56,7 +55,7 @@ resource "aws_autoscaling_group" "bar" {
     version = "$Latest"
   }
 }
-</div></pre>
+```
 
 ## Real-world Applications
 
@@ -83,8 +82,7 @@ The blog files are pushed to a managed S3 bucket, where the
 an inline policy allowing global access - so all visitors can request and load
 the site files.
 
-<!-- language="terraform" -->
-<pre><div class="code-block">
+```terraform
 resource "aws_s3_bucket" "client_bucket" {
   bucket        = var.domain_name
   acl           = "public-read"
@@ -109,7 +107,7 @@ EOF
     index_document = "index.html"
   }
 }
-</div></pre>
+```
 
 ## CloudFront Distribution
 
@@ -119,8 +117,7 @@ referenced as the <code>domain_name</code> in the <code>origin</code> block. The
 other blocks control the cache behavior and the <code>viewer_certificate</code>,
 served from Amazon Certificate Manager (ACM) allowing visitors to use HTTPS.
 
-<!-- language="terraform" -->
-<pre><div class="code-block">
+```terraform
 resource "aws_cloudfront_distribution" "client_distribution" {
   aliases     = [var.domain_name]
   price_class = "PriceClass_100"
@@ -161,7 +158,7 @@ resource "aws_cloudfront_distribution" "client_distribution" {
     ssl_support_method  = "sni-only"
   }
 }
-</div></pre>
+```
 
 ## Route53 Record
 
@@ -170,8 +167,7 @@ navigating to <code>https://blog.chrislewis.me.uk</code> to instead go to the
 CloudFront distribution URL in order to get the site served to them (also known
 as an Alias record).
 
-<!-- language="terraform" -->
-<pre><div class="code-block">
+```terraform
 resource "aws_route53_record" "client_record" {
   zone_id = var.zone_id
   name    = var.domain_name
@@ -185,7 +181,7 @@ resource "aws_route53_record" "client_record" {
 
   depends_on = [aws_cloudfront_distribution.client_distribution]
 }
-</div></pre>
+```
 
 ## The Future
 

@@ -38,7 +38,15 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\ntask greet gets name\n  log 'Hello there, {name}!'\nend\n\ntask main\n  value name is 'Chris'\n  run greet with name\nend\n\nrun main\n</div></pre>"
+      "text": "task greet gets name\n  log 'Hello there, {name}!'\nend"
+    },
+    {
+      "type": "paragraph",
+      "text": "task main\n  value name is 'Chris'\n  run greet with name\nend"
+    },
+    {
+      "type": "paragraph",
+      "text": "run main\n```"
     },
     {
       "type": "paragraph",
@@ -78,7 +86,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nHello there, Chris!\n</div></pre>"
+      "text": "Hello there, Chris!\n```"
     },
     {
       "type": "header",
@@ -91,11 +99,11 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nnpm run compile ./my_program.is\n</div></pre>"
+      "text": "npm run compile ./my_program.is\n```"
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nnode build.js\n</div></pre>"
+      "text": "node build.js\n```"
     },
     {
       "type": "paragraph",
@@ -112,7 +120,19 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\ntask fibonacci gets input\n  when input <= 1\n    return input\n  end\n\n  // return fib(n-1) + fib(n-2);\n  value n_minus_1 is input - 1\n  value n_minus_2 is input - 2\n  value result_1 is run fibonacci with n_minus_1\n  value result_2 is run fibonacci with n_minus_2\n  return result_1 + result_2\nend\n\ntask main\n  value fib_output is run fibonacci with 9\n  log 'fib_output: {fib_output}'\nend\n\nrun main\n</div></pre>"
+      "text": "task fibonacci gets input\n  when input <= 1\n    return input\n  end"
+    },
+    {
+      "type": "paragraph",
+      "text": "  // return fib(n-1) + fib(n-2);\n  value n_minus_1 is input - 1\n  value n_minus_2 is input - 2\n  value result_1 is run fibonacci with n_minus_1\n  value result_2 is run fibonacci with n_minus_2\n  return result_1 + result_2\nend"
+    },
+    {
+      "type": "paragraph",
+      "text": "task main\n  value fib_output is run fibonacci with 9\n  log 'fib_output: {fib_output}'\nend"
+    },
+    {
+      "type": "paragraph",
+      "text": "run main\n```"
     },
     {
       "type": "paragraph",
@@ -128,7 +148,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nfib_output: 34\n</div></pre>"
+      "text": "fib_output: 34\n```"
     },
     {
       "type": "paragraph",
@@ -149,7 +169,15 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nvalue my_value is 10\n\nmy_value is 20\n\nmy_value is run increment my_value\n</div></pre>"
+      "text": "value my_value is 10"
+    },
+    {
+      "type": "paragraph",
+      "text": "my_value is 20"
+    },
+    {
+      "type": "paragraph",
+      "text": "my_value is run increment my_value\n```"
     },
     {
       "type": "paragraph",
@@ -157,7 +185,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\ntask increment gets input_value\n  return input_value + 1\nend\n</div></pre>"
+      "text": "task increment gets input_value\n  return input_value + 1\nend\n```"
     },
     {
       "type": "paragraph",
@@ -165,7 +193,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nwhen temperature  15\n  log 'Might be cold out there'\n  temperature is temperature + 1\nend\n</div></pre>"
+      "text": "when temperature  15\n  log 'Might be cold out there'\n  temperature is temperature + 1\nend\n```"
     },
     {
       "type": "paragraph",
@@ -173,7 +201,11 @@
     },
     {
       "type": "paragraph",
-      "text": "<pre><div class=\"code-block\">\nobject car\ncar property color is 'red'\ncar property num_wheels is 4\n\nlog 'This {car.color} car has only {car.num_wheels} wheels!'\n</div></pre>"
+      "text": "object car\ncar property color is 'red'\ncar property num_wheels is 4"
+    },
+    {
+      "type": "paragraph",
+      "text": "log 'This {car.color} car has only {car.num_wheels} wheels!'\n```"
     },
     {
       "type": "header",

@@ -45,24 +45,20 @@ Another big advantage of using a <code>#define</code>ed variable is that if you 
 
 Here is how those statements are used for a Pebble watch face:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Include files from SDK
 #include "pebble_os.h"
 #include "pebble_app.h"
 #include "pebble_fonts.h"
-</div></pre>
+```
 
 The #define statement is used to define the Universally Unique Identifier, a random number that uniquely defines your watch face. It is used by the Pebble OS to let you overwrite your watch face with a new version.
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 //Define Universally Unique Identifier
 //    88a97cfd-2377-463a-84bd-b85eb4964063
 #define UUID { 0x88, 0xa9, 0x7c, 0xfd, 0x23, 0x77, 0x46, 0x3a, 0x84, 0xbd, 0xb8, 0x5e, 0xb4, 0x96, 0x40, 0x63 }
-
-</div></pre>
+```
 
 Each watch face MUST have a new one! Here is how you generate a new one in Ubuntu, using the 'uuidgen' command:
 
@@ -78,17 +74,14 @@ So, if you know you want to keep data for later, declare it globally. If you onl
 
 For our watch face, we declare the watch face features globally, as well as memory for the string containing the current time (more on how we get that later):
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 //Declare structures for watch face elements
 Window window;
 TextLayer timeLayer;
 
 //Declare variable for storing time string
 static char hourText[] = "00:00";
-
-</div></pre>
+```
 
 ## Handler functions
 
@@ -100,9 +93,7 @@ The 'init handler' is called as soon as you switch to your watch face. Any initi
 
 Here is the 'init handler' for our basic watch face. Try and read what each function call does. Their names should be pretty self explanatory:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 /**
 * Watch face initialisation handle function
 */
@@ -130,14 +121,11 @@ PblTm time;
 get_time(&time);
 setTime(&time);
 }
-
-</div></pre>
+```
 
 The 'tick handler' is a function called when the watch face 'ticks', either every minute or every second. For saving power and helping keep the watch asleep as much as possible, it is wise to use a minute tick handler. If you want a more active watch face, use a second tick handler. We will start with a second tick handler in our basic watch face:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 /**
 * Handle function called every second
 */
@@ -152,14 +140,11 @@ int seconds = time.tm_sec;    //Get the current number of seconds
 if(seconds == 0)
 setTime(t->tick_time);    //Change the time on the 'zero seconds' mark
 }
-
-</div></pre>
+```
 
 So that the system can call these handler functions, we specify them in a function called 'pbl_main'. The exact details of how this function is laid out is not covered here, but how each handler is registered is done the same way, and can be seen in other examples. Here is the 'pbl_main' function for our basic watch face:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 /**
 * Main Pebble app loop
 */
@@ -174,8 +159,7 @@ PebbleAppHandlers handlers = {
 };
 app_event_loop(params, &handlers);    //Continue from there!
 }
-
-</div></pre>
+```
 
 This brings up an important point: The functions specified by the Pebble SDK <strong>MUST </strong>be named how they are specified in the examples and the API documentation. There is no flexibility here.
 
@@ -195,9 +179,7 @@ The one thing a watch face file must do is tell the time! To do this, there is a
 
 Here is an example here, in conjunction with another function that tells you what the user's Settings preference is, which returns type <code>bool</code> (<code>true</code> or <code>false</code>), so you can use it in the if else style with ease:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 /**
 * Function to set the time and date features on the TextLayers
 */
@@ -212,16 +194,13 @@ string_format_time(hourText, sizeof(hourText), "%I:%M", t);
 //Set the TextLayer text
 text_layer_set_text(&timeLayer, hourText);
 }
-
-</div></pre>
+```
 
 ## Minute ticks vs. seconds ticks
 
 As I mentioned earlier, battery life can be saved by working with the watch's 'aggressive sleep' philosophy. By only calling the tick handler every minute, the watch can spend a good deal more of it's time asleep in a low power state. Here is how the tick handler would look after changing to a minute tick basis:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 /**
 * Handle function called every minute
 */
@@ -232,8 +211,7 @@ PblTm time;    //Structure to store time info
 get_time(&time);    //Fill the structure with current time
 setTime(t->tick_time);    //Change time on 'zero seconds' mark
 }
-
-</div></pre>
+```
 
 Notice the differences with the image previous, which showed the second tick handler. It is simpler to implement. However, with the second handler, you can open the possibility of animations happening at different point.
 
@@ -241,9 +219,7 @@ For example, in one of my watch faces '<a title="Split Horizon Watch Face" href=
 
 Once again, the handle function name can be changed, so long as the name used in 'pbl_main' is kept in sync:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 /**
 * Main Pebble app loop
 */
@@ -258,8 +234,7 @@ PebbleAppHandlers handlers = {
 };
 app_event_loop(params, &handlers);    //Continue from there!
 }
-
-</div></pre>
+```
 
 Notice the '.tick_units' field is different now, to reflect the new tick basis.
 
@@ -269,16 +244,13 @@ There are a couple extra pieces each watch face file needs.
 
 The first is the PBL_APP_INFO function call which contains information such as watch face name, author, version number, icons etc:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-
+```cpp
 //Set app info
 PBL_APP_INFO(UUID, "First Watch Face", "Chris Lewis", 0, 1, DEFAULT_MENU_ICON, APP_INFO_WATCH_FACE);
 
 //UUID, app name, author, minor version, major version,
 //use default icon, tell compiler this is a face
-
-</div></pre>
+```
 
 The second is the Resource Map. This is a file that is like a catalogue of all the resources you used in your watch face, such as custom images and fonts. Since there are none of those things in this basic example, it can be left as the dummy file supplied with the SDK examples, and included in the link to the finished project files at the end of this post.
 

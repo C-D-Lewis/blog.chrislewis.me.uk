@@ -13,8 +13,7 @@ The idea is simple: The Adruino sends the characters '1', '2' and '3' in sequenc
 
 The Arduino sketch:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void flash(int pin)
 {
   digitalWrite(pin, HIGH);
@@ -41,12 +40,11 @@ void loop()
   flash(13);
   delay(1000);
 }
-</div></pre>
+```
 
 And the Core code:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 int output_led = D0;
 int onboard_led = D7;
 
@@ -96,7 +94,7 @@ void flash(int pin)
     digitalWrite(pin, LOW);
     delay(50);
 }
-</div></pre>
+```
 
 And finally a video!
 

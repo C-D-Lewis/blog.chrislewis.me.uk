@@ -27,9 +27,8 @@ After a few requests, in this section we will look at using <code>MenuLayer</cod
 
 The first step as usual is to start a new CloudPebble project with the basic app template. Here's that again, for convenience:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-#include 
+```cpp
+#include
 
 Window* window;
 
@@ -65,14 +64,13 @@ int main(void)
   app_event_loop();
   deinit();
 }
-</div></pre>
+```
 
 Now that's out the way, declare a global pointer to a <code>MenuLayer</code> at the top of the file below the pre-processor directives.
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 MenuLayer *menu_layer;
-</div></pre>
+```
 
 This <code>Layer</code> type is a bit more complex to set up than the other <code>Layers</code>, in that it requires a large amount of information about how it will look and behave before it can be instantiated. This information is given to the <code>MenuLayer</code> via the use of a number of callbacks. When the <code>MenuLayer</code> is redrawn or reloaded, it calls these functions to get the relevant data. The advantage of this approach is that the <code>MenuLayer</code> rows can be filled with data that can be changed at any time, such as with <a href="https://play.google.com/store/apps/details?id=com.wordpress.ninedof.wristponder" title="Wristponder">Wristponder</a> or <a title="PTS Source example" href="https://github.com/C-D-Lewis/pebble-tube-status/blob/master/src/main.c#L120">Pebble Tube Status</a> (shameless plugs!)
 
@@ -86,8 +84,7 @@ The <a title="MenuLayer callbacks" href="https://developer.getpebble.com/2/api-r
 
 Let's define these callbacks using the signatures provided by the API documentation linked previously. These must be above <code>window_load()</code> as is now the norm (hopefully!):
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void draw_row_callback(GContext *ctx, Layer *cell_layer, MenuIndex *cell_index, void *callback_context)
 {
 
@@ -102,22 +99,20 @@ void select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *c
 {
 
 }
-</div></pre>
+```
 
 Now those are in place, let's add code to have them do something we'd find more useful than blank callbacks. The example we are going to use is a list of fruits (boring, I know!). The list will be of seven fruits, and brief descriptions. Thus, the <code>num_rows_callback()</code> function becomes simply:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 uint16_t num_rows_callback(MenuLayer *menu_layer, uint16_t section_index, void *callback_context)
 {
   return 7;
 }
-</div></pre>
+```
 
 For the <code>draw_row_handler()</code>, we will need to be able to alter what is drawn in the row depending on <em>which</em> row it is. This can be done by <code>switch</code>ing the <code>cell_index->row</code> property. You can use the presented <code>GContext</code> however you like for any of the SDK drawing functions, but to keep things simple we will use the pre-made drawing functions provided by the SDK. With these two last points combined, the <code>draw_row_callback()</code> function transforms into this beast:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void draw_row_callback(GContext *ctx, Layer *cell_layer, MenuIndex *cell_index, void *callback_context)
 {
   //Which row is it?
@@ -146,14 +141,13 @@ void draw_row_callback(GContext *ctx, Layer *cell_layer, MenuIndex *cell_index, 
     break;
   }
 }
-</div></pre>
+```
 
 The <code>NULL</code> references are in the place that a row icon reference would be placed (if a <code>GBitmap</code> were to be shown). Thus, each layer will be drawn with its own unique message.
 
 The final callback, <code>select_click_callback()</code> will do something different depending on which row is selected when the select button is pressed. To illustrate this, we will use a series of vibrations that signifies the numerical value of the row. Here's how this is done (or Vibes 101!):
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context)
 {
   //Get which row
@@ -178,7 +172,7 @@ void select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *c
   //Do the vibration pattern!
   vibes_enqueue_custom_pattern(pattern);
 }
-</div></pre>
+```
 
 With those three callbacks in place, we can actually create the <code>MenuLayer</code> and add it to the main <code>Window</code>. This is done in four stages:
 
@@ -192,8 +186,7 @@ With those three callbacks in place, we can actually create the <code>MenuLayer<
 
 Here's the code for that sequence, with annotations (Note the casts used in the <code>MenuLayerCallbacks</code> structure creation):
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void window_load(Window *window)
 {
   //Create it - 12 is approx height of the top bar
@@ -213,17 +206,16 @@ void window_load(Window *window)
   //Add to Window
   layer_add_child(window_get_root_layer(window), menu_layer_get_layer(menu_layer));
 }
-</div></pre>
+```
 
 As always, de-init the <code>MenuLayer</code>:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 void window_unload(Window *window)
 {
   menu_layer_destroy(menu_layer);
 }
-</div></pre>
+```
 
 If all has gone well, after compilation you should be greeted with the screen below, as well as the corresponding vibrations when each row is selected:
 

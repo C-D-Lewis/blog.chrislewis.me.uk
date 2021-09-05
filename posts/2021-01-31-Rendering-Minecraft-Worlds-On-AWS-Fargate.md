@@ -28,8 +28,7 @@ can run the <code>ChunkyLauncher.jar</code> file with many parameters to perform
 the same rendering from a terminal as in the Chunky GUI. The number of samples
 per pixel (iterations) and the name of the scene are the main parameters:
 
-<!-- language="shell" -->
-<pre><div class="code-block">
+```shell
 java \
   --module-path "/usr/share/maven-repo/org/openjfx/javafx-controls/11/:/usr/share/maven-repo/org/openjfx/javafx-base/11/:/usr/share/maven-repo/org/openjfx/javafx-graphics/11/:/usr/share/maven-repo/org/openjfx/javafx-fxml/11/" \
   --add-modules=javafx.controls,javafx.base,javafx.graphics,javafx.fxml \
@@ -38,7 +37,7 @@ java \
   -f \
   -target $TARGET_SPP \
   -render $SCENE_NAME
-</div></pre>
+```
 
 This is the first step towards automation on AWS Fargate, where containerized
 Docker apps can be run on demand and cost only while they are running.
@@ -53,8 +52,7 @@ dependencies and then using scripts to break up the process into manageable
 chunks. The <code>Dockerfile</code> for the finished project is shown below and
 includes all these steps:
 
-<!-- language="dockerfile" -->
-<pre><div class="code-block">
+```dockerfile
 FROM ubuntu:18.04
 
 WORKDIR /chunky
@@ -83,7 +81,7 @@ RUN java -Dchunky.home="$(pwd)" -jar ChunkyLauncher.jar -download-mc $MC_VERSION
 COPY pipeline /chunky/pipeline
 
 ENTRYPOINT ["./pipeline/pipeline.sh"]
-</div></pre>
+```
 
 With a suitable Docker image prepared, it can be pushed to AWS Elastic Container
 Registry to be used in a Fargate task definition.
@@ -102,8 +100,7 @@ to nominate a pre-existing S3 bucket, and a fixed subdirectory is used to
 prescribe input and output file locations. It is shown in summary with some
 example files below:
 
-<!-- language="none" -->
-<pre><div class="code-block">
+```none
 s3://$BUCKET/
   - chunky-fargate/
     - worlds/
@@ -116,7 +113,7 @@ s3://$BUCKET/
         - ...
     - tasks/
         village-all-scenes.json
-</div></pre>
+```
 
 As can probably be inferred, <code>worlds</code> contains Minecraft world
 directories in a zip file, <code>scenes</code> contains scenes from Chunky GUI,
@@ -145,8 +142,7 @@ uploaded) occur in a particular bucket. In this case, a new zip file containing
 an updated copy of the Minecraft world to be rendered. In Terraform, this is
 easy to achieve:
 
-<!-- language="terraform" -->
-<pre><div class="code-block">
+```terraform
 resource "aws_s3_bucket_notification" "bucket_notification" {
   count = var.upload_trigger_enabled ? 1 : 0
 
@@ -159,32 +155,30 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     filter_suffix       = ".zip"
   }
 }
-</div></pre>
+```
 
 You can see the
 [full function code](https://github.com/C-D-Lewis/chunky-fargate/blob/main/lambda/upload-function.js)
 for all the details, but the most important parts are reading the file uploaded:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 /**
  * Main Lambda event handler.
- * 
+ *
  * @param {object} event - S3 notification event.
  */
 exports.handler = async (event) => {
-  const { 
+  const {
     object: { key },
     bucket: { name: Bucket },
   } = event.Records[0].s3;
 
   /* ... */
-</div></pre>
+```
 
 Checking for task files that include the same world name:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 // Read all tasks
 const listObjectsParms = { Bucket, Prefix: 'chunky-fargate/tasks/' };
 const { Contents } = await s3.listObjects(listObjectsParms).promise();
@@ -201,13 +195,12 @@ if (!taskFile) {
 const getObjectParams = { Bucket, Key: taskFile.Key };
 const getObjectRes = await s3.getObject(getObjectParams).promise();
 const { world, scenes } = JSON.parse(getObjectRes.Body.toString());
-</div></pre>
+```
 
 And starting a new Fargate task with overriden environment variables controlling
 the scene and world used, as well as the target SPP:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 const res = await ecs.runTask({
   cluster: CLUSTER_NAME,
   taskDefinition: FAMILY,
@@ -235,7 +228,7 @@ const res = await ecs.runTask({
 
 const { taskArn } = res.tasks[0];
 console.log({ name, targetSpp, taskArn });
-</div></pre>
+```
 
 Performing this sort of AWS resource manipulation in AWS Lambda is made easy
 by the automatic inclusion of the AWS SDK for Node.js.
@@ -253,8 +246,7 @@ configuration is included in the project), the last thing to put in place is a
 Here is an example that allows the S3 bucket notification to kick off a large
 set of tasks rendering many fixed scenes in parallel:
 
-<!-- language="json" -->
-<pre><div class="code-block">
+```json
 {
   "bucket": "example-bucket.chrislewis.me.uk",
   "world": "xmas-village",
@@ -281,7 +273,7 @@ set of tasks rendering many fixed scenes in parallel:
     }
   ]
 }
-</div></pre>
+```
 
 When a new version of <code>xmas-village-world.zip</code> (containing the value
 for <code>world</code> above) is uploaded to the

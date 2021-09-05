@@ -15,11 +15,10 @@ but this was a really worthwhile reason to do so.
 After the obligatory color text, images, laughing at memes on each other's
 watches, I came across a simple way to draw isometric shapes:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 output.x = input.x - input.y
 output.y = (input.x / 2) + (input.y / 2) - input.z
-</div></pre>
+```
 
 I had a play around with Java2D drawing and found it easy to draw isomatric
 rectangles, filling them in by drawing more lines vertically down the drawing
@@ -72,8 +71,7 @@ block-world demo. It's not interactive in the same way, but still looks awesome.
 The usage is still basically the same, using routines as and when during Canvas
 drawing:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 Isometric.init('black', { x: 40, y: 100 });
 
 Isometric.renderScene((width, height) => {
@@ -84,7 +82,7 @@ Isometric.renderScene((width, height) => {
   const boxHeight = 100;
   Isometric.filledBox(box, boxHeight, 'blue');
 });
-</div></pre>
+```
 
 Feel free to check out the repository and see some of the other examples
 included, if only to reminisce about how awesome color on Pebble proved to be.

@@ -35,8 +35,7 @@ To solve this last problem, each app uses a common Node.js modules that knows th
 
 To implement a new client to talk to MBus, it includes the <code>mbus.js</code> common module, and registers itself at runtime. It also specifies the message schema it will expect from MBus using conventional JSON Schemas:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 const mbus = require('../node-common').mbus();
 
 const GET_MESSAGE_SCHEMA = {
@@ -64,12 +63,11 @@ async function setup() {
   mbus.addTopic('get', require('../api/get'), GET_MESSAGE_SCHEMA);
   mbus.addTopic('set', require('../api/set'), SET_MESSAGE_SCHEMA);
 }
-</div></pre>
+```
 
 Once this is done, the <code>config.json</code> is also updated to specify where it can find the central MBus instance and the name it is to be identified as when messages are destined for it:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 {
   "MBUS": {
     "HOST": "localhost",
@@ -77,12 +75,11 @@ Once this is done, the <code>config.json</code> is also updated to specify where
     "APP": "LedServer"
   }
 }
-</div></pre>
+```
 
 The <code>mbus.js</code> module also takes care of the message metadata and the server checks the overall packet schema:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 const MESSAGE_SCHEMA = {
   type: 'object',
   required: [ 'to', 'from', 'topic', 'message' ],
@@ -96,7 +93,7 @@ const MESSAGE_SCHEMA = {
     broadcast: { type: 'boolean' }
   }
 };
-</div></pre>
+```
 
 &nbsp;
 

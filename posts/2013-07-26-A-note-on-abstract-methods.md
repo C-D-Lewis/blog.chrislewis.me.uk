@@ -7,19 +7,17 @@ In developing the GClient (detailed in the preceeding post), I discovered for my
 
 This is an abstract method from my 'PythonConnection' class:
 
-<!-- language="java" -->
-<pre><div class="code-block">
+```java
 /**
  * Implement this to act on data received
  * @param data String containing the data received from the remote python host
  */
 public abstract void onReceive(String data);
-</div></pre>
+```
 
 When a new PythonConnection object is created, the opportunity to implement <code>onReceive()</code> is shown as below:
 
-<!-- language="java" -->
-<pre><div class="code-block">
+```java
 PythonConnection pyCon = new PythonConnection() {
   @Override
   public void onReceive(String data) {
@@ -28,12 +26,11 @@ PythonConnection pyCon = new PythonConnection() {
 
   }
 };
-</div></pre>
+```
 
 Where does the 'data' String come from, you ask? Well when the underlying Thread receives data from the BufferedReader, it calls <code>onReceive()</code>, supplying the String read from the Reader and continues listening once <code>onReceive()</code> returns. Here is where that occurs in a typical server (such as in the GClient):
 
-<!-- language="java" -->
-<pre><div class="code-block">
+```java
 /**
  * Start the receiving thread that will call onReceive() when it has data
  */
@@ -61,7 +58,7 @@ private void startListening() {
 
   receiveThread.start();
 }
-</div></pre>
+```
 
 Previously to get around this 'sending data across classes' problem (which got especially nasty when Threads came into it) I would either pass the object creating the abstract object or use some sort of 'shared static class', which wasn't ideal and generated problems of its own.
 

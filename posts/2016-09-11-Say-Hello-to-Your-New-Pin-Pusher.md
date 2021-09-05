@@ -29,9 +29,7 @@ The new 'Pin Pusher' Raspberry Pi in its native habitat - under the family compu
 In the eventuality that I have to update the IP of the family router for apps to use in their status check (otherwise they think the servers have gone down, bad for users!), I used to have a Python script email me its own IP address. Sadly, Google doesn't like this unauthenticated use of my GMail account, so I devised an alternative.
 I set up my Pi as an EVRYTHNG Thng, gave it an 'ip' property, and wrote the following Python script to update this property in the EVRYTHNG cloud when it boots up. This way, all I have to do is ask whoever's in to reboot the Pi, and then wait for the updated IP address! I may also make it run periodically to cover the 'router randomly restarted' scenario.
 
-<!-- language="python" -->
-<pre><div class="code-block">
-
+```python
 #!/usr/bin/python
 
 import requests
@@ -69,8 +67,7 @@ def main():
   print(res)
 
 main()
-
-</div></pre>
+```
 
 ## Followup: Checking Status Conveniently
 

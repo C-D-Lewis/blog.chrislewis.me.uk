@@ -55,7 +55,7 @@
     {
       "type": "header",
       "level": 3,
-      "text": "Note: If you are compiling for the <a title=\"SDK 3.0 Migration Guide\" href=\"https://developer.getpebble.com/sdk/migration-guide/#using-propertyanimation\">Basalt platform</a>, you do not need to manually destroy your animation, so leave the handler out. "
+      "text": "Note: If you are compiling for the <a title=\"SDK 3.0 Migration Guide\" href=\"https://developer.getpebble.com/sdk/migration-guide/#using-propertyanimation\">Basalt platform</a>, you do not need to manually destroy your animation, so leave the handler out."
     },
     {
       "type": "paragraph",

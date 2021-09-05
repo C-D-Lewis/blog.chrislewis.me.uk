@@ -18,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "text": "As you can see, after the first frame is scheduled with an <code>AppTimer</code>, the timer's handler schedules the next, and so an infinite loop is born. After implementing this multiple times, it occurred to me that I could make this process easier to set up, even if it was just for myself. "
+      "text": "As you can see, after the first frame is scheduled with an <code>AppTimer</code>, the timer's handler schedules the next, and so an infinite loop is born. After implementing this multiple times, it occurred to me that I could make this process easier to set up, even if it was just for myself."
     },
     {
       "type": "paragraph",
@@ -38,7 +38,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The GitHub repo also includes a sample app where I implemented a simple 'game' of controlling a 'robot', using select to start/stop the robot and the up and down buttons to rotate its direction of travel. "
+      "text": "The GitHub repo also includes a sample app where I implemented a simple 'game' of controlling a 'robot', using select to start/stop the robot and the up and down buttons to rotate its direction of travel."
     },
     {
       "type": "image",

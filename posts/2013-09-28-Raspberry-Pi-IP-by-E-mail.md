@@ -11,8 +11,7 @@ But a moment's search for a replacement strategy yielded another idea. Nothing o
 
 Looking at a Raspberry Pi as it boots you will see the Ethernet port is initialized pretty early on in the boot procedure. A quick Google search revealed the existence of the '<a title="Python 2.7 SMTPLib" href="http://docs.python.org/2/library/smtplib.html">smtplib</a>' module included with Python, which I leveraged to make this happen. Here is the final code (get_ip_address() found <a title="Get IP Address" href="code.activestate.com/recipes/439094-get-the-ip-address-associated-with-a-network-inter/">here</a>):
 
-<!-- language="python" -->
-<pre><div class="code-block">
+```python
 import smtplib
 import struct
 import socket
@@ -33,7 +32,7 @@ toaddr = <to address>
 msg = """RPi IP is  %s""" % get_ip_address('eth0')
 
 username = <username>
-password = 
+password =
 
 print("Sending IP: %s to %s" % (get_ip_address('eth0'), toaddr))
 
@@ -53,23 +52,21 @@ print("Closing connection...")
 server.close()
 
 print("Sent.")
-</div></pre>
+```
 
 The next step is to make it run on boot, which only involved writing this script (called ipmailboot.sh):
 
-<!-- language="python" -->
-<pre><div class="code-block">
+```python
 #!/usr/bin/python
 
 sudo python ~/python/ipmail.py
-</div></pre>
+```
 
 Then changing the permissions for execution:
 
-<!-- language="python" -->
-<pre><div class="code-block">
+```python
  sudo chmod 755 ipmailboot.sh
- </div></pre>
+ ```
 
 And then registering it to run on boot using <code>update-rc.d ipmailboot.sh defaults</code>.
 

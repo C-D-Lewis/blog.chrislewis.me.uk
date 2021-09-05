@@ -31,16 +31,14 @@ Let's add some more artistic direction to our watch face. At the moment, it prob
 
 ![](/assets/import/media/2013/12/future1.png) ![](/assets/import/media/2013/12/past1.png?w=144) As with the menu icon, the first step is to add both images as Resources in CloudPebble and give them appropriate identifiers, such as <code>FUTURE</code> and <code>PAST</code> respectively. Next, go back to the C source file and declare two global pointers of type <code>GBitmap</code> and two of type <code>BitmapLayer</code>, like so:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 GBitmap *future_bitmap, *past_bitmap;
 BitmapLayer *future_layer, *past_layer;
-</div></pre>
+```
 
 The <code>GBitmap</code>s will contain the image data, and the <code>BitmapLayer</code>s will present the images to the user as a <code>Layer</code>. So, in <code>window_load()</code>, add the appropriate function calls to create these elements. Here is how it is done. Try and understand what each line does, using your previous knowledge of the <code>TextLayer</code> and <code>InverterLayer</code>:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Load bitmaps into GBitmap structures
 //The ID you chose when uploading is prefixed with 'RESOURCE_ID_'
 future_bitmap = gbitmap_create_with_resource(RESOURCE_ID_FUTURE);
@@ -55,12 +53,11 @@ layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(future_lay
 past_layer = bitmap_layer_create(GRect(0, 112, 144, 50));
 bitmap_layer_set_bitmap(past_layer, past_bitmap);
 layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(past_layer));
-</div></pre>
+```
 
 Once again, we need to add the de-init code to free up the memory again:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Destroy GBitmaps
 gbitmap_destroy(future_bitmap);
 gbitmap_destroy(past_bitmap);
@@ -68,7 +65,7 @@ gbitmap_destroy(past_bitmap);
 //Destroy BitmapLayers
 bitmap_layer_destroy(future_layer);
 bitmap_layer_destroy(past_layer);
-</div></pre>
+```
 
 Are you beginning to spot patterns in how the API function calls are named? This way once you've worked with a new layer it is easier to guess correctly what to call for newer elements and reducing your dependence on the API documentation. Once all this has been done, your watchface should look like this:
 ![](/assets/import/media/2013/12/pebble-screenshot_2013-12-22_14-43-19.png)
@@ -81,22 +78,20 @@ First, again, add the font as a Resource in CloudPebble. This time set the forma
 
 The process for using the font in the watchface is <em>almost</em> the same as that for the images. First, load the resource into a <code>ResHandle</code> (Handle on the Resource, so to speak) structure BEFORE the TextLayer is created (We will be using it for the time display itself):
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Load font
 ResHandle font_handle = resource_get_handle(RESOURCE_ID_IMAGINE_42);
-</div></pre>
+```
 
 Now, modify the call to <code>text_layer_set_font()</code> to use our custom font and a slight layout modification to the text position by modifying the <code>GRect</code> to have a width of 144 pixels, like so:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 text_layer = text_layer_create(GRect(0, 53, 144, 168));
 
 ...
 
 text_layer_set_font(text_layer, fonts_load_custom_font(font_handle));
-</div></pre>
+```
 
 After compilation, the watchface should finally look like so:
 ![](/assets/import/media/2013/12/pebble-screenshot_2013-12-22_15-00-53.png)

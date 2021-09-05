@@ -33,14 +33,13 @@ Let's get started!
 
 The watchapp we will be creating will have a single option to keep things simple - the option to invert the colours. To begin with, create a new project and use the following code as a starting point:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-#include 
+```cpp
+#include
 
 static Window *window;
 static TextLayer *text_layer;
 
-static void window_load(Window *window) 
+static void window_load(Window *window)
 {
   //Create TextLayer
   text_layer = text_layer_create(GRect(0, 0, 144, 168));
@@ -52,12 +51,12 @@ static void window_load(Window *window)
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));
 }
 
-static void window_unload(Window *window) 
+static void window_unload(Window *window)
 {
   text_layer_destroy(text_layer);
 }
 
-static void init(void) 
+static void init(void)
 {
   window = window_create();
   window_set_window_handlers(window, (WindowHandlers) {
@@ -68,18 +67,18 @@ static void init(void)
   window_stack_push(window, true);
 }
 
-static void deinit(void) 
+static void deinit(void)
 {
   window_destroy(window);
 }
 
-int main(void) 
+int main(void)
 {
   init();
   app_event_loop();
   deinit();
 }
-</div></pre>
+```
 
 This should be familiar: a basic app that has a single <code>TextLayer</code> stating that the app is not inverted. The process I've adopted to setup app configuration has the following steps:
 
@@ -92,15 +91,13 @@ This should be familiar: a basic app that has a single <code>TextLayer</code> st
 
 We will start by declaring the key we will be using to receive the option to invert the watchapp. Don't forget to declare this in Settings on CloudPebble or in <code>appinfo.json</code> if you are working with the native SDK:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 #define KEY_INVERT 0
-</div></pre>
+```
 
 Next, we create the <code>AppMessageInboxReceived</code> handler that will process any received messages. If they contain our key, we will compare the payload value <code>cstring</code> to set the colours of the app to be inverted or not, depending on the value received. We then use the <a title="Storage" href="https://developer.getpebble.com/2/api-reference/group___storage.html">Persistent Storage API</a> to save the result for the next time the watchapp is opened. This should be placed above <code>init()</code> as it will be called there in a moment:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 static void in_recv_handler(DictionaryIterator *iterator, void *context)
 {
   //Get Tuple
@@ -133,23 +130,21 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context)
     }
   }
 }
-</div></pre>
+```
 
 The final step is to actually open <code>AppMessage</code> to enable communication with the phone. Do this in <code>init()</code>:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 app_message_register_inbox_received((AppMessageInboxReceived) in_recv_handler);
 app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
-</div></pre>
+```
 
 Note we used the <code>app_message_inbox_size_maximum()</code> and <code>app_message_outbox_size_maximum()</code> functions to get the maximum buffer sizes available. While not strictly required here, it is a good best practice. I've wasted a lot of time in past projects not realising the buffer sizes I'd chosen were too small!
 
 The final step is to set up the app to load the last stored configuration when the app is restarted, and takes for form of a similar <code>if</code>, <code>else</code> as the <code>AppMessageInboxReceived</code> handler above. Again, we use the Persistent Storage API to get our last saved configuration value. The <code>window_load()</code>function becomes thus:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
-static void window_load(Window *window) 
+```cpp
+static void window_load(Window *window)
 {
   //Check for saved option
   bool inverted = persist_read_bool(KEY_INVERT);
@@ -174,7 +169,7 @@ static void window_load(Window *window)
 
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(text_layer));
 }
-</div></pre>
+```
 
 Now the C code is complete!
 
@@ -182,14 +177,13 @@ Now the C code is complete!
 
 The PebbleKit JS component of the app is the part responsible for loading the configuration page and sends the results of the user interaction to the watch to be processed as we just set up. This is done through the "showConfiguration" and "webviewclosed" events. Here is our initial JS code. Add a new JS file in CloudPebble or to the <code>src/js/pebble-js-app.js</code> if coding natively:
 
-<!-- language="javascript" -->
-<pre><div class="code-block">
+```javascript
 Pebble.addEventListener("ready",
   function(e) {
     console.log("PebbleKit JS ready!");
   }
 );
-</div></pre>
+```
 
 So far, so simple. Next, we add an event listener for the "showConfiguration" event, triggered when a user chooses the Settings button in the Pebble app, like that shown below:
 
@@ -197,20 +191,18 @@ So far, so simple. Next, we add an event listener for the "showConfiguration" ev
 
 The job of this event listener is to call <code>Pebble.openURL()</code>, a requirement of the system. This is when the configuration page is loaded (we will design this later). As stated in the introduction a good place to store this file is in your Public Dropbox folder. This way it is shown as a webpage and not as a download. Use mine for the moment, but if you want to make any changes you will need to change this to point to your own file:
 
-<!-- language="javascript" -->
-<pre><div class="code-block">
+```javascript
 Pebble.addEventListener("showConfiguration",
   function(e) {
     //Load the remote config page
     Pebble.openURL("https://dl.dropboxusercontent.com/u/10824180/pebble%20config%20pages/sdktut9-config.html");
   }
 );
-</div></pre>
+```
 
 When the user has chosen their options and closed the page, the "webviewclosed" event is fired. We will register another event listener to handle this. The data returned will be encoded in the URL as a JSON dictionary containing one element: "invert" which will have a value of either "on" or "off" depending on what the user chose. This is then assembled into an <code>AppMessage</code> and sent to the watch, which then sets and saves as appropriate:
 
-<!-- language="javascript" -->
-<pre><div class="code-block">
+```javascript
 Pebble.addEventListener("webviewclosed",
   function(e) {
     //Get JSON dictionary
@@ -229,7 +221,7 @@ Pebble.addEventListener("webviewclosed",
     );
   }
 );
-</div></pre>
+```
 
 That concludes the PebbleKit JS setup. Now for the last part - HTML!
 
@@ -237,8 +229,7 @@ That concludes the PebbleKit JS setup. Now for the last part - HTML!
 
 The final piece of the puzzle is the part the user will actually see and takes the form of a HTML page consisting of form elements such as checkboxes, selectors and buttons. We will just use one selector and one button to let the user choose if they want the watchapp to be inverted or not. Here's the layout code:
 
-<!-- language="html" -->
-<pre><div class="code-block">
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -253,17 +244,16 @@ The final piece of the puzzle is the part the user will actually see and takes t
       <option value="off">Off</option>
       <option value="on">On</option>
     </select>
-    
+
     <button id="save_button">Save</button>
-    
+
   </body>
 </html>
-</div></pre>
+```
 
 With this done we add a script to add a click listener to the button and a function to assemble the JSON option dictionary. This dictionary is then encoded into the URL and handed to the PebbleKit JS code to be sent to the watch in the "webviewclosed" event. Insert this into the HTML page in a script tag:
 
-<!-- language="javascript" -->
-<pre><div class="code-block">
+```javascript
 //Setup to allow easy adding more options later
 function saveOptions() {
   var invertSelect = document.getElementById("invert_select");
@@ -286,7 +276,7 @@ submitButton.addEventListener("click",
     document.location = location;
   },
 false);
-</div></pre>
+```
 
 That completes the page that will get the user's option choices and also the app itself! Compile the app and install on your watch. By choosing either 'On' or 'Off' on the configuration page you should be able to toggle the colour used in the watchapp. This should look like that shown below:
 
@@ -294,6 +284,6 @@ That completes the page that will get the user's option choices and also the app
 
 ## Conclusion
 
-So, that's the process I've adopted to set up app configuration. You can expand it by adding more <code>AppMessage</code> keys and more elements in the HTML page. Make sure to add the fields to the JSON object constructed in <code>saveOptions()</code> though. 
+So, that's the process I've adopted to set up app configuration. You can expand it by adding more <code>AppMessage</code> keys and more elements in the HTML page. Make sure to add the fields to the JSON object constructed in <code>saveOptions()</code> though.
 
-As usual, the full code is <a href="https://github.com/C-D-Lewis/pebble-sdk2-tut-9" title="Source Code">available on GitHub</a>. 
+As usual, the full code is <a href="https://github.com/C-D-Lewis/pebble-sdk2-tut-9" title="Source Code">available on GitHub</a>.

@@ -9,8 +9,7 @@ In snatches of down time over the last few weeks I <a title="Streaming Pebble Ac
 
 After further small bits of work, I created a class called PebbleGestureModel, which receives new X, Y and Z data and performs threshold and duration checks (to prevent continuous firing) before executing abstract actions, implemented upon instantiation. Below is an example with no actions assigned for an acceleration threshold of 800 (g is approximately 1000), a minimum duration between firing actions and operating in the tilt mode :
 
-<!-- language="java" -->
-<pre><div class="code-block">
+```java
 PebbleGestureModel model = new PebbleGestureModel(800, 1000L, PebbleGestureModel.MODE_TILT) {
 
   @Override
@@ -39,7 +38,7 @@ PebbleGestureModel model = new PebbleGestureModel(800, 1000L, PebbleGestureModel
   }
 
 };
-</div></pre>
+```
 
 The result of this is a simple 'game' consisting of a randomly generated 'world' of 10 x 10 blocks, with two blocks nominated as the Finish and Player respectively. Touching the 'world' generates a new random one. At the moment the Player and Finish are randomly placed on valid non-solid tiles, but are not path-checked. If no path connects them, I just touch for a new one until a valid one is found.
 

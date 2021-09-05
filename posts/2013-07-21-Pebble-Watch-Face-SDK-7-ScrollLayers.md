@@ -25,17 +25,15 @@ Lets get started!
 
 To make use of this Layer type in a watch app, you will need something to display inside it. For this example, I'll be using a snippet of text from <a href="http://getpebble.com" title="getpebble.com">getpebble.com</a>, in a char array as shown below (using the fiendishly hidden WordPress code tags!):
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 char scrollText[] = "Pebble is the first watch built for the 21st century. It is infinitely customizable, with beautiful downloadable watchfaces and useful internet-connected apps. Pebble connects to iPhone and Android smartphones using Bluetooth, alerting you with a silent vibration to incoming calls, emails and messages. While designing Pebble, we strove to create a minimalist yet fashionable product that seamlessly blends into everyday life.";
-</div></pre>
+```
 
 You can use other Layer types, but this is good for simplicity.
 
 As is usual for the Pebble SDK, we call functions to initialize and setup our Window and Layers, in the <code>handle_init()</code> function. I'll show this process below, but first here are the constants and globals that will be making an appearance:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 //Globals
 Window window;
 ScrollLayer sLayer;
@@ -47,12 +45,11 @@ static int MAX_HEIGHT = 1000;
 
 //Compensate for top window bar
 static int TOP_BAR_PADDING = 20;
-</div></pre>
+```
 
 And now the main code segment:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 /**
   * Resource initialisation handle function
   */
@@ -62,11 +59,11 @@ void handle_init(AppContextRef ctx) {
   //Init window
   window_init(&window, "Main window");
   window_set_background_color(&window, GColorWhite);
-  
+
   //Init ScrollLayer and attach button click provider
   scroll_layer_init(&sLayer, GRect(0, 0, 144, 168));
   scroll_layer_set_click_config_onto_window(&sLayer, &window);
-  
+
   //Init TextLayer
   text_layer_init(&tLayer, GRect(0, 0, WIDTH, MAX_HEIGHT));
   text_layer_set_text(&tLayer, scrollText);
@@ -76,13 +73,13 @@ void handle_init(AppContextRef ctx) {
 
   //Get size used by TextLayer
   GSize max_size = text_layer_get_max_used_size(app_get_current_graphics_context(), &tLayer);
-  
+
   //Use TextLayer size
   text_layer_set_size(&tLayer, max_size);
-  
+
   //Use TextLayer size for ScrollLayer - this has to be done manually for now!
   scroll_layer_set_content_size(&sLayer, GSize(WIDTH, max_size.h + TOP_BAR_PADDING));
-  
+
   //Add TextLayer to ScrollLayer to Window
   scroll_layer_add_child(&sLayer, &tLayer.layer);
   layer_add_child(&window.layer, (Layer*)&sLayer);
@@ -90,7 +87,7 @@ void handle_init(AppContextRef ctx) {
   //Show Window
   window_stack_push(&window, true);
 }
-</div></pre>
+```
 
 Read through the code above line by line and see the new additions that you might not have seen before. Below are the ones of note:
 
@@ -108,7 +105,7 @@ Finally, after using <code>layer_add_child()</code> to add the ScrollLayer to th
 
 ## Conclusion
 
-The ScrollLayer can be useful for showing a lot of information or a list. It does require some extra thinking about and setup, but it is worth it for the convenience! 
+The ScrollLayer can be useful for showing a lot of information or a list. It does require some extra thinking about and setup, but it is worth it for the convenience!
 
 Full source code for a sample watch app (derived from the 'demos' supplied with the SDK) <a title="Source code!" href="https://www.dropbox.com/s/1k9dmm5nray70wr/ScrollLayerDemo.zip">can be found here.</a>
 

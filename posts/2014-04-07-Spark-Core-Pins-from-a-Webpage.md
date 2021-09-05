@@ -11,8 +11,7 @@ And it turned out to be easier than expected! After a couple of hours, the basic
 
 During the aforementioned Pebble project, <a href="https://community.spark.io/t/pin-argument-for-spark-function-is-always-0-solved/3794" title="Forum post">I sought help with a problem</a> in getting the same pin number back as I sent to the Spark Cloud. The solution to this turned out to be specifying the Spark.function() parameter string as a key-value dictionary, making the core (aha) code segment in this webpage as so:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 //Send the request to the Core
 var sendRequest = function(pin, on, device_id, access_token) {
   var url;
@@ -33,7 +32,7 @@ var sendRequest = function(pin, on, device_id, access_token) {
     dataType: "json"
   });
 };
-</div></pre>
+```
 
 The entire project (three files!) can be found on <a title="Source code" href="https://github.com/C-D-Lewis/core-pins-js/tree/master">GitHub here</a>. I may expand it to include more functions in the future, but at the moment it provides a good platform to play around with, and I've learned a small amount about HTML forms and using jQuery. Time well spent!
 

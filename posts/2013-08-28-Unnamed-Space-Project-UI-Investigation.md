@@ -25,8 +25,8 @@ But the 'ring slider' required much more thinking about. I first attempted to us
 
 Here is the code for calculation of the angle of the 'ring slider' in quadrant 0:
 
-<!-- language="java" -->
-<pre><div class="code-block">//Setup quad rects for ring slider of any bounds x, y, width & height
+```java
+//Setup quad rects for ring slider of any bounds x, y, width & height
 quad0 = new Rectangle(x + width/2, y, width/2, height/2);
 quad1 = new Rectangle(x + width/2, y + height/2, width/2, height/2);
 quad2 = new Rectangle(x, y + height/2, width/2, height/2);
@@ -62,7 +62,7 @@ switch(thisQuad) {
     }
     //Then the other quads for cases 1 through 3...
 }
-</div></pre>
+```
 
 The end result of all this, together with a spawning starfield of stars (who move proportionately to their size to create the illusion of depth) is this (Click to enlarge):
 

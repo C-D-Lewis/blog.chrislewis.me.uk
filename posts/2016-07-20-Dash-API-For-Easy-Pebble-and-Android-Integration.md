@@ -27,10 +27,9 @@ $ pebble package install pebble-dash-api
 
 Next, include the single library file and call the initialiser when your app is starting, supplying the app's name (for presentation in the Android app) and an error callback for receiving any errors that may occur:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 #include ;
-#include 
+#include
 
 #define APP_NAME "My App"
 
@@ -44,14 +43,13 @@ static void init() {
 
   /* Other init code */
 }
-</div></pre>
+```
 
 Next, check the Android app is available and up to date:
 
-<!-- language="cpp" -->
-<pre><div class="code-block">
+```cpp
 dash_api_check_is_available();
-</div></pre>
+```
 
 The result will be passed to your <code>error_callback</code>. Once you get <code>ErrorCodeSuccess</code>, it is safe to start making queries, such as getting the battery level, etc. Code examples are included in the <a href="https://github.com/C-D-Lewis/dash-api#get-data">GitHub README.md file</a>.
 

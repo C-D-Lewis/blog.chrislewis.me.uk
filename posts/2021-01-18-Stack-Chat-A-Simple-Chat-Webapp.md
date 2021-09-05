@@ -33,18 +33,17 @@ I got stuck in. There were three main objectives:
 As it turns out, a WebSockets server that just has to re-broadcast messages
 isn't very complicated:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 /**
  * Broadcast data to all clients.
- * 
+ *
  * @param {string} data - Data to send
  */
 const broadcast = data => server.clients.forEach(p => p.send(data));
 
 /**
  * When a client sends a message.
- * 
+ *
  * @param {object} client - Client that sent the message.
  * @param {string} data - The message.
  */
@@ -56,7 +55,7 @@ const onClientMessage = (client, data) => {
 };
 
 // Other server starting and connection listening code...
-</div></pre>
+```
 
 If in the future the server cares about who sends the messages, which channels
 exist and contain which users, then some more filtering, caching of user/channel
@@ -95,23 +94,22 @@ The use of WebSockets in the frontend is also nice and simple - and a little
 abstraction in the right places always goes a long way to making shared code
 accessible and useful! For example, the connection process:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 /** Generated config.js using webpack at build time */
 const { HOST, PORT } = window.config;
 
 /**
  * Connect to the configured server.
- * 
+ *
  * @param {function} setConnectedState - Callback to update connectedState.
  * @param {function} onWebsocketMessage - Callback when a message is received.
  */
 export const connect = (setConnectedState, onWebsocketMessage) => {
   const protocol = HOST.includes('https') ? 'wss://' : 'ws://';
-  
+
   try {
     socket = new WebSocket(`${protocol}${HOST}:${PORT}`);
-    
+
     socket.addEventListener('open', () => setConnectedState(true));
     socket.addEventListener('message', event => onWebsocketMessage(JSON.parse(event.data)));
     socket.addEventListener('error', (event) => {
@@ -124,16 +122,15 @@ export const connect = (setConnectedState, onWebsocketMessage) => {
     setTimeout(() => alert(err.stack), 500);
   }
 };
-</div></pre>
+```
 
 And sending messages uses an established message schema (I do like a good
 message schema...):
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 /**
  * Send a chat event message to the server.
- * 
+ *
  * @param {string} userName - This client's userName.
  * @param {string} draft - Draft message.
  * @param {string} color - This client's color.
@@ -151,7 +148,7 @@ export const sendMessage = (userName, draft, color) => {
 
   socket.send(JSON.stringify(event));
 };
-</div></pre>
+```
 
 This means that all messages sent can be easily interpreted by both the backend
 (who may need to perform filtering in the future), as well as all the identical
@@ -159,11 +156,10 @@ connected clients.
 
 And lastly, it also help define special messages that also use the schema:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 /**
  * Send an event message reporting this new user.
- * 
+ *
  * @param {string} userName - This client's username.
  */
 export const reportNewUser = (userName) => {
@@ -174,12 +170,11 @@ export const reportNewUser = (userName) => {
 
   socket.send(JSON.stringify(event));
 };
-</div></pre>
+```
 
 Messages using this schema can be seen in the server logs:
 
-<!-- language="none" -->
-<pre><div class="code-block">
+```none
 message: {"type":"NewClient","data":{"userName":"Dr Rumack"}}
 message: {"type":"NewClient","data":{"userName":"Captain Oveur"}}
 message: {"type":"ChatMessage","data":{"from":"Dr Rumack","content":"Captain, how soon can you land?","backgroundColor":"rgb(109,52,62)","timestamp":1610983392283}}
@@ -189,7 +184,7 @@ message: {"type":"ChatMessage","data":{"from":"Captain Oveur","content":"No, I m
 message: {"type":"ChatMessage","data":{"from":"Dr Rumack","content":"Well, can't you take a guess?","backgroundColor":"rgb(109,52,62)","timestamp":1610983428647}}
 message: {"type":"ChatMessage","data":{"from":"Captain Oveur","content":"Well, not for another two hours.","backgroundColor":"rgb(7,177,67)","timestamp":1610983442314}}
 message: {"type":"ChatMessage","data":{"from":"Dr Rumack","content":"You can't take a guess for another two hours?","backgroundColor":"rgb(109,52,62)","timestamp":1610983453649}}
-</div></pre>
+```
 
 ## Future ideas
 

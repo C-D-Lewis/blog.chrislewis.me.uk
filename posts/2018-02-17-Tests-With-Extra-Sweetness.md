@@ -11,8 +11,7 @@ Turns out, quite easy. These testing frameworks are deigned to be flexible and r
 
 ## Home-grown
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 async function testSetAll(expected) {
   const response = await testBed.sendConduitPacket({
     to: 'LedServer',
@@ -37,12 +36,11 @@ async function testSetPixel(expected) {
   testBed.assert(response.status === 200 && response.message.content === 'OK',
     'setPixel: response contains status:200 and content:OK');
 }
-</div></pre>
+```
 
 ## Mocha/Chai
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 describe('Conduit topic: setPixel', () => {
   it('should return 200 / OK', async () => {
     const response = await testBed.sendConduitPacket({
@@ -71,7 +69,7 @@ describe('Conduit topic: setAll', () => {
     expect(response.message.content).to.equal('OK');
   });
 });
-</div></pre>
+```
 
 As a result, my script to run all the test suites of each Node app (after booting them all together locally) looks like a lot of this - all green, and no red!
 
