@@ -58,8 +58,8 @@ const postToModel = (fileName) => {
   }
 
   const model = {
-    title,                                        // Line 1
     fileName,
+    title,                                        // Line 1
     dateTime,                                     // Line 2
     tags: tags !== '---' ? tags.split(',') : [],  // Line 3
     components: [],
