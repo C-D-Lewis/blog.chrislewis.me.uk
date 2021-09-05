@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync } = require('fs');
+const { writeFileSync } = require('fs');
 const slugify = require('slugify');
 
 /** Path to posts JSON */
@@ -96,7 +96,6 @@ const transformHTML = (html) => {
   // Code snippets (TODO highlighter)
   while (result.includes('[code language=')) {
     const codeMetaStart = result.indexOf('[code language=');
-    const codeMetaEnd = result.indexOf(']', codeMetaStart);
     const languageStart = codeMetaStart + '[code language='.length + 1;
     const languageEnd = result.indexOf('"]', languageStart);
     const language = result.substring(languageStart, languageEnd);
@@ -118,21 +117,12 @@ const transformHTML = (html) => {
 };
 
 /**
- * Easily list 100s of posts.
- */
-const zeroPad = (val) => {
-  if (val < 10) return `000${val}`;
-  if (val < 100) return `00${val}`;
-  if (val < 1000) return `0${val}`;
-};
-
-/**
  * The main function.
  */
 const main = async () => {
   const posts = require(POSTS_PATH);
 
-  posts.forEach((post, index) => {
+  posts.forEach((post) => {
     const md = transformHTML(post.body);
     const fileContent = `${post.title}
 ${post.postDate}
@@ -154,4 +144,5 @@ ${md}
   console.log(`Created ${numCreated} WordPress markdown posts`);
 };
 
-main();
+throw new Error('This should not be used anymore - modify old posts directly in posts/');
+// main();

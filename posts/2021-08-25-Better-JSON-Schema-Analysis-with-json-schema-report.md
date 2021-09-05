@@ -24,8 +24,7 @@ it much easier to debug such large schemas and save a lot of time.
 If you're not already aware, here's an example JSON Schema schema
 describing a car type of object and what it should look like:
 
-<!-- language="json" -->
-<pre><div class="code-block">
+```json
 {
   "type": "object",
   "required": ["color", "length", "topSpeed"],
@@ -45,15 +44,14 @@ describing a car type of object and what it should look like:
     }
   }
 }
-</div></pre>
+```
 
 It describes the 'shape' of objects that are a valid 'car' type -
 <code>color</code> should be a string, <code>numDoors</code> should be a number
 greater than or equal to two - you get the idea. So the following data will be
 validated as labelled:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 // Valid - all properties required are present and correct
 const validCar = {
   color: 'red',
@@ -68,13 +66,12 @@ const invalidCar = {
   length: '25m',
   topSpeed: '230kph',
 };
-</div></pre>
+```
 
 We can use a package such as the popular <code>jsonschema</code> npm module
 to build a validator function to check data we might receive:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 const { validate } = require('jsonschema');
 
 /**
@@ -90,17 +87,16 @@ const validateCar = (data) => {
 };
 
 validateCar(invalidCar);
-</div></pre>
+```
 
 This shows us some hints about why the data isn't valid:
 
-<!-- language="js" -->
-<pre><div class="code-block">
+```js
 [
   "instance.length is not of a type(s) number",
   "instance.topSpeed is not of a type(s) number"
 ]
-</div></pre>
+```
 
 ## Very large (and scary) schemas
 
@@ -121,10 +117,9 @@ advanced JSON Schema features such as <code>oneOf</code>, <code>anyOf</code>,
 and <code>allOf</code>), the errors we get back are a lot less helpful both for
 us as well as anybody that might want to send us EPCIS events.
 
-<!-- language="text" -->
-<pre><div class="code-block">
+```text
 instance failed to match exactly one schema (matched 0 out of 5)
-</div></pre>
+```
 
 Not very useful for debugging...
 
@@ -226,14 +221,12 @@ a set of unit tests that give examples of all the types of schema supported.
 
 You can also install it directly from npm:
 
-<!-- language="text" -->
-<pre><div class="code-block">
+```text
 npm i -g json-schema-report
-</div></pre>
+```
 
 And then use it with a schema file and data instance file:
 
-<!-- language="text" -->
-<pre><div class="code-block">
+```text
 $ jsr ./car-schema.json carSample.json
-</div></pre>
+```

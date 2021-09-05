@@ -119,16 +119,13 @@ const friendlyLangName = (language) => {
  * @return {string} Code with keywords wrapped in styled spans.
  */
 const toHighlightedLine = (line, language) => {
-  // Insert language annotation
-  if (line.includes('<!-- language=')) {
-    line = `<div class="lang-label lang-${language}">${friendlyLangName(language)}</div>`;
-    return line;
-  }
+  // Hide language annotation
+  if (line.includes('```')) return '';
 
-  // Don't modify the <pre><div class=code-block>
-  if (line.includes('<pre>')) return line;
+  // Hide the code block start and end syntax
+  if (line.includes('```')) return line;
 
-  // No highlighting please
+  // No highlighting for text
   if (['none', 'text'].includes(language)) return line;
 
   // Terraform
@@ -285,7 +282,7 @@ const toHighlightedLine = (line, language) => {
  * Replace key words with styled spans in a block of code.
  *
  * @param {string} block - Paragraph of code.
- * @param {string} language - Language extracted from <!-- language="js" --> above block
+ * @param {string} language - Language extracted from ```$LANGUAGE in block
  * @return {string} Code with keywords wrapped in styled spans.
  */
 const highlight = (block, language) => !language
@@ -307,11 +304,14 @@ const highlightCodeParagraphs = (sections) => {
   // For each section
   let language;
   let isCodeBlock = false;
-  let joinableSections = [];
+  let snippetSections = [];
   sections.forEach((section) => {
-    // If contains <pre>, set isCodeBlock
-    if (section.includes('<pre')) {
+    // If contains ```, set isCodeBlock
+    if (section.startsWith('```') && !isCodeBlock) {
       isCodeBlock = true;
+
+      // Check the language and remove tag
+      language = section.slice(3, section.indexOf('\n'));
     }
 
     // If !isCodeBlock, just add it section
@@ -320,27 +320,29 @@ const highlightCodeParagraphs = (sections) => {
       return;
     }
 
-    // If contains language=, set language
-    if (section.includes('<!-- language=')) {
-      const langStart = section.indexOf('language="') + 'language="'.length;
-      const langEnd = section.indexOf('"', langStart);
-      language = section.slice(langStart, langEnd);
-    }
-
     // Highlight and gather joinable sections
     if (isCodeBlock) {
       // Add joinable sections
-      joinableSections.push(section);
+      snippetSections.push(section);
 
-      // If contains </pre> unset isCodeBlock - could be the same section if just one paragraph
-      if (section.includes('</pre')) {
-        const highlightedSection = highlight(joinableSections.join('\n\n'), language);
-        resultSections.push(highlightedSection);
+      // If contains ``` unset isCodeBlock - could be the same section if just one paragraph
+      if (section.endsWith('```')) {
+        // Add styling and store
+        const highlightedSnippet = `
+<div class="lang-label lang-${language}">${friendlyLangName(language)}</div>
+<pre><div class="code-block">
+${highlight(snippetSections.join('\n\n'), language).trim()}
+</div></pre>
+`;
+        resultSections.push(highlightedSnippet);
 
         // Reset for next code block
         isCodeBlock = false;
         language = null;
-        joinableSections = [];
+        snippetSections = [];
+
+        // Replace the end tag
+        section
       }
     }
   });
