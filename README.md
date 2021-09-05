@@ -14,17 +14,21 @@ later converted into JSON objects that can be rendered as components:
 
 * Second line is the date and time in `YYYY-MM-DD HH:MM` format.
 
+* This line is a comma-separated list of tags.
+
 * Body comes afer line containing '---'.
 
 * Each paragraph is treated as a block of text (double newline break).
 
-* Images are converted to `img`.
+* Images `![desc](path)` are converted to `<img>`.
 
 * Headings are standard header levels with a space beween hash and text.
 
-* Links are converted to anchors.
+* Links `[desc](url)` are converted to `<a>`.
 
 * Lines starting with '- ' are converted to bullet lists using tables.
+
+* Code highlighting uses Markdown triple backticks followed by the language name.
 
 
 ## Building the blog
@@ -61,7 +65,10 @@ export AWS_PROFILE=...
 ./deploy.sh
 ```
 
+
 ## Import from WordPress
+
+> No longer used - posts already imported to be modified instead of the originals
 
 1. Copy xml from WordPress to `assets/export`.
 
