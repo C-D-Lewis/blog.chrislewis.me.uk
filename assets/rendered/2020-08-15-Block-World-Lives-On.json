@@ -21,7 +21,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\noutput.x<span class=\"js-keyword\"> = </span>input.x - input.y\noutput.y<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span>input.x / 2<span class=\"js-syntax\">)</span> + <span class=\"js-syntax\">(</span>input.y / 2<span class=\"js-syntax\">)</span> - input.z\n</div></pre>"
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\noutput.x<span class=\"js-keyword\"> = </span>input.x<span class=\"js-keyword\"> - </span>input.y\noutput.y<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span>input.x<span class=\"js-keyword\"> / </span>2<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> + </span><span class=\"js-syntax\">(</span>input.y<span class=\"js-keyword\"> / </span>2<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> - </span>input.z\n</div></pre>"
     },
     {
       "type": "paragraph",

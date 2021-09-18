@@ -38,15 +38,7 @@
     },
     {
       "type": "paragraph",
-      "text": "task greet gets name\n  log 'Hello there, {name}!'\nend"
-    },
-    {
-      "type": "paragraph",
-      "text": "task main\n  value name is 'Chris'\n  run greet with name\nend"
-    },
-    {
-      "type": "paragraph",
-      "text": "run main\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\ntask greet gets name\n  log 'Hello there, {name}!'\nend\n\ntask main\n  value name is 'Chris'\n  run greet with name\nend\n\nrun main\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -86,7 +78,7 @@
     },
     {
       "type": "paragraph",
-      "text": "Hello there, Chris!\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nHello there, Chris!\n</div></pre>"
     },
     {
       "type": "header",
@@ -99,11 +91,11 @@
     },
     {
       "type": "paragraph",
-      "text": "npm run compile ./my_program.is\n```"
+      "text": "npm run compile ./my_program.is"
     },
     {
       "type": "paragraph",
-      "text": "node build.js\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nnode build.js\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -120,19 +112,7 @@
     },
     {
       "type": "paragraph",
-      "text": "task fibonacci gets input\n  when input <= 1\n    return input\n  end"
-    },
-    {
-      "type": "paragraph",
-      "text": "  // return fib(n-1) + fib(n-2);\n  value n_minus_1 is input - 1\n  value n_minus_2 is input - 2\n  value result_1 is run fibonacci with n_minus_1\n  value result_2 is run fibonacci with n_minus_2\n  return result_1 + result_2\nend"
-    },
-    {
-      "type": "paragraph",
-      "text": "task main\n  value fib_output is run fibonacci with 9\n  log 'fib_output: {fib_output}'\nend"
-    },
-    {
-      "type": "paragraph",
-      "text": "run main\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\ntask fibonacci gets input\n  when input <= 1\n    return input\n  end\n\n  // return fib(n-1) + fib(n-2);\n  value n_minus_1 is input - 1\n  value n_minus_2 is input - 2\n  value result_1 is run fibonacci with n_minus_1\n  value result_2 is run fibonacci with n_minus_2\n  return result_1 + result_2\nend\n\ntask main\n  value fib_output is run fibonacci with 9\n  log 'fib_output: {fib_output}'\nend\n\nrun main\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -144,11 +124,11 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\">// compiled from islang source</span>\n\n<span class=\"js-blueword\">function</span> fibonacci <span class=\"js-syntax\">(</span>input<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>input <= 1<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    <span class=\"js-keyword\">return </span>input<span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">  // return fib(n-1) + fib(n-2);</span>\n  <span class=\"js-blueword\">let</span> n_minus_1<span class=\"js-keyword\"> = </span>input - 1<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">let</span> n_minus_2<span class=\"js-keyword\"> = </span>input - 2<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">let</span> result_1<span class=\"js-keyword\"> = </span>fibonacci<span class=\"js-syntax\">(</span>n_minus_1<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">let</span> result_2<span class=\"js-keyword\"> = </span>fibonacci<span class=\"js-syntax\">(</span>n_minus_2<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">return </span>result_1 + result_2<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n\n<span class=\"js-blueword\">function</span> main <span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">let</span> fib_output<span class=\"js-keyword\"> = </span>fibonacci<span class=\"js-syntax\">(</span>9<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span><span class=\"_string\">`fib_output<span class=\"js-syntax\">: </span>$<span class=\"js-syntax\">{</span>fib_output<span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n\nmain<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\">// compiled from islang source</span>\n\n<span class=\"js-blueword\">function</span> fibonacci <span class=\"js-syntax\">(</span>input<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>input <= 1<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    <span class=\"js-keyword\">return </span>input<span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">  // return fib(n-1) + fib(n-2);</span>\n  <span class=\"js-blueword\">let</span> n_minus_1<span class=\"js-keyword\"> = </span>input<span class=\"js-keyword\"> - </span>1<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">let</span> n_minus_2<span class=\"js-keyword\"> = </span>input<span class=\"js-keyword\"> - </span>2<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">let</span> result_1<span class=\"js-keyword\"> = </span>fibonacci<span class=\"js-syntax\">(</span>n_minus_1<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">let</span> result_2<span class=\"js-keyword\"> = </span>fibonacci<span class=\"js-syntax\">(</span>n_minus_2<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">return </span>result_1<span class=\"js-keyword\"> + </span>result_2<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n\n<span class=\"js-blueword\">function</span> main <span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">let</span> fib_output<span class=\"js-keyword\"> = </span>fibonacci<span class=\"js-syntax\">(</span>9<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span><span class=\"_string\">`fib_output<span class=\"js-syntax\">: </span>$<span class=\"js-syntax\">{</span>fib_output<span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n\nmain<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
-      "text": "fib_output: 34\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nfib_output: 34\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -169,15 +149,7 @@
     },
     {
       "type": "paragraph",
-      "text": "value my_value is 10"
-    },
-    {
-      "type": "paragraph",
-      "text": "my_value is 20"
-    },
-    {
-      "type": "paragraph",
-      "text": "my_value is run increment my_value\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nvalue my_value is 10\n\nmy_value is 20\n\nmy_value is run increment my_value\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -185,7 +157,7 @@
     },
     {
       "type": "paragraph",
-      "text": "task increment gets input_value\n  return input_value + 1\nend\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\ntask increment gets input_value\n  return input_value + 1\nend\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -193,7 +165,7 @@
     },
     {
       "type": "paragraph",
-      "text": "when temperature  15\n  log 'Might be cold out there'\n  temperature is temperature + 1\nend\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nwhen temperature  15\n  log 'Might be cold out there'\n  temperature is temperature + 1\nend\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -201,11 +173,7 @@
     },
     {
       "type": "paragraph",
-      "text": "object car\ncar property color is 'red'\ncar property num_wheels is 4"
-    },
-    {
-      "type": "paragraph",
-      "text": "log 'This {car.color} car has only {car.num_wheels} wheels!'\n```"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nobject car\ncar property color is 'red'\ncar property num_wheels is 4\n\nlog 'This {car.color} car has only {car.num_wheels} wheels!'\n</div></pre>"
     },
     {
       "type": "header",

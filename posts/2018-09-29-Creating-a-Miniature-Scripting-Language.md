@@ -17,6 +17,7 @@ To this end I set out (in my typically enjoyed 'do it yourself' style) to try an
 
 So without further ado, here is a sample program that implements a typical 'greeter' scenario:
 
+```text
 task greet gets name
   log 'Hello there, {name}!'
 end
@@ -47,6 +48,7 @@ Let's break it down:
 
 The output is thus:
 
+```text
 Hello there, Chris!
 ```
 
@@ -55,8 +57,8 @@ Hello there, Chris!
 Take a look at the project on <a href="https://github.com/C-D-Lewis/islang">GitHub</a>, specifically '<a href="https://github.com/C-D-Lewis/islang/blob/master/src/transform.js">transform.js</a>', which uses a sequence of conventional rules to mould the input line (and its 'tokens', the individual words in the line) into the output line of JavaScript. This function is includes by 'index.js' and processes every line in the source '.is' file into one output JavaScript files called 'build.js'. The programmer can then run their program using node as usual.
 
 npm run compile ./my_program.is
-```
 
+```text
 node build.js
 ```
 
@@ -66,6 +68,7 @@ In this manner, more rules can be added, though it is limited right now to one r
 
 Here's a slightly more complex example that calculates the result of a series of Fibonacci calculations:
 
+```text
 task fibonacci gets input
   when input <= 1
     return input
@@ -115,6 +118,7 @@ function main () {
 main();
 ```
 
+```text
 fib_output: 34
 ```
 
@@ -126,6 +130,7 @@ Right now those are:
 
  • Variables - declaration and assignment using literal numbers and strings, expressions (simple arithmetic etc.) and as function results.
 
+```text
 value my_value is 10
 
 my_value is 20
@@ -135,6 +140,7 @@ my_value is run increment my_value
 
  • Functions - tasks can take zero or more arguments, and return values.
 
+```text
 task increment gets input_value
   return input_value + 1
 end
@@ -142,6 +148,7 @@ end
 
  • Control - 'when' and 'until' allow use of 'if' and 'while' loop control statements using ordinary simple JavaScript operators.
 
+```text
 when temperature  15
   log 'Might be cold out there'
   temperature is temperature + 1
@@ -150,6 +157,7 @@ end
 
  • Objects - 'object' and 'property' keywords allow contruction of simple objects.
 
+```text
 object car
 car property color is 'red'
 car property num_wheels is 4
