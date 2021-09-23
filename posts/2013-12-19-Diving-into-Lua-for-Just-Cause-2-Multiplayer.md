@@ -1,6 +1,6 @@
 Diving into Lua for Just Cause 2 Multiplayer
 2013-12-19 19:34:16
-Lua
+Games
 ---
 
 I've heard about the Lua language before, but never had the experience or drive to explore it, but now that I have lots of general experience and a love of Just Cause 2, I decided to give it a go.

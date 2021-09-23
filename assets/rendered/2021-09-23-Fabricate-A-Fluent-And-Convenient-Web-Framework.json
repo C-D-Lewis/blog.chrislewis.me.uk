@@ -1,0 +1,105 @@
+{
+  "fileName": "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.md",
+  "title": "Fabricate.js - A Fluent and Convenient Web Framework",
+  "dateTime": "2021-09-23 18:49",
+  "tags": [
+    "JavaScript",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Despite using React quite a bit in my professional work, it is rare that one of\nmy personal projects is large or complex enough to demand such a robust\nsolution - a lot of the time I want to create a small, modular, component-based\ninterface to some APIs or data with limited functionality."
+    },
+    {
+      "type": "paragraph",
+      "text": "Examples of this include the dashboards for the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/node-microservices\">node-microservices</a> project,\nfor controlling Raspberry Pi devices and backlights, where all that was needed\nwas some UI to make it easier to send and receive API data and list objects that\nrepresented those devices. Other examples include a novelty soundboard, journal\nkeeping app, and even this blog itself. That last one may be the closest to\nactually justifying using a more popular framework, but it's still just an\noutput for information, hardly a Web-2.0 SPA experience."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Some history"
+    },
+    {
+      "type": "paragraph",
+      "text": "In the distant past, such efforts may have been as basic (but arguably still\nvery much effective) as creating most of the page's HTML beforehand and adding\nthe dynamic portions with JavaScript later on, such as the example below:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\">// Read devices from the API</span>\nfetchDevices<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n  .then<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>devices<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">    // Clear the last list results</span>\n    <span class=\"js-blueword\">const</span> deviceList<span class=\"js-keyword\"> = </span>document.getElementById<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>device-list<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    deviceList.innerHTML<span class=\"js-keyword\"> = </span><span class=\"_string\"><span class=\"js-syntax\">'</span><span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">    // Add the new list items</span>\n    devices.forEach<span class=\"js-syntax\">(</span><span class=\"js-blueword\">function</span> <span class=\"js-syntax\">(</span>device<span class=\"js-syntax\">,</span> i<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      <span class=\"js-blueword\">const</span> item<span class=\"js-keyword\"> = </span>document.createElement<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>div<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      item.className<span class=\"js-keyword\"> = </span><span class=\"_string\"><span class=\"js-syntax\">'</span>device-item<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n      item.innerHTML<span class=\"js-keyword\"> = </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Device <span class=\"js-syntax\">'</span></span><span class=\"js-keyword\"> + </span>i<span class=\"js-keyword\"> + </span><span class=\"_string\"><span class=\"js-syntax\">'</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">'</span></span><span class=\"js-keyword\"> + </span>device.name<span class=\"js-keyword\"> + </span><span class=\"_string\"><span class=\"js-syntax\">'</span> <span class=\"js-syntax\">(</span><span class=\"js-syntax\">'</span></span><span class=\"js-keyword\"> + </span>device.ip<span class=\"js-keyword\"> + </span><span class=\"_string\"><span class=\"js-syntax\">'</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n      item.addEventListener<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>click<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> doSomethingWithDevice<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n      deviceList.appendChild<span class=\"js-syntax\">(</span>item<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Over time, and in the initial version of this blow, the component-based nature\nof React served as an inspiration to model the page less as a serier of\noperations but more as a description of the components that make up each portion\nof the UI. This is also known as the declarative style. Therefore creating HTML\nelements from JS took on a more modular approach:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Create a div to display device data.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {object} data - Device data.</span>\n<span class=\"comment\"> * @returns {HTMLElement}</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const</span> createDeviceItem<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span>data<span class=\"js-syntax\">,</span> i<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">const</span> div<span class=\"js-keyword\"> = </span>document.createElement<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>div<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  div.className<span class=\"js-keyword\"> = </span><span class=\"_string\"><span class=\"js-syntax\">'</span>device-item<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n  div.innerHTML<span class=\"js-keyword\"> = </span><span class=\"_string\">`Device $<span class=\"js-syntax\">{</span>i<span class=\"js-syntax\">}</span><span class=\"js-syntax\">: </span>$<span class=\"js-syntax\">{</span>device.name<span class=\"js-syntax\">}</span> <span class=\"js-syntax\">(</span>$<span class=\"js-syntax\">{</span>device.ip<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>`</span><span class=\"js-syntax\">;</span>\n\n  div.addEventListener<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>click<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> doSomethingWithDevice<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n  <span class=\"js-keyword\">return </span>div<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// Read devices from the API</span>\nfetchDevices<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n  .then<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>devices<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">    // Clear the last list results</span>\n    <span class=\"js-blueword\">const</span> deviceList<span class=\"js-keyword\"> = </span>document.getElementById<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>device-list<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    deviceList.innerHTML<span class=\"js-keyword\"> = </span><span class=\"_string\"><span class=\"js-syntax\">'</span><span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">    // Add the new list items</span>\n    devices.forEach<span class=\"js-syntax\">(</span><span class=\"js-blueword\">function</span> <span class=\"js-syntax\">(</span>device<span class=\"js-syntax\">,</span> i<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      deviceList.appendChild<span class=\"js-syntax\">(</span>createDeviceItem<span class=\"js-syntax\">(</span>device<span class=\"js-syntax\">,</span> i<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This is a bit more structured and can be re-used in multiple places, a bit more\nrelevant to a component such as the tags on this blog, which are the same\ncomponent in both the post and the sidebar, but configured differently."
+    },
+    {
+      "type": "paragraph",
+      "text": "But, we're still using quite a bit of raw Document API calls to build the UI.\nThings like looping over data shouldn't be quite as verbose."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Fabricate.js"
+    },
+    {
+      "type": "paragraph",
+      "text": "After a couple of years using functions similar to <code>createDeviceItem</code>\nto turn data into <code>HTMLElement</code>s, I decided to try and formalise this\napproach I had organically made use of in a few different projects and try and\nunify it so that it could serve as a common baseline for all those different\nuse-cases. It also had to have some of my personal opinions about styles-in-code\ntoo, since that's how I like to keep my components as a complete single unit in\ncode."
+    },
+    {
+      "type": "paragraph",
+      "text": "<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/fabricate.js\">fabricate.js</a> builds on this\nslightly more declarative approach (although not fully-delcarative, as React's\nJSX and shadow DOM reconciliation realize) to provide a set of functions and\nhelpers to make it fast and relatively easy to create just the kinds of UI\nalready described, not as another competitor to the major players in the space,\nand once again something I can use and say I learned something more about\nbuilding libraries in the process."
+    },
+    {
+      "type": "paragraph",
+      "text": "The features at the time of writing include:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Free-form creation of HTML elements using a fluent chainable syntax.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Easily adding click, hover, change handlers.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Easy management of child elements.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Convenience methods to use Flexbox, begin an app heirachy, and detect mobile devices.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Simple global state management and component notification.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Simple conditional rendering.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Lots of basic starter components that can be easily extended.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Revisitng the devices example, it starts to look a bit more readable:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Create a div to display device data.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {object} data - Device data.</span>\n<span class=\"comment\"> * @returns {HTMLElement}</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const</span> DeviceItem<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> name<span class=\"js-syntax\">,</span> ip <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span> i<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>div<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n  .asFlex<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>row<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n  .withStyles<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n    backgroundColor<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>#444<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    padding<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>10px<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    border<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>solid 2px #4444<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    borderRadius<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>5px<span class=\"js-syntax\">'</span></span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>\n  .onClick<span class=\"js-syntax\">(</span>doSomethingWithDevice<span class=\"js-syntax\">)</span>\n  .setText<span class=\"js-syntax\">(</span><span class=\"_string\">`Device $<span class=\"js-syntax\">{</span>i<span class=\"js-syntax\">}</span><span class=\"js-syntax\">: </span>$<span class=\"js-syntax\">{</span>device.name<span class=\"js-syntax\">}</span> <span class=\"js-syntax\">(</span>$<span class=\"js-syntax\">{</span>device.ip<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// Use a simple column for the device list</span>\n<span class=\"js-blueword\">const</span> deviceList<span class=\"js-keyword\"> = </span>fabricate.Column<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// Begin app heirachy</span>\nfabricate.app<span class=\"js-syntax\">(</span>deviceList<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// Read devices from the API</span>\nfetchDevices<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n  .then<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>devices<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">    // Clear the last list results</span>\n    deviceList.clear<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">    // Add the new list items with map</span>\n    deviceList.addChildren<span class=\"js-syntax\">(</span>devices.map<span class=\"js-syntax\">(</span>DeviceItem<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "To anyone that's used React in the past, this style should look a lot more\nfamiliar, but to the rest, at least more accessible and easier to put together.\nAbstractions around creating elements, applying styles and attributes, adding\ninteractivity, and composing components as concepts are catered for with not\ntoo much syntax."
+    }
+  ]
+}

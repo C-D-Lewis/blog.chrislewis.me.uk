@@ -860,6 +860,13 @@ window.postHistory = {
         "file": "assets/rendered/2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.json",
         "fileName": "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report"
       }
+    ],
+    "09": [
+      {
+        "title": "Fabricate.js - A Fluent and Convenient Web Framework",
+        "file": "assets/rendered/2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json",
+        "fileName": "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework"
+      }
     ]
   }
 }

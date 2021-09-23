@@ -85,12 +85,14 @@ window.tagIndex = {
     "2016-06-14-SceneEngine-Java-Game-Engine.json",
     "2016-06-30-Pebble-Libraries-and-Other-Recent-Stuff.json",
     "2016-07-12-Dashboard-43-Released-Plus-All-The-Gory-Implementation-Details.json",
-    "2016-07-20-Dash-API-For-Easy-Pebble-and-Android-Integration.json"
+    "2016-07-20-Dash-API-For-Easy-Pebble-and-Android-Integration.json",
+    "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json"
   ],
   "Games": [
     "2013-03-27-A-Brief-Overview-of-dungeons-so-far.json",
     "2013-06-14-Preview-Railways.json",
     "2013-08-28-Unnamed-Space-Project-UI-Investigation.json",
+    "2013-12-19-Diving-into-Lua-for-Just-Cause-2-Multiplayer.json",
     "2014-04-24-Block-Game-using-Pebble-Accelerometer.json",
     "2014-10-25-New-Pebble-Library-PGE-formerly-PGame.json",
     "2015-06-15-Big-Changes-to-PGE.json",
@@ -315,9 +317,6 @@ window.tagIndex = {
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json"
   ],
-  "Lua": [
-    "2013-12-19-Diving-into-Lua-for-Just-Cause-2-Multiplayer.json"
-  ],
   "Spark Core": [
     "2013-12-23-Spark-Core-Initial-Thoughts.json",
     "2014-04-05-Update-Pebble-Spark-Core-Control.json",
@@ -349,7 +348,8 @@ window.tagIndex = {
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
-    "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.json"
+    "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.json",
+    "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
