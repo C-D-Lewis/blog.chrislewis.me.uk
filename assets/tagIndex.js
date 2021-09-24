@@ -359,7 +359,8 @@ window.tagIndex = {
   "React": [
     "2020-08-13-Blog-2-0.json",
     "2020-10-04-Deploying-With-Terraform.json",
-    "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json"
+    "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
+    "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json"
   ],
   "AWS": [
     "2020-08-13-Blog-2-0.json",
