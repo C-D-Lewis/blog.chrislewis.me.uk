@@ -195,7 +195,10 @@ const initialState = { count: 0 };
 fabricate.app(CounterView(), initialState);
 
 // Increment the counter every second
-setInterval(() => fabricate.updateState('count', prev => prev.count + 1));
+setInterval(
+  () => fabricate.updateState('count', prev => prev.count + 1),
+  1000,
+);
 ```
 
 In this way, state can be updated from anywhere in the app, and updates to
