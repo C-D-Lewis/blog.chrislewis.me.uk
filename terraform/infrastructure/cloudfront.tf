@@ -42,28 +42,3 @@ resource "aws_cloudfront_distribution" "client_distribution" {
     ssl_support_method  = "sni-only"
   }
 }
-
-resource "aws_cloudfront_origin_request_policy" "request_policy" {
-  name = "${var.domain_name}-request-policy"
-
-  cookies_config {
-    cookie_behavior = "all"
-    cookies {
-      items = []
-    }
-  }
-
-  headers_config {
-    header_behavior = "allViewer"
-    headers {
-      items = []
-    }
-  }
-
-  query_strings_config {
-    query_string_behavior = "all"
-    query_strings {
-      items = ["post", "month", "year"]
-    }
-  }
-}
