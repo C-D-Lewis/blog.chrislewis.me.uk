@@ -1,6 +1,6 @@
 Reminders As You Code With todo-cli
 2021-12-20 20:23
-JavaScript,Releases
+JavaScript,Releases,TypeScript
 ---
 
 Frequently in my day to day work time I find myself making notes of small things
@@ -19,7 +19,9 @@ I needed a way to repeatedly remind my self what tasks or promises I had
 deferred until I had actually done them, in a place where I would be sure to
 see them - why not the terminal? So after a little prototyping we have
 (probably one of many that already exist) a terminal-based tool to track small
-tasks and serve reminders - <code>todo-cli</code>.
+tasks and serve reminders - <code>todo-cli</code>. And I think this is my first
+public side-project shipped with TypeScript - I love how it helps me keep track
+of complex objects I pass around the code.
 
 ![](assets/media/2021/12/cli.png)
 
