@@ -86,7 +86,8 @@ window.tagIndex = {
     "2016-06-30-Pebble-Libraries-and-Other-Recent-Stuff.json",
     "2016-07-12-Dashboard-43-Released-Plus-All-The-Gory-Implementation-Details.json",
     "2016-07-20-Dash-API-For-Easy-Pebble-and-Android-Integration.json",
-    "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json"
+    "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json",
+    "2021-12-20-Reminders-As-You-Code-With-todo-cli.json"
   ],
   "Games": [
     "2013-03-27-A-Brief-Overview-of-dungeons-so-far.json",
@@ -349,7 +350,8 @@ window.tagIndex = {
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
     "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.json",
-    "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json"
+    "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json",
+    "2021-12-20-Reminders-As-You-Code-With-todo-cli.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
