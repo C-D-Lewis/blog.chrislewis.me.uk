@@ -4,7 +4,7 @@ locals {
 
 resource "aws_cloudfront_distribution" "client_distribution" {
   aliases     = [var.domain_name]
-  price_class = "PriceClass_100"
+  price_class         = "PriceClass_100"
   enabled             = true
   default_root_object = "index.html"
 
@@ -25,6 +25,7 @@ resource "aws_cloudfront_distribution" "client_distribution" {
 
     forwarded_values {
       query_string = true
+
       cookies {
         forward = "none"
       }

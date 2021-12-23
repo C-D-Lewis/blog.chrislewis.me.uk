@@ -1,0 +1,33 @@
+{
+  "fileName": "2021-12-23-A-Christmas-MIDI-Medley.md",
+  "title": "A Christmas MIDI Medley",
+  "dateTime": "2021-12-23 15:15",
+  "tags": [
+    "Integration",
+    "Raspberry Pi",
+    "C++",
+    "Python"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "It's been a few months since the\n<a class=\"link\" target=\"_blank\" href=\"https://blog.chrislewis.me.uk/?post=2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico\">original post</a>\ncovering my\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/pico-pipes\">pico-pipes</a> MIDI organ that uses four\nstepper motors to create music via C++ compiled from the MIDI files themselves."
+    },
+    {
+      "type": "paragraph",
+      "text": "As Christmas is not far away, I found myself tinkering with this year's\nprojects and had the idea to record a new medley of Christmassy songs (and one\nnot-so-Christmassy bonus song)."
+    },
+    {
+      "type": "paragraph",
+      "text": "Enjoy, and Merry Christmas for 2021!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<br/>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/YsscHekguCc\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+    }
+  ]
+}

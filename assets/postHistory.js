@@ -833,6 +833,11 @@ window.postHistory = {
         "title": "Reminders As You Code With todo-cli",
         "file": "assets/rendered/2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
         "fileName": "2021-12-20-Reminders-As-You-Code-With-todo-cli"
+      },
+      {
+        "title": "A Christmas MIDI Medley",
+        "file": "assets/rendered/2021-12-23-A-Christmas-MIDI-Medley.json",
+        "fileName": "2021-12-23-A-Christmas-MIDI-Medley"
       }
     ],
     "01": [

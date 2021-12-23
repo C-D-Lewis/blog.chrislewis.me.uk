@@ -4,7 +4,8 @@
   "dateTime": "2021-12-20 20:23",
   "tags": [
     "JavaScript",
-    "Releases"
+    "Releases",
+    "TypeScript"
   ],
   "components": [
     {
@@ -17,7 +18,7 @@
     },
     {
       "type": "paragraph",
-      "text": "I needed a way to repeatedly remind my self what tasks or promises I had\ndeferred until I had actually done them, in a place where I would be sure to\nsee them - why not the terminal? So after a little prototyping we have\n(probably one of many that already exist) a terminal-based tool to track small\ntasks and serve reminders - <code>todo-cli</code>."
+      "text": "I needed a way to repeatedly remind my self what tasks or promises I had\ndeferred until I had actually done them, in a place where I would be sure to\nsee them - why not the terminal? So after a little prototyping we have\n(probably one of many that already exist) a terminal-based tool to track small\ntasks and serve reminders - <code>todo-cli</code>. And I think this is my first\npublic side-project shipped with TypeScript - I love how it helps me keep track\nof complex objects I pass around the code."
     },
     {
       "type": "image",

@@ -285,7 +285,8 @@ window.tagIndex = {
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
-    "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json"
+    "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
+    "2021-12-23-A-Christmas-MIDI-Medley.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -294,7 +295,8 @@ window.tagIndex = {
     "2013-12-23-Spark-Core-Initial-Thoughts.json",
     "2014-03-28-Streaming-Pebble-Accelerometer-Data.json",
     "2014-05-04-Configurable-Spark-Core-connected-LCD.json",
-    "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json"
+    "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
+    "2021-12-23-A-Christmas-MIDI-Medley.json"
   ],
   "Raspberry Pi": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -311,12 +313,14 @@ window.tagIndex = {
     "2018-02-17-Tests-With-Extra-Sweetness.json",
     "2020-09-27-Integrated-Pi-Enclosure.json",
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
-    "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json"
+    "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
+    "2021-12-23-A-Christmas-MIDI-Medley.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
-    "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json"
+    "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
+    "2021-12-23-A-Christmas-MIDI-Medley.json"
   ],
   "Spark Core": [
     "2013-12-23-Spark-Core-Initial-Thoughts.json",
@@ -371,5 +375,8 @@ window.tagIndex = {
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json"
+  ],
+  "TypeScript": [
+    "2021-12-20-Reminders-As-You-Code-With-todo-cli.json"
   ]
 }
