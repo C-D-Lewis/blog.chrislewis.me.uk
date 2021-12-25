@@ -264,9 +264,10 @@ const loadSelectionFromQuery = () => {
   }
 
   // Auto load most recent post
-  year = Object.keys(window.postHistory).sort(integerItemSort)[0];
-  let month = Object.keys(window.postHistory[year]).sort(integerItemSort)[0];
-  showSinglePost(window.postHistory[year][month][0].fileName);
+  [year] = Object.keys(window.postHistory).sort(integerItemSort);
+  let [month] = Object.keys(window.postHistory[year]).sort(integerItemSort);
+  const [latest] = window.postHistory[year][month].sort((a, b) => a.fileName > b.fileName ? -1 : 1);
+  showSinglePost(latest.fileName);
 };
 
 /**
