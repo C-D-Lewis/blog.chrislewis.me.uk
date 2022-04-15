@@ -64,31 +64,31 @@
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Free-form creation of HTML elements using a fluent chainable syntax.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Free-form creation of HTML elements using a fluent chainable syntax.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Easily adding click, hover, change handlers.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Easily adding click, hover, change handlers.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Easy management of child elements.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Easy management of child elements.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Convenience methods to use Flexbox, begin an app hierarchy, and detect mobile devices.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Convenience methods to use Flexbox, begin an app hierarchy, and detect mobile devices.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Simple global state management and component notification.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Simple global state management and component notification.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Simple conditional rendering.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Simple conditional rendering.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Lots of basic starter components that can be easily extended such as Flexbox column/row, text, image, text input, button, loader, fader, material card and more.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Lots of basic starter components that can be easily extended such as Flexbox column/row, text, image, text input, button, loader, fader, material card and more.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",

@@ -1,0 +1,242 @@
+{
+  "fileName": "2022-04-15-Yet-Another-CLI-For-node-microservices.md",
+  "title": "Yet Another CLI For node-microservices",
+  "dateTime": "2022-04-15 16:02",
+  "tags": [
+    "Raspberry Pi",
+    "JavaScript"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "I like CLIs - at this point there's no getting away from it. There's something\nquite satisfying about knowing you saved a bit of time and confusion by using\na specialised tool for common and precise interactions with services and APIs.\n<code>git</code>, <code>npm</code>, <code>aws-cli</code>, and all the usual bash\ntools are all great examples."
+    },
+    {
+      "type": "paragraph",
+      "text": "When you know what you're doing, you can be fast and productive, and when you\ndon't yet, the CLI can provide hints, help, and structure to help guide you\nto what you want to be doing."
+    },
+    {
+      "type": "paragraph",
+      "text": "To date, I've worked on a few:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/evrythng-cli\">evrythng-cli</a> (my fork) for the EVRYTHNG API.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/todo-cli\">todo-cli</a> for in-terminal todo list items (read more <a class=\"link\" target=\"_blank\" href=\"https://blog.chrislewis.me.uk/?post=2021-12-20-Reminders-As-You-Code-With-todo-cli\">here</a>)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>parl: an unfinished but still interesting pluggable CLI that uses configuration to allow it to be outfit for virtually any REST-style API with resources and parameters (I may yet one day complete it)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Helping light the way"
+    },
+    {
+      "type": "paragraph",
+      "text": "As an example of why CLIs can be more helpful, here's an example request to\nthe EVRYTHNG API to read a product by ID, with its <code>scopes</code> visible:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\ncurl -X GET https://api.evrythng.io/v2/products/Utqn3nTHsRfCwtarDSkf9nRe?withScopes=true \\\n  -H Authorization:$OPERATOR_API_KEY\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "There's a lot to remember when making this request:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The correct HTTP method for the operation.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The API domain and route to use.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The query parameter names and value format (could require encoding).</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Any required headers, such as <code>Authorization</code> or <code>Content-Type</code>.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Making sure the required API key is present and correct.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "With <code>POST</code> or <code>PUT</code> the problem gets more complicated\nwith the addition of request body format, syntax, etc."
+    },
+    {
+      "type": "paragraph",
+      "text": "<code>evrythng-cli</code> helps make it easier to make this request by\nsimplifying the syntax. Because it's domain-specific, it can also invisibly\nhandle payload formatting, required headers, and even remember one or more API\nkeys and insert them as needed."
+    },
+    {
+      "type": "paragraph",
+      "text": "Assuming I didn't know how to accomplish the above request, I can use the\nsuccessive help texts to find my way, first just by running <code>evrythng</code>:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/04/nms-cli-evrythng.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, I run <code>evrythng products</code>, and the CLI tells me all the\navailable operations, and the syntax of each one:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/04/nms-cli-products.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "I know I want to read a single product by ID, so this is my choice:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nevrythng products|pr $id read|r\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "I can see also that there is a short version available for a power user:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nevrythng pr $id r\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lastly, I know that I need to add a modifying parameter, and can use the help\ntext to discover how to also get the <code>scopes</code> in the response:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/04/nms-cli-switches.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "And so I arrive at my fully formed request:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\nevrythng products Utqn3nTHsRfCwtarDSkf9nRe read --with-scopes\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"id\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Utqn3nTHsRfCwtarDSkf9nRe\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"createdAt\"</span><span class=\"js-syntax\">: </span>1607113258640<span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"updatedAt\"</span><span class=\"js-syntax\">: </span>1607113258640<span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"properties\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span><span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"fn\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Test product\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"name\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Test product\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"tags\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">]</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And from there, I could delete the product, or copy and update the data to easily\nupdate it:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\nevrythng pr Utqn3nTHsRfCwtarDSkf9nRe u <span class=\"_string\">'{<span class=\"_string\">\"tags\"</span>:[<span class=\"_string\">\"test\"</span>, <span class=\"_string\">\"blog-featured\"</span>]}'</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "nms-cli"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, the reason for all the above explanation is to demonstrate the value in the\nnewest part of the ongoing\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/node-microservices\">node-microservices</a> project -\n<code>nms-cli</code>. With the growth of the individual apps available (now\ntotalling 9!) and the requirements to launch, stop, interact, and test them it\nseems an appropriate time to make the same savings in time and required\nknowledge (because even I can forget how to use a new feature implemented less\nthan three months prior, it seems!) by creating a specialist CLI tool to help."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/04/nms-cli.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Evidently the charm of hand-crafting <code>curl</code> requests each time I\nwanted to interact with these apps, or even to quickly start and stop them, has\nworn off. So, a quick rundown of features (I'll let the CLI do the talking!)."
+    },
+    {
+      "type": "paragraph",
+      "text": "Start, stop, and list running apps:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms apps\nAvailable operations for 'apps':\n  nms apps $appName start\n  nms apps $appName stop\n  nms apps list\n  nms apps stop-all\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Set and get app data in <code>attic</code>:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms attic\nAvailable operations for 'attic':\n  nms attic set $app $key $value\n  nms attic get $app $key\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Send a conduit packet to any app:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms conduit\nAvailable operations for 'conduit':\n  nms conduit send $to $topic $message\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "List, create, and delete user tokens:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms guestlist\nAvailable operations for 'guestlist':\n  nms guestlist list\n  nms guestlist create $name $apps $topics $adminPassword\n  nms guestlist delete $name $adminPassword\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Show all devices/instances registered to the fleet (useful for discoverability):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms fleet\nAvailable operations for 'fleet':\n  nms fleet $host list\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Change the mode and color of any attached Mote RGB lighting setups:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms visuals\nAvailable operations for 'visuals':\n  nms visuals off\n  nms visuals demo\n  nms visuals spotify\n  nms visuals setAll $r $g $b\n  nms visuals fadeAll $r $g $b\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "All of the above commands will save me time when developing/using/debugging the\napps, and represents just the beginning as more will be saved in the future, I\nam sure."
+    },
+    {
+      "type": "paragraph",
+      "text": "As is the nature of the CLI itself, it is specialist in nature, but now I will\nnot have to do the following to start and interact with an app:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\"># What's running?</span>\ncurl localhost:5959/apps\n\n<span class=\"comment\"># Oh, conduit's running but not attic</span>\ncd apps/attic && npm start &\n\n<span class=\"comment\"># Ah, it crashed, how to I stop it?</span>\nps -e | grep node\n\n<span class=\"comment\"># Get lucky with the process ID</span>\nsudo kill 8374\n\nnpm start &\n\n<span class=\"comment\"># Check the saved Spotify token</span>\ncurl -X POST localhost:5959/conduit \\\n  -H Content-Type:application/json \\\n  -d {\n    <span class=\"_string\">\"to\"</span>: <span class=\"_string\">\"attic\"</span>,\n    <span class=\"_string\">\"topic\"</span>: <span class=\"_string\">\"get\"</span>,\n    <span class=\"_string\">\"message\"</span>: {\n      <span class=\"_string\">\"app\"</span>: <span class=\"_string\">\"visuals\"</span>,\n      <span class=\"_string\">\"key\"</span>: <span class=\"_string\">\"spotify_access_token\"</span>\n    }\n  }\n\n<span class=\"comment\"># Stop all apps (and possibly crash VS Code and remote containers too)</span>\nsudo killall node\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Instead, use the CLI:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\"># Check what's running</span>\nnms apps list\n\n<span class=\"comment\"># Forgot to start attic</span>\nnms apps attic start\n\n<span class=\"comment\"># Check the saved Spotify token</span>\nnms conduit send attic get <span class=\"_string\">'{<span class=\"_string\">\"app\"</span>: <span class=\"_string\">\"visuals\"</span>, <span class=\"_string\">\"key\"</span>: <span class=\"_string\">\"spotify_access_token\"</span>}'</span>\n\n<span class=\"comment\"># Stop all apps</span>\nnms apps stop-all\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lovely. And reduces the risk that an anticipated evening after work spent adding\na new feature won't be instead replaced with frustrated revision and debugging\nof what should be the easy to obtain working state."
+    },
+    {
+      "type": "paragraph",
+      "text": "If you're interested (and got this far!) you can see the current state of the\nwhole project <a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/node-microservices\">here</a>, including\na handy ecosystem diagram."
+    }
+  ]
+}

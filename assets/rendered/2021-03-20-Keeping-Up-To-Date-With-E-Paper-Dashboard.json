@@ -18,11 +18,11 @@
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Most solutions were either entirely pre-packaged, or required fiddling about\n  with sealed monitors units and their bespoke driver boards and large power\n  supplies.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Most solutions were either entirely pre-packaged, or required fiddling about\n  with sealed monitors units and their bespoke driver boards and large power\n  supplies.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>I'm generally averse to looking at myself in the mirror beyond my morning\n  routine.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>I'm generally averse to looking at myself in the mirror beyond my morning\n  routine.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
@@ -48,19 +48,19 @@
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Date and time</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Date and time</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Current weather conditions (icon, temperature, day high/low, chance of rain\n  and current wind speed).</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Current weather conditions (icon, temperature, day high/low, chance of rain\n  and current wind speed).</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Icon and status of two UK rail companies I (usually) regularly use</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Icon and status of two UK rail companies I (usually) regularly use</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Amount and daily change in Bitcoin and Ethereum cryptocurrencies, adjusted for\n  the amount I actually own.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Amount and daily change in Bitcoin and Ethereum cryptocurrencies, adjusted for\n  the amount I actually own.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
@@ -68,15 +68,15 @@
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Five day weather forecast (icon, high/low, chance of rain, wind speed)</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Five day weather forecast (icon, high/low, chance of rain, wind speed)</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Five news stories from BBC News from a configurable category of news.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Five news stories from BBC News from a configurable category of news.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>The most recent tweet (name, icon, text, likes, replies, time) from a\n  configurable Twitter account.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The most recent tweet (name, icon, text, likes, replies, time) from a\n  configurable Twitter account.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
@@ -154,15 +154,15 @@
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>API keys for Nomics and Darksky APIs.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>API keys for Nomics and Darksky APIs.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Latitude and longitude for weather forecast fetching.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Latitude and longitude for weather forecast fetching.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px\">•</td>\n        <td>Amount of Bitcoin and Ethereum owned, so that the market rate value can be\n  adjusted to show a more relvant piece of information (usually a more tangible\n  amount lost than gained!)</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Amount of Bitcoin and Ethereum owned, so that the market rate value can be\n  adjusted to show a more relvant piece of information (usually a more tangible\n  amount lost than gained!)</td>\n      </tr>\n    </table>"
     },
     {
       "type": "header",

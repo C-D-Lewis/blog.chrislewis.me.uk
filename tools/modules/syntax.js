@@ -1,11 +1,14 @@
+// Strings
 const STRING_DELIMITERS = ['"', '\'', '`'];
 
+// Terraform
 const TERRAFORM_KEYWORDS = [
   'resource', 'var', 'origin ', 'launch_template ', 'website ', 'default_cache_behavior ',
   'forwarded_values ', 'cookies ', 'restrictions ', 'geo_restriction ', 'viewer_certificate ',
   'alias '
 ];
 
+// JavaScript
 const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']', ': ', ' .'];
 const JAVA_KEYWORDS = ['public', 'static', 'final', 'private', 'void'];
 const JAVASCRIPT_KEYWORDS = [
@@ -16,10 +19,12 @@ const JAVASCRIPT_BLUEWORDS = [
   'const', 'let', ' Object', 'exports', 'function', 'console', 'window', 'process', 'var ',
 ];
 
+// Dockerfile
 const DOCKERFILE_KEYWORDS = [
   'FROM', 'RUN', 'WORKDIR', 'ENV', 'ARG', 'ENTRYPOINT', 'COPY',
 ];
 
+// Python
 const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}'];
 const PYTHON_KEYWORDS = [
   'if ', ' else', ' = ', 'import ', 'not ', ' in ', 'for ',
@@ -28,6 +33,7 @@ const PYTHON_GREENWORDS = [
   ' print',
 ];
 
+// C/C++
 const C_KEYWORDS = [
   'define', 'include ', 'static', 'const', ' = ', 'return ', '->', 'if', ' else', 'while ', '+= ', '&', ' else ', '== ', ' break',
 ];

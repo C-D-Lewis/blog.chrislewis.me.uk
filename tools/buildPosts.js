@@ -34,7 +34,7 @@ const renderMarkdownText = (para) => {
     
     return `<table>
       <tr>
-        <td style="padding-right:10px">•</td>
+        <td style="padding-right:10px; vertical-align: baseline;">•</td>
         <td>${text}</td>
       </tr>
     </table>`;

@@ -880,5 +880,14 @@ window.postHistory = {
         "fileName": "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework"
       }
     ]
+  },
+  "2022": {
+    "04": [
+      {
+        "title": "Yet Another CLI For node-microservices",
+        "file": "assets/rendered/2022-04-15-Yet-Another-CLI-For-node-microservices.json",
+        "fileName": "2022-04-15-Yet-Another-CLI-For-node-microservices"
+      }
+    ]
   }
 }

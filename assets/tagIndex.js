@@ -314,7 +314,8 @@ window.tagIndex = {
     "2020-09-27-Integrated-Pi-Enclosure.json",
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
-    "2021-12-23-A-Christmas-MIDI-Medley.json"
+    "2021-12-23-A-Christmas-MIDI-Medley.json",
+    "2022-04-15-Yet-Another-CLI-For-node-microservices.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -355,7 +356,8 @@ window.tagIndex = {
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
     "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.json",
     "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json",
-    "2021-12-20-Reminders-As-You-Code-With-todo-cli.json"
+    "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
+    "2022-04-15-Yet-Another-CLI-For-node-microservices.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
