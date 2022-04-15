@@ -228,7 +228,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\"># Check what's running</span>\nnms apps list\n\n<span class=\"comment\"># Forgot to start attic</span>\nnms apps attic start\n\n<span class=\"comment\"># Check the saved Spotify token</span>\nnms conduit send attic get <span class=\"_string\">'{<span class=\"_string\">\"app\"</span>: <span class=\"_string\">\"visuals\"</span>, <span class=\"_string\">\"key\"</span>: <span class=\"_string\">\"spotify_access_token\"</span>}'</span>\n\n<span class=\"comment\"># Stop all apps</span>\nnms apps stop-all\n</div></pre>"
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\"># Check what's running</span>\nnms apps list\n\n<span class=\"comment\"># Forgot to start attic</span>\nnms apps attic start\n\n<span class=\"comment\"># Check the saved Spotify token</span>\nnms attic get visuals spotify_access_token\n\n<span class=\"comment\"># Stop all apps</span>\nnms apps stop-all\n</div></pre>"
     },
     {
       "type": "paragraph",

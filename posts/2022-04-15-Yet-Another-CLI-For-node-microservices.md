@@ -228,7 +228,7 @@ nms apps list
 nms apps attic start
 
 # Check the saved Spotify token
-nms conduit send attic get '{"app": "visuals", "key": "spotify_access_token"}'
+nms attic get visuals spotify_access_token
 
 # Stop all apps
 nms apps stop-all
