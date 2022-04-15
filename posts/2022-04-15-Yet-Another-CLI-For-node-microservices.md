@@ -1,4 +1,4 @@
-Yet Another CLI For node-microservices
+Yet Another CLI: for node-microservices
 2022-04-15 16:02
 Raspberry Pi,JavaScript
 ---

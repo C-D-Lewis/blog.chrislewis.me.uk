@@ -884,7 +884,7 @@ window.postHistory = {
   "2022": {
     "04": [
       {
-        "title": "Yet Another CLI For node-microservices",
+        "title": "Yet Another CLI: for node-microservices",
         "file": "assets/rendered/2022-04-15-Yet-Another-CLI-For-node-microservices.json",
         "fileName": "2022-04-15-Yet-Another-CLI-For-node-microservices"
       }
