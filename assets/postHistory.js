@@ -888,6 +888,13 @@ window.postHistory = {
         "file": "assets/rendered/2022-04-15-Yet-Another-CLI-For-node-microservices.json",
         "fileName": "2022-04-15-Yet-Another-CLI-For-node-microservices"
       }
+    ],
+    "05": [
+      {
+        "title": "Home Is Where The DNS Record Points",
+        "file": "assets/rendered/2022-05-7-Home-Is-Where-The-DNS-Record-Points.json",
+        "fileName": "2022-05-7-Home-Is-Where-The-DNS-Record-Points"
+      }
     ]
   }
 }

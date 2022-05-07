@@ -247,7 +247,8 @@ window.tagIndex = {
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
     "2018-05-19-FitBit-Development-Round-2.json",
     "2020-03-08-FitBit-Development-Round-3.json",
-    "2020-08-15-Block-World-Lives-On.json"
+    "2020-08-15-Block-World-Lives-On.json",
+    "2022-05-7-Home-Is-Where-The-DNS-Record-Points.json"
   ],
   "Integration": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -315,7 +316,8 @@ window.tagIndex = {
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
     "2021-12-23-A-Christmas-MIDI-Medley.json",
-    "2022-04-15-Yet-Another-CLI-For-node-microservices.json"
+    "2022-04-15-Yet-Another-CLI-For-node-microservices.json",
+    "2022-05-7-Home-Is-Where-The-DNS-Record-Points.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -357,7 +359,8 @@ window.tagIndex = {
     "2021-08-25-Better-JSON-Schema-Analysis-with-json-schema-report.json",
     "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json",
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
-    "2022-04-15-Yet-Another-CLI-For-node-microservices.json"
+    "2022-04-15-Yet-Another-CLI-For-node-microservices.json",
+    "2022-05-7-Home-Is-Where-The-DNS-Record-Points.json"
   ],
   "FitBit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",

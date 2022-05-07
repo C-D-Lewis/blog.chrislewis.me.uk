@@ -1,0 +1,126 @@
+{
+  "fileName": "2022-05-7-Home-Is-Where-The-DNS-Record-Points.md",
+  "title": "Home Is Where The DNS Record Points",
+  "dateTime": "2022-05-07 21:33",
+  "tags": [
+    "Raspberry Pi",
+    "JavaScript",
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A long time ago, two of my Pebble watchapps (News Headlines and Tube Status)\noffered the ability to have Pebble\n<a class=\"link\" target=\"_blank\" href=\"https://blog.chrislewis.me.uk/?post=2016-09-11-Say-Hello-to-Your-New-Pin-Pusher\">Timeline pins</a>\npushed to the watch OS's built-in timeline view with app-related data visible\nwithout needing to actually open the app. Having app data mixed into calendar\nevents, past notifications, weather details etc in a temporal view was cool!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/05/timeline-pins-p2.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Though they are no longer in use, as\ndetailed in the linked blog post, these two server processes only sent data to\nthe internet. But the Raspberry Pi used to host them would be even more useful\nif it could serve things to outside users, such as this blog (maybe one day!)."
+    },
+    {
+      "type": "paragraph",
+      "text": "What was once just a single Raspberry Pi v1, is now a set of three Raspberry Pi\n3B+ devices in a stack. Each with its own purpose (from top to bottom) - public\nservices, private (LAN) services, and other utility/misc services."
+    },
+    {
+      "type": "paragraph",
+      "text": "It would be a fun exercise to actually host this blog on them!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Hosting"
+    },
+    {
+      "type": "paragraph",
+      "text": "Currently, the blog is served via AWS CloudFront from an S3 bucket website\nconfiguration - more details can be found\n<a class=\"link\" target=\"_blank\" href=\"https://blog.chrislewis.me.uk/?post=2020-10-04-Deploying-With-Terraform\">here</a>.\nThe record itself in AWS Route 53 is shown below:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/05/cloudfront-blog.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "For more local hosting, the first step after assinging a Pi is to configure my\nrouter to forward port 80 (HTTP) to the Pi with it's static local IP. On the Pi\nitself is a Node.js-based server that serves the blog files."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nFORWARD 80:80 192.168.0.14\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Next, reconfigure the DNS record currently in AWS Route 53 to point to my\nnetwork:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nALIAS blog.chrislewis.me.uk. 86.143.277.43\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "There is only one real problem with this (apart from a lack of a CA-signed SSL\ncertificate) - every time my home router restarts (and maybe on other\noccassions) it is likely the public internet-facing IP address will change.\nTherefore any redirection or alias DNS record from\n<code>blog.chrislewis.me.uk</code> to that IP address would become invalid and\nthe blog would be unreachable - unacceptable!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Finding the way home"
+    },
+    {
+      "type": "paragraph",
+      "text": "Enter the newest kid on the <code>node-microservices</code> block -\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/node-microservices/tree/master/apps/polaris\">polaris</a>,\nnamed after the guiding star of the same name. It's job is simple: to fix this\nissue preventing viable hosting of the blog from my home Pi stack."
+    },
+    {
+      "type": "paragraph",
+      "text": "It does this by using a set of IAM access credentials to read the current value\nof the DNS record and compare it to the detected pubic IP address."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Fetch the Route53 record's current state.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {string} publicIp - Current public IP of the network.</span>\n<span class=\"comment\"> * @returns {object} Hosted zone ID, current IP, record name.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const</span> fetchRecordData<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">async </span><span class=\"js-syntax\">(</span>publicIp<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">  // Find the hosted zone</span>\n  <span class=\"js-blueword\">const</span> listZonesRes<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>route53.listHostedZones<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>.promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">const</span> zone<span class=\"js-keyword\"> = </span>listZonesRes.HostedZones.find<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> Name <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>Name.includes<span class=\"js-syntax\">(</span>HOSTED_ZONE_NAME<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span><span class=\"js-keyword\">!</span>zone<span class=\"js-syntax\">)</span> throw <span class=\"js-keyword\">new </span>Error<span class=\"js-syntax\">(</span><span class=\"_string\">`Hosted zone with name including $<span class=\"js-syntax\">{</span>HOSTED_ZONE_NAME<span class=\"js-syntax\">}</span> not found`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // List the records</span>\n  <span class=\"js-blueword\">const</span> hostedZoneId<span class=\"js-keyword\"> = </span>zone.Id<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">const</span> recordUrlName<span class=\"js-keyword\"> = </span><span class=\"_string\">`$<span class=\"js-syntax\">{</span>RECORD_NAME_PREFIX<span class=\"js-syntax\">}</span>.$<span class=\"js-syntax\">{</span>HOSTED_ZONE_NAME<span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">const</span> listRecordsRes<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>route53.listResourceRecordSets<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n    HostedZoneId<span class=\"js-syntax\">: </span>hostedZoneId<span class=\"js-syntax\">,</span>\n    MaxItems<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>100<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>.promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">const</span> record<span class=\"js-keyword\"> = </span>listRecordsRes.ResourceRecordSets.find<span class=\"js-syntax\">(</span>\n    <span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> Name <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>Name.includes<span class=\"js-syntax\">(</span>recordUrlName<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Create it as up-to-date</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span><span class=\"js-keyword\">!</span>record<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    <span class=\"js-keyword\">await </span>createRecord<span class=\"js-syntax\">(</span>hostedZoneId<span class=\"js-syntax\">,</span> recordUrlName<span class=\"js-syntax\">,</span> publicIp<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-keyword\">return </span>publicIp<span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">  // Get the record value</span>\n  <span class=\"js-keyword\">return </span><span class=\"js-syntax\">{</span>\n    currentIp<span class=\"js-syntax\">: </span>record.ResourceRecords<span class=\"js-syntax\">[</span>0<span class=\"js-syntax\">]</span>.Value<span class=\"js-syntax\">,</span>\n    hostedZoneId<span class=\"js-syntax\">,</span>\n    recordFullName<span class=\"js-syntax\">: </span>record.Name<span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "If the record doesn't yet exist (suppose the app was deployed for a new domain)\nthen it is created:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Create the record if it doesn't exist.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {string} hostedZoneId - Hosted zone ID.</span>\n<span class=\"comment\"> * @param {string} recordUrlName - Full record name.</span>\n<span class=\"comment\"> * @param {string} publicIp - Current public IP of the network.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const</span> createRecord<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">async </span><span class=\"js-syntax\">(</span>hostedZoneId<span class=\"js-syntax\">,</span> recordUrlName<span class=\"js-syntax\">,</span> publicIp<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">const</span> res<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>route53.changeResourceRecordSets<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n    HostedZoneId<span class=\"js-syntax\">: </span>hostedZoneId<span class=\"js-syntax\">,</span>\n    ChangeBatch<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n      Changes<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">{</span>\n        Action<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>CREATE<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n        ResourceRecordSet<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n          Name<span class=\"js-syntax\">: </span><span class=\"_string\">`$<span class=\"js-syntax\">{</span>recordUrlName<span class=\"js-syntax\">}</span>.`</span><span class=\"js-syntax\">,</span>\n          Type<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>A<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n          TTL<span class=\"js-syntax\">: </span>60 * 5<span class=\"js-syntax\">,</span> // 5 minutes\n          ResourceRecords<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">{</span> Value<span class=\"js-syntax\">: </span>publicIp <span class=\"js-syntax\">}</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n        <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n      <span class=\"js-syntax\">}</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>.promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  log.debug<span class=\"js-syntax\">(</span>res<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  log.info<span class=\"js-syntax\">(</span><span class=\"_string\">`Created record $<span class=\"js-syntax\">{</span>recordUrlName<span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "If the two differ, it updates the record with the new IP address:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Update the Route53 record with the current public IP of the network.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {string} publicIp - Current public IP of the network.</span>\n<span class=\"comment\"> * @param {string} hostedZoneId - Hosted zone ID.</span>\n<span class=\"comment\"> * @param {string} recordFullName - Full record name.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const</span> updateRoute53RecordIp<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">async </span><span class=\"js-syntax\">(</span>publicIp<span class=\"js-syntax\">,</span> hostedZoneId<span class=\"js-syntax\">,</span> recordFullName<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">const</span> res<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>route53.changeResourceRecordSets<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n    HostedZoneId<span class=\"js-syntax\">: </span>hostedZoneId<span class=\"js-syntax\">,</span>\n    ChangeBatch<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n      Changes<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">{</span>\n        Action<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>UPSERT<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n        ResourceRecordSet<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n          Name<span class=\"js-syntax\">: </span>recordFullName<span class=\"js-syntax\">,</span>\n          Type<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>A<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n          TTL<span class=\"js-syntax\">: </span>60 * 5<span class=\"js-syntax\">,</span> // 5 minutes\n          ResourceRecords<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">{</span> Value<span class=\"js-syntax\">: </span>publicIp <span class=\"js-syntax\">}</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n        <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n      <span class=\"js-syntax\">}</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>.promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  log.debug<span class=\"js-syntax\">(</span>res<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  log.info<span class=\"js-syntax\">(</span><span class=\"_string\">`Updated record $<span class=\"js-syntax\">{</span>recordFullName<span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "After this update, the DNS record once again points to the local network and\nthe path from the public internet to the local server is restored. This is\nillustrated with the following high quality diagram!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/05/path-to-pi.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Of course, the blog would have been unavailable in this time, but it's better\nthan noticing it happened only on the next time I visit my own site..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Next steps"
+    },
+    {
+      "type": "paragraph",
+      "text": "Currently this is done at ten minute intervals, but this could be made more\nrobust by decreasing the interval, or by detecting a loss of internet\nconnectivity and performing the check when it is restored."
+    },
+    {
+      "type": "paragraph",
+      "text": "But of course, the blost must be served over secure HTTPS like it is today with\nCloudFront. This means I would need to obtain a CA-signed SSL certificate to\ninstall in the Node.js server so that going to the same address will be accepted\nby modern browsers and be just as easy to reach. Something to look into..."
+    }
+  ]
+}
