@@ -26,6 +26,11 @@
       "text": "What was once just a single Raspberry Pi v1, is now a set of three Raspberry Pi\n3B+ devices in a stack. Each with its own purpose (from top to bottom) - public\nservices, private (LAN) services, and other utility/misc services."
     },
     {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/05/pi-stack.jpg"
+    },
+    {
       "type": "paragraph",
       "text": "It would be a fun exercise to actually host this blog on them!"
     },
