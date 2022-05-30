@@ -892,8 +892,13 @@ window.postHistory = {
     "05": [
       {
         "title": "Home Is Where The DNS Record Points",
-        "file": "assets/rendered/2022-05-7-Home-Is-Where-The-DNS-Record-Points.json",
-        "fileName": "2022-05-7-Home-Is-Where-The-DNS-Record-Points"
+        "file": "assets/rendered/2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
+        "fileName": "2022-05-07-Home-Is-Where-The-DNS-Record-Points"
+      },
+      {
+        "title": "New Fitbit Clock: Deep Rock",
+        "file": "assets/rendered/2022-05-30-New-Fitbit-Clock-Deep-Rock.json",
+        "fileName": "2022-05-30-New-Fitbit-Clock-Deep-Rock"
       }
     ]
   }

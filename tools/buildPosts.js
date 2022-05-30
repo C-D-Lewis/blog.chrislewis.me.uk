@@ -53,8 +53,14 @@ const postToModel = (fileName) => {
   const text = readFileSync(`${POSTS_DIR}/${fileName}`, 'utf8');
 
   const [title, dateTime, tags] = text.split('\n').map(p => p.trim());
-  if (!title.length || !dateTime.match(DATE_TIME_REGEX) || !text.includes('---\n')) {
-    throw new Error(`metadata error: ${fileName}`);
+  if (!title.length) {
+    throw new Error(`${fileName} Metadata error: missing title`);
+  }
+  if (!dateTime.match(DATE_TIME_REGEX)) {
+    throw new Error(`${fileName} Metadata error: bad dateTime`);
+  }
+  if(!text.includes('---\n')) {
+    throw new Error(`${fileName} Metadata error: no separator`);
   }
 
   const model = {
@@ -76,8 +82,18 @@ const postToModel = (fileName) => {
     // Image
     if (section.startsWith('![')) {
       const description = section.substring( section.indexOf('[') + 1, section.indexOf(']'));
-      const src = section.substring(section.indexOf('(') + 1, section.indexOf(')'));
-      model.components.push({ type: 'image', description, src });
+      const srcStr = section.substring(section.indexOf('(') + 1, section.indexOf(')'));
+
+      // Options?
+      let type = 'image';
+      const [src, opts] = srcStr.split(' ');
+      if (opts) {
+        if(opts.includes('no-shadow')) {
+          type = 'image-no-shadow';
+        }
+      }
+
+      model.components.push({ type, description, src });
       return;
     }
 

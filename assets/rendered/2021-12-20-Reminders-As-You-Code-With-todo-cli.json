@@ -85,7 +85,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nnpm i -g @chris-lewis/todo-cli\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\nnpm i -g @chris-lewis/todo-cli\n</div></pre>"
     }
   ]
 }

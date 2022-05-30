@@ -107,6 +107,7 @@ const friendlyLangName = (language) => {
     javascript: 'JavaScript',
     json: 'JSON',
     text: 'Text',
+    textwrap: ' ',
     cpp: 'C++',
     'c++': 'C++',
     none: 'Text',
@@ -340,8 +341,9 @@ const highlightCodeParagraphs = (sections) => {
       // If contains ``` unset isCodeBlock - could be the same section if just one paragraph
       if (section.endsWith('```')) {
         // Add styling and store
+        const preClass = language === 'textwrap' ? 'wrap' : '';
         const highlightedSnippet = `<div class="lang-label lang-${language}">${friendlyLangName(language)}</div>
-<pre><div class="code-block">
+<pre class="${preClass}"><div class="code-block">
 ${highlight(snippetSections.join('\n\n'), language).trim()}
 </div></pre>`;
         resultSections.push(highlightedSnippet);

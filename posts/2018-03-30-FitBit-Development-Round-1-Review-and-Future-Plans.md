@@ -1,6 +1,6 @@
 FitBit Development - Round 1 Review and Future Plans
 2018-03-30 17:15:56
-FitBit,Integration,JavaScript,Pebble
+Fitbit,Integration,JavaScript,Pebble
 ---
 
 ![](/assets/import/media/2018/03/fitbit-round-1-banner.png)

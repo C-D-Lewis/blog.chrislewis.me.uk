@@ -16,7 +16,7 @@ const MAX_WIDTH_DESKTOP = '790px';
 /** Max width of content for mobiles */
 const MAX_WIDTH_MOBILE = '390px';
 /** Material box shadow settings */
-const BOX_SHADOW_MATERIAL = '2px 2px 3px 1px #5555';
+const BOX_SHADOW_MATERIAL = '2px 2px 3px 1px #5559';
 
 // Lazy load images since some tags include a lot of posts
 const imgObserver = new IntersectionObserver((entries) => {
@@ -558,7 +558,9 @@ const PostBody = ({ model, startExpanded = true }) => {
  *
  * @returns {HTMLElement}
  */
-const PostImage = ({ src }) => {
+const PostImage = ({ src },  opts) => {
+  const { noShadow } = opts || {};
+
   const img = fabricate('img')
     .withStyles({
       maxWidth: '90%',
@@ -566,7 +568,7 @@ const PostImage = ({ src }) => {
       maxHeight: '600px',
       borderRadius: '5px',
       overflow: 'hidden',
-      boxShadow: BOX_SHADOW_MATERIAL,
+      boxShadow: !noShadow ? BOX_SHADOW_MATERIAL : undefined,
     });
 
   // Lazy load image when in view
@@ -637,6 +639,7 @@ const createPostComponents = components =>
   components.map((component) => {
     switch (component.type) {
       case 'image': return PostImage(component);
+      case 'image-no-shadow': return PostImage(component, { noShadow: true });
       case 'header': return PostHeader(component);
       case 'paragraph': return PostParagraph(component);
       case 'html': return PostHtml(component);

@@ -1,0 +1,45 @@
+{
+  "fileName": "2022-05-30-New-Fitbit-Clock-Deep-Rock.md",
+  "title": "New Fitbit Clock: Deep Rock",
+  "dateTime": "2022-05-30 19:36",
+  "tags": [
+    "JavaScript",
+    "Fitbit"
+  ],
+  "components": [
+    {
+      "type": "image-no-shadow",
+      "description": "",
+      "src": "assets/media/2022/05/deep-rock-management.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "<code>INCOMING TRANSMISSION FROM DEEP ROCK GALACTIC CENTRAL COMMAND</code>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-textwrap\"> </div>\n<pre class=\"wrap\"><div class=\"code-block\">\nListen up, miners! Management has seen fit to outfit you with the latest device from R&D - a wrist-mounted display. Apparently the standard mission timer wasn't enough to keep you on time and on budget.\n\nYou'll find the stats you need to get your job done:\n\n- Battery level\n\n- Progress to daily step goal\n\n- Time and date\n\n- Total steps and total calories burned today\n\nAnd I'm told there's also one other special feature to find, in case you forget why we do what we do... Use it wisely.\n\nOnce you receive your unit, make sure to update the firmware with the link below:\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a class=\"link\" target=\"_blank\" href=\"https://gallery.fitbit.com/details/cb09baf4-95ba-4f06-b614-1382495c7b29\">https://gallery.fitbit.com/details/cb09baf4-95ba-4f06-b614-1382495c7b29</a>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-textwrap\"> </div>\n<pre class=\"wrap\"><div class=\"code-block\">\nHere is a preview to help you identify when it is ready for operation:\n</div></pre>"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/05/deep-rock-face.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-textwrap\"> </div>\n<pre class=\"wrap\"><div class=\"code-block\">\nGood luck, and don't let a Nemesis grab it off you...\n\nRock and stone.\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<code>TRANSMISSION ENDS</code>"
+    }
+  ]
+}

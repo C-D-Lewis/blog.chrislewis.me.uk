@@ -40,3 +40,7 @@
 .python-orange {
   color: rgb(253, 147, 83);
 }
+
+.wrap {
+  white-space: pre-wrap;
+}

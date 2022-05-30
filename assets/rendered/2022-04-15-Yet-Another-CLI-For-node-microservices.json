@@ -42,7 +42,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\ncurl -X GET https://api.evrythng.io/v2/products/Utqn3nTHsRfCwtarDSkf9nRe?withScopes=true \\\n  -H Authorization:$OPERATOR_API_KEY\n</div></pre>"
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\ncurl -X GET https://api.evrythng.io/v2/products/Utqn3nTHsRfCwtarDSkf9nRe?withScopes=true \\\n  -H Authorization:$OPERATOR_API_KEY\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -100,7 +100,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nevrythng products|pr $id read|r\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\nevrythng products|pr $id read|r\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -108,7 +108,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\nevrythng pr $id r\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\nevrythng pr $id r\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -125,11 +125,11 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\nevrythng products Utqn3nTHsRfCwtarDSkf9nRe read --with-scopes\n</div></pre>"
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\nevrythng products Utqn3nTHsRfCwtarDSkf9nRe read --with-scopes\n</div></pre>"
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"id\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Utqn3nTHsRfCwtarDSkf9nRe\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"createdAt\"</span><span class=\"js-syntax\">: </span>1607113258640<span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"updatedAt\"</span><span class=\"js-syntax\">: </span>1607113258640<span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"properties\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span><span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"fn\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Test product\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"name\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Test product\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"tags\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">]</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"id\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Utqn3nTHsRfCwtarDSkf9nRe\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"createdAt\"</span><span class=\"js-syntax\">: </span>1607113258640<span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"updatedAt\"</span><span class=\"js-syntax\">: </span>1607113258640<span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"properties\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span><span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"fn\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Test product\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"name\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Test product\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"tags\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">]</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -137,7 +137,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\nevrythng pr Utqn3nTHsRfCwtarDSkf9nRe u <span class=\"_string\">'{<span class=\"_string\">\"tags\"</span>:[<span class=\"_string\">\"test\"</span>, <span class=\"_string\">\"blog-featured\"</span>]}'</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\nevrythng pr Utqn3nTHsRfCwtarDSkf9nRe u <span class=\"_string\">'{<span class=\"_string\">\"tags\"</span>:[<span class=\"_string\">\"test\"</span>, <span class=\"_string\">\"blog-featured\"</span>]}'</span>\n</div></pre>"
     },
     {
       "type": "header",
@@ -163,7 +163,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms apps\nAvailable operations for 'apps':\n  nms apps $appName start\n  nms apps $appName stop\n  nms apps list\n  nms apps stop-all\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n$ nms apps\nAvailable operations for 'apps':\n  nms apps $appName start\n  nms apps $appName stop\n  nms apps list\n  nms apps stop-all\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -171,7 +171,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms attic\nAvailable operations for 'attic':\n  nms attic set $app $key $value\n  nms attic get $app $key\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n$ nms attic\nAvailable operations for 'attic':\n  nms attic set $app $key $value\n  nms attic get $app $key\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -179,7 +179,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms conduit\nAvailable operations for 'conduit':\n  nms conduit send $to $topic $message\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n$ nms conduit\nAvailable operations for 'conduit':\n  nms conduit send $to $topic $message\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -187,7 +187,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms guestlist\nAvailable operations for 'guestlist':\n  nms guestlist list\n  nms guestlist create $name $apps $topics $adminPassword\n  nms guestlist delete $name $adminPassword\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n$ nms guestlist\nAvailable operations for 'guestlist':\n  nms guestlist list\n  nms guestlist create $name $apps $topics $adminPassword\n  nms guestlist delete $name $adminPassword\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -195,7 +195,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms fleet\nAvailable operations for 'fleet':\n  nms fleet $host list\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n$ nms fleet\nAvailable operations for 'fleet':\n  nms fleet $host list\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -203,7 +203,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre><div class=\"code-block\">\n$ nms visuals\nAvailable operations for 'visuals':\n  nms visuals off\n  nms visuals demo\n  nms visuals spotify\n  nms visuals setAll $r $g $b\n  nms visuals fadeAll $r $g $b\n</div></pre>"
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n$ nms visuals\nAvailable operations for 'visuals':\n  nms visuals off\n  nms visuals demo\n  nms visuals spotify\n  nms visuals setAll $r $g $b\n  nms visuals fadeAll $r $g $b\n</div></pre>"
     },
     {
       "type": "header",
@@ -220,7 +220,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\"># What's running?</span>\ncurl localhost:5959/apps\n\n<span class=\"comment\"># Oh, conduit's running but not attic</span>\ncd apps/attic && npm start &\n\n<span class=\"comment\"># Ah, it crashed, how to I stop it?</span>\nps -e | grep node\n\n<span class=\"comment\"># Get lucky with the process ID</span>\nsudo kill 8374\n\nnpm start &\n\n<span class=\"comment\"># Check the saved Spotify token</span>\ncurl -X POST localhost:5959/conduit \\\n  -H Content-Type:application/json \\\n  -d {\n    <span class=\"_string\">\"to\"</span>: <span class=\"_string\">\"attic\"</span>,\n    <span class=\"_string\">\"topic\"</span>: <span class=\"_string\">\"get\"</span>,\n    <span class=\"_string\">\"message\"</span>: {\n      <span class=\"_string\">\"app\"</span>: <span class=\"_string\">\"visuals\"</span>,\n      <span class=\"_string\">\"key\"</span>: <span class=\"_string\">\"spotify_access_token\"</span>\n    }\n  }\n\n<span class=\"comment\"># Stop all apps (and possibly crash VS Code and remote containers too)</span>\nsudo killall node\n</div></pre>"
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\"># What's running?</span>\ncurl localhost:5959/apps\n\n<span class=\"comment\"># Oh, conduit's running but not attic</span>\ncd apps/attic && npm start &\n\n<span class=\"comment\"># Ah, it crashed, how to I stop it?</span>\nps -e | grep node\n\n<span class=\"comment\"># Get lucky with the process ID</span>\nsudo kill 8374\n\nnpm start &\n\n<span class=\"comment\"># Check the saved Spotify token</span>\ncurl -X POST localhost:5959/conduit \\\n  -H Content-Type:application/json \\\n  -d {\n    <span class=\"_string\">\"to\"</span>: <span class=\"_string\">\"attic\"</span>,\n    <span class=\"_string\">\"topic\"</span>: <span class=\"_string\">\"get\"</span>,\n    <span class=\"_string\">\"message\"</span>: {\n      <span class=\"_string\">\"app\"</span>: <span class=\"_string\">\"visuals\"</span>,\n      <span class=\"_string\">\"key\"</span>: <span class=\"_string\">\"spotify_access_token\"</span>\n    }\n  }\n\n<span class=\"comment\"># Stop all apps (and possibly crash VS Code and remote containers too)</span>\nsudo killall node\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -228,7 +228,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre><div class=\"code-block\">\n<span class=\"comment\"># Check what's running</span>\nnms apps list\n\n<span class=\"comment\"># Forgot to start attic</span>\nnms apps attic start\n\n<span class=\"comment\"># Check the saved Spotify token</span>\nnms attic get visuals spotify_access_token\n\n<span class=\"comment\"># Stop all apps</span>\nnms apps stop-all\n</div></pre>"
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\"># Check what's running</span>\nnms apps list\n\n<span class=\"comment\"># Forgot to start attic</span>\nnms apps attic start\n\n<span class=\"comment\"># Check the saved Spotify token</span>\nnms attic get visuals spotify_access_token\n\n<span class=\"comment\"># Stop all apps</span>\nnms apps stop-all\n</div></pre>"
     },
     {
       "type": "paragraph",
