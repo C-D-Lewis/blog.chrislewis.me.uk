@@ -16,7 +16,7 @@ const MAX_WIDTH_DESKTOP = '790px';
 /** Max width of content for mobiles */
 const MAX_WIDTH_MOBILE = '390px';
 /** Material box shadow settings */
-const BOX_SHADOW_MATERIAL = '2px 2px 3px 1px #5559';
+const BOX_SHADOW_MATERIAL = '2px 2px 3px 1px #0009';
 
 // Lazy load images since some tags include a lot of posts
 const imgObserver = new IntersectionObserver((entries) => {
@@ -205,7 +205,7 @@ const LeftColumnItem = ({ getIsSelected } = {}) => {
       display: 'block',
       fontFamily: 'sans-serif',
       fontSize: '1.1rem',
-      marginTop: '10px',
+      margin: '5px 0px 0px 10px',
       cursor: 'pointer',
     })
     .withAttributes({ target: '_blank' })
@@ -430,8 +430,8 @@ const PostTitle = ({ model, startExpanded = true }) => {
 const PostTagPill = ({ tag, quantity }) => {
   const img = fabricate('img')
     .withStyles({
-      width: '14px',
-      height: '14px',
+      width: '16px',
+      height: '16px',
     })
     .withAttributes({ src: 'assets/icons/tag-outline.png' });
 
@@ -455,7 +455,7 @@ const PostTagPill = ({ tag, quantity }) => {
       backgroundColor: quantity ? 'none' : Theme.syntax.function,
       cursor: 'pointer',
       borderRadius: '20px',
-      padding: '4px 8px',
+      padding: '4px 6px',
       margin: '2px',
     })
     .withChildren([img, label])
