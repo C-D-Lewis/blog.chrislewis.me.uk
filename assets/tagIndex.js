@@ -287,7 +287,8 @@ window.tagIndex = {
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
-    "2021-12-23-A-Christmas-MIDI-Medley.json"
+    "2021-12-23-A-Christmas-MIDI-Medley.json",
+    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -317,13 +318,15 @@ window.tagIndex = {
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
     "2021-12-23-A-Christmas-MIDI-Medley.json",
     "2022-04-15-Yet-Another-CLI-For-node-microservices.json",
-    "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json"
+    "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
+    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
-    "2021-12-23-A-Christmas-MIDI-Medley.json"
+    "2021-12-23-A-Christmas-MIDI-Medley.json",
+    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json"
   ],
   "Spark Core": [
     "2013-12-23-Spark-Core-Initial-Thoughts.json",
@@ -381,7 +384,8 @@ window.tagIndex = {
     "2020-10-04-Deploying-With-Terraform.json",
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
-    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json"
+    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
+    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json"
   ],
   "TypeScript": [
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json"

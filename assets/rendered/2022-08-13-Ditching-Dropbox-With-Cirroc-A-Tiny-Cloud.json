@@ -1,0 +1,142 @@
+{
+  "fileName": "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.md",
+  "title": "Ditching Dropbox with Cirroc: A Tiny Cloud",
+  "dateTime": "2022-08-13 16:14",
+  "tags": [
+    "Python",
+    "Integration",
+    "Raspberry Pi",
+    "AWS"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "In September 2014, I upgraded from the free version of Dropbox after enjoying\nthe (at the time) novel and extremely easy way to backup and share files. Up to\nthis point, the next best options were a multitude of smaller 'file sharing'\nsites that had limited hosting or were a pain to use and were not automated, or\nhanding a friend a USB stick. Emails could only contain attachments of up to a\nfew megabytes and around that time Google Mail began refusing attachments that\ncontained executable and archived files."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/08/dropbox-logo.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "The ability to back up and share a file simply by moving it into the right\nfolder was great for personal files, and sharing project files while I was at\nuniversity working on group projects. Indeed, I still have some of those shared\nfolders, which provides a fun insights back in time."
+    },
+    {
+      "type": "header",
+      "level": 3,
+      "text": "A cloudy forecast"
+    },
+    {
+      "type": "paragraph",
+      "text": "Since 2014, as could probably have been expected, Dropbox have expanded their\nfeature offering to add many new features like document signing, camera photo\nbackup, password manager, 'online-only' files, multiple file versions, etc.\nwhich if I'm being honest I do not need. Over the years, I've grappled with some\nannoyances that have at times made me question if I really need to pay for\nit - most notably when after\n<a class=\"link\" target=\"_blank\" href=\"https://superuser.com/questions/853236/how-to-make-dropbox-ignore-specific-folders-in-the-sync\">many years</a>\nthere is no such facility as a <code>.dropboxignore</code> to allow me to not\nsync thousands of files in <code>node_modules</code>, for example. A recent\nchange takes a step in the right direction, but is\n<a class=\"link\" target=\"_blank\" href=\"https://help.dropbox.com/files-folders/restore-delete/ignored-files\">not scalable</a>\nto dozens of Node.js projects, and other valid use cases also exist."
+    },
+    {
+      "type": "paragraph",
+      "text": "Lastly, if we roughly average out the original price and more recent price\nincreases (which bring more features, but all I use is file sync), we can\ncollectively reel at the total figure: almost a thousand pounds!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/08/joey-shocked.gif"
+    },
+    {
+      "type": "paragraph",
+      "text": "I don't want to continue paying more for essentially a smaller and smaller\nsubset of paid-for features (my other long-time subscriptions to Spotify,\nDigital Ocean, and Netflix not under this particular microscope), and of course\nlong-time readers will sense the words 'Raspberry' and 'Pi' coming a mile away\nby this point..."
+    },
+    {
+      "type": "header",
+      "level": 3,
+      "text": "New clouds are forming"
+    },
+    {
+      "type": "paragraph",
+      "text": "I came across the common concept of a Raspberry Pi-based NAS\n(Network Attached Storage) quite some time ago, but after signing into\nDropbox.com to retrieve one file and having to battle not one but <i>three</i>\npopups advertising yet more features not related to file storage or sharing\nin order to do so I felt another nail in the subscription... and got to thinking\nof creating a NAS of my own."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/08/cirroc.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "And the result is an object emblazoned with the 3D printed name Cirroc (short\nfor <a class=\"link\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Cirrocumulus_cloud\">cirrocumulus</a>, a very\nsmall type of cloud - how clever...), which houses quite minimally a Raspberry\nPi 4 with two Crucial 1TB SSDs in RAID-1 mirror configuration."
+    },
+    {
+      "type": "paragraph",
+      "text": "And it's pretty good - over an Ethernet connection and 802.11ac (Wifi 6) from my PC\nI can transfer at around 20 MB/s (160 Mbps) in both directions, which is plenty\nfor small files and even reasonable for larger gigabyte level transfers which\nI'm resigned to taking many minutes anyway."
+    },
+    {
+      "type": "paragraph",
+      "text": "The base was nicely printed by my brother and has precisely measured holes for\nM3 bolts to hold each device in place."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/08/cirroc-3d.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "The final piece of the puzzle is the tiny Adafriut PiOLED module sat on the Pi's\nGPIO and connects over I2C to provide a simple bitmapped display. I took the\nexample Python script for showing system stats and specialised it for the job\nof showing the status of a RAID-1 NAS drive array - CPU, disk usage (GB), and\nhow many healthy drives are in the array."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/08/cirroc-close.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "My favorite part was using <code>PIL</code> to overlay a progress bar of disk\nusage inside a tiny cloud bitmap icon using the self-same image as the mask.\nCute!"
+    },
+    {
+      "type": "header",
+      "level": 3,
+      "text": "Cloudy with chances of rain"
+    },
+    {
+      "type": "paragraph",
+      "text": "The last part is particularly important - originally I chose two cheaper USB 3\nto SATA adapter cables to connect the SSDs, which seemed to have compatability\nproblems with the Pi. Adding quirks mode to avoid using UAS seemed to improve\nthings, but at the time it would take a long transfer (>30 GB) to cause the OS\nto mark the USB device as faulty and so the RAID-1 array was degraded to just\none copy - not ideal."
+    },
+    {
+      "type": "paragraph",
+      "text": "So, this combination of physical monitoring alongside\nfinally implementing Amazon SES (Simple Email Service) in the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/node-microservices/blob/master/apps/monitor/src/plugins/mdstat.js\">node-microservices</a>\nproject for alerting allows me to have a bit more piece of mind that this won't\noccur with the new, more premium cables. Using the AWS SDK to achieve this was\nquite straightforward:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const</span> sesApi<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">new </span>AWS.SES<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> apiVersion<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>2010-12-01<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const</span> credentials<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">new </span>AWS.Credentials<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n  accessKeyId<span class=\"js-syntax\">: </span><span class=\"js-blueword\">process</span>.env.AWS_ACCESS_KEY_ID<span class=\"js-syntax\">,</span>\n  secretAccessKey<span class=\"js-syntax\">: </span><span class=\"js-blueword\">process</span>.env.AWS_SECRET_ACCESS_KEY<span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\nAWS.config.update<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> region<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>eu-west-2<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> credentials <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Send a notification email.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {string} msg - Message content.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">exports</span>.notify<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">async </span><span class=\"js-syntax\">(</span>msg<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">const</span> res<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>sesApi.sendEmail<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n    Source<span class=\"js-syntax\">: </span>SENDER_ADDRESS<span class=\"js-syntax\">,</span>\n    Destination<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span> ToAddresses<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span>TO_ADDRESS<span class=\"js-syntax\">]</span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    Message<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n      Body<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n        Text<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n          Charset<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>UTF-8<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n          Data<span class=\"js-syntax\">: </span>msg<span class=\"js-syntax\">,</span>\n        <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n      <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n      Subject<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n        Charset<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>UTF-8<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n        Data<span class=\"js-syntax\">: </span>SUBJECT<span class=\"js-syntax\">,</span>\n      <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>.promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  log.info<span class=\"js-syntax\">(</span><span class=\"_string\">`ses<span class=\"js-syntax\">: </span>Sent email $<span class=\"js-syntax\">{</span>res.MessageId<span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 3,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, have I cancelled my Dropbox subscription at long last and created my own\nperfect replacemend for the easy-to-use file syncing and sharing?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Of course not! It's not anywhere near as fault-tolerant, replicated, or hightly\navailable as Dropbox's offering, but it's mine, and it has yet more interesting\npossibilities for the future:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Scripts to automatically back up archives of music, photos, code, videos, etc.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Automatically bringing a RAID drive back into the array when degraded.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Using users to share portions of the drive publically and with friends.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "However, I have managed to shrink my usage of Dropbox down from over 30GB to\njust 10, and will be continuing towards fitting in the free tier allocation\n(starting at 2GB, but I have participated in many promotions of the years that\nadds several more GB, but won't know the final number until I cancel the plan)\nand finally removing the infinite recurring cost in the near future."
+    },
+    {
+      "type": "paragraph",
+      "text": "For now, it's accessible with Sambda and Windows network drive mapping, which is\na great start. A sunny outlook!"
+    }
+  ]
+}

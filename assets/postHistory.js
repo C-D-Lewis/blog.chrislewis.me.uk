@@ -900,6 +900,13 @@ window.postHistory = {
         "file": "assets/rendered/2022-05-30-New-Fitbit-Clock-Deep-Rock.json",
         "fileName": "2022-05-30-New-Fitbit-Clock-Deep-Rock"
       }
+    ],
+    "08": [
+      {
+        "title": "Ditching Dropbox with Cirroc: A Tiny Cloud",
+        "file": "assets/rendered/2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
+        "fileName": "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud"
+      }
     ]
   }
 }
