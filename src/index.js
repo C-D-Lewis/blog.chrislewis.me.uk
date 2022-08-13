@@ -271,30 +271,12 @@ const loadSelectionFromQuery = () => {
 };
 
 /**
- * Update integer relating to view count.
- */
-const updateViewCount = () => fetch('http://conduit.chrislewis.me.uk:5959/conduit', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    to: 'attic',
-    topic: 'increment',
-    message: {
-      app: 'blog',
-      key: 'views',
-    },
-    auth: 'da2859f819be0a326893923fac416eae6f58a24b',
-  }),
-});
-
-/**
  * The main function.
  */
 const main = () => {
   buildPageLayout();
   initPostHistory();
   loadSelectionFromQuery();
-  updateViewCount();
 };
 
 main();

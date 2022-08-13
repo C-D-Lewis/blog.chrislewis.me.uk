@@ -65,6 +65,14 @@ export AWS_PROFILE=...
 ./deploy.sh
 ```
 
+You may need to first install the required `terraform` version:
+
+```
+cd terraform
+
+tfswitch
+```
+
 
 ## Import from WordPress
 
