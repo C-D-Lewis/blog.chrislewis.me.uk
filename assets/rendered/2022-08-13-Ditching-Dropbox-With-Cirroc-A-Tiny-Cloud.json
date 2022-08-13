@@ -64,7 +64,7 @@
     },
     {
       "type": "paragraph",
-      "text": "And it's pretty good - over an Ethernet connection and 802.11ac (Wifi 6) from my PC\nI can transfer at around 20 MB/s (160 Mbps) in both directions, which is plenty\nfor small files and even reasonable for larger gigabyte level transfers which\nI'm resigned to taking many minutes anyway."
+      "text": "And it's pretty good - over an Ethernet connection and 802.11ac (Wifi 6) from my\nPC I can transfer at around 20 MB/s (160 Mbps) in both directions, which is\nplenty for small files and even reasonable for larger gigabyte level transfers\nwhich I'm resigned to taking many minutes anyway."
     },
     {
       "type": "paragraph",
@@ -77,7 +77,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The final piece of the puzzle is the tiny Adafriut PiOLED module sat on the Pi's\nGPIO and connects over I2C to provide a simple bitmapped display. I took the\nexample Python script for showing system stats and specialised it for the job\nof showing the status of a RAID-1 NAS drive array - CPU, disk usage (GB), and\nhow many healthy drives are in the array."
+      "text": "The final piece of the puzzle is the tiny Adafruit Pi OLED module sat on the\nPi's GPIO and connects over I2C to provide a simple bitmapped display. I took\nthe example Python script for showing system stats and specialised it for the\njob of showing the status of a RAID-1 NAS drive array - CPU, disk usage (GB),\nand how many healthy drives are in the array."
     },
     {
       "type": "image",
@@ -95,7 +95,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The last part is particularly important - originally I chose two cheaper USB 3\nto SATA adapter cables to connect the SSDs, which seemed to have compatability\nproblems with the Pi. Adding quirks mode to avoid using UAS seemed to improve\nthings, but at the time it would take a long transfer (>30 GB) to cause the OS\nto mark the USB device as faulty and so the RAID-1 array was degraded to just\none copy - not ideal."
+      "text": "The last part is particularly important - originally I chose two cheaper USB 3\nto SATA adapter cables to connect the SSDs, which seemed to have compatibility\nproblems with the Pi. Adding quirks mode to avoid using UAS seemed to improve\nthings, but at the time it would take a long transfer (>30 GB) and possible\nissues with the USB controllers to cause the OS to mark the USB device as faulty\nand so the RAID-1 array was degraded to just one copy - not ideal."
     },
     {
       "type": "paragraph",
@@ -112,11 +112,11 @@
     },
     {
       "type": "paragraph",
-      "text": "So, have I cancelled my Dropbox subscription at long last and created my own\nperfect replacemend for the easy-to-use file syncing and sharing?"
+      "text": "So, have I cancelled my Dropbox subscription at long last and created my own\nperfect replacement for easy-to-use file syncing and sharing?"
     },
     {
       "type": "paragraph",
-      "text": "Of course not! It's not anywhere near as fault-tolerant, replicated, or hightly\navailable as Dropbox's offering, but it's mine, and it has yet more interesting\npossibilities for the future:"
+      "text": "Of course not! It's not anywhere near as fault-tolerant, replicated, or highly\navailable as Dropbox's offering, but it's mine, and it has yet more interesting\npossibilities for the future:"
     },
     {
       "type": "paragraph",
@@ -128,7 +128,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Using users to share portions of the drive publically and with friends.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Using multiple users to share portions of the drive publicly and with friends.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",

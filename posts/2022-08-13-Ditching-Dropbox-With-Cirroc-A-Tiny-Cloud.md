@@ -61,21 +61,21 @@ for [cirrocumulus](https://en.wikipedia.org/wiki/Cirrocumulus_cloud), a very
 small type of cloud - how clever...), which houses quite minimally a Raspberry
 Pi 4 with two Crucial 1TB SSDs in RAID-1 mirror configuration.
 
-And it's pretty good - over an Ethernet connection and 802.11ac (Wifi 6) from my PC
-I can transfer at around 20 MB/s (160 Mbps) in both directions, which is plenty
-for small files and even reasonable for larger gigabyte level transfers which
-I'm resigned to taking many minutes anyway.
+And it's pretty good - over an Ethernet connection and 802.11ac (Wifi 6) from my
+PC I can transfer at around 20 MB/s (160 Mbps) in both directions, which is
+plenty for small files and even reasonable for larger gigabyte level transfers
+which I'm resigned to taking many minutes anyway.
 
 The base was nicely printed by my brother and has precisely measured holes for
 M3 bolts to hold each device in place.
 
 ![](assets/media/2022/08/cirroc-3d.jpg)
 
-The final piece of the puzzle is the tiny Adafriut PiOLED module sat on the Pi's
-GPIO and connects over I2C to provide a simple bitmapped display. I took the
-example Python script for showing system stats and specialised it for the job
-of showing the status of a RAID-1 NAS drive array - CPU, disk usage (GB), and
-how many healthy drives are in the array.
+The final piece of the puzzle is the tiny Adafruit Pi OLED module sat on the
+Pi's GPIO and connects over I2C to provide a simple bitmapped display. I took
+the example Python script for showing system stats and specialised it for the
+job of showing the status of a RAID-1 NAS drive array - CPU, disk usage (GB),
+and how many healthy drives are in the array.
 
 ![](assets/media/2022/08/cirroc-close.jpg)
 
@@ -86,11 +86,11 @@ Cute!
 ### Cloudy with chances of rain
 
 The last part is particularly important - originally I chose two cheaper USB 3
-to SATA adapter cables to connect the SSDs, which seemed to have compatability
+to SATA adapter cables to connect the SSDs, which seemed to have compatibility
 problems with the Pi. Adding quirks mode to avoid using UAS seemed to improve
-things, but at the time it would take a long transfer (>30 GB) to cause the OS
-to mark the USB device as faulty and so the RAID-1 array was degraded to just
-one copy - not ideal.
+things, but at the time it would take a long transfer (>30 GB) and possible
+issues with the USB controllers to cause the OS to mark the USB device as faulty
+and so the RAID-1 array was degraded to just one copy - not ideal.
 
 So, this combination of physical monitoring alongside
 finally implementing Amazon SES (Simple Email Service) in the
@@ -140,7 +140,7 @@ exports.notify = async (msg) => {
 So, have I cancelled my Dropbox subscription at long last and created my own
 perfect replacement for easy-to-use file syncing and sharing?
 
-Of course not! It's not anywhere near as fault-tolerant, replicated, or hightly
+Of course not! It's not anywhere near as fault-tolerant, replicated, or highly
 available as Dropbox's offering, but it's mine, and it has yet more interesting
 possibilities for the future:
 
@@ -148,7 +148,7 @@ possibilities for the future:
 
 - Automatically bringing a RAID drive back into the array when degraded.
 
-- Using users to share portions of the drive publically and with friends.
+- Using multiple users to share portions of the drive publicly and with friends.
 
 However, I have managed to shrink my usage of Dropbox down from over 30GB to
 just 10, and will be continuing towards fitting in the free tier allocation
