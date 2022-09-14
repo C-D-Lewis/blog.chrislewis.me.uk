@@ -1,15 +1,4 @@
-/** Colors used in components. */
-const Theme = {
-  lightGrey: '#0004',
-  leftColumnBackground: '#333',
-  centralColumnBackground: 'rgb(33, 33, 33)',
-  syntax: {
-    background: 'rgb(26, 26, 26)',
-    keyword: 'rgb(236 64 135)',
-    function: 'rgb(100, 204, 118)',
-    comment: 'rgb(120 117 125)',
-  }
-};
+/* global Theme */
 
 /** Max width of content for desktop */
 const MAX_WIDTH_DESKTOP = '790px';
@@ -38,17 +27,15 @@ const goToTop = () => setTimeout(() => window.scrollTo({ top: 0, behavior: 'smoo
 
 /**
  * RootContainer component.
- *
- * @returns {HTMLElement}
  */
-const RootContainer = () => fabricate('div')
+fabricate.declare('RootContainer', () => fabricate('div')
   .asFlex('column')
   .withStyles({
     width: '100%',
     height: '100%',
     margin: 0,
     padding: 0,
-  });
+  }));
 
 /**
  * Fader component.
@@ -69,10 +56,8 @@ const Fader = (children) => {
 
 /**
  * SiteHeader component.
- *
- * @returns {HTMLElement}
  */
-const SiteHeader = () => fabricate('div')
+fabricate.declare('SiteHeader', () => fabricate('div')
   .asFlex('row')
   .withStyles({
     width: '100vw',
@@ -83,7 +68,7 @@ const SiteHeader = () => fabricate('div')
     backgroundColor: Theme.syntax.background,
     position: 'fixed',
     zIndex: 999,
-  });
+  }));
 
 /**
  * SiteTitleWord component.
@@ -102,69 +87,58 @@ const SiteTitleWord = () => fabricate('h2')
 
 /**
  * SiteTitle component.
- *
- * @returns {HTMLElement}
  */
-const SiteTitle = () => {
+fabricate.declare('SiteTitle', () => {
+  const { syntax } = Theme;
+
   const siteMainTitle = fabricate('div')
     .asFlex('row')
     .withStyles({ marginLeft: '8px' })
     .withChildren([
-      SiteTitleWord().setText('try').withStyles({ color: Theme.syntax.keyword }),
-      SiteTitleWord().setText('{').withStyles({ color: Theme.syntax.comment }),
-      SiteTitleWord().setText('work').withStyles({ color: Theme.syntax.function }),
-      SiteTitleWord().setText('();').withStyles({ color: Theme.syntax.comment, marginLeft: '0px' }),
-      SiteTitleWord().setText('}').withStyles({ color: Theme.syntax.comment }),
-      SiteTitleWord().setText('finally').withStyles({ color: Theme.syntax.keyword }),
-      SiteTitleWord().setText('{').withStyles({ color: Theme.syntax.comment }),
-      SiteTitleWord().setText('code').withStyles({ color: Theme.syntax.function }),
-      SiteTitleWord().setText('();').withStyles({ color: Theme.syntax.comment, marginLeft: '0px' }),
-      SiteTitleWord().setText('}').withStyles({ color: Theme.syntax.comment }),
+      SiteTitleWord().setText('try').withStyles({ color: syntax.keyword }),
+      SiteTitleWord().setText('{').withStyles({ color: syntax.comment }),
+      SiteTitleWord().setText('work').withStyles({ color: syntax.function }),
+      SiteTitleWord().setText('();').withStyles({ color: syntax.comment, marginLeft: '0px' }),
+      SiteTitleWord().setText('}').withStyles({ color: syntax.comment }),
+      SiteTitleWord().setText('finally').withStyles({ color: syntax.keyword }),
+      SiteTitleWord().setText('{').withStyles({ color: syntax.comment }),
+      SiteTitleWord().setText('code').withStyles({ color: syntax.function }),
+      SiteTitleWord().setText('();').withStyles({ color: syntax.comment, marginLeft: '0px' }),
+      SiteTitleWord().setText('}').withStyles({ color: syntax.comment }),
     ]);
 
   const siteTitleComment = SiteTitleWord()
     .setText('// A blog by Chris Lewis')
-    .withStyles({
-      color: Theme.syntax.comment,
-      marginLeft: '18px',
-    });
+    .withStyles({ color: syntax.comment, marginLeft: '18px' });
 
   const titleWrapper = fabricate('div')
     .asFlex('column')
-    .withStyles({
-      justifyContent: 'center',
-      cursor: 'pointer',
+    .withStyles({ justifyContent: 'center', cursor: 'pointer' })
+    .withChildren([siteTitleComment, siteMainTitle])
+    .onClick(() => {
+      window.location.href = '/';
     })
-    .withChildren([
-      siteTitleComment,
-      siteMainTitle,
-    ])
-    .onClick(() => (window.location.href = '/'))
     .onHover((el, hovering) => el.addStyles({ filter: `brightness(${hovering ? '1.2' : '1'})` }));
 
   return titleWrapper;
-};
+});
 
 /**
  * ContentContainer component.
- *
- * @returns {HTMLElement}
  */
-const ContentContainer = () => fabricate('div')
+fabricate.declare('ContentContainer', () => fabricate('div')
   .asFlex(fabricate.isMobile() ? 'column' : 'row')
   .withStyles({
     flexWrap: 'wrap',
     width: '100%',
     margin: 0,
     padding: 0,
-  });
+  }));
 
 /**
  * LeftColumn component.
- *
- * @returns {HTMLElement}
  */
-const LeftColumn = () => fabricate('div')
+fabricate.declare('LeftColumn', () => fabricate('div')
   .asFlex('column')
   .withStyles({
     backgroundColor: Theme.leftColumnBackground,
@@ -173,14 +147,15 @@ const LeftColumn = () => fabricate('div')
     justifyContent: 'start',
     padding: `${fabricate.isMobile() ? '15px' : '90px'} 15px 30px 15px`,
     borderRight: '1px solid #111',
-  });
+  }));
 
 /**
  * LeftColumnHeader component.
- *
- * @returns {HTMLElement}
  */
-const LeftColumnHeader = ({ isTopSection = false, isCenterSection = false } = {}) => fabricate('span')
+fabricate.declare('LeftColumnHeader', ({
+  isTopSection = false,
+  isCenterSection = false,
+} = {}) => fabricate('span')
   .withStyles({
     display: 'block',
     color: 'white',
@@ -191,14 +166,12 @@ const LeftColumnHeader = ({ isTopSection = false, isCenterSection = false } = {}
     paddingTop: isTopSection ? '10px' : '15px',
     cursor: 'default',
     textAlign: isCenterSection ? 'center' : 'initial',
-  });
+  }));
 
 /**
  * LeftColumnItem component.
- *
- * @returns {HTMLElement}
  */
-const LeftColumnItem = ({ getIsSelected } = {}) => {
+fabricate.declare('LeftColumnItem', ({ getIsSelected } = {}) => {
   const anchor = fabricate('a')
     .withStyles({
       color: '#ccc',
@@ -221,14 +194,12 @@ const LeftColumnItem = ({ getIsSelected } = {}) => {
   });
 
   return anchor;
-};
+});
 
 /**
  * CentralColumn component.
- *
- * @returns {HTMLElement}
  */
-const CentralColumn = () => fabricate('div')
+fabricate.declare('CentralColumn', () => fabricate('div')
   .asFlex(fabricate.isMobile() ? 'column' : 'row')
   .withStyles({
     flex: '1',
@@ -241,14 +212,16 @@ const CentralColumn = () => fabricate('div')
     position: fabricate.isMobile() ? 'initial' : 'absolute',
     left: fabricate.isMobile() ? 'initial' : '25%',
     margin: 'auto',
-  });
+  }));
 
 /**
  * SocialPill component.
  *
  * @returns {HTMLElement}
  */
-const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
+const SocialPill = ({
+  icon, text, backgroundColor, href, maxWidth,
+}) => {
   const img = fabricate('img')
     .withStyles({
       display: 'block',
@@ -301,10 +274,8 @@ const SocialPill = ({ icon, text, backgroundColor, href, maxWidth }) => {
 
 /**
  * SiteSocials component.
- *
- * @returns {HTMLElement}
  */
-const SiteSocials = () => fabricate('div')
+fabricate.declare('SiteSocials', () => fabricate('div')
   .asFlex('row')
   .withStyles({
     flex: fabricate.isMobile() ? 'initial' : '1',
@@ -341,20 +312,18 @@ const SiteSocials = () => fabricate('div')
       href: '/feed/rss.xml',
       maxWidth: 60,
     }),
-  ]);
+  ]));
 
 /**
  * PostList component.
- *
- * @returns {HTMLElement}
  */
-const PostList = () => fabricate('div')
+fabricate.declare('PostList', () => fabricate('div')
   .asFlex('column')
   .withStyles({
     maxWidth: fabricate.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
     margin: fabricate.isMobile() ? '0px 0px' : '0px 20px',
     padding: fabricate.isMobile() ? '0px 0px 40px 0px' : '0px 10px 40px 10px',
-  });
+  }));
 
 /**
  * PostTitle component.
@@ -380,7 +349,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
       // Click to toggle expanded state
       expanded = !expanded;
       el.withStyles({ transform: expanded ? 'rotateZ(90deg)' : 'initial' });
-  
+
       // Notify the body component
       Events.post('postExpanded', { fileName, expanded });
     });
@@ -405,7 +374,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
     .withStyles({
       color: 'black',
       fontFamily: 'sans-serif',
-      fontSize: fabricate.isMobile() ? '1.2rem': '1.5rem',
+      fontSize: fabricate.isMobile() ? '1.2rem' : '1.5rem',
       fontWeight: 'bold',
       marginTop: '10px',
       marginBottom: '5px',
@@ -482,11 +451,11 @@ const PostTagPill = ({ tag, quantity }) => {
 const PostTagsList = ({ tags }) => fabricate('div')
   .asFlex('row')
   .withStyles({
-    marginLeft: fabricate.isMobile() ? '40px': '10px',
+    marginLeft: fabricate.isMobile() ? '40px' : '10px',
     marginTop: fabricate.isMobile() ? '10px' : 'initial',
     flexWrap: 'wrap',
   })
-  .withChildren(tags.map(tag => PostTagPill({ tag })));
+  .withChildren(tags.map((tag) => PostTagPill({ tag })));
 
 /**
  * PostDateAndTags component.
@@ -504,14 +473,14 @@ const PostDateAndTags = ({ dateTime, tags }) => {
       marginLeft: '42px',
       cursor: 'default',
       paddingTop: '3px',
-      minWidth: fabricate.isMobile () ? '100px' : '140px',
+      minWidth: fabricate.isMobile() ? '100px' : '140px',
     })
     .setText(fabricate.isMobile() ? date : `Posted ${date}`);
 
   const container = fabricate('div')
     .asFlex(fabricate.isMobile() ? 'column' : 'row')
     .withStyles({
-      alignItems: fabricate.isMobile() ? 'start': 'center',
+      alignItems: fabricate.isMobile() ? 'start' : 'center',
       paddingBottom: '15px',
     })
     .withChildren([
@@ -541,6 +510,7 @@ const PostBody = ({ model, startExpanded = true }) => {
       backgroundColor: '#0000',
       borderTop: 'solid 2px #4444',
     })
+    // eslint-disable-next-line no-use-before-define
     .withChildren(createPostComponents(model.components));
 
   // Start expanded?
@@ -558,8 +528,8 @@ const PostBody = ({ model, startExpanded = true }) => {
  *
  * @returns {HTMLElement}
  */
-const PostImage = ({ src },  opts) => {
-  const { noShadow } = opts || {};
+const PostImage = ({ component, noShadow }) => {
+  const { src } = component;
 
   const img = fabricate('img')
     .withStyles({
@@ -607,7 +577,7 @@ const PostHeader = ({ level, text }) => fabricate(`h${level}`)
 
 /**
  * PostParagraph component.
- * 
+ *
  * Note: uses withChildren() to work with embedded HTML fragments.
  *
  * @returns {HTMLElement}
@@ -635,51 +605,46 @@ const PostHtml = ({ html }) => fabricate('div').addChildren([html]);
  * @param {Object[]} components - List of models to convert.
  * @returns {Object[]} List of HTMLElements for display.
  */
-const createPostComponents = components =>
-  components.map((component) => {
-    switch (component.type) {
-      case 'image': return PostImage(component);
-      case 'image-no-shadow': return PostImage(component, { noShadow: true });
-      case 'header': return PostHeader(component);
-      case 'paragraph': return PostParagraph(component);
-      case 'html': return PostHtml(component);
-    }
-  });
+const createPostComponents = (components) => components.map((component) => {
+  switch (component.type) {
+    case 'image': return PostImage({ component });
+    case 'image-no-shadow': return PostImage({ component, noShadow: true });
+    case 'header': return PostHeader({ component });
+    case 'paragraph': return PostParagraph({ component });
+    case 'html': return PostHtml({ component });
+    default: throw new Error(`Unknown component type ${component.type}`);
+  }
+});
 
 /**
  * Post component.
- *
- * @returns {HTMLElement}
  */
-const Post = ({ model, startExpanded = true }) =>
-  Fader([
-    fabricate('div')
-      .asFlex('column')
-      .withStyles({
-        backgroundColor: 'white',
-        borderRadius: '5px',
-        overflow: 'hidden',
-        padding: fabricate.isMobile () ? '5px' : '15px',
-        margin: '25px 5px 5px 5px',
-        minWidth: fabricate.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
-        boxShadow: BOX_SHADOW_MATERIAL,
-      })
-      .withChildren([
-        PostTitle({ model, startExpanded }),
-        PostDateAndTags(model),
-        PostBody({ model, startExpanded }),
-      ]),
-  ]);
+fabricate.declare('Post', ({ model, startExpanded = true }) => Fader([
+  fabricate('div')
+    .asFlex('column')
+    .withStyles({
+      backgroundColor: 'white',
+      borderRadius: '5px',
+      overflow: 'hidden',
+      padding: fabricate.isMobile() ? '5px' : '15px',
+      margin: '25px 5px 5px 5px',
+      minWidth: fabricate.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
+      boxShadow: BOX_SHADOW_MATERIAL,
+    })
+    .withChildren([
+      PostTitle({ model, startExpanded }),
+      PostDateAndTags(model),
+      PostBody({ model, startExpanded }),
+    ]),
+]));
 
 /**
  * TagCloud component.
- *
- * @returns {HTMLElement}
  */
-const TagCloud = ({ tags }) => {
+fabricate.declare('TagCloud', ({ tags }) => {
   const postTagPills = tags
-    .sort((a, b) => window.tagIndex[a].length > window.tagIndex[b].length ? -1 : 1)
-    .map(tag => PostTagPill({ tag, quantity: window.tagIndex[tag].length }));
+    .sort((a, b) => (window.tagIndex[a].length > window.tagIndex[b].length ? -1 : 1))
+    .map((tag) => PostTagPill({ tag, quantity: window.tagIndex[tag].length }));
 
   const container = fabricate('div')
     .asFlex('row')
@@ -690,27 +655,4 @@ const TagCloud = ({ tags }) => {
     .withChildren(postTagPills);
 
   return container;
-};
-
-/**
- * Empty component.
- *
- * @returns {HTMLElement}
- */
-const Nothing = () => fabricate('div');
-
-window.Components = {
-  RootContainer,
-  SiteHeader,
-  SiteTitle,
-  SiteSocials,
-  ContentContainer,
-  LeftColumn,
-  LeftColumnHeader,
-  LeftColumnItem,
-  CentralColumn,
-  PostList,
-  Post,
-  TagCloud,
-  Nothing,
-};
+});

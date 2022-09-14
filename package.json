@@ -1,0 +1,42 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Time to roll my own. So long, WordPress!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c-d-lewis/blog.git"
+  },
+  "keywords": [],
+  "author": "Chris Lewis",
+  "bugs": {
+    "url": "https://github.com/c-d-lewis/blog/issues"
+  },
+  "homepage": "https://github.com/c-d-lewis/blog#readme",
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-airbnb-base",
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "no-multi-spaces": 0,
+      "global-require": 0,
+      "import/no-dynamic-require": 0,
+      "no-await-in-loop": 0,
+      "no-console": 0,
+      "no-alert": 0,
+      "no-param-reassign": [
+        "error",
+        { "props": false }
+      ]
+    },
+    "globals": {
+      "fabricate": "readonly",
+      "Colors": "readonly"
+    }
+  }
+}
