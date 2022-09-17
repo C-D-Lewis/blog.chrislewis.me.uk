@@ -12,6 +12,9 @@ echo "Using aws profile $AWS_PROFILE"
 # Build site, indexes, and feed
 ./pipeline/build-site.sh
 
+# Should be no changes in outputs
+./pipeline/check-git-status.sh
+
 # Update client code
 ./pipeline/push-client.sh $BUCKET
 
