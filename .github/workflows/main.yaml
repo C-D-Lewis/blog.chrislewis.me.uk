@@ -1,7 +1,7 @@
 name: build
 on: [push]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -10,4 +10,13 @@ jobs:
           node-version: '16'
       - run: npm ci
       - run: ./pipeline/build-site.sh
+      - run: ./pipeline/check-git-status.sh
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Push client
+        run: ./pipeline/push-client.sh
 
