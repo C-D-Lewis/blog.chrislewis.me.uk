@@ -15,8 +15,8 @@ echo "Using aws profile $AWS_PROFILE"
 # Update client code
 ./pipeline/push-client.sh
 
-# Deploy infrastructure
-./pipeline/deploy-infra.sh
+# Update infrastructure
+./pipeline/update-infra.sh
 
 # CloudFront invalidation
 ./pipeline/invalidation.sh

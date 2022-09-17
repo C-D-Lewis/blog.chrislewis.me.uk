@@ -1,5 +1,8 @@
 name: build
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -8,18 +11,37 @@ jobs:
       SITE_URL: blog.chrislewis.me.uk
     steps:
       - uses: actions/checkout@v3
+      
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: npm ci
-      - run: ./pipeline/build-site.sh
-      - run: ./pipeline/check-git-status.sh
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build assets
+        run: ./pipeline/build-site.sh
+      
+      - name: Check git status is clean
+        run: ./pipeline/check-git-status.sh
+      
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      
       - name: Push client
         run: ./pipeline/push-client.sh
 
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.2.9  # Must match version in terraform required_version
+
+      - name: Update infrastructure
+        run: ./pipeline/update-infra.sh
+
+      - name: Create invalidation
+        run: ./pipeline/invalidation.sh
