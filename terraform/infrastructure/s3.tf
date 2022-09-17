@@ -1,6 +1,5 @@
 resource "aws_s3_bucket" "client_bucket" {
   bucket        = var.domain_name
-  acl           = "public-read"
   force_destroy = true
 
   policy = <<EOF
@@ -17,8 +16,17 @@ resource "aws_s3_bucket" "client_bucket" {
   ]
 }
 EOF
+}
 
-  website {
-    index_document = "index.html"
+resource "aws_s3_bucket_acl" "bucket_acl" {
+  bucket = aws_s3_bucket.client_bucket.id
+  acl    = "public-read"
+}
+
+resource "aws_s3_bucket_website_configuration" "bucket_website" {
+  bucket = aws_s3_bucket.client_bucket.id
+
+  index_document {
+    suffix = "index.html"
   }
 }
