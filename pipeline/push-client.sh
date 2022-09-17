@@ -2,7 +2,7 @@
 
 set -eu
 
-BUCKET=$1
+BUCKET=s3://blog.chrislewis.me.uk
 COMMIT=$(git rev-parse --short HEAD)
 
 # Cancelling mid-push may cause template to not be replaced

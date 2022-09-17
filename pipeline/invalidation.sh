@@ -2,7 +2,7 @@
 
 set -eu
 
-SITE_URL=$1
+SITE_URL=blog.chrislewis.me.uk
 
 # Get CloudFront distribution ID
 CF_DIST_ID=$(aws cloudfront list-distributions | jq -r ".DistributionList.Items[] | select(.Aliases.Items[0] == \"$SITE_URL\") | .Id")
