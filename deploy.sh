@@ -9,14 +9,14 @@ export AWS_DEFAULT_REGION=us-east-1
 
 echo "Using aws profile $AWS_PROFILE"
 
-# Deploy infrastructure
-./pipeline/deploy-infra.sh
-
 # Build site, indexes, and feed
 ./pipeline/build-site.sh
 
 # Update client code
 ./pipeline/push-client.sh $BUCKET
+
+# Deploy infrastructure
+./pipeline/deploy-infra.sh
 
 # CloudFront invalidation
 ./pipeline/invalidation.sh $SITE_URL
