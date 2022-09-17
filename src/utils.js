@@ -35,3 +35,53 @@ Utils.descendingPostSort = (a, b) => {
  * Integer item sort in descending order.
  */
 Utils.integerItemSort = (a, b) => (parseInt(a, 10) > parseInt(b, 10) ? -1 : 1);
+
+/**
+ * Show the exist post linked.
+ *
+ * @param {string} fileName - Post fileName selected
+ */
+Utils.showSinglePost = async (fileName) => {
+  // Find the post with this fileName - TODO: use reduce()?
+  let post;
+  Object.entries(window.postHistory).forEach(([, yearData]) => {
+    Object.entries(yearData).forEach(([, posts]) => {
+      const found = posts.find((p) => p.fileName === fileName);
+      if (found) {
+        post = found;
+      }
+    });
+  });
+
+  if (!post) {
+    alert(`Linked post ${fileName} not found`);
+    return;
+  }
+
+  history.replaceState(null, null, `?post=${fileName}`);
+
+  const model = await fetch(post.file).then((res) => res.json());
+  fabricate.updateState('postListItems', [model]);
+};
+
+
+/**
+ * Show posts from a chosen tag.
+ *
+ * @param {string} tag - Tag selected.
+ */
+Utils.showPostsForTag = async (tag) => {
+  // Find the post with this tag
+  if (!window.tagIndex[tag]) {
+    alert(`Linked tag ${tag} not found`);
+    return;
+  }
+
+  history.replaceState(null, null, `?tag=${tag}`);
+
+  const promises = window.tagIndex[tag]
+    .sort(Utils.descendingDateSort)
+    .map((fileName) => fetch(`assets/rendered/${fileName}`).then((res) => res.json()));
+  const models = await Promise.all(promises);
+  fabricate.updateState('postListItems', models);
+};

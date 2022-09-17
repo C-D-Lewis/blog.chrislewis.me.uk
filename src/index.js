@@ -2,25 +2,14 @@
 /* global Utils */
 
 let leftColumn;
-let postList;
 
 /**
  * Update the posts for the archive location selected.
  *
  * @param {string} year - Year selected
  */
-const showPostsFrom = async (year) => {
+const showPostsFromYear = async (year) => {
   history.replaceState(null, null, `?year=${year}`);
-
-  // Update post list
-  postList.clear();
-  postList.addChildren([
-    fabricate('LeftColumnHeader', {
-      isTopSection: true,
-      isCenterSection: true,
-    })
-      .setText(`${year}`),
-  ]);
 
   // Fetch all posts and add to the postList component as Posts
   const yearPosts = Object.entries(window.postHistory[year])
@@ -29,80 +18,7 @@ const showPostsFrom = async (year) => {
     .sort(Utils.descendingPostSort)
     .map(({ file }) => fetch(file).then((res) => res.json()));
   const models = await Promise.all(promises);
-  postList.addChildren(
-    models.map((model) => fabricate('Post', { model, startExpanded: models.length === 1 })),
-  );
-
-  // Notify expanders
-  Events.post('selectionUpdated');
-};
-
-/**
- * Show the exist post linked.
- *
- * @param {string} fileName - Post fileName selected
- */
-const showSinglePost = async (fileName) => {
-  history.replaceState(null, null, `?post=${fileName}`);
-
-  // Find the post with this fileName - TODO: use reduce()?
-  let post;
-  Object.entries(window.postHistory).forEach(([, yearData]) => {
-    Object.entries(yearData).forEach(([, posts]) => {
-      const found = posts.find((p) => p.fileName === fileName);
-      if (found) {
-        post = found;
-      }
-    });
-  });
-
-  if (!post) {
-    alert(`Linked post ${fileName} not found`);
-    return;
-  }
-
-  const model = await fetch(post.file).then((res) => res.json());
-  postList.clear();
-  postList.addChildren([fabricate('Post', { model })]);
-
-  // Notify expanders
-  Events.post('selectionUpdated');
-};
-
-/**
- * Show posts from a chosen tag.
- *
- * @param {string} tag - Tag selected.
- */
-const showTagPosts = async (tag) => {
-  // Find the post with this tag
-  if (!window.tagIndex[tag]) {
-    alert(`Linked tag ${tag} not found`);
-    return;
-  }
-
-  history.replaceState(null, null, `?tag=${tag}`);
-
-  postList.clear();
-  postList.addChildren([
-    fabricate('LeftColumnHeader', {
-      isTopSection: true,
-      isCenterSection: true,
-    })
-      .setText(`Tag: ${tag} (${window.tagIndex[tag].length} posts)`),
-  ]);
-
-  const promises = window.tagIndex[tag]
-    .sort(Utils.descendingDateSort)
-    .map((fileName) => fetch(`assets/rendered/${fileName}`).then((res) => res.json()));
-  const models = await Promise.all(promises);
-  postList
-    .addChildren(
-      models.map((model) => fabricate('Post', { model, startExpanded: models.length === 1 })),
-    );
-
-  // Notify expanders
-  Events.post('selectionUpdated');
+  fabricate.updateState('postListItems', models);
 };
 
 /**
@@ -115,10 +31,12 @@ const initPostHistory = () => {
     .forEach(([year, yearData]) => {
       const yearPosts = Object.entries(yearData).reduce((acc, [, posts]) => [...acc, ...posts], []);
 
-      const yearSelected = Utils.getQueryParam('year') === year;
-      const yearLabel = fabricate('LeftColumnItem', { getIsSelected: () => yearSelected })
+      const yearLabel = fabricate('LeftColumnItem', { year })
         .setText(`${year} (${yearPosts.length})`)
-        .onClick(() => showPostsFrom(year));
+        .onClick(() => {
+          fabricate.updateState('selectedYear', year);
+          showPostsFromYear(year);
+        });
 
       leftColumn.addChildren([yearLabel]);
     });
@@ -131,21 +49,22 @@ const loadSelectionFromQuery = () => {
   // Does the URL contain a selection?
   const post = Utils.getQueryParam('post');
   if (post) {
-    showSinglePost(post);
+    Utils.showSinglePost(post);
     return;
   }
 
   // Or else a year page?
   let year = Utils.getQueryParam('year');
   if (year) {
-    showPostsFrom(year);
+    fabricate.updateState('selectedYear', year);
+    showPostsFromYear(year);
     return;
   }
 
   // Or a tag?
   const tag = Utils.getQueryParam('tag');
   if (tag) {
-    showTagPosts(tag);
+    showPostsForTag(tag);
     return;
   }
 
@@ -154,7 +73,7 @@ const loadSelectionFromQuery = () => {
   const [month] = Object.keys(window.postHistory[year]).sort(Utils.integerItemSort);
   const [latest] = window.postHistory[year][month]
     .sort((a, b) => (a.fileName > b.fileName ? -1 : 1));
-  showSinglePost(latest.fileName);
+  Utils.showSinglePost(latest.fileName);
 };
 
 /**
@@ -226,8 +145,7 @@ const App = () => {
   ]);
 
   // Post list in the middle
-  postList = fabricate('PostList');
-  centralColumn.addChildren([postList]);
+  centralColumn.addChildren([fabricate('PostList')]);
 
   return fabricate('RootContainer')
     .addChildren([
@@ -241,4 +159,8 @@ const App = () => {
     });
 };
 
-fabricate.app(App());
+const initialState = {
+  selectedYear: undefined,
+  postListItems: [],
+};
+fabricate.app(App(), initialState);

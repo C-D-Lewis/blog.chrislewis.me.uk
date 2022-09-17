@@ -171,30 +171,24 @@ fabricate.declare('LeftColumnHeader', ({
 /**
  * LeftColumnItem component.
  */
-fabricate.declare('LeftColumnItem', ({ getIsSelected } = {}) => {
-  const anchor = fabricate('a')
-    .withStyles({
-      color: '#ccc',
-      display: 'block',
-      fontFamily: 'sans-serif',
-      fontSize: '1.1rem',
-      margin: '5px 0px 0px 10px',
-      cursor: 'pointer',
-    })
-    .withAttributes({ target: '_blank' })
-    .onClick(() => goToTop());
-
-  Events.subscribe('selectionUpdated', () => {
-    const isSelected = getIsSelected ? getIsSelected() : false;
-
-    anchor.withStyles({
+fabricate.declare('LeftColumnItem', ({ year } = {}) => fabricate('a')
+  .withStyles({
+    color: '#ccc',
+    display: 'block',
+    fontFamily: 'sans-serif',
+    fontSize: '1.1rem',
+    margin: '5px 0px 0px 10px',
+    cursor: 'pointer',
+  })
+  .withAttributes({ target: '_blank' })
+  .onClick(() => goToTop())
+  .watchState((el, { selectedYear }) => {
+    const isSelected = selectedYear === year;
+    el.addStyles({
       color: isSelected ? Theme.syntax.function : '#ccc',
       fontWeight: isSelected ? 'bold' : 'initial',
     });
-  });
-
-  return anchor;
-});
+  }, ['selectedYear']));
 
 /**
  * CentralColumn component.
@@ -323,7 +317,13 @@ fabricate.declare('PostList', () => fabricate('div')
     maxWidth: fabricate.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
     margin: fabricate.isMobile() ? '0px 0px' : '0px 20px',
     padding: fabricate.isMobile() ? '0px 0px 40px 0px' : '0px 10px 40px 10px',
-  }));
+  })
+  .watchState((el, { postListItems }) => {
+    el.clear();
+    el.addChildren(
+      postListItems.map((model) => fabricate('Post', { model, startExpanded: postListItems.length === 1 })),
+    );
+  }, ['postListItems']));
 
 /**
  * PostTitle component.
@@ -333,8 +333,10 @@ fabricate.declare('PostList', () => fabricate('div')
 const PostTitle = ({ model, startExpanded = true }) => {
   const { title, fileName } = model;
 
+  const postExpanded = fabricate.manageState('PostTitle', `expanded:${fileName}`, false);
+
   let expanded = startExpanded;
-  const icon = fabricate('img')
+  const expandIcon = fabricate('img')
     .withStyles({
       width: '38px',
       height: '38px',
@@ -351,7 +353,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
       el.withStyles({ transform: expanded ? 'rotateZ(90deg)' : 'initial' });
 
       // Notify the body component
-      Events.post('postExpanded', { fileName, expanded });
+      postExpanded.set(expanded);
     });
 
   const linkAnchor = fabricate('span')
@@ -366,7 +368,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
     .setText('#')
     .onHover((el, hovering) => el.addStyles({ color: hovering ? '#444' : 'lightgrey' }))
     .onClick(() => {
-      window.showSinglePost(fileName.split('.')[0]);
+      Utils.showSinglePost(fileName.split('.')[0]);
       goToTop();
     });
 
@@ -386,7 +388,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
   const container = fabricate('div')
     .asFlex('row')
     .withStyles({ alignItems: 'center' })
-    .withChildren([icon, h1]);
+    .withChildren([expandIcon, h1]);
 
   return container;
 };
@@ -436,7 +438,7 @@ const PostTagPill = ({ tag, quantity }) => {
       }
     })
     .onClick(() => {
-      window.showTagPosts(tag);
+      Utils.showPostsForTag(tag);
       goToTop();
     });
 
@@ -497,6 +499,8 @@ const PostDateAndTags = ({ dateTime, tags }) => {
  * @returns {HTMLElement}
  */
 const PostBody = ({ model, startExpanded = true }) => {
+  const postExpanded = fabricate.manageState('PostTitle', `expanded:${model.fileName}`, false);
+
   const container = fabricate('div')
     .withStyles({
       display: startExpanded ? 'block' : 'none',
@@ -511,14 +515,10 @@ const PostBody = ({ model, startExpanded = true }) => {
       borderTop: 'solid 2px #4444',
     })
     // eslint-disable-next-line no-use-before-define
-    .withChildren(createPostComponents(model.components));
-
-  // Start expanded?
-  Events.subscribe('postExpanded', ({ fileName, expanded }) => {
-    if (fileName !== model.fileName) return;
-
-    container.withStyles({ display: expanded ? 'initial' : 'none' });
-  });
+    .withChildren(createPostComponents(model.components))
+    .watchState((el) => {
+      el.addStyles({ display: postExpanded.get() ? 'initial' : 'none' });
+    }, [postExpanded.key])
 
   return container;
 };
@@ -564,16 +564,20 @@ const PostImage = ({ component, noShadow }) => {
  *
  * @returns {HTMLElement}
  */
-const PostHeader = ({ level, text }) => fabricate(`h${level}`)
-  .withStyles({
-    color: 'black',
-    fontSize: '1.4rem',
-    marginTop: '10px',
-    marginBottom: '10px',
-    paddingTop: '45px',
-    borderTop: 'solid 1px #4444',
-  })
-  .setText(text);
+const PostHeader = ({ component}) => {
+  const { level, text } = component;
+  
+  return fabricate(`h${level}`)
+    .withStyles({
+      color: 'black',
+      fontSize: '1.4rem',
+      marginTop: '10px',
+      marginBottom: '10px',
+      paddingTop: '45px',
+      borderTop: 'solid 1px #4444',
+    })
+    .setText(text);
+};
 
 /**
  * PostParagraph component.
@@ -582,22 +586,30 @@ const PostHeader = ({ level, text }) => fabricate(`h${level}`)
  *
  * @returns {HTMLElement}
  */
-const PostParagraph = ({ text }) => fabricate('p')
-  .withStyles({
-    color: '#222',
-    fontSize: fabricate.isMobile() ? '1rem' : '1.05rem',
-    marginTop: '8px',
-    marginBottom: '8px',
-    lineHeight: '1.35',
-  })
-  .withChildren([text]);
+const PostParagraph = ({ component}) => {
+  const { text } = component;
+  
+  return fabricate('p')
+    .withStyles({
+      color: '#222',
+      fontSize: fabricate.isMobile() ? '1rem' : '1.05rem',
+      marginTop: '8px',
+      marginBottom: '8px',
+      lineHeight: '1.35',
+    })
+    .withChildren([text]);
+};
 
 /**
  * PostHtml component.
  *
  * @returns {HTMLElement}
  */
-const PostHtml = ({ html }) => fabricate('div').addChildren([html]);
+const PostHtml = ({ component }) => {
+  const { html } = component;
+
+  return fabricate('div').addChildren([html]);
+};
 
 /**
  * Generate the list of post components based on the model generated from Markdown.
