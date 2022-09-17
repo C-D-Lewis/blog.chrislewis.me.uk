@@ -32,13 +32,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       
-      - name: Push client
-        run: ./pipeline/push-client.sh
+      - name: Push assets
+        run: ./pipeline/push-assets.sh
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.2.9  # Must match version in terraform required_version
+          # Must match version in terraform required_version
+          terraform_version: 1.2.9
 
       - name: Update infrastructure
         run: ./pipeline/update-infra.sh

@@ -1,6 +1,6 @@
 Rendering Minecraft Worlds on AWS Fargate
 2021-01-31 13:31
-JavaScript,Integration,Java,AWS
+JavaScript,Integration,Java,AWS,Terraform
 ---
 
 ![](assets/media/2021/01/chunky-fargate-sample.png)

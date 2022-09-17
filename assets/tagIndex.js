@@ -288,7 +288,8 @@ window.tagIndex = {
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
     "2021-12-23-A-Christmas-MIDI-Medley.json",
-    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json"
+    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -355,7 +356,6 @@ window.tagIndex = {
     "2020-08-13-Blog-2-0.json",
     "2020-08-15-Block-World-Lives-On.json",
     "2020-08-22-Creating-a-Browser-based-Party-Game.json",
-    "2020-10-04-Deploying-With-Terraform.json",
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
@@ -385,7 +385,13 @@ window.tagIndex = {
     "2020-11-09-Mimicker-A-Simple-Twitter-Personality.json",
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
-    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json"
+    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
+  ],
+  "Terraform": [
+    "2020-10-04-Deploying-With-Terraform.json",
+    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
   ],
   "TypeScript": [
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json"

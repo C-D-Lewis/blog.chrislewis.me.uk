@@ -12,8 +12,8 @@ echo "Using aws profile $AWS_PROFILE"
 # Should be no changes in outputs
 ./pipeline/check-git-status.sh
 
-# Update client code
-./pipeline/push-client.sh
+# Update assets
+./pipeline/push-assets.sh
 
 # Update infrastructure
 ./pipeline/update-infra.sh

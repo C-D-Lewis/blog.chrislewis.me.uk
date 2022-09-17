@@ -1,4 +1,4 @@
-/* global Theme */
+/* global Theme Utils */
 
 /** Max width of content for desktop */
 const MAX_WIDTH_DESKTOP = '790px';
@@ -518,7 +518,7 @@ const PostBody = ({ model, startExpanded = true }) => {
     .withChildren(createPostComponents(model.components))
     .watchState((el) => {
       el.addStyles({ display: postExpanded.get() ? 'initial' : 'none' });
-    }, [postExpanded.key])
+    }, [postExpanded.key]);
 
   return container;
 };
@@ -564,9 +564,9 @@ const PostImage = ({ component, noShadow }) => {
  *
  * @returns {HTMLElement}
  */
-const PostHeader = ({ component}) => {
+const PostHeader = ({ component }) => {
   const { level, text } = component;
-  
+
   return fabricate(`h${level}`)
     .withStyles({
       color: 'black',
@@ -586,9 +586,9 @@ const PostHeader = ({ component}) => {
  *
  * @returns {HTMLElement}
  */
-const PostParagraph = ({ component}) => {
+const PostParagraph = ({ component }) => {
   const { text } = component;
-  
+
   return fabricate('p')
     .withStyles({
       color: '#222',

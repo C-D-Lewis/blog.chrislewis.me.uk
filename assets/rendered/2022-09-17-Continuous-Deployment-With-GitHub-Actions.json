@@ -1,0 +1,139 @@
+{
+  "fileName": "2022-09-17-Continuous-Deployment-With-GitHub-Actions.md",
+  "title": "Continuous Deployment With GitHub Actions",
+  "dateTime": "2022-09-17 16:42",
+  "tags": [
+    "Integration",
+    "AWS",
+    "Terraform"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Since replacing my old Wordpress blog in 2020 (one of many 'lockdown projects')\nI have been deploying this blog locally with the script below whenever I\ncompleted a new post, or fixed a bug, or updated the look and feel.\nThe details of each script referenced inside can be found in the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/blog\">repository</a>:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">#!/bin/bash</span>\n\nset -eu\n\nexport AWS_DEFAULT_REGION=us-east-1\n\necho <span class=\"_string\">\"Using aws profile $AWS_PROFILE\"</span>\n\n<span class=\"comment\"># Build site, indexes, and feed</span>\n./pipeline/build-site.sh\n\n<span class=\"comment\"># Should be no changes in outputs</span>\n./pipeline/check-git-status.sh\n\n<span class=\"comment\"># Update assets</span>\n./pipeline/push-assets.sh\n\n<span class=\"comment\"># Update infrastructure</span>\n./pipeline/update-infra.sh\n\n<span class=\"comment\"># CloudFront invalidation</span>\n./pipeline/invalidation.sh\n\necho <span class=\"_string\">\"Deployment complete\"</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The way each step is self-contained in its own shell script means the process\nis easy to test and each stage can be run individually if required."
+    },
+    {
+      "type": "paragraph",
+      "text": "The use of the AWS CLI to synchronise files with the distributed S3 bucket and\nTerraform to easily manage the infrastructure resources in AWS makes it easy\nto update the public site of the blog with a single command, and this makes it\na lot easier to begin writing a new post with the knowledge I won't have to\nsuffer to make it live for others to read."
+    },
+    {
+      "type": "paragraph",
+      "text": "However, I have on more than one occasion forgotten to run this deployment\nscript, and thought a new post was available when in fact it was not..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Being more professional"
+    },
+    {
+      "type": "paragraph",
+      "text": "While this process is suitable for such a 'side project', I do consider this\nblog to be one of my best projects to showcase technical skills (hence the use\nof AWS and Terraform) instead of something more self-managed like Netlify. This\nmeans that I should aim to make it a lot closer to what I would strive to\ndeliver as a software professional at work."
+    },
+    {
+      "type": "paragraph",
+      "text": "Indeed, all of the webapps we create and maintain also use S3, CloudFront, and\nTerraform to build and deploy, with as much automation as possible. We use\nCircleCI and Terraform Enterprise to implement the CI/CD (continuous integration\nand continuous delivery) workflow."
+    },
+    {
+      "type": "paragraph",
+      "text": "This approach focuses on allowing testing\nand deployment of work to production and pre-production environments as\nfrequently as practicible, ensuring latest changes are tested and delivered to\nthe world with minimal delay, instead of days or weeks between test runs and\nnew features delivered. Including tests (of good quality) in the CI pipeline\ngives us confidence we can deploy extremely frequently without fear of breaking\nthings."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Enter GitHub Actions"
+    },
+    {
+      "type": "paragraph",
+      "text": "While CircleCI makes it easy to automatically build, test, and deploy changes\nafter pushing GitHub commits, I've been aware of GitHub actions for some time,\nwhich is essentially the same - a build machine that runs in response to events\nwithin the project repository and allows automated deployment. But I've not used\nit up to now, and it's much more tightly integrated with GitHub and doesn't need\ntwo extra services (CircleCI and Terraform Cloud) to achieve the automated\ndeployment aim."
+    },
+    {
+      "type": "paragraph",
+      "text": "The idea of writing a new post and having it deployed automatically after\npushing the new commit is even more appealing that a single manual command, so\nI migrated the script to a GitHub action, with the help of the excellent and\ncomprehensive\n<a class=\"link\" target=\"_blank\" href=\"https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions\">syntax documentation</a>.\nThe use of self-contained pipeline stage scripts made this easy, as well as the\nexisting ecosystem of actions I could build upon, including easy setup of the\nAWS CLI and Terraform version required, including adding secrets natively right\nin GitHub itself."
+    },
+    {
+      "type": "paragraph",
+      "text": "The stages will look familiar to the script above. First of all, specifying\nwhen the pipeline should run:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> build</span>\n<span class=\"js-keyword\">on</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">  push</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">    branches</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n      - master\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Next, the list of jobs (only one is used in this workflow) and what kind of\nmachine to use including some environment variables used by the scripts:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">jobs</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">  build-and-deploy</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">    runs-on</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ubuntu-latest</span>\n<span class=\"js-keyword\">    env</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">      BUCKET</span><span class=\"comment_regular\">:</span><span class=\"_string\"> s3</span>\n<span class=\"js-keyword\">      SITE_URL</span><span class=\"comment_regular\">:</span><span class=\"_string\"> blog.chrislewis.me.uk</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "After that, the stages themselves, beginning with some setup stages. This is\nwhere the great ecosystem of existing actions I can reuse comes into play:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">steps</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">  - uses</span><span class=\"comment_regular\">:</span><span class=\"_string\"> actions/checkout@v3</span>\n  \n<span class=\"js-keyword\">  - uses</span><span class=\"comment_regular\">:</span><span class=\"_string\"> actions/setup-node@v3</span>\n<span class=\"js-keyword\">    with</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">      node-version</span><span class=\"comment_regular\">:</span><span class=\"_string\"> '16'</span>\n  \n<span class=\"js-keyword\">  - name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Install dependencies</span>\n<span class=\"js-keyword\">    run</span><span class=\"comment_regular\">:</span><span class=\"_string\"> npm ci</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Next, building the <code>posts</code> markdown files into JSON objects representing the components each post is rendered in. Because I expect no\nchanges in output after committing new post content, there's a check that after\na build the repository is still clean of uncommitted changes:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">- name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Build assets</span>\n<span class=\"js-keyword\">  run</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ./pipeline/build-site.sh</span>\n\n<span class=\"js-keyword\">- name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Check git status is clean</span>\n<span class=\"js-keyword\">  run</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ./pipeline/check-git-status.sh</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Once the posts are built (including the XML feed), we can set up the AWS CLI\nwith credentials from the GitHub Secrets feature, and push all the assets to\nthe S3 bucket that serves the blog itself:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">- name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Configure AWS Credentials</span>\n<span class=\"js-keyword\">  uses</span><span class=\"comment_regular\">:</span><span class=\"_string\"> aws-actions/configure-aws-credentials@v1</span>\n<span class=\"js-keyword\">  with</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">    aws-access-key-id</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ${{ secrets.AWS_ACCESS_KEY_ID }}</span>\n<span class=\"js-keyword\">    aws-secret-access-key</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ${{ secrets.AWS_SECRET_ACCESS_KEY }}</span>\n<span class=\"js-keyword\">    aws-region</span><span class=\"comment_regular\">:</span><span class=\"_string\"> us-east-1</span>\n\n<span class=\"js-keyword\">- name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Push assets</span>\n<span class=\"js-keyword\">  run</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ./pipeline/push-assets.sh</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Second from last, we run Terraform to ensure the infrastructure is up to date,\nand the correct settings are applied to the S3 bucket and CloudFront CDN\ndistribution:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">- name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Set up Terraform</span>\n<span class=\"js-keyword\">  uses</span><span class=\"comment_regular\">:</span><span class=\"_string\"> hashicorp/setup-terraform@v2</span>\n<span class=\"js-keyword\">  with</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"comment\">    # Must match version in terraform required_version</span>\n<span class=\"js-keyword\">    terraform_version</span><span class=\"comment_regular\">:</span><span class=\"_string\"> 1.2.9</span>\n\n<span class=\"js-keyword\">- name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Update infrastructure</span>\n<span class=\"js-keyword\">  run</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ./pipeline/update-infra.sh</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Finally, we invalidate the CloudFront distribution so that visitors immediately\nget the new version of the blog after a deployment, not just when their\nbrowser cache expires (which could get messy if only some files are updated but\ndepend on new versions of others that are not):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">- name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Create invalidation</span>\n<span class=\"js-keyword\">  run</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ./pipeline/invalidation.sh</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And we're done - all the way from commit to the world!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "See it in action"
+    },
+    {
+      "type": "paragraph",
+      "text": "So there we have it - quite quick and easy to assemble, and a lot of fun to\nwatch go after simply pushing a commit. You can even see it yourself with this\nvideo!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<br/>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/493bt2Zi1MY\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+    }
+  ]
+}

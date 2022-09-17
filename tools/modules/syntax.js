@@ -1,3 +1,5 @@
+/* eslint-disable brace-style */
+/* eslint-disable no-param-reassign */
 // Strings
 const STRING_DELIMITERS = ['"', '\'', '`'];
 
@@ -5,7 +7,7 @@ const STRING_DELIMITERS = ['"', '\'', '`'];
 const TERRAFORM_KEYWORDS = [
   'resource', 'var', 'origin ', 'launch_template ', 'website ', 'default_cache_behavior ',
   'forwarded_values ', 'cookies ', 'restrictions ', 'geo_restriction ', 'viewer_certificate ',
-  'alias '
+  'alias ',
 ];
 
 // JavaScript
@@ -46,10 +48,9 @@ const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void 
  * @param {string} line - Input line of code.
  * @returns {string} Formatted with classes.
  */
- const highlightStrings = (line) => {
+const highlightStrings = (line) => {
   STRING_DELIMITERS.forEach((d) => {
     const strings = [];
-
 
     // Gather stings
     // Note - a single quote inside double quoted string causes an infinite loop
@@ -87,7 +88,7 @@ const handlePythonDef = (line) => {
   argNames.forEach((arg, i) => {
     output += `<span class="python-orange">${arg}</span>`;
 
-    if (i != argNames.length - 1) {
+    if (i !== argNames.length - 1) {
       output += '<span class="js-syntax">,</span>';
     }
   });
@@ -118,11 +119,12 @@ const friendlyLangName = (language) => {
     dockerfile: 'Dockerfile',
     java: 'Java',
     html: 'HTML',
+    yaml: 'YAML',
   };
   if (!map[language]) throw new Error(`Unmappable language name: ${language}`);
 
   return map[language];
-}
+};
 
 /**
  * Replace key words with styled spans.
@@ -273,7 +275,7 @@ const toHighlightedLine = (line, language) => {
     line = highlightStrings(line);
 
     // Code comments
-    if (['//', '/**', '* ', '*/'].find(p => line.trim().startsWith(p))) {
+    if (['//', '/**', '* ', '*/'].find((p) => line.trim().startsWith(p))) {
       return `<span class="comment">${line}</span>`;
     }
 
@@ -288,8 +290,22 @@ const toHighlightedLine = (line, language) => {
     });
   }
 
+  // YAML
+  else if (['yaml', 'yml'].includes(language)) {
+    // Comments
+    if (['# '].find((p) => line.trim().startsWith(p))) {
+      return `<span class="comment">${line}</span>`;
+    }
+
+    if (line.includes(':')) {
+      // All lines are pink before : and yellow after
+      const [pinkStr, yellowStr] = line.split(':');
+      line = `<span class="js-keyword">${pinkStr}</span><span class="comment_regular">:</span><span class="_string">${yellowStr}</span>`;
+    }
+  }
+
   return line;
-}
+};
 
 /**
  * Replace key words with styled spans in a block of code.
@@ -298,12 +314,12 @@ const toHighlightedLine = (line, language) => {
  * @param {string} language - Language extracted from ```$LANGUAGE in block
  * @return {string} Code with keywords wrapped in styled spans.
  */
-const highlight = (block, language) => !language
+const highlight = (block, language) => (!language
   ? block
   : block
     .split('\n')
-    .map(line => toHighlightedLine(line, language))
-    .join('\n');
+    .map((line) => toHighlightedLine(line, language))
+    .join('\n'));
 
 /**
  * Join paragraphs that span a code section and apply highlighting
@@ -312,7 +328,7 @@ const highlight = (block, language) => !language
  * @returns {string[]} sections - Modified list of paragraph sections.
  */
 const highlightCodeParagraphs = (sections) => {
-  let resultSections = [];
+  const resultSections = [];
 
   // For each section
   let language;
@@ -352,9 +368,6 @@ ${highlight(snippetSections.join('\n\n'), language).trim()}
         isCodeBlock = false;
         language = null;
         snippetSections = [];
-
-        // Replace the end tag
-        section
       }
     }
   });

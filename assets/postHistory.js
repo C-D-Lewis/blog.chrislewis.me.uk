@@ -907,6 +907,13 @@ window.postHistory = {
         "file": "assets/rendered/2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
         "fileName": "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud"
       }
+    ],
+    "09": [
+      {
+        "title": "Continuous Deployment With GitHub Actions",
+        "file": "assets/rendered/2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
+        "fileName": "2022-09-17-Continuous-Deployment-With-GitHub-Actions"
+      }
     ]
   }
 }
