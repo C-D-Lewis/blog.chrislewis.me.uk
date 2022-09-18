@@ -299,7 +299,8 @@ const toHighlightedLine = (line, language) => {
 
     if (line.includes(':')) {
       // All lines are pink before : and yellow after
-      const [pinkStr, yellowStr] = line.split(':');
+      const [pinkStr, ...rest] = line.split(':');
+      const yellowStr = rest.join(':');
       line = `<span class="js-keyword">${pinkStr}</span><span class="comment_regular">:</span><span class="_string">${yellowStr}</span>`;
     }
   }

@@ -22,7 +22,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The use of the AWS CLI to synchronise files with the distributed S3 bucket and\nTerraform to easily manage the infrastructure resources in AWS makes it easy\nto update the public site of the blog with a single command, and this makes it\na lot easier to begin writing a new post with the knowledge I won't have to\nsuffer to make it live for others to read."
+      "text": "The use of the AWS CLI to synchronise files with the S3 bucket and of Terraform\nto easily manage the infrastructure resources in AWS makes it easy\nto update the public site of the blog with a single command, and this makes it\na lot easier to begin writing a new post with the knowledge I won't have to\nsuffer to make it live for others to read afterward."
     },
     {
       "type": "paragraph",
@@ -35,7 +35,7 @@
     },
     {
       "type": "paragraph",
-      "text": "While this process is suitable for such a 'side project', I do consider this\nblog to be one of my best projects to showcase technical skills (hence the use\nof AWS and Terraform) instead of something more self-managed like Netlify. This\nmeans that I should aim to make it a lot closer to what I would strive to\ndeliver as a software professional at work."
+      "text": "While this process is suitable for such a side project, I do consider this\nblog to be one of my best projects to showcase technical skills (hence the use\nof AWS and Terraform instead of something more self-managed like Netlify). This\nmeans that I should try to align it with how I would aim to deliver as a\nsoftware professional at work."
     },
     {
       "type": "paragraph",
@@ -43,7 +43,7 @@
     },
     {
       "type": "paragraph",
-      "text": "This approach focuses on allowing testing\nand deployment of work to production and pre-production environments as\nfrequently as practicible, ensuring latest changes are tested and delivered to\nthe world with minimal delay, instead of days or weeks between test runs and\nnew features delivered. Including tests (of good quality) in the CI pipeline\ngives us confidence we can deploy extremely frequently without fear of breaking\nthings."
+      "text": "This approach focuses on allowing testing and deployment of work to production\nand pre-production environments as frequently as practicible, ensuring latest\nchanges are tested and delivered to the world with minimal delay, instead of\ndays or weeks between test runs and new features delivered. Including tests\n(of good quality) in the CI pipeline gives us confidence we can deploy more\nfrequently without fear of breaking things."
     },
     {
       "type": "header",
@@ -56,7 +56,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The idea of writing a new post and having it deployed automatically after\npushing the new commit is even more appealing that a single manual command, so\nI migrated the script to a GitHub action, with the help of the excellent and\ncomprehensive\n<a class=\"link\" target=\"_blank\" href=\"https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions\">syntax documentation</a>.\nThe use of self-contained pipeline stage scripts made this easy, as well as the\nexisting ecosystem of actions I could build upon, including easy setup of the\nAWS CLI and Terraform version required, including adding secrets natively right\nin GitHub itself."
+      "text": "The idea of writing a new post and having it deployed automatically after\npushing the new commit is even more appealing that a single manual command, so\nI migrated the script to a GitHub action, with the help of the excellent and\ncomprehensive\n<a class=\"link\" target=\"_blank\" href=\"https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions\">syntax documentation</a>.\nThe use of self-contained pipeline stage scripts made this easy, as well as the\nexisting ecosystem of actions I could build upon, including easy setup of the\nAWS CLI and Terraform version required, and adding secrets natively right\nin GitHub itself."
     },
     {
       "type": "paragraph",
@@ -72,7 +72,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">jobs</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">  build-and-deploy</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">    runs-on</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ubuntu-latest</span>\n<span class=\"js-keyword\">    env</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">      BUCKET</span><span class=\"comment_regular\">:</span><span class=\"_string\"> s3</span>\n<span class=\"js-keyword\">      SITE_URL</span><span class=\"comment_regular\">:</span><span class=\"_string\"> blog.chrislewis.me.uk</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">jobs</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">  build-and-deploy</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">    runs-on</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ubuntu-latest</span>\n<span class=\"js-keyword\">    env</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">      BUCKET</span><span class=\"comment_regular\">:</span><span class=\"_string\"> s3://blog.chrislewis.me.uk</span>\n<span class=\"js-keyword\">      SITE_URL</span><span class=\"comment_regular\">:</span><span class=\"_string\"> blog.chrislewis.me.uk</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -84,7 +84,7 @@
     },
     {
       "type": "paragraph",
-      "text": "Next, building the <code>posts</code> markdown files into JSON objects representing the components each post is rendered in. Because I expect no\nchanges in output after committing new post content, there's a check that after\na build the repository is still clean of uncommitted changes:"
+      "text": "Next, building the <code>posts</code> markdown files into JSON objects\nrepresenting the components each post is rendered in. Because I expect no\nchanges in output after committing new post content, there's a check that after\na build the repository is still clean of uncommitted changes:"
     },
     {
       "type": "paragraph",
@@ -134,6 +134,10 @@
     {
       "type": "paragraph",
       "text": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/493bt2Zi1MY\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Is it as good as it could be? No - for example I don't have a complete set of\ntests, reducing the potential benefit from CI/CD. Perhaps an easy to use testing\npattern would be a good follow-up for improving\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/fabricate.js\">fabricate.js</a> though..."
     }
   ]
 }

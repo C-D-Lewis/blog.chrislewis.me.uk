@@ -39,35 +39,34 @@ echo "Deployment complete"
 The way each step is self-contained in its own shell script means the process
 is easy to test and each stage can be run individually if required.
 
-The use of the AWS CLI to synchronise files with the distributed S3 bucket and
-Terraform to easily manage the infrastructure resources in AWS makes it easy
+The use of the AWS CLI to synchronise files with the S3 bucket and of Terraform
+to easily manage the infrastructure resources in AWS makes it easy
 to update the public site of the blog with a single command, and this makes it
 a lot easier to begin writing a new post with the knowledge I won't have to
-suffer to make it live for others to read.
+suffer to make it live for others to read afterward.
 
 However, I have on more than one occasion forgotten to run this deployment
 script, and thought a new post was available when in fact it was not...
 
 ## Being more professional
 
-While this process is suitable for such a 'side project', I do consider this
+While this process is suitable for such a side project, I do consider this
 blog to be one of my best projects to showcase technical skills (hence the use
-of AWS and Terraform) instead of something more self-managed like Netlify. This
-means that I should aim to make it a lot closer to what I would strive to
-deliver as a software professional at work.
+of AWS and Terraform instead of something more self-managed like Netlify). This
+means that I should try to align it with how I would aim to deliver as a
+software professional at work.
 
 Indeed, all of the webapps we create and maintain also use S3, CloudFront, and
 Terraform to build and deploy, with as much automation as possible. We use
 CircleCI and Terraform Enterprise to implement the CI/CD (continuous integration
 and continuous delivery) workflow.
 
-This approach focuses on allowing testing
-and deployment of work to production and pre-production environments as
-frequently as practicible, ensuring latest changes are tested and delivered to
-the world with minimal delay, instead of days or weeks between test runs and
-new features delivered. Including tests (of good quality) in the CI pipeline
-gives us confidence we can deploy extremely frequently without fear of breaking
-things.
+This approach focuses on allowing testing and deployment of work to production
+and pre-production environments as frequently as practicible, ensuring latest
+changes are tested and delivered to the world with minimal delay, instead of
+days or weeks between test runs and new features delivered. Including tests
+(of good quality) in the CI pipeline gives us confidence we can deploy more
+frequently without fear of breaking things.
 
 ## Enter GitHub Actions
 
@@ -86,7 +85,7 @@ comprehensive
 [syntax documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions).
 The use of self-contained pipeline stage scripts made this easy, as well as the
 existing ecosystem of actions I could build upon, including easy setup of the
-AWS CLI and Terraform version required, including adding secrets natively right
+AWS CLI and Terraform version required, and adding secrets natively right
 in GitHub itself.
 
 The stages will look familiar to the script above. First of all, specifying
@@ -127,7 +126,8 @@ steps:
     run: npm ci
 ```
 
-Next, building the <code>posts</code> markdown files into JSON objects representing the components each post is rendered in. Because I expect no
+Next, building the <code>posts</code> markdown files into JSON objects
+representing the components each post is rendered in. Because I expect no
 changes in output after committing new post content, there's a check that after
 a build the repository is still clean of uncommitted changes:
 
@@ -191,3 +191,8 @@ video! Best viewed in fullscreen...
 <br/>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/493bt2Zi1MY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Is it as good as it could be? No - for example I don't have a complete set of
+tests, reducing the potential benefit from CI/CD. Perhaps an easy to use testing
+pattern would be a good follow-up for improving
+[fabricate.js](https://github.com/c-d-lewis/fabricate.js) though...

@@ -6,9 +6,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      BUCKET: s3://blog.chrislewis.me.uk
-      SITE_URL: blog.chrislewis.me.uk
     steps:
       - uses: actions/checkout@v3
       
