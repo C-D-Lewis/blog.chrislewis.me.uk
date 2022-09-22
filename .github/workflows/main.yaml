@@ -41,5 +41,8 @@ jobs:
       - name: Update infrastructure
         run: ./pipeline/update-infra.sh
 
-      - name: Create invalidation
+      - name: Invalidate distribution
         run: ./pipeline/invalidation.sh
+
+      - name: Verify deployment
+        run: ./pipeline/verify.sh
