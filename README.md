@@ -52,17 +52,27 @@ The chosen month or post is reflected in the query for permalinking.
 
 ## Deployment
 
-![](assets/infra.png)
-
 Currently deployed as a S3 website from bucket, with a CloudFront distribution
 serving HTTPS with a ACM certificate. The deployment is done with a combination
-of Terraform and AWS CLI. It can be syncronized and invalidated with an AWS IAM
-User with S3 and CloudFront permissions allowed:
+of Terraform and AWS CLI. 
+
+![](assets/infra.png)
+
+
+## Automated deployment
+
+The site is deployed by GitHub actions when a new commit is pushed to the
+`master` branch.
+
+## Manual deployment
+
+Alternatively, it can be syncronized and invalidated with an AWS IAM User with
+S3 and CloudFront permissions allowed:
 
 ```
 export AWS_PROFILE=...
 
-./deploy.sh
+./pipeline/deploy.sh
 ```
 
 You may need to first install the required `terraform` version:

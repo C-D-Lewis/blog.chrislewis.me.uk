@@ -14,3 +14,5 @@ INVALIDATION_ID=$(echo $RES | jq -r '.Invalidation.Id')
 # Wait for invalidation complete
 echo "Waiting for invalidation-completed for $INVALIDATION_ID..."
 aws cloudfront wait invalidation-completed --distribution-id $CF_DIST_ID --id $INVALIDATION_ID
+
+echo "Invalidation completed"
