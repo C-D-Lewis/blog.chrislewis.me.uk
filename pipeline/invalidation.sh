@@ -3,7 +3,6 @@
 set -eu
 
 SITE_URL=blog.chrislewis.me.uk
-COMMIT=$(git rev-parse --short HEAD)
 
 # Get CloudFront distribution ID
 CF_DIST_ID=$(aws cloudfront list-distributions | jq -r ".DistributionList.Items[] | select(.Aliases.Items[0] == \"$SITE_URL\") | .Id")

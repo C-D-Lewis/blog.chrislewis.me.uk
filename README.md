@@ -1,4 +1,4 @@
-# blog
+# blog.chrislewis.me.uk
 
 Time to roll my own. So long, WordPress!
 
