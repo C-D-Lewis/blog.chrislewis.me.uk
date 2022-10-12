@@ -1,5 +1,3 @@
-/* global Theme Utils */
-
 /** Max width of content for desktop */
 const MAX_WIDTH_DESKTOP = '790px';
 /** Max width of content for mobiles */
@@ -28,9 +26,8 @@ const goToTop = () => setTimeout(() => window.scrollTo({ top: 0, behavior: 'smoo
 /**
  * RootContainer component.
  */
-fabricate.declare('RootContainer', () => fabricate('div')
-  .asFlex('column')
-  .withStyles({
+fabricate.declare('RootContainer', () => fabricate('Column')
+  .setStyles({
     width: '100%',
     height: '100%',
     margin: 0,
@@ -44,22 +41,21 @@ fabricate.declare('RootContainer', () => fabricate('div')
  */
 const Fader = (children) => {
   const div = fabricate('div')
-    .withStyles({
+    .setStyles({
       opacity: 0,
       transition: '0.3s',
     })
-    .withChildren(children);
+    .setChildren(children);
 
-  setTimeout(() => div.withStyles({ opacity: 1 }), 100);
+  setTimeout(() => div.setStyles({ opacity: 1 }), 100);
   return div;
 };
 
 /**
  * SiteHeader component.
  */
-fabricate.declare('SiteHeader', () => fabricate('div')
-  .asFlex('row')
-  .withStyles({
+fabricate.declare('SiteHeader', () => fabricate('Row')
+  .setStyles({
     width: '100vw',
     minHeight: '80px',
     padding: 15,
@@ -76,10 +72,10 @@ fabricate.declare('SiteHeader', () => fabricate('div')
  * @returns {HTMLElement}
  */
 const SiteTitleWord = () => fabricate('h2')
-  .withStyles({
+  .setStyles({
     display: 'block',
     fontFamily: 'monospace',
-    fontSize: fabricate.isMobile() ? '1.1rem' : '1.4rem',
+    fontSize: fabricate.isNarrow() ? '1.1rem' : '1.4rem',
     marginLeft: '8px',
     marginTop: '0px',
     marginBottom: '0px',
@@ -93,32 +89,32 @@ fabricate.declare('SiteTitle', () => {
 
   const siteMainTitle = fabricate('div')
     .asFlex('row')
-    .withStyles({ marginLeft: '8px' })
-    .withChildren([
-      SiteTitleWord().setText('try').withStyles({ color: syntax.keyword }),
-      SiteTitleWord().setText('{').withStyles({ color: syntax.comment }),
-      SiteTitleWord().setText('work').withStyles({ color: syntax.function }),
-      SiteTitleWord().setText('();').withStyles({ color: syntax.comment, marginLeft: '0px' }),
-      SiteTitleWord().setText('}').withStyles({ color: syntax.comment }),
-      SiteTitleWord().setText('finally').withStyles({ color: syntax.keyword }),
-      SiteTitleWord().setText('{').withStyles({ color: syntax.comment }),
-      SiteTitleWord().setText('code').withStyles({ color: syntax.function }),
-      SiteTitleWord().setText('();').withStyles({ color: syntax.comment, marginLeft: '0px' }),
-      SiteTitleWord().setText('}').withStyles({ color: syntax.comment }),
+    .setStyles({ marginLeft: '8px' })
+    .setChildren([
+      SiteTitleWord().setText('try').setStyles({ color: syntax.keyword }),
+      SiteTitleWord().setText('{').setStyles({ color: syntax.comment }),
+      SiteTitleWord().setText('work').setStyles({ color: syntax.function }),
+      SiteTitleWord().setText('();').setStyles({ color: syntax.comment, marginLeft: '0px' }),
+      SiteTitleWord().setText('}').setStyles({ color: syntax.comment }),
+      SiteTitleWord().setText('finally').setStyles({ color: syntax.keyword }),
+      SiteTitleWord().setText('{').setStyles({ color: syntax.comment }),
+      SiteTitleWord().setText('code').setStyles({ color: syntax.function }),
+      SiteTitleWord().setText('();').setStyles({ color: syntax.comment, marginLeft: '0px' }),
+      SiteTitleWord().setText('}').setStyles({ color: syntax.comment }),
     ]);
 
   const siteTitleComment = SiteTitleWord()
     .setText('// A blog by Chris Lewis')
-    .withStyles({ color: syntax.comment, marginLeft: '18px' });
+    .setStyles({ color: syntax.comment, marginLeft: '18px' });
 
   const titleWrapper = fabricate('div')
     .asFlex('column')
-    .withStyles({ justifyContent: 'center', cursor: 'pointer' })
-    .withChildren([siteTitleComment, siteMainTitle])
+    .setStyles({ justifyContent: 'center', cursor: 'pointer' })
+    .setChildren([siteTitleComment, siteMainTitle])
     .onClick(() => {
       window.location.href = '/';
     })
-    .onHover((el, hovering) => el.addStyles({ filter: `brightness(${hovering ? '1.2' : '1'})` }));
+    .onHover((el, state, hovering) => el.setStyles({ filter: `brightness(${hovering ? '1.2' : '1'})` }));
 
   return titleWrapper;
 });
@@ -127,8 +123,8 @@ fabricate.declare('SiteTitle', () => {
  * ContentContainer component.
  */
 fabricate.declare('ContentContainer', () => fabricate('div')
-  .asFlex(fabricate.isMobile() ? 'column' : 'row')
-  .withStyles({
+  .asFlex(fabricate.isNarrow() ? 'column' : 'row')
+  .setStyles({
     flexWrap: 'wrap',
     width: '100%',
     margin: 0,
@@ -138,14 +134,13 @@ fabricate.declare('ContentContainer', () => fabricate('div')
 /**
  * LeftColumn component.
  */
-fabricate.declare('LeftColumn', () => fabricate('div')
-  .asFlex('column')
-  .withStyles({
+fabricate.declare('LeftColumn', () => fabricate('Column')
+  .setStyles({
     backgroundColor: Theme.leftColumnBackground,
-    flex: fabricate.isMobile() ? '1' : '0 0 265px',
-    maxWidth: fabricate.isMobile() ? '100%' : '280px',
+    flex: fabricate.isNarrow() ? '1' : '0 0 265px',
+    maxWidth: fabricate.isNarrow() ? '100%' : '280px',
     justifyContent: 'start',
-    padding: `${fabricate.isMobile() ? '15px' : '90px'} 15px 30px 15px`,
+    padding: `${fabricate.isNarrow() ? '15px' : '90px'} 15px 30px 15px`,
     borderRight: '1px solid #111',
   }));
 
@@ -156,7 +151,7 @@ fabricate.declare('LeftColumnHeader', ({
   isTopSection = false,
   isCenterSection = false,
 } = {}) => fabricate('span')
-  .withStyles({
+  .setStyles({
     display: 'block',
     color: 'white',
     fontFamily: 'sans-serif',
@@ -172,7 +167,7 @@ fabricate.declare('LeftColumnHeader', ({
  * LeftColumnItem component.
  */
 fabricate.declare('LeftColumnItem', ({ year } = {}) => fabricate('a')
-  .withStyles({
+  .setStyles({
     color: '#ccc',
     display: 'block',
     fontFamily: 'sans-serif',
@@ -180,11 +175,11 @@ fabricate.declare('LeftColumnItem', ({ year } = {}) => fabricate('a')
     margin: '5px 0px 0px 10px',
     cursor: 'pointer',
   })
-  .withAttributes({ target: '_blank' })
+  .setAttributes({ target: '_blank' })
   .onClick(() => goToTop())
-  .watchState((el, { selectedYear }) => {
+  .onUpdate((el, { selectedYear }) => {
     const isSelected = selectedYear === year;
-    el.addStyles({
+    el.setStyles({
       color: isSelected ? Theme.syntax.function : '#ccc',
       fontWeight: isSelected ? 'bold' : 'initial',
     });
@@ -194,17 +189,17 @@ fabricate.declare('LeftColumnItem', ({ year } = {}) => fabricate('a')
  * CentralColumn component.
  */
 fabricate.declare('CentralColumn', () => fabricate('div')
-  .asFlex(fabricate.isMobile() ? 'column' : 'row')
-  .withStyles({
+  .asFlex(fabricate.isNarrow() ? 'column' : 'row')
+  .setStyles({
     flex: '1',
-    minWidth: fabricate.isMobile() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
+    minWidth: fabricate.isNarrow() ? MAX_WIDTH_MOBILE : MAX_WIDTH_DESKTOP,
     maxWidth: '100vw',
-    paddingLeft: fabricate.isMobile() ? '0px' : '20px',
+    paddingLeft: fabricate.isNarrow() ? '0px' : '20px',
     paddingTop: '90px',
 
     // Center on page
-    position: fabricate.isMobile() ? 'initial' : 'absolute',
-    left: fabricate.isMobile() ? 'initial' : '25%',
+    position: fabricate.isNarrow() ? 'initial' : 'absolute',
+    left: fabricate.isNarrow() ? 'initial' : '25%',
     margin: 'auto',
   }));
 
@@ -217,15 +212,15 @@ const SocialPill = ({
   icon, text, backgroundColor, href, maxWidth,
 }) => {
   const img = fabricate('img')
-    .withStyles({
+    .setStyles({
       display: 'block',
       width: '24px',
       height: '24px',
     })
-    .withAttributes({ src: `./assets/icons/${icon}` });
+    .setAttributes({ src: `./assets/icons/${icon}` });
 
   const label = fabricate('span')
-    .withStyles({
+    .setStyles({
       color: 'white',
       fontFamily: 'sans-serif',
       paddingTop: '2px',
@@ -238,7 +233,7 @@ const SocialPill = ({
 
   const anchor = fabricate('a')
     .asFlex('row')
-    .withStyles({
+    .setStyles({
       padding: '5px 10px',
       width: '24px',
       borderRadius: '55px',
@@ -250,17 +245,17 @@ const SocialPill = ({
       transition: '0.3s',
       overflow: 'hidden',
     })
-    .withAttributes({
+    .setAttributes({
       href,
       target: '_blank',
     })
-    .withChildren([
+    .setChildren([
       img,
       label,
     ])
-    .onHover((el, hovering) => {
-      label.addStyles({ display: hovering ? 'initial' : 'none' });
-      el.addStyles({ width: hovering ? `${maxWidth}px` : '24px' });
+    .onHover((el, state, hovering) => {
+      label.setStyles({ display: hovering ? 'initial' : 'none' });
+      el.setStyles({ width: hovering ? `${maxWidth}px` : '24px' });
     });
 
   return anchor;
@@ -271,13 +266,13 @@ const SocialPill = ({
  */
 fabricate.declare('SiteSocials', () => fabricate('div')
   .asFlex('row')
-  .withStyles({
-    flex: fabricate.isMobile() ? 'initial' : '1',
+  .setStyles({
+    flex: fabricate.isNarrow() ? 'initial' : '1',
     marginRight: '20px',
-    justifyContent: fabricate.isMobile() ? 'center' : 'flex-end',
+    justifyContent: fabricate.isNarrow() ? 'center' : 'flex-end',
     alignItems: 'center',
   })
-  .withChildren([
+  .setChildren([
     SocialPill({
       icon: 'github.png',
       text: 'GitHub',
@@ -311,16 +306,14 @@ fabricate.declare('SiteSocials', () => fabricate('div')
 /**
  * PostList component.
  */
-fabricate.declare('PostList', () => fabricate('div')
-  .asFlex('column')
-  .withStyles({
-    maxWidth: fabricate.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
-    margin: fabricate.isMobile() ? '0px 0px' : '0px 20px',
-    padding: fabricate.isMobile() ? '0px 0px 40px 0px' : '0px 10px 40px 10px',
+fabricate.declare('PostList', () => fabricate('Column')
+  .setStyles({
+    maxWidth: fabricate.isNarrow() ? 'initial' : MAX_WIDTH_DESKTOP,
+    margin: fabricate.isNarrow() ? '0px 0px' : '0px 20px',
+    padding: fabricate.isNarrow() ? '0px 0px 40px 0px' : '0px 10px 40px 10px',
   })
-  .watchState((el, { postListItems }) => {
-    el.clear();
-    el.addChildren(
+  .onUpdate((el, { postListItems }) => {
+    el.setChildren(
       postListItems.map((model) => fabricate('Post', { model, startExpanded: postListItems.length === 1 })),
     );
   }, ['postListItems']));
@@ -333,11 +326,11 @@ fabricate.declare('PostList', () => fabricate('div')
 const PostTitle = ({ model, startExpanded = true }) => {
   const { title, fileName } = model;
 
-  const postExpanded = fabricate.manageState('PostTitle', `expanded:${fileName}`, false);
+  const postExpandedKey = Utils.postExpandedKey(fileName);
 
   let expanded = startExpanded;
   const expandIcon = fabricate('img')
-    .withStyles({
+    .setStyles({
       width: '38px',
       height: '38px',
       marginRight: '5px',
@@ -346,18 +339,18 @@ const PostTitle = ({ model, startExpanded = true }) => {
       transition: '0.4s',
       cursor: 'pointer',
     })
-    .withAttributes({ src: 'assets/icons/chevron-right.png' })
+    .setAttributes({ src: 'assets/icons/chevron-right.png' })
     .onClick((el) => {
       // Click to toggle expanded state
       expanded = !expanded;
-      el.withStyles({ transform: expanded ? 'rotateZ(90deg)' : 'initial' });
+      el.setStyles({ transform: expanded ? 'rotateZ(90deg)' : 'initial' });
 
       // Notify the body component
-      postExpanded.set(expanded);
+      fabricate.update(postExpandedKey, expanded);
     });
 
   const linkAnchor = fabricate('span')
-    .withStyles({
+    .setStyles({
       color: 'lightgrey',
       fontSize: '1.4rem',
       cursor: 'pointer',
@@ -366,29 +359,30 @@ const PostTitle = ({ model, startExpanded = true }) => {
       paddingTop: '6px',
     })
     .setText('#')
-    .onHover((el, hovering) => el.addStyles({ color: hovering ? '#444' : 'lightgrey' }))
+    .onHover((el, state, hovering) => el.setStyles({ color: hovering ? '#444' : 'lightgrey' }))
     .onClick(() => {
       Utils.showSinglePost(fileName.split('.')[0]);
       goToTop();
     });
 
   const h1 = fabricate('h1')
-    .withStyles({
+    .setStyles({
       color: 'black',
       fontFamily: 'sans-serif',
-      fontSize: fabricate.isMobile() ? '1.2rem' : '1.5rem',
+      fontSize: fabricate.isNarrow() ? '1.2rem' : '1.5rem',
       fontWeight: 'bold',
       marginTop: '10px',
       marginBottom: '5px',
       border: 'none',
       cursor: 'default',
     })
-    .withChildren([title, linkAnchor]);
+    .setText(title)
+    .addChildren([linkAnchor]);
 
   const container = fabricate('div')
     .asFlex('row')
-    .withStyles({ alignItems: 'center' })
-    .withChildren([expandIcon, h1]);
+    .setStyles({ alignItems: 'center' })
+    .setChildren([expandIcon, h1]);
 
   return container;
 };
@@ -400,15 +394,15 @@ const PostTitle = ({ model, startExpanded = true }) => {
  */
 const PostTagPill = ({ tag, quantity }) => {
   const img = fabricate('img')
-    .withStyles({
+    .setStyles({
       width: '16px',
       height: '16px',
     })
-    .withAttributes({ src: 'assets/icons/tag-outline.png' });
+    .setAttributes({ src: 'assets/icons/tag-outline.png' });
 
   const label = fabricate('div')
     .asFlex('column')
-    .withStyles({
+    .setStyles({
       color: 'white',
       fontFamily: 'sans-serif',
       fontSize: '0.8rem',
@@ -420,7 +414,7 @@ const PostTagPill = ({ tag, quantity }) => {
 
   const container = fabricate('div')
     .asFlex('row')
-    .withStyles({
+    .setStyles({
       alignItems: 'center',
       border: `solid 2px ${Theme.syntax.function}`,
       backgroundColor: quantity ? 'none' : Theme.syntax.function,
@@ -429,12 +423,12 @@ const PostTagPill = ({ tag, quantity }) => {
       padding: '4px 6px',
       margin: '2px',
     })
-    .withChildren([img, label])
-    .onHover((el, hovering) => {
+    .setChildren([img, label])
+    .onHover((el, state, hovering) => {
       if (quantity) {
-        el.addStyles({ background: hovering ? Theme.syntax.function : 'none' });
+        el.setStyles({ background: hovering ? Theme.syntax.function : 'none' });
       } else {
-        el.addStyles({ filter: hovering ? 'brightness(1.1)' : 'brightness(1)' });
+        el.setStyles({ filter: hovering ? 'brightness(1.1)' : 'brightness(1)' });
       }
     })
     .onClick(() => {
@@ -452,12 +446,12 @@ const PostTagPill = ({ tag, quantity }) => {
  */
 const PostTagsList = ({ tags }) => fabricate('div')
   .asFlex('row')
-  .withStyles({
-    marginLeft: fabricate.isMobile() ? '40px' : '10px',
-    marginTop: fabricate.isMobile() ? '10px' : 'initial',
+  .setStyles({
+    marginLeft: fabricate.isNarrow() ? '40px' : '10px',
+    marginTop: fabricate.isNarrow() ? '10px' : 'initial',
     flexWrap: 'wrap',
   })
-  .withChildren(tags.map((tag) => PostTagPill({ tag })));
+  .setChildren(tags.map((tag) => PostTagPill({ tag })));
 
 /**
  * PostDateAndTags component.
@@ -468,24 +462,24 @@ const PostDateAndTags = ({ dateTime, tags }) => {
   const [date] = dateTime.split(' ');
 
   const dateSpan = fabricate('span')
-    .withStyles({
+    .setStyles({
       color: '#777',
       fontFamily: 'sans-serif',
       fontSize: '1rem',
       marginLeft: '42px',
       cursor: 'default',
       paddingTop: '3px',
-      minWidth: fabricate.isMobile() ? '100px' : '140px',
+      minWidth: fabricate.isNarrow() ? '100px' : '140px',
     })
-    .setText(fabricate.isMobile() ? date : `Posted ${date}`);
+    .setText(fabricate.isNarrow() ? date : `Posted ${date}`);
 
   const container = fabricate('div')
-    .asFlex(fabricate.isMobile() ? 'column' : 'row')
-    .withStyles({
-      alignItems: fabricate.isMobile() ? 'start' : 'center',
+    .asFlex(fabricate.isNarrow() ? 'column' : 'row')
+    .setStyles({
+      alignItems: fabricate.isNarrow() ? 'start' : 'center',
       paddingBottom: '15px',
     })
-    .withChildren([
+    .setChildren([
       dateSpan,
       PostTagsList({ tags }),
     ]);
@@ -499,26 +493,26 @@ const PostDateAndTags = ({ dateTime, tags }) => {
  * @returns {HTMLElement}
  */
 const PostBody = ({ model, startExpanded = true }) => {
-  const postExpanded = fabricate.manageState('PostTitle', `expanded:${model.fileName}`, false);
+  const postExpandedKey = Utils.postExpandedKey(model.fileName);
 
   const container = fabricate('div')
-    .withStyles({
+    .setStyles({
       display: startExpanded ? 'block' : 'none',
       color: 'black',
       fontFamily: 'sans-serif',
       fontSize: '1rem',
-      marginLeft: fabricate.isMobile() ? '10px' : '39px',
-      marginRight: fabricate.isMobile() ? '5px' : '35px',
-      padding: fabricate.isMobile() ? '0px' : '5px',
+      marginLeft: fabricate.isNarrow() ? '10px' : '39px',
+      marginRight: fabricate.isNarrow() ? '5px' : '35px',
+      padding: fabricate.isNarrow() ? '0px' : '5px',
       paddingTop: '10px',
       backgroundColor: '#0000',
       borderTop: 'solid 2px #4444',
     })
     // eslint-disable-next-line no-use-before-define
-    .withChildren(createPostComponents(model.components))
-    .watchState((el) => {
-      el.addStyles({ display: postExpanded.get() ? 'initial' : 'none' });
-    }, [postExpanded.key]);
+    .setChildren(createPostComponents(model.components))
+    .onUpdate((el, state) => {
+      el.setStyles({ display: state[postExpandedKey] ? 'initial' : 'none' });
+    }, [postExpandedKey]);
 
   return container;
 };
@@ -532,7 +526,7 @@ const PostImage = ({ component, noShadow }) => {
   const { src } = component;
 
   const img = fabricate('img')
-    .withStyles({
+    .setStyles({
       maxWidth: '90%',
       height: 'auto',
       maxHeight: '600px',
@@ -547,14 +541,14 @@ const PostImage = ({ component, noShadow }) => {
 
   const container = fabricate('div')
     .asFlex('row')
-    .withStyles({
+    .setStyles({
       width: '100%',
       justifyContent: 'center',
       margin: '30px 0px',
       cursor: 'pointer',
     })
     .onClick(() => window.open(src, '_blank'))
-    .withChildren([img]);
+    .setChildren([img]);
 
   return container;
 };
@@ -568,7 +562,7 @@ const PostHeader = ({ component }) => {
   const { level, text } = component;
 
   return fabricate(`h${level}`)
-    .withStyles({
+    .setStyles({
       color: 'black',
       fontSize: '1.4rem',
       marginTop: '10px',
@@ -590,14 +584,14 @@ const PostParagraph = ({ component }) => {
   const { text } = component;
 
   return fabricate('p')
-    .withStyles({
+    .setStyles({
       color: '#222',
-      fontSize: fabricate.isMobile() ? '1rem' : '1.05rem',
+      fontSize: fabricate.isNarrow() ? '1rem' : '1.05rem',
       marginTop: '8px',
       marginBottom: '8px',
       lineHeight: '1.35',
     })
-    .withChildren([text]);
+    .setHtml(text);
 };
 
 /**
@@ -608,7 +602,7 @@ const PostParagraph = ({ component }) => {
 const PostHtml = ({ component }) => {
   const { html } = component;
 
-  return fabricate('div').addChildren([html]);
+  return fabricate('div').setHtml([html]);
 };
 
 /**
@@ -634,16 +628,16 @@ const createPostComponents = (components) => components.map((component) => {
 fabricate.declare('Post', ({ model, startExpanded = true }) => Fader([
   fabricate('div')
     .asFlex('column')
-    .withStyles({
+    .setStyles({
       backgroundColor: 'white',
       borderRadius: '5px',
       overflow: 'hidden',
-      padding: fabricate.isMobile() ? '5px' : '15px',
+      padding: fabricate.isNarrow() ? '5px' : '15px',
       margin: '25px 5px 5px 5px',
-      minWidth: fabricate.isMobile() ? 'initial' : MAX_WIDTH_DESKTOP,
+      minWidth: fabricate.isNarrow() ? 'initial' : MAX_WIDTH_DESKTOP,
       boxShadow: BOX_SHADOW_MATERIAL,
     })
-    .withChildren([
+    .setChildren([
       PostTitle({ model, startExpanded }),
       PostDateAndTags(model),
       PostBody({ model, startExpanded }),
@@ -660,11 +654,11 @@ fabricate.declare('TagCloud', ({ tags }) => {
 
   const container = fabricate('div')
     .asFlex('row')
-    .withStyles({
+    .setStyles({
       flexWrap: 'wrap',
       paddingTop: '10px',
     })
-    .withChildren(postTagPills);
+    .setChildren(postTagPills);
 
   return container;
 });

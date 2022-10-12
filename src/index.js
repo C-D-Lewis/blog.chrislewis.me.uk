@@ -1,6 +1,3 @@
-/* eslint-disable no-restricted-globals */
-/* global Utils */
-
 let leftColumn;
 
 /**
@@ -9,7 +6,7 @@ let leftColumn;
  * @param {string} year - Year selected
  */
 const showPostsFromYear = async (year) => {
-  history.replaceState(null, null, `?year=${year}`);
+  window.history.replaceState(null, null, `?year=${year}`);
 
   // Fetch all posts and add to the postList component as Posts
   const yearPosts = Object.entries(window.postHistory[year])
@@ -18,7 +15,7 @@ const showPostsFromYear = async (year) => {
     .sort(Utils.descendingPostSort)
     .map(({ file }) => fetch(file).then((res) => res.json()));
   const models = await Promise.all(promises);
-  fabricate.updateState('postListItems', models);
+  fabricate.update({ postListItems: models });
 };
 
 /**
@@ -34,7 +31,7 @@ const initPostHistory = () => {
       const yearLabel = fabricate('LeftColumnItem', { year })
         .setText(`${year} (${yearPosts.length})`)
         .onClick(() => {
-          fabricate.updateState('selectedYear', year);
+          fabricate.update({ selectedYear: year });
           showPostsFromYear(year);
         });
 
@@ -56,7 +53,7 @@ const loadSelectionFromQuery = () => {
   // Or else a year page?
   let year = Utils.getQueryParam('year');
   if (year) {
-    fabricate.updateState('selectedYear', year);
+    fabricate.update({ selectedYear: year });
     showPostsFromYear(year);
     return;
   }
@@ -64,7 +61,7 @@ const loadSelectionFromQuery = () => {
   // Or a tag?
   const tag = Utils.getQueryParam('tag');
   if (tag) {
-    showPostsForTag(tag);
+    Utils.showPostsForTag(tag);
     return;
   }
 
@@ -83,9 +80,9 @@ const loadSelectionFromQuery = () => {
  */
 const App = () => {
   const siteHeader = fabricate('SiteHeader')
-    .addChildren([
+    .setChildren([
       fabricate('SiteTitle'),
-      fabricate.isMobile() ? fabricate('div') : fabricate('SiteSocials'),
+      fabricate.isNarrow() ? fabricate('div') : fabricate('SiteSocials'),
     ]);
 
   const contentContainer = fabricate('ContentContainer');
@@ -93,12 +90,12 @@ const App = () => {
   leftColumn = fabricate('LeftColumn');
 
   // Left, then right for mobile to flex flow, else other way
-  contentContainer.addChildren(fabricate.isMobile()
+  contentContainer.addChildren(fabricate.isNarrow()
     ? [centralColumn, leftColumn]
     : [leftColumn, centralColumn]);
 
   // On mobile the socials go before the post
-  if (fabricate.isMobile()) centralColumn.addChildren([fabricate('SiteSocials')]);
+  if (fabricate.isNarrow()) centralColumn.addChildren([fabricate('SiteSocials')]);
 
   // Blog main sections
   const blogHeader = fabricate('LeftColumnHeader', { isTopSection: true }).setText('Blog');
@@ -153,7 +150,7 @@ const App = () => {
       contentContainer,
       leftColumn,
     ])
-    .then(() => {
+    .onCreate(() => {
       initPostHistory();
       loadSelectionFromQuery();
     });

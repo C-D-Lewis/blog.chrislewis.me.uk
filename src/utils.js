@@ -58,12 +58,11 @@ Utils.showSinglePost = async (fileName) => {
     return;
   }
 
-  history.replaceState(null, null, `?post=${fileName}`);
+  window.history.replaceState(null, null, `?post=${fileName}`);
 
   const model = await fetch(post.file).then((res) => res.json());
-  fabricate.updateState('postListItems', [model]);
+  fabricate.update({ postListItems: [model] });
 };
-
 
 /**
  * Show posts from a chosen tag.
@@ -77,11 +76,19 @@ Utils.showPostsForTag = async (tag) => {
     return;
   }
 
-  history.replaceState(null, null, `?tag=${tag}`);
+  window.history.replaceState(null, null, `?tag=${tag}`);
 
   const promises = window.tagIndex[tag]
     .sort(Utils.descendingDateSort)
     .map((fileName) => fetch(`assets/rendered/${fileName}`).then((res) => res.json()));
   const models = await Promise.all(promises);
-  fabricate.updateState('postListItems', models);
+  fabricate.update({ postListItems: models });
 };
+
+/**
+ * Key for fileName expanded states.
+ *
+ * @param {string} fileName - File name of the post.
+ * @returns {string} State key.
+ */
+Utils.postExpandedKey = (fileName) => `expanded:${fileName}`;
