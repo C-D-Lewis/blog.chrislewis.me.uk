@@ -143,11 +143,11 @@ const setupClient = async ({ onCommand, onMessage }) => new Promise((resolve) =>
 });
 ```
 
-The implementation of `setupClient` abstracts out a callback for when a command
-or message mentioning the bot (and importantly isn't the bot itself - that was
-a messy event) is received, allowing application logic to be easily built upon
-that. For example, a separate handler file for each unique command addressable
-with a map:
+The implementation of <code>setupClient</code> abstracts out a callback for when
+a command or message mentioning the bot (and importantly isn't the bot
+itself - that was a messy event) is received, allowing application logic to be
+easily built upon that. For example, a separate handler file for each unique
+command addressable with a map:
 
 ```js
 const handleRoll = require('../commands/roll');
@@ -217,7 +217,8 @@ user instead of spamming the channel for all users.
 ## Auto reactions
 
 When a message is received, the bot has the ability to add emoji reactions to it
-which are part of the configuration file:
+which are part of the configuration file. As you can see, both built-in and
+custom emojis are supported, once you find out the custom emoji's ID:
 
 ```js
 {
@@ -257,6 +258,9 @@ player state and events into an easier to use <code>VoiceAgent</code> object,
 which is instantiated on a per-channel (or 'guild') basis:
 
 ```js
+// Cache agents for each server
+const voiceAgents = {};
+
 /**
  * Prepare the voice agent.
  *
@@ -410,3 +414,24 @@ There is also functionality for
 instructing Norren to leave or rejoin the user's voice channel, or leave
 immediately after playing a sound, which can lead to some quite comedic moments
 when timing is good.
+
+<video
+  src="assets/media/2022/10/norren-scum.mp4"
+  controls="controls"
+  width="50%">
+
+The usual way of using audio is to ask Norren to join with <code>/join</code>
+and leave when we're done with him with <code>/leave</code>. It's nice to be
+able to quickly react with the soundboard sounds before the timing is lost,
+though usually that doesn't stop me... Plus the lack of constant join/leave
+sound effects from Discord doesn't confuse us with when real people join or
+leave, saving some awkward moments as well.
+
+## Conclusion
+
+Another lengthy post, but I felt it was important to show a lot of the relevant
+code, especially in places where I solved some of the pain points of building
+the bot - things like abstracting away complexity and allowing modular scaling
+of the app and working with multiple servers. Keen-eyed readers will have
+already spotted the link to the source code, so feel free to copy, tweak, or
+just learn how to do this yourself - it's a lot of fun!
