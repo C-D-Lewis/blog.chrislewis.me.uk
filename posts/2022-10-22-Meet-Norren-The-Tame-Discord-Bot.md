@@ -418,7 +418,7 @@ when timing is good.
 <video
   src="assets/media/2022/10/norren-scum.mp4"
   controls="controls"
-  width="50%">
+  style="max-width: 70%;">
 
 The usual way of using audio is to ask Norren to join with <code>/join</code>
 and leave when we're done with him with <code>/leave</code>. It's nice to be

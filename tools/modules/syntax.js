@@ -18,7 +18,7 @@ const JAVASCRIPT_KEYWORDS = [
   'catch ', ' = ', ' => ', '!==', '===', 'export ', ' ? ', ' : ', ' + ', ' - ', ' / ', '!',
 ];
 const JAVASCRIPT_BLUEWORDS = [
-  'const', 'let', ' Object', 'exports', 'function', 'console', 'window', 'process', 'var ',
+  'const ', 'let ', ' Object', 'exports', 'function', 'console', 'window', 'process', 'var ',
 ];
 
 // Dockerfile

@@ -369,7 +369,7 @@ const PostTitle = ({ model, startExpanded = true }) => {
     .setStyles({
       color: 'black',
       fontFamily: 'sans-serif',
-      fontSize: fabricate.isNarrow() ? '1.2rem' : '1.5rem',
+      fontSize: fabricate.isNarrow() ? '1.1rem' : '1.5rem',
       fontWeight: 'bold',
       marginTop: '10px',
       marginBottom: '5px',
