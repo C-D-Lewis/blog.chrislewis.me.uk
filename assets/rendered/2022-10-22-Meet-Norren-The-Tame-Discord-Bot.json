@@ -1,0 +1,72 @@
+{
+  "fileName": "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.md",
+  "title": "Meet Norren: The Tame Discord Bot",
+  "dateTime": "2022-10-22 09:42",
+  "tags": [
+    "JavaScript",
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "An idea I've had for a long time, but never found a practical use-case for is\ncreating a Discord bot. I see them all the time, sometimes performing useful\nfeatures or management for a Discord server, or just for amusement. After\nrecently adding some more novelty sounds to a soundboard webapp for my regular\ngaming group, we organically arrived at the idea of converting the soundboard\ninto a bot - and other gaming related ideas also quickly arrived soon\nafterwards."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Meet Norren"
+    },
+    {
+      "type": "paragraph",
+      "text": "After a couple of evenings trial-and-error with <code>discordjs</code> and its\npretty decent <a class=\"link\" target=\"_blank\" href=\"https://discordjs.guide/#before-you-begin\">documentation</a> (a\nrare example of example-based documentation that we need more of as a species)\nI produced a rudimentary bot. I named it Norren after a helpful guiding\ncharacter my brother thought up during our DnD campaign a couple of years ago."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/10/norren-bot.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, what can he do? As of writing, several things relating to playing novelty\nsounds and music, but also a few other useful functions for the server and\nwhile gaming. The <code>/help</code> command shows all the possibilities:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/10/norren-help.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Architecture"
+    },
+    {
+      "type": "paragraph",
+      "text": "The first thing to note is that Discord's API has a notion of these commands\nas RESTful resources - meaning you can declare what they are so users can view\nand choose from them even while the bot is offline. The library makes the\nprocess of creating these easy:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const</span> <span class=\"js-syntax\">{</span> REST<span class=\"js-syntax\">,</span> SlashCommandBuilder<span class=\"js-syntax\">,</span> Routes <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>require<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>discord.js<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-blueword\">const</span> <span class=\"js-syntax\">{</span> clientId<span class=\"js-syntax\">,</span> token <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>require<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>../config.json<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const</span> <span class=\"js-syntax\">[</span>SERVER_ID<span class=\"js-syntax\">]</span><span class=\"js-keyword\"> = </span><span class=\"js-blueword\">process</span>.argv.slice<span class=\"js-syntax\">(</span>2<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const</span> commands<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">[</span>\n  <span class=\"js-keyword\">new </span>SlashCommandBuilder<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n   <span class=\"js-syntax\"> .</span>setName<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>roll<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n   <span class=\"js-syntax\"> .</span>setDescription<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Roll a d<n> die<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n   <span class=\"js-syntax\"> .</span>addNumberOption<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>option<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>option.setName<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>d<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n     <span class=\"js-syntax\"> .</span>setDescription<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>The die maximum value<span class=\"js-syntax\">,</span> such as d20<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n     <span class=\"js-syntax\"> .</span>setRequired<span class=\"js-syntax\">(</span>true<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n\n<span class=\"comment\">  // Other command omitted for brevity</span>\n<span class=\"js-syntax\">]</span>\n <span class=\"js-syntax\"> .</span>map<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>command<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>command.toJSON<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const</span> rest<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">new </span>REST<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> version<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>10<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>.setToken<span class=\"js-syntax\">(</span>token<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\nrest.put<span class=\"js-syntax\">(</span>Routes.applicationGuildCommands<span class=\"js-syntax\">(</span>clientId<span class=\"js-syntax\">,</span> SERVER_ID<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span> body<span class=\"js-syntax\">: </span>commands <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>then<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>data<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span><span class=\"_string\">`Successfully registered $<span class=\"js-syntax\">{</span>data.length<span class=\"js-syntax\">}</span> application commands.`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>catch<span class=\"js-syntax\">(</span><span class=\"js-blueword\">console</span>.error<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The fact that these slash commands are registered on a per-server basis means\nwhen they are updated you must run the above for each server - but a quick bit\nof scripting takes care of that."
+    },
+    {
+      "type": "paragraph",
+      "text": "When a user wants to see how to use the <code>/roll</code> command as an\nexample, the Discord client can show them the format and arguments:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/10/norren-roll.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "architecture"
+    },
+    {
+      "type": "paragraph",
+      "text": "examples"
+    }
+  ]
+}

@@ -320,7 +320,8 @@ window.tagIndex = {
     "2021-12-23-A-Christmas-MIDI-Medley.json",
     "2022-04-15-Yet-Another-CLI-For-node-microservices.json",
     "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
-    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json"
+    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
+    "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -364,7 +365,8 @@ window.tagIndex = {
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
     "2022-04-15-Yet-Another-CLI-For-node-microservices.json",
     "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
-    "2022-05-30-New-Fitbit-Clock-Deep-Rock.json"
+    "2022-05-30-New-Fitbit-Clock-Deep-Rock.json",
+    "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json"
   ],
   "Fitbit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",

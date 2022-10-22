@@ -882,6 +882,13 @@ window.postHistory = {
     ]
   },
   "2022": {
+    "10": [
+      {
+        "title": "Meet Norren: The Tame Discord Bot",
+        "file": "assets/rendered/2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json",
+        "fileName": "2022-10-22-Meet-Norren-The-Tame-Discord-Bot"
+      }
+    ],
     "04": [
       {
         "title": "Yet Another CLI: for node-microservices",
