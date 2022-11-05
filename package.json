@@ -13,30 +13,13 @@
   },
   "homepage": "https://github.com/c-d-lewis/blog#readme",
   "devDependencies": {
-    "eslint": "^8.23.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
+    "@chris-lewis/eslint-config": "^1.0.2",
     "feed-validator": "^1.1.1",
     "slugify": "^1.4.0",
     "xml2js": "^0.4.23"
   },
   "eslintConfig": {
-    "extends": "eslint-config-airbnb-base",
-    "env": {
-      "browser": true
-    },
-    "rules": {
-      "no-multi-spaces": 0,
-      "global-require": 0,
-      "import/no-dynamic-require": 0,
-      "no-await-in-loop": 0,
-      "no-console": 0,
-      "no-alert": 0,
-      "no-param-reassign": [
-        "error",
-        { "props": false }
-      ]
-    },
+    "extends": "@chris-lewis/eslint-config",
     "globals": {
       "fabricate": "readonly",
       "Colors": "readonly",

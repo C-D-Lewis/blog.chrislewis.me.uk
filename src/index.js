@@ -76,7 +76,7 @@ const loadSelectionFromQuery = () => {
 /**
  * Main App component.
  *
- * @returns {HTMLElement}
+ * @returns {HTMLElement} The App component.
  */
 const App = () => {
   const siteHeader = fabricate('SiteHeader')
