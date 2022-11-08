@@ -884,6 +884,11 @@ window.postHistory = {
   "2022": {
     "10": [
       {
+        "title": "Gaming Discord Bot",
+        "file": "assets/rendered/2022-10-19-Gaming-Discord-Bot.json",
+        "fileName": "2022-10-19-Gaming-Discord-Bot"
+      },
+      {
         "title": "Meet Norren: The Tame Discord Bot",
         "file": "assets/rendered/2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json",
         "fileName": "2022-10-22-Meet-Norren-The-Tame-Discord-Bot"

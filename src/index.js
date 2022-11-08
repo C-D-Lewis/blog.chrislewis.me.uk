@@ -40,33 +40,41 @@ const initPostHistory = () => {
 };
 
 /**
- * Load the posts to display, if the query specifies a year or post slug.
+ * Translate query selection to path selection.
  */
-const loadSelectionFromQuery = () => {
-  // Does the URL contain a selection?
+const redirectQuerySelection = () => {
   const post = Utils.getQueryParam('post');
   if (post) {
-    Utils.showSinglePost(post);
+    window.location.pathname = `/post/${post}`;
+  }
+};
+
+/**
+ * Load the posts to display, if the path specifies a year, post, or tag.
+ */
+const loadSelectionFromPath = () => {
+  // All path segments after domain
+  const segments = window.location.href.split('/').slice(3);
+  const [key, value] = segments;
+
+  if (key === 'post') {
+    Utils.showSinglePost(value);
     return;
   }
 
-  // Or else a year page?
-  let year = Utils.getQueryParam('year');
-  if (year) {
-    fabricate.update({ selectedYear: year });
-    showPostsFromYear(year);
+  if (key === 'year') {
+    fabricate.update({ selectedYear: value });
+    showPostsFromYear(value);
     return;
   }
 
-  // Or a tag?
-  const tag = Utils.getQueryParam('tag');
-  if (tag) {
-    Utils.showPostsForTag(tag);
+  if (key === 'tag') {
+    Utils.showPostsForTag(value);
     return;
   }
 
   // Auto load most recent post
-  [year] = Object.keys(window.postHistory).sort(Utils.integerItemSort);
+  const [year] = Object.keys(window.postHistory).sort(Utils.integerItemSort);
   const [month] = Object.keys(window.postHistory[year]).sort(Utils.integerItemSort);
   const [latest] = window.postHistory[year][month]
     .sort((a, b) => (a.fileName > b.fileName ? -1 : 1));
@@ -127,6 +135,7 @@ const App = () => {
     blogHeader,
     recentItem,
     repoItem,
+    // TODO: About page
 
     otherHeader,
     fitbitItem,
@@ -152,7 +161,14 @@ const App = () => {
     ])
     .onCreate(() => {
       initPostHistory();
-      loadSelectionFromQuery();
+
+      // Handle legacy links
+      if (Utils.isUsingQuerySelection()) {
+        redirectQuerySelection();
+        return;
+      }
+
+      loadSelectionFromPath();
     });
 };
 

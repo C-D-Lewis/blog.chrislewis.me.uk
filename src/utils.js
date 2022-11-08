@@ -2,6 +2,9 @@ const Utils = {};
 
 /**
  * Get a query param value.
+ *
+ * @param {string} name - Parameter name.
+ * @returns {*} Value if found.
  */
 Utils.getQueryParam = (name) => new URLSearchParams(window.location.search).get(name);
 
@@ -92,3 +95,10 @@ Utils.showPostsForTag = async (tag) => {
  * @returns {string} State key.
  */
 Utils.postExpandedKey = (fileName) => `expanded:${fileName}`;
+
+/**
+ * Detect if link the user used used query instead of more modern path
+ *
+ * @returns {boolean} true if the selection appears to use the query.
+ */
+Utils.isUsingQuerySelection = () => Utils.getQueryParam('post') || Utils.getQueryParam('year') || Utils.getQueryParam('tag');

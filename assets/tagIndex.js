@@ -289,7 +289,8 @@ window.tagIndex = {
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
     "2021-12-23-A-Christmas-MIDI-Medley.json",
     "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
-    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
+    "2022-10-19-Gaming-Discord-Bot.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -388,12 +389,14 @@ window.tagIndex = {
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
     "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
-    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
+    "2022-10-19-Gaming-Discord-Bot.json"
   ],
   "Terraform": [
     "2020-10-04-Deploying-With-Terraform.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
-    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
+    "2022-10-19-Gaming-Discord-Bot.json"
   ],
   "TypeScript": [
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json"
