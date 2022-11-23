@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git+https://github.com/c-d-lewis/blog.git"
   },
+  "scripts": {
+    "build": "./pipeline/build-site.sh",
+    "start": "npm run build && http-server"
+  },
   "keywords": [],
   "author": "Chris Lewis",
   "bugs": {
@@ -15,6 +19,7 @@
   "devDependencies": {
     "@chris-lewis/eslint-config": "^1.0.2",
     "feed-validator": "^1.1.1",
+    "http-server": "^14.1.1",
     "slugify": "^1.4.0",
     "xml2js": "^0.4.23"
   },
