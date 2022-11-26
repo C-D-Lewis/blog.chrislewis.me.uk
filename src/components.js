@@ -697,7 +697,6 @@ fabricate.declare('TagCloud', ({ tags }) => {
  */
 fabricate.declare('Footer', () => fabricate('Row')
   .setStyles({
-    width: '100vw',
     backgroundColor: '#111',
     justifyContent: 'center',
     padding: '15px',
