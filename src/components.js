@@ -9,6 +9,7 @@ const BOX_SHADOW_MATERIAL = '2px 2px 3px 1px #0009';
 const imgObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.intersectionRatio > 0) {
+      // eslint-disable-next-line no-param-reassign
       entry.target.src = entry.target.dataset.src;
       imgObserver.unobserve(entry.target);
     }
@@ -20,6 +21,8 @@ const imgObserver = new IntersectionObserver((entries) => {
 
 /**
  * Smooth scroll to top of page.
+ *
+ * @returns {void}
  */
 const goToTop = () => setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
 
@@ -37,14 +40,12 @@ fabricate.declare('RootContainer', () => fabricate('Column')
 /**
  * Fader component.
  *
- * @returns {HTMLElement}
+ * @param {Array<HTMLElement>} children - Children to fade in.
+ * @returns {HTMLElement} Fabricate component.
  */
 const Fader = (children) => {
   const div = fabricate('div')
-    .setStyles({
-      opacity: 0,
-      transition: '0.3s',
-    })
+    .setStyles({ opacity: 0, transition: '0.3s' })
     .setChildren(children);
 
   setTimeout(() => div.setStyles({ opacity: 1 }), 100);
@@ -69,7 +70,7 @@ fabricate.declare('SiteHeader', () => fabricate('Row')
 /**
  * SiteTitleWord component.
  *
- * @returns {HTMLElement}
+ * @returns {HTMLElement} Fabricate component.
  */
 const SiteTitleWord = () => fabricate('h2')
   .setStyles({
@@ -197,16 +198,23 @@ fabricate.declare('CentralColumn', () => fabricate('div')
     paddingLeft: fabricate.isNarrow() ? '0px' : '20px',
     paddingTop: '90px',
 
-    // Center on page
-    position: fabricate.isNarrow() ? 'initial' : 'absolute',
-    left: fabricate.isNarrow() ? 'initial' : '25%',
+    // Center on page (breaks flow with Footer)
+    // position: fabricate.isNarrow() ? 'initial' : 'absolute',
+    // left: fabricate.isNarrow() ? 'initial' : '25%',
     margin: 'auto',
   }));
 
 /**
  * SocialPill component.
  *
- * @returns {HTMLElement}
+ *
+ * @param {object} props - Component props.
+ * @param {string} props.icon - Icon name
+ * @param {string} props.text - Text
+ * @param {string} props.backgroundColor - Background color
+ * @param {string} props.href - Link ref
+ * @param {number} props.maxWidth - Max width
+ * @returns {HTMLElement} Fabricate component.
  */
 const SocialPill = ({
   icon, text, backgroundColor, href, maxWidth,
@@ -321,7 +329,10 @@ fabricate.declare('PostList', () => fabricate('Column')
 /**
  * PostTitle component.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {object} props.model - Post model.
+ * @param {boolean} props.startExpanded - Start with post expended.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostTitle = ({ model, startExpanded = true }) => {
   const { title, fileName } = model;
@@ -390,14 +401,14 @@ const PostTitle = ({ model, startExpanded = true }) => {
 /**
  * PostTagPill component.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {string} props.tag - Tag to show
+ * @param {number} props.quantity - Quantity in tag.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostTagPill = ({ tag, quantity }) => {
   const img = fabricate('img')
-    .setStyles({
-      width: '16px',
-      height: '16px',
-    })
+    .setStyles({ width: '16px', height: '16px' })
     .setAttributes({ src: 'assets/icons/tag-outline.png' });
 
   const label = fabricate('div')
@@ -409,6 +420,7 @@ const PostTagPill = ({ tag, quantity }) => {
       marginLeft: '2px',
       justifyContent: 'center',
       fontWeight: 'bold',
+      paddingTop: '1px',
     })
     .setText(quantity ? `${tag} (${quantity})` : tag);
 
@@ -442,7 +454,9 @@ const PostTagPill = ({ tag, quantity }) => {
 /**
  * PostTagsList component.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {Array<string>} props.tags - List of tags.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostTagsList = ({ tags }) => fabricate('div')
   .asFlex('row')
@@ -456,7 +470,10 @@ const PostTagsList = ({ tags }) => fabricate('div')
 /**
  * PostDateAndTags component.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {string} props.dateTime - Datetime string.
+ * @param {Array<string>} props.tags - List of tags.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostDateAndTags = ({ dateTime, tags }) => {
   const [date] = dateTime.split(' ');
@@ -490,7 +507,10 @@ const PostDateAndTags = ({ dateTime, tags }) => {
 /**
  * PostBody component.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {object} props.model - Post model
+ * @param {boolean} props.startExpanded - If starting expended.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostBody = ({ model, startExpanded = true }) => {
   const postExpandedKey = Utils.postExpandedKey(model.fileName);
@@ -520,7 +540,10 @@ const PostBody = ({ model, startExpanded = true }) => {
 /**
  * PostImage component.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {object} props.component - Component model.
+ * @param {boolean} props.noShadow - If no shadow should be shown.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostImage = ({ component, noShadow }) => {
   const { src } = component;
@@ -556,7 +579,9 @@ const PostImage = ({ component, noShadow }) => {
 /**
  * PostHeader component.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {object} props.component - Component model.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostHeader = ({ component }) => {
   const { level, text } = component;
@@ -578,7 +603,9 @@ const PostHeader = ({ component }) => {
  *
  * Note: uses withChildren() to work with embedded HTML fragments.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {object} props.component - Component model.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostParagraph = ({ component }) => {
   const { text } = component;
@@ -597,7 +624,9 @@ const PostParagraph = ({ component }) => {
 /**
  * PostHtml component.
  *
- * @returns {HTMLElement}
+ * @param {object} props - Component props.
+ * @param {object} props.component - Component model.
+ * @returns {HTMLElement} Fabricate component.
  */
 const PostHtml = ({ component }) => {
   const { html } = component;
@@ -608,8 +637,8 @@ const PostHtml = ({ component }) => {
 /**
  * Generate the list of post components based on the model generated from Markdown.
  *
- * @param {Object[]} components - List of models to convert.
- * @returns {Object[]} List of HTMLElements for display.
+ * @param {object[]} components - List of models to convert.
+ * @returns {object[]} List of HTMLElements for display.
  */
 const createPostComponents = (components) => components.map((component) => {
   switch (component.type) {
@@ -662,3 +691,26 @@ fabricate.declare('TagCloud', ({ tags }) => {
 
   return container;
 });
+
+/**
+ * Footer component
+ */
+fabricate.declare('Footer', () => fabricate('Row')
+  .setStyles({
+    width: '100vw',
+    backgroundColor: '#111',
+    justifyContent: 'center',
+    padding: '15px',
+    alignItems: 'center',
+  })
+  .setChildren([
+    fabricate('Image', { src: 'assets/icons/github.png' })
+      .setStyles({
+        width: '38px',
+        height: '38px',
+        marginRight: '15px',
+        cursor: 'pointer',
+      })
+      .onClick(() => window.open('https://github.com/C-D-Lewis/blog', '_blank')),
+    fabricate('FabricateAttribution'),
+  ]));

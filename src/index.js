@@ -1,5 +1,3 @@
-let leftColumn;
-
 /**
  * Update the posts for the archive location selected.
  *
@@ -20,24 +18,21 @@ const showPostsFromYear = async (year) => {
 
 /**
  * Fetch the post history file, then populate the last leftColumn section - the archive.
+ *
+ * @returns {Array<HTMLElement>} List of history item.
  */
-const initPostHistory = () => {
-  // Populate the Archive section
-  Object.entries(window.postHistory)
-    .sort(([year1], [year2]) => Utils.integerItemSort(year1, year2))
-    .forEach(([year, yearData]) => {
-      const yearPosts = Object.entries(yearData).reduce((acc, [, posts]) => [...acc, ...posts], []);
+const buildPostHistoryList = () => Object.entries(window.postHistory)
+  .sort(([year1], [year2]) => Utils.integerItemSort(year1, year2))
+  .map(([year, yearData]) => {
+    const yearPosts = Object.entries(yearData).reduce((acc, [, posts]) => [...acc, ...posts], []);
 
-      const yearLabel = fabricate('LeftColumnItem', { year })
-        .setText(`${year} (${yearPosts.length})`)
-        .onClick(() => {
-          fabricate.update({ selectedYear: year });
-          showPostsFromYear(year);
-        });
-
-      leftColumn.addChildren([yearLabel]);
-    });
-};
+    return fabricate('LeftColumnItem', { year })
+      .setText(`${year} (${yearPosts.length})`)
+      .onClick(() => {
+        fabricate.update({ selectedYear: year });
+        showPostsFromYear(year);
+      });
+  });
 
 /**
  * Load the posts to display, if the query specifies a year or post slug.
@@ -79,81 +74,61 @@ const loadSelectionFromQuery = () => {
  * @returns {HTMLElement} The App component.
  */
 const App = () => {
-  const siteHeader = fabricate('SiteHeader')
+  const leftColumn = fabricate('LeftColumn')
     .setChildren([
-      fabricate('SiteTitle'),
-      fabricate.isNarrow() ? fabricate('div') : fabricate('SiteSocials'),
+      // Blog
+      fabricate('LeftColumnHeader', { isTopSection: true }).setText('Blog'),
+      fabricate('LeftColumnItem')
+        .setText('Most Recent')
+        .onClick(() => {
+          window.location.href = '/';
+        }),
+
+      // Posts by tag
+      fabricate('LeftColumnHeader').setText('Posts by tag'),
+      fabricate('TagCloud', { tags: Object.keys(window.tagIndex) }),
+
+      // Archive posts by year
+      fabricate('LeftColumnHeader').setText('Posts by year'),
+      ...buildPostHistoryList(),
+
+      // Other stuff
+      fabricate('LeftColumnHeader').setText('Other Stuff'),
+      fabricate('LeftColumnItem')
+        .setText('FitBit Apps')
+        .onClick(() => window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank')),
+      fabricate('LeftColumnItem')
+        .setText('Pebble Apps')
+        .onClick(() => window.open('https://github.com/C-D-Lewis/pebble', '_blank')),
+      fabricate('LeftColumnItem')
+        .setText('Pixels With Friends')
+        .onClick(() => window.open('https://github.com/c-d-lewis/pixels-with-friends', '_blank')),
+      fabricate('LeftColumnItem')
+        .setText('Old WordPress Blog')
+        .onClick(() => window.open('https://ninedof.wordpress.com/', '_blank')),
     ]);
 
-  const contentContainer = fabricate('ContentContainer');
-  const centralColumn = fabricate('CentralColumn');
-  leftColumn = fabricate('LeftColumn');
-
-  // Left, then right for mobile to flex flow, else other way
-  contentContainer.addChildren(fabricate.isNarrow()
-    ? [centralColumn, leftColumn]
-    : [leftColumn, centralColumn]);
-
-  // On mobile the socials go before the post
-  if (fabricate.isNarrow()) centralColumn.addChildren([fabricate('SiteSocials')]);
-
-  // Blog main sections
-  const blogHeader = fabricate('LeftColumnHeader', { isTopSection: true }).setText('Blog');
-  const recentItem = fabricate('LeftColumnItem')
-    .setText('Most Recent')
-    .onClick(() => {
-      window.location.href = '/';
-    });
-  const repoItem = fabricate('LeftColumnItem')
-    .setText('Source Repository')
-    .onClick(() => window.open('https://github.com/C-D-Lewis/blog', '_blank'));
-
-  // Other stuff
-  const otherHeader = fabricate('LeftColumnHeader').setText('Other Stuff');
-  const fitbitItem = fabricate('LeftColumnItem')
-    .setText('FitBit Apps')
-    .onClick(() => window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank'));
-  const pebbleItem = fabricate('LeftColumnItem')
-    .setText('Pebble Apps')
-    .onClick(() => window.open('https://github.com/C-D-Lewis/pebble', '_blank'));
-  const pixelsItem = fabricate('LeftColumnItem')
-    .setText('Pixels With Friends')
-    .onClick(() => window.open('https://github.com/c-d-lewis/pixels-with-friends', '_blank'));
-  const oldItem = fabricate('LeftColumnItem')
-    .setText('Old WordPress Blog')
-    .onClick(() => window.open('https://ninedof.wordpress.com/', '_blank'));
-
-  leftColumn.addChildren([
-    blogHeader,
-    recentItem,
-    repoItem,
-
-    otherHeader,
-    fitbitItem,
-    pebbleItem,
-    pixelsItem,
-    oldItem,
-
-    fabricate('LeftColumnHeader').setText('Posts by tag'),
-    fabricate('TagCloud', { tags: Object.keys(window.tagIndex) }),
-
-    // Archive list - history fetched asynchronously (MUST BE LAST HEADER)
-    fabricate('LeftColumnHeader').setText('Posts by year'),
-  ]);
-
-  // Post list in the middle
-  centralColumn.addChildren([fabricate('PostList')]);
+  // Post list in the middle, socials first on mobile
+  const centralColumn = fabricate('CentralColumn')
+    .setChildren(fabricate.isNarrow()
+      ? [fabricate('SiteSocials'), fabricate('PostList')]
+      : [fabricate('PostList')]);
 
   return fabricate('RootContainer')
     .addChildren([
-      siteHeader,
-      contentContainer,
-      leftColumn,
+      fabricate('SiteHeader')
+        .setChildren([
+          fabricate('SiteTitle'),
+          fabricate.isNarrow() ? fabricate('div') : fabricate('SiteSocials'),
+        ]),
+      fabricate('ContentContainer')
+        // Left, then right for mobile to flex flow, else other way
+        .setChildren(fabricate.isNarrow()
+          ? [centralColumn, leftColumn]
+          : [leftColumn, centralColumn]),
+      fabricate('Footer'),
     ])
-    .onCreate(() => {
-      initPostHistory();
-      loadSelectionFromQuery();
-    });
+    .onCreate(() => loadSelectionFromQuery());
 };
 
 const initialState = {
