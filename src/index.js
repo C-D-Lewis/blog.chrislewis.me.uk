@@ -72,12 +72,10 @@ const loadSelectionFromQuery = () => {
  * Navigate to a random post.
  */
 const goToRandomPost = () => {
-  const allPosts = Object.entries(window.postHistory)
-    .reduce((acc, [, year]) => {
-      const yearPosts = Object.entries(year)
-        .reduce((acc2, [, posts]) => [...acc2, ...posts], []);
-      return [...acc, ...yearPosts];
-    }, []);
+  const allPosts = Object.entries(window.postHistory).reduce((acc, [, year]) => ([
+    ...acc,
+    ...Object.entries(year).reduce((acc2, [, posts]) => [...acc2, ...posts], []),
+  ]), []);
 
   const index = Math.round(Math.random() * allPosts.length) - 1;
   Utils.showSinglePost(allPosts[index].fileName);
