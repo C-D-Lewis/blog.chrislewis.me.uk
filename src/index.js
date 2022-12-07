@@ -69,6 +69,21 @@ const loadSelectionFromQuery = () => {
 };
 
 /**
+ * Navigate to a random post.
+ */
+const goToRandomPost = () => {
+  const allPosts = Object.entries(window.postHistory)
+    .reduce((acc, [, year]) => {
+      const yearPosts = Object.entries(year)
+        .reduce((acc2, [, posts]) => [...acc2, ...posts], []);
+      return [...acc, ...yearPosts];
+    }, []);
+
+  const index = Math.round(Math.random() * allPosts.length) - 1;
+  Utils.showSinglePost(allPosts[index].fileName);
+};
+
+/**
  * Main App component.
  *
  * @returns {HTMLElement} The App component.
@@ -83,13 +98,16 @@ const App = () => {
         .onClick(() => {
           window.location.href = '/';
         }),
+      fabricate('LeftColumnItem')
+        .setText('Random Post')
+        .onClick(goToRandomPost),
 
       // Posts by tag
-      fabricate('LeftColumnHeader').setText('Posts by tag'),
+      fabricate('LeftColumnHeader').setText('Tags'),
       fabricate('TagCloud', { tags: Object.keys(window.tagIndex) }),
 
       // Archive posts by year
-      fabricate('LeftColumnHeader').setText('Posts by year'),
+      fabricate('LeftColumnHeader').setText('Archive'),
       ...buildPostHistoryList(),
 
       // Other stuff

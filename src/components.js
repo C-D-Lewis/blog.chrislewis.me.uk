@@ -138,7 +138,7 @@ fabricate.declare('ContentContainer', () => fabricate('div')
 fabricate.declare('LeftColumn', () => fabricate('Column')
   .setStyles({
     backgroundColor: Theme.leftColumnBackground,
-    flex: fabricate.isNarrow() ? '1' : '0 0 265px',
+    flex: fabricate.isNarrow() ? '1' : '0 0 275px',
     maxWidth: fabricate.isNarrow() ? '100%' : '280px',
     justifyContent: 'start',
     padding: `${fabricate.isNarrow() ? '15px' : '90px'} 15px 30px 15px`,
@@ -173,11 +173,13 @@ fabricate.declare('LeftColumnItem', ({ year } = {}) => fabricate('a')
     display: 'block',
     fontFamily: 'sans-serif',
     fontSize: '1.1rem',
-    margin: '5px 0px 0px 10px',
+    margin: '5px 0px 0px 2px',
     cursor: 'pointer',
+    transition: '0.1s',
   })
   .setAttributes({ target: '_blank' })
   .onClick(() => goToTop())
+  .onHover((el, state, hovering) => el.setStyles({ marginLeft: hovering ? '10px' : '2px' }))
   .onUpdate((el, { selectedYear }) => {
     const isSelected = selectedYear === year;
     el.setStyles({
@@ -201,7 +203,7 @@ fabricate.declare('CentralColumn', () => fabricate('div')
     // Center on page (breaks flow with Footer)
     // position: fabricate.isNarrow() ? 'initial' : 'absolute',
     // left: fabricate.isNarrow() ? 'initial' : '25%',
-    margin: 'auto',
+    // margin: 'auto',
   }));
 
 /**
@@ -317,7 +319,7 @@ fabricate.declare('SiteSocials', () => fabricate('div')
 fabricate.declare('PostList', () => fabricate('Column')
   .setStyles({
     maxWidth: fabricate.isNarrow() ? 'initial' : MAX_WIDTH_DESKTOP,
-    margin: fabricate.isNarrow() ? '0px 0px' : '0px 20px',
+    margin: fabricate.isNarrow() ? '0px 0px' : '0px 20px 0px 90px',
     padding: fabricate.isNarrow() ? '0px 0px 40px 0px' : '0px 10px 40px 10px',
   })
   .onUpdate((el, { postListItems }) => {
@@ -486,9 +488,9 @@ const PostDateAndTags = ({ dateTime, tags }) => {
       marginLeft: '42px',
       cursor: 'default',
       paddingTop: '3px',
-      minWidth: fabricate.isNarrow() ? '100px' : '140px',
+      minWidth: '100px',
     })
-    .setText(fabricate.isNarrow() ? date : `Posted ${date}`);
+    .setText(date);
 
   const container = fabricate('div')
     .asFlex(fabricate.isNarrow() ? 'column' : 'row')
