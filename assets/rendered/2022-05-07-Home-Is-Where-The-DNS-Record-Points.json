@@ -125,7 +125,7 @@
     },
     {
       "type": "paragraph",
-      "text": "But of course, the blost must be served over secure HTTPS like it is today with\nCloudFront. This means I would need to obtain a CA-signed SSL certificate to\ninstall in the Node.js server so that going to the same address will be accepted\nby modern browsers and be just as easy to reach. Something to look into..."
+      "text": "But of course, the blog must be served over secure HTTPS like it is today with\nCloudFront. This means I would need to obtain a CA-signed SSL certificate to\ninstall in the Node.js server so that going to the same address will be accepted\nby modern browsers and be just as easy to reach. Something to look into..."
     }
   ]
 }

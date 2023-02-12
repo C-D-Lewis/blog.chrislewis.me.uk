@@ -181,7 +181,7 @@ Currently this is done at ten minute intervals, but this could be made more
 robust by decreasing the interval, or by detecting a loss of internet
 connectivity and performing the check when it is restored.
 
-But of course, the blost must be served over secure HTTPS like it is today with
+But of course, the blog must be served over secure HTTPS like it is today with
 CloudFront. This means I would need to obtain a CA-signed SSL certificate to
 install in the Node.js server so that going to the same address will be accepted
 by modern browsers and be just as easy to reach. Something to look into...
