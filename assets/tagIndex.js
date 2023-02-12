@@ -289,7 +289,8 @@ window.tagIndex = {
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
     "2021-12-23-A-Christmas-MIDI-Medley.json",
     "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
-    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
+    "2023-02-12-Keeping-Pis-Neat-And-Tidy.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -321,7 +322,8 @@ window.tagIndex = {
     "2022-04-15-Yet-Another-CLI-For-node-microservices.json",
     "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
     "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
-    "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json"
+    "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json",
+    "2023-02-12-Keeping-Pis-Neat-And-Tidy.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",

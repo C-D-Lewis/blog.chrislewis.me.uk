@@ -1,0 +1,101 @@
+{
+  "fileName": "2023-02-12-Keeping-Pis-Neat-And-Tidy.md",
+  "title": "Keeping Pis Neat and Tidy",
+  "dateTime": "2023-02-12 14:21",
+  "tags": [
+    "Raspberry Pi",
+    "Integration"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "For a few years now I've had a small set of three Raspberry Pi model 3s in a\nstack using a cheap but slightly rickety stacking 'case' involving several\nlayers of plastic and lots of pieces of metal. After a few warm and cold seasons\nit seems the joints losen slightly and it gets a bit wobbly. But it does the job\njust fine - and with some smart Ethernet and USB power cables it was a nice\naddition to my 'home office'."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2022/05/pi-stack.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "However, around October last year I had the idea to replace this store-bought\ncase with something more custom made, similar to the 3D printed 'case' created\nfor the\n<a class=\"link\" target=\"_blank\" href=\"https://blog.chrislewis.me.uk/?post=2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud\">Cirroc NAS device</a>.\nSo, I dived back into Tinkercad and before long the idea turned into something a\nlittle more ambitious - a 3D printed rack resembling that found in a data\ncenter, with each Pi in its own rack tray. How hard could it be?"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Version 1"
+    },
+    {
+      "type": "paragraph",
+      "text": "After a few weeks of tinkering with the design and measurements taken from the\nvarious available online datasheets I had something I though was worth printing.\nThe result was just about adequate - a few mis-measurements, holes that were too\nsmall, and accidentally using the Raspberry Pi model 4 I/O dimensions. It looked\nthe part and just about did the job - for two Pis."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/02/rack-v1.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "I found the 3mm thin side panels were too flimsy and had a slight curve from\nthe 3D printer bed, so I had to fasten one side on the inside of the top panel\nto add enough 'pinch' to keep the shelves from popping out and falling down. But\nmost importantly it informed me what needed to change for the second version!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Version 2"
+    },
+    {
+      "type": "paragraph",
+      "text": "I bought a set of digital calipers and got serious about the measurements for\nthe I/O on the Pis, as well as precise measurements of the feet of the Netgear\n5 port switch to lock it in place, and also had the idea of bringing the Cirroc\nNAS device in too to use the two top bays. This would bring all the Pis used\nfor various purposes under one roof so to speak, a very appealing proposition."
+    },
+    {
+      "type": "paragraph",
+      "text": "After more time in Tinkercad I arrived at the final design, and with the help\nof being able to move parts around as if they were real I could feel much more\nconfident the second round of prints would be the last required. I increased the\nhole diameters to 4mm, and the side panel thickness to 5mm for some more\nstiffness, and even a dedicated shelf for holding the USB power bank and help\nroute all the USB and Ethernet cables through one location. Lastly, adding a\nvariant of the Pi shelf with I/O for the Pi 4 (which Cirroc uses, and appears to\nbe mirrored horizontally) and a dedicated shelf for the two SSDs made the design\ncomplete."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/02/rack-cad.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Final Result"
+    },
+    {
+      "type": "paragraph",
+      "text": "After printing, assembly, and a whole lot of cable wrangling the thing is now\ncomplete - and I have to say I'm pleased with the result! It is stronger, solid,\nand shelves and other devices are not as subject to wandering about due to\ntensions in cables etc. And it also includes Cirroc, freeing up a whole cell\nof my IKEA shelving for something else to take its place."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/02/rack-v2.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "A close-up with two shelves pulled part-way out:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/02/rack-v2-open.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Each shelf includes a small 1-inch OLED module from Adafruit to allow the\n<code>monitor</code> app from <code>node-microservices</code> to report system\nresorce usage, and for Cirroc to retain it's trademark display in the same style."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, after mutiple iterations and lessons learned in 3D design of larger\nmulti-part designs I am rewarded with a solid, neat, self-contained unit that\nresembles a cute, slightly disheveled data center rack, and also contains a\nprevious project. And it looks excellent in the dark as well!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/02/rack-v2-dark.jpg"
+    }
+  ]
+}

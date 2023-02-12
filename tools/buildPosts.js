@@ -59,7 +59,7 @@ const postToModel = (fileName) => {
   if (!dateTime.match(DATE_TIME_REGEX)) {
     throw new Error(`${fileName} Metadata error: bad dateTime`);
   }
-  if(!text.includes('---\n')) {
+  if (!text.includes('---\n')) {
     throw new Error(`${fileName} Metadata error: no separator`);
   }
 
