@@ -1,0 +1,187 @@
+{
+  "fileName": "2023-03-26-Customising-a-Pi-Pico-Keypad.md",
+  "title": "Customising a Pi Pico Keypad",
+  "dateTime": "2023-03-26 11:23",
+  "tags": [
+    "Raspberry Pi",
+    "Integration"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "This will be a short but sweet post that I kept putting off because part of me\ndidn't think it qualified as a 'full project' in the usual sense. But, looking\nback at old blog posts it's clear it wasn't always that a 'finished' project\nwas the only subject of a post. "
+    },
+    {
+      "type": "paragraph",
+      "text": "So anyway, I wrote my own set of functions for customising a Pimoroni \n<a class=\"link\" target=\"_blank\" href=\"https://shop.pimoroni.com/products/pico-rgb-keypad-base\">Pi Pico Keypad Base</a>.\nAfter all, it's an excellent combination of Raspberry Pi and something that\nwould be useful after the project is 'finished'."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Getting Started"
+    },
+    {
+      "type": "paragraph",
+      "text": "Pimoroni provide great documentation and examples that allowed me to try out\nrunning code when a button is pressed. It can either be done by polling or with\ndecorator handlers when a key is pressed or released. I chose the latter:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">from </span>pmk <span class=\"js-keyword\">import </span>PMK\n<span class=\"js-keyword\">from </span>pmk<span class=\"js-syntax\">.</span>platform<span class=\"js-syntax\">.</span>rgbkeypadbase <span class=\"js-keyword\">import </span>RGBKeypadBase<span class=\"js-keyword\"> as </span>Hardware\n\nkeybow<span class=\"js-keyword\"> = </span>PMK<span class=\"js-syntax\">(</span>Hardware<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\nkeys<span class=\"js-keyword\"> = </span>keybow<span class=\"js-syntax\">.</span>keys\n\n<span class=\"js-keyword\">for </span>key<span class=\"js-keyword\"> in </span>keys<span class=\"js-syntax\">:</span>\n  <span class=\"js-syntax\">@</span>keybow<span class=\"js-syntax\">.</span>on_press<span class=\"js-syntax\">(</span>key<span class=\"js-syntax\">)</span>\n<span class=\"python-blue\">  def </span><span class=\"python-green\">press_handler</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\">key</span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n<span class=\"comment\">    # Do key action</span>\n    handle_key_press<span class=\"js-syntax\">(</span>key<span class=\"js-syntax\">)</span>\n\n  <span class=\"js-syntax\">@</span>keybow<span class=\"js-syntax\">.</span>on_release<span class=\"js-syntax\">(</span>key<span class=\"js-syntax\">)</span>\n<span class=\"python-blue\">  def </span><span class=\"python-green\">release_handler</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\">key</span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n<span class=\"comment\">    # Turn it off</span>\n    key<span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span>key<span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span>0<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "I took inspiration from one of the examples that modelled different sets of keys\nfor 'layers' allowing more than 16 functions. Therefore, I chose the left-most\nfour keys as the layer selection keys, and the remaining area to hold\ncolor-coded functions for the chosen layer:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">#</span>\n<span class=\"comment\"># Attach handler functions to all of the keys for this layer.</span>\n<span class=\"comment\">#</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">set_layer</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\">new_layer</span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">global </span>current_layer\n  current_layer<span class=\"js-keyword\"> = </span>new_layer\n\n<span class=\"comment\">  # Update colors</span>\n  <span class=\"js-keyword\">for </span>key<span class=\"js-keyword\"> in </span>keys<span class=\"js-syntax\">:</span>\n    key<span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>COLOR_OFF<span class=\"js-syntax\">)</span>\n\n<span class=\"comment\">    # Update layer indicator</span>\n    <span class=\"js-keyword\">if </span>key<span class=\"js-syntax\">.</span>number<span class=\"js-keyword\"> in </span>INDEX_SELECTION_KEYS<span class=\"js-syntax\">:</span>\n      key<span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>COLOR_SELECTED_LAYER <span class=\"js-keyword\">if </span>key<span class=\"js-syntax\">.</span>number<span class=\"js-syntax\"> / </span>4<span class=\"js-keyword\"> == </span>current_layer<span class=\"js-keyword\"> else</span> COLOR_UNSELECTED_LAYER<span class=\"js-syntax\">)</span>\n\n<span class=\"comment\">    # Not configured</span>\n    <span class=\"js-keyword\">if </span>key<span class=\"js-syntax\">.</span>number <span class=\"js-keyword\">not </span>in KEY_MAP<span class=\"js-syntax\">[</span>current_layer<span class=\"js-syntax\">]</span><span class=\"js-syntax\">:</span>\n     <span class=\"js-keyword\"> continue</span>\n\n    key<span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>KEY_MAP<span class=\"js-syntax\">[</span>current_layer<span class=\"js-syntax\">]</span><span class=\"js-syntax\">[</span>key<span class=\"js-syntax\">.</span>number<span class=\"js-syntax\">]</span><span class=\"js-syntax\">[</span><span class=\"_string\">'color'</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Thus, we have four layers:"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Media Control"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/03/keypad-media.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Including pause/play, previous/next track, mute, volume up/down, and at the\nbottom convenience functions to activate my keybind for Discord mic mute, and a\nfunction that flashes to simulate rolling dice."
+    },
+    {
+      "type": "paragraph",
+      "text": "The majority of these are achieved using more library classes:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">from </span>adafruit_hid<span class=\"js-syntax\">.</span>consumer_control <span class=\"js-keyword\">import </span>ConsumerControl\n<span class=\"js-keyword\">from </span>adafruit_hid<span class=\"js-syntax\">.</span>consumer_control_code <span class=\"js-keyword\">import </span>ConsumerControlCode\n<span class=\"js-keyword\">import </span>usb_hid\n\n<span class=\"comment\"># ...</span>\n\nconsumer_control<span class=\"js-keyword\"> = </span>ConsumerControl<span class=\"js-syntax\">(</span>usb_hid<span class=\"js-syntax\">.</span>devices<span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># ...</span>\n\n<span class=\"js-keyword\">if </span><span class=\"_string\">'control_code'</span><span class=\"js-keyword\"> in </span>config<span class=\"js-syntax\">:</span>\n  consumer_control<span class=\"js-syntax\">.</span>send<span class=\"js-syntax\">(</span>config<span class=\"js-syntax\">[</span><span class=\"_string\">'control_code'</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "where such a key config might look like this:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">'control_code'</span><span class=\"js-syntax\">:</span> ConsumerControlCode<span class=\"js-syntax\">.</span>PLAY_PAUSE<span class=\"js-syntax\">,</span>\n  <span class=\"_string\">'color'</span><span class=\"js-syntax\">:</span> COLOR_GREEN\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Applications"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/03/keypad-apps.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Allows launching applications via Windows Search. Currrently includes Spotify,\nDiscord, and Steam, but could be extended to anything that can be launched from\nsearch. For an example key config:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">'custom'</span><span class=\"js-syntax\">:</span> lambda<span class=\"js-syntax\">:</span> run_program<span class=\"js-syntax\">(</span><span class=\"_string\">'spotify'</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">'color'</span><span class=\"js-syntax\">:</span> COLOR_GREEN\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The program can be launched as below:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">from </span>adafruit_hid<span class=\"js-syntax\">.</span>keyboard <span class=\"js-keyword\">import </span>Keyboard\n<span class=\"js-keyword\">from </span>adafruit_hid<span class=\"js-syntax\">.</span>keyboard_layout_us <span class=\"js-keyword\">import </span>KeyboardLayoutUS\n<span class=\"js-keyword\">from </span>adafruit_hid<span class=\"js-syntax\">.</span>keycode <span class=\"js-keyword\">import </span>Keycode\n\n<span class=\"comment\"># ...</span>\n\nkeyboard<span class=\"js-keyword\"> = </span>Keyboard<span class=\"js-syntax\">(</span>usb_hid<span class=\"js-syntax\">.</span>devices<span class=\"js-syntax\">)</span>\nlayout<span class=\"js-keyword\"> = </span>KeyboardLayoutUS<span class=\"js-syntax\">(</span>keyboard<span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># ...</span>\n\n<span class=\"comment\">#</span>\n<span class=\"comment\"># Launch a program via Start menu query</span>\n<span class=\"comment\">#</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">run_program</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\">query</span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  keyboard<span class=\"js-syntax\">.</span>press<span class=\"js-syntax\">(</span>Keycode<span class=\"js-syntax\">.</span>GUI<span class=\"js-syntax\">)</span>\n  keyboard<span class=\"js-syntax\">.</span>release_all<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n  time<span class=\"js-syntax\">.</span>sleep<span class=\"js-syntax\">(</span>0<span class=\"js-syntax\">.</span>2<span class=\"js-syntax\">)</span>\n  layout<span class=\"js-syntax\">.</span>write<span class=\"js-syntax\">(</span>query<span class=\"js-syntax\">)</span>\n  time<span class=\"js-syntax\">.</span>sleep<span class=\"js-syntax\">(</span>1<span class=\"js-syntax\">)</span>\n  layout<span class=\"js-syntax\">.</span>write<span class=\"js-syntax\">(</span><span class=\"_string\">'\\n'</span><span class=\"js-syntax\">)</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Windows / System"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/03/keypad-windows.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Includes quick shortcuts for Windows including launching Task Manager, Explorer,\nand Sleep, Restart, and Shutdown via key combination sequences. For example:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">'sequence'</span><span class=\"js-syntax\">:</span> <span class=\"js-syntax\">[</span><span class=\"js-syntax\">(</span>Keycode<span class=\"js-syntax\">.</span>GUI<span class=\"js-syntax\">,</span> Keycode<span class=\"js-syntax\">.</span>X<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> Keycode<span class=\"js-syntax\">.</span>U<span class=\"js-syntax\">,</span> Keycode<span class=\"js-syntax\">.</span>U<span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">'color'</span><span class=\"js-syntax\">:</span> <span class=\"js-syntax\">(</span>32<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">'custom'</span><span class=\"js-syntax\">:</span> lambda<span class=\"js-syntax\">:</span> go_to_sleep<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This uses the power menu to enter the combination for Shutdown. It's important\nto allow for the configured key repeat speed to be accurate:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">if </span><span class=\"_string\">'sequence'</span><span class=\"js-keyword\"> in </span>config<span class=\"js-syntax\">:</span>\n  <span class=\"js-keyword\">for </span>item<span class=\"js-keyword\"> in </span>config<span class=\"js-syntax\">[</span><span class=\"_string\">'sequence'</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">:</span>\n    <span class=\"js-keyword\">if </span>isinstance<span class=\"js-syntax\">(</span>item<span class=\"js-syntax\">,</span> tuple<span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span>\n      keyboard<span class=\"js-syntax\">.</span>press<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>item<span class=\"js-syntax\">)</span>\n   <span class=\"js-keyword\"> else</span><span class=\"js-syntax\">:</span>\n      keyboard<span class=\"js-syntax\">.</span>press<span class=\"js-syntax\">(</span>item<span class=\"js-syntax\">)</span>\n    time<span class=\"js-syntax\">.</span>sleep<span class=\"js-syntax\">(</span>0<span class=\"js-syntax\">.</span>2<span class=\"js-syntax\">)</span>\n    keyboard<span class=\"js-syntax\">.</span>release_all<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n    time<span class=\"js-syntax\">.</span>sleep<span class=\"js-syntax\">(</span>0<span class=\"js-syntax\">.</span>5<span class=\"js-syntax\">)</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Clock Mode"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/03/keypad-clock.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "The <code>go_to_sleep()</code> function above puts the keypad into a mode where\nminimal keys are lit, to avoid dazzling at night and to save power. It also\nactivates after one minute, and during daylight hours shows the time with\n'hands on a clock' round the edge, which was a fun alorithmic exercise:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\"># Clock digit LED sequence</span>\nDIGIT_LED_SEQ<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">[</span>2<span class=\"js-syntax\">,</span> 3<span class=\"js-syntax\">,</span> 7<span class=\"js-syntax\">,</span> 11<span class=\"js-syntax\">,</span> 15<span class=\"js-syntax\">,</span> 14<span class=\"js-syntax\">,</span> 13<span class=\"js-syntax\">,</span> 12<span class=\"js-syntax\">,</span> 8<span class=\"js-syntax\">,</span> 4<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">]</span>\n\n<span class=\"comment\"># ...</span>\n\n<span class=\"comment\">#</span>\n<span class=\"comment\"># Get clock LED digit for hours</span>\n<span class=\"comment\">#</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">get_hour_digit</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\">hours</span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  index<span class=\"js-keyword\"> = </span>math<span class=\"js-syntax\">.</span>floor<span class=\"js-syntax\">(</span>math<span class=\"js-syntax\">.</span>floor<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>hours <span class=\"js-keyword\">*</span> 100<span class=\"js-syntax\">)</span><span class=\"js-syntax\"> / </span>12<span class=\"js-syntax\">)</span><span class=\"js-syntax\"> / </span>100 <span class=\"js-keyword\">*</span> TOTAL_DIGITS<span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> return </span>DIGIT_LED_SEQ<span class=\"js-syntax\">[</span>index<span class=\"js-syntax\">]</span>\n\n<span class=\"comment\">#</span>\n<span class=\"comment\"># Get clock LED digit for minutes</span>\n<span class=\"comment\">#</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">get_minute_seconds_digit</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\">minutes</span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  index<span class=\"js-keyword\"> = </span>math<span class=\"js-syntax\">.</span>floor<span class=\"js-syntax\">(</span>math<span class=\"js-syntax\">.</span>floor<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>minutes <span class=\"js-keyword\">*</span> 100<span class=\"js-syntax\">)</span><span class=\"js-syntax\"> / </span>60<span class=\"js-syntax\">)</span><span class=\"js-syntax\"> / </span>100 <span class=\"js-keyword\">*</span> TOTAL_DIGITS<span class=\"js-syntax\">)</span>\n <span class=\"js-keyword\"> return </span>DIGIT_LED_SEQ<span class=\"js-syntax\">[</span>index<span class=\"js-syntax\">]</span>\n\n<span class=\"comment\">#</span>\n<span class=\"comment\"># Show clock animation</span>\n<span class=\"comment\">#</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">show_clock</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\"></span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">global </span>last_second_index\n\n<span class=\"comment\">  # (year, month, mday, hour, minute, second, ...)</span>\n  now<span class=\"js-keyword\"> = </span>time<span class=\"js-syntax\">.</span>localtime<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n  hours<span class=\"js-keyword\"> = </span>now<span class=\"js-syntax\">[</span>3<span class=\"js-syntax\">]</span>\n  hours_12h<span class=\"js-keyword\"> = </span>now<span class=\"js-syntax\">[</span>3<span class=\"js-syntax\">]</span> - 12 <span class=\"js-keyword\">if </span>now<span class=\"js-syntax\">[</span>3<span class=\"js-syntax\">]</span><span class=\"js-keyword\"> >= </span>12<span class=\"js-keyword\"> else</span> now<span class=\"js-syntax\">[</span>3<span class=\"js-syntax\">]</span>\n  minutes<span class=\"js-keyword\"> = </span>now<span class=\"js-syntax\">[</span>4<span class=\"js-syntax\">]</span>\n  seconds<span class=\"js-keyword\"> = </span>now<span class=\"js-syntax\">[</span>5<span class=\"js-syntax\">]</span>\n\n<span class=\"comment\">  # Indices around the face</span>\n  hours_index<span class=\"js-keyword\"> = </span>get_hour_digit<span class=\"js-syntax\">(</span>hours_12h<span class=\"js-syntax\">)</span>\n  minutes_index<span class=\"js-keyword\"> = </span>get_minute_seconds_digit<span class=\"js-syntax\">(</span>minutes<span class=\"js-syntax\">)</span>\n  seconds_index<span class=\"js-keyword\"> = </span>get_minute_seconds_digit<span class=\"js-syntax\">(</span>seconds<span class=\"js-syntax\">)</span>\n\n<span class=\"comment\">  # Prevent flickering</span>\n  <span class=\"js-keyword\">if </span>seconds_index<span class=\"js-keyword\"> != </span>last_second_index<span class=\"js-syntax\">:</span>\n    last_second_index<span class=\"js-keyword\"> = </span>seconds_index\n    <span class=\"js-keyword\">for </span>key<span class=\"js-keyword\"> in </span>keys<span class=\"js-syntax\">:</span>\n      key<span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>COLOR_OFF<span class=\"js-syntax\">)</span>\n\n<span class=\"comment\">  # Key to wake</span>\n  keys<span class=\"js-syntax\">[</span>0<span class=\"js-syntax\">]</span><span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>COLOR_SLEEPING<span class=\"js-syntax\">)</span>\n\n<span class=\"comment\">  # Do not dazzle at night</span>\n  <span class=\"js-keyword\">if </span>hours<span class=\"js-keyword\"> >= </span>9<span class=\"js-keyword\"> and </span>hours<span class=\"js-keyword\"> <= </span>23<span class=\"js-syntax\">:</span>\n<span class=\"comment\">    # Hands</span>\n    keys<span class=\"js-syntax\">[</span>hours_index<span class=\"js-syntax\">]</span><span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>darker<span class=\"js-syntax\">(</span>COLOR_RED<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n    keys<span class=\"js-syntax\">[</span>minutes_index<span class=\"js-syntax\">]</span><span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>darker<span class=\"js-syntax\">(</span>COLOR_BLUE<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n    keys<span class=\"js-syntax\">[</span>seconds_index<span class=\"js-syntax\">]</span><span class=\"js-syntax\">.</span>set_led<span class=\"js-syntax\">(</span><span class=\"js-keyword\">*</span>darker<span class=\"js-syntax\">(</span>COLOR_YELLOW<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "See if you can use the code to figure out the time when the above photo was\ntaken..."
+    },
+    {
+      "type": "paragraph",
+      "text": "How does it know the time, you may ask? Well, I chose a Pico W with Wi-Fi, and\nuse the RTC module to obtain the time after connection, using more handily\navailable libraries!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-python\">Python</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">import </span>adafruit_ntp\n<span class=\"js-keyword\">import </span>adafruit_requests\n<span class=\"js-keyword\">import </span>os\n<span class=\"js-keyword\">import </span>rtc\n<span class=\"js-keyword\">import </span>socketpool\n<span class=\"js-keyword\">import </span>ssl\n<span class=\"js-keyword\">import </span>wifi\n\n<span class=\"comment\"># ...</span>\n\n<span class=\"comment\">#</span>\n<span class=\"comment\"># Connect to WiFi</span>\n<span class=\"comment\">#</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">connect_wifi</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\"></span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  <span class=\"js-keyword\">global </span>pool\n  <span class=\"js-keyword\">global </span>session\n\n  wifi<span class=\"js-syntax\">.</span>radio<span class=\"js-syntax\">.</span>connect<span class=\"js-syntax\">(</span>os<span class=\"js-syntax\">.</span>getenv<span class=\"js-syntax\">(</span><span class=\"_string\">'WIFI_SSID'</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> os<span class=\"js-syntax\">.</span>getenv<span class=\"js-syntax\">(</span><span class=\"_string\">'WIFI_PASSWORD'</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n  pool<span class=\"js-keyword\"> = </span>socketpool<span class=\"js-syntax\">.</span>SocketPool<span class=\"js-syntax\">(</span>wifi<span class=\"js-syntax\">.</span>radio<span class=\"js-syntax\">)</span>\n  session<span class=\"js-keyword\"> = </span>adafruit_requests<span class=\"js-syntax\">.</span>Session<span class=\"js-syntax\">(</span>pool<span class=\"js-syntax\">,</span> ssl<span class=\"js-syntax\">.</span>create_default_context<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\">#</span>\n<span class=\"comment\"># Update time from NTP</span>\n<span class=\"comment\">#</span>\n<span class=\"python-blue\">def </span><span class=\"python-green\">update_time</span><span class=\"js-syntax\"><span class=\"js-syntax\">(</span></span><span class=\"python-orange\"></span><span class=\"js-syntax\"><span class=\"js-syntax\">)</span><span class=\"js-syntax\">:</span></span>\n  ntp<span class=\"js-keyword\"> = </span>adafruit_ntp<span class=\"js-syntax\">.</span>NTP<span class=\"js-syntax\">(</span>pool<span class=\"js-syntax\">,</span> tz_offset=0<span class=\"js-syntax\">)</span>\n  r<span class=\"js-keyword\"> = </span>rtc<span class=\"js-syntax\">.</span>RTC<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n  r<span class=\"js-syntax\">.</span>datetime<span class=\"js-keyword\"> = </span>ntp<span class=\"js-syntax\">.</span>datetime\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Where Wi-FI credentials are in the CircuitPython standard\n<code>settings.toml</code> environment file."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Other"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/03/keypad-other.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lastly, there's pretty much one whole layer free for anything else - perhaps in\nthe future some web-connected functions for common tasks, notification states,\nor smart lighting could be possible..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "Well, that ended up being more detailed than anticipated, and actually shows\nit to be more than a quick weekend play around with some Pi accessories - and\nI continue to use it daily! It's usefulness can also easily be expanded in the\nfuture when more ideas occur to me."
+    },
+    {
+      "type": "paragraph",
+      "text": "You can find the entire project\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pico-keypad-dev\">here</a>."
+    }
+  ]
+}

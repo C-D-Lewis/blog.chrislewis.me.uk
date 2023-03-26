@@ -930,6 +930,13 @@ window.postHistory = {
         "file": "assets/rendered/2023-02-12-Keeping-Pis-Neat-And-Tidy.json",
         "fileName": "2023-02-12-Keeping-Pis-Neat-And-Tidy"
       }
+    ],
+    "03": [
+      {
+        "title": "Customising a Pi Pico Keypad",
+        "file": "assets/rendered/2023-03-26-Customising-a-Pi-Pico-Keypad.json",
+        "fileName": "2023-03-26-Customising-a-Pi-Pico-Keypad"
+      }
     ]
   }
 }

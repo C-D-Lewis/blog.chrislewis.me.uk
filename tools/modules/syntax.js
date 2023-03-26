@@ -27,9 +27,10 @@ const DOCKERFILE_KEYWORDS = [
 ];
 
 // Python
-const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}'];
+const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', '@', ' / ', '.'];
 const PYTHON_KEYWORDS = [
-  'if ', ' else', ' = ', 'import ', 'not ', ' in ', 'for ',
+  'if ', ' else', ' = ', 'import ', 'not ', ' in ', 'for ', 'from ', '*', 'global ', ' == ',
+  ' continue', ' as ', ' >= ', ' <= ', ' and ', ' return ', ' != ',
 ];
 const PYTHON_GREENWORDS = [
   ' print',
@@ -83,8 +84,9 @@ const handlePythonDef = (line) => {
   const [name, args] = rest.split('(');
   const [argStr] = args.split(')');
   const argNames = argStr.split(',');
+  const indent = line.split(' ').filter(p => p === '').length;
 
-  let output = `<span class="python-blue">def </span><span class="python-green">${name}</span><span class="js-syntax">(</span>`;
+  let output = `<span class="python-blue">${' '.repeat(indent)}def </span><span class="python-green">${name}</span><span class="js-syntax">(</span>`;
   argNames.forEach((arg, i) => {
     output += `<span class="python-orange">${arg}</span>`;
 
