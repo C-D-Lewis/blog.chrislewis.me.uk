@@ -1,6 +1,6 @@
 Customising a Pi Pico Keypad
 2023-03-26 11:23
-Raspberry Pi,Integration
+Raspberry Pi,Integration,Python
 ---
 
 This will be a short but sweet post that I kept putting off because part of me
