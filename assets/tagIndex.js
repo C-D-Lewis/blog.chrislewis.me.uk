@@ -332,7 +332,8 @@ window.tagIndex = {
     "2021-03-20-Keeping-Up-To-Date-With-E-Paper-Dashboard.json",
     "2021-06-05-Making-MIDI-Music-With-Raspberry-Pi-Pico.json",
     "2021-12-23-A-Christmas-MIDI-Medley.json",
-    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json"
+    "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
+    "2023-03-26-Customising-a-Pi-Pico-Keypad.json"
   ],
   "Spark Core": [
     "2013-12-23-Spark-Core-Initial-Thoughts.json",
