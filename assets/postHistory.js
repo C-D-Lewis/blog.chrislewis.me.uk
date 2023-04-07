@@ -937,6 +937,13 @@ window.postHistory = {
         "file": "assets/rendered/2023-03-26-Customising-a-Pi-Pico-Keypad.json",
         "fileName": "2023-03-26-Customising-a-Pi-Pico-Keypad"
       }
+    ],
+    "04": [
+      {
+        "title": "Fabricate Faster With Types",
+        "file": "assets/rendered/2023-04-07-Fabricate-Faster-With-Types.json",
+        "fileName": "2023-04-07-Fabricate-Faster-With-Types"
+      }
     ]
   }
 }

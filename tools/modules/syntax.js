@@ -12,7 +12,6 @@ const TERRAFORM_KEYWORDS = [
 
 // JavaScript
 const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']', ': ', ' .'];
-const JAVA_KEYWORDS = ['public', 'static', 'final', 'private', 'void'];
 const JAVASCRIPT_KEYWORDS = [
   'new ', 'if ', 'for ', 'else ', 'throws ', 'async ', 'await ', 'return ', 'break', '&&', '||', 'try ',
   'catch ', ' = ', ' => ', '!==', '===', 'export ', ' ? ', ' : ', ' + ', ' - ', ' / ', '!',
@@ -20,6 +19,19 @@ const JAVASCRIPT_KEYWORDS = [
 const JAVASCRIPT_BLUEWORDS = [
   'const ', 'let ', ' Object', 'exports', 'function', 'console', 'window', 'process', 'var ',
 ];
+
+// TypeScript
+const TYPESCRIPT_SYNTAX = JAVASCRIPT_SYNTAX.concat([
+  ':', ' | ',
+  // '<', '>', Interferes with existing HTML in output...
+]);
+const TYPESCRIPT_KEYWORDS = JAVASCRIPT_KEYWORDS.concat([
+  ' extends', '?', 'import', ' from ', 'declare',
+]);
+const TYPESCRIPT_BLUEWORDS = JAVASCRIPT_BLUEWORDS.concat([
+  'interface ', ' object', 'string', ' void', 'boolean', 'integer', 'Function', 'undefined', 'type ', ' false',
+  'FabricateComponent', 'StateShape', 'HTMLElement',
+]);
 
 // Dockerfile
 const DOCKERFILE_KEYWORDS = [
@@ -42,6 +54,9 @@ const C_KEYWORDS = [
 ];
 const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';'];
 const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void ', 'bool ', ' true', ' false'];
+
+// Java
+const JAVA_KEYWORDS = ['public', 'static', 'final', 'private', 'void'];
 
 /**
  * Highlight strings in code blocks.
@@ -77,14 +92,14 @@ const highlightStrings = (line) => {
  * Format name and args for a Python 'def'
  *
  * @param {string} line - The line to process.
- * @returns {string}
+ * @returns {string} Formatted python 'def' line.
  */
 const handlePythonDef = (line) => {
   const [, rest] = line.split('def ');
   const [name, args] = rest.split('(');
   const [argStr] = args.split(')');
   const argNames = argStr.split(',');
-  const indent = line.split(' ').filter(p => p === '').length;
+  const indent = line.split(' ').filter((p) => p === '').length;
 
   let output = `<span class="python-blue">${' '.repeat(indent)}def </span><span class="python-green">${name}</span><span class="js-syntax">(</span>`;
   argNames.forEach((arg, i) => {
@@ -122,6 +137,8 @@ const friendlyLangName = (language) => {
     java: 'Java',
     html: 'HTML',
     yaml: 'YAML',
+    ts: 'TypeScript',
+    typescript: 'TypeScript',
   };
   if (!map[language]) throw new Error(`Unmappable language name: ${language}`);
 
@@ -133,7 +150,7 @@ const friendlyLangName = (language) => {
  *
  * @param {string} line - Line of code.
  * @param {string} language - Language to use
- * @return {string} Code with keywords wrapped in styled spans.
+ * @returns {string} Code with keywords wrapped in styled spans.
  */
 const toHighlightedLine = (line, language) => {
   // Hide language annotation
@@ -307,6 +324,33 @@ const toHighlightedLine = (line, language) => {
     }
   }
 
+  // TypeScript
+  else if (['ts', 'typescript'].includes(language)) {
+    const trimmed = line.trim();
+
+    // Code comments
+    if (
+      trimmed.startsWith('//')
+      || trimmed.startsWith('/**')
+      || trimmed.startsWith('*')
+      || trimmed.startsWith('*/')) {
+      return `<span class="comment">${line}</span>`;
+    }
+
+    // Strings
+    line = highlightStrings(line);
+
+    TYPESCRIPT_KEYWORDS.forEach((keyword) => {
+      line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+    });
+    TYPESCRIPT_BLUEWORDS.forEach((blueword) => {
+      line = line.split(blueword).join(`<span class="js-blueword">${blueword}</span>`);
+    });
+    TYPESCRIPT_SYNTAX.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
+  }
+
   return line;
 };
 
@@ -314,8 +358,8 @@ const toHighlightedLine = (line, language) => {
  * Replace key words with styled spans in a block of code.
  *
  * @param {string} block - Paragraph of code.
- * @param {string} language - Language extracted from ```$LANGUAGE in block
- * @return {string} Code with keywords wrapped in styled spans.
+ * @param {string} language - Language extracted from triple-backtick $LANGUAGE in block.
+ * @returns {string} Code with keywords wrapped in styled spans.
  */
 const highlight = (block, language) => (!language
   ? block

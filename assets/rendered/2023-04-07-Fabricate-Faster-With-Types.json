@@ -1,0 +1,108 @@
+{
+  "fileName": "2023-04-07-Fabricate-Faster-With-Types.md",
+  "title": "Fabricate Faster With Types",
+  "dateTime": "2023-04-07 11:23",
+  "tags": [
+    "JavaScript",
+    "TypeScript",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "I enjoy creating simple web apps and web pages with my own\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/fabricate.js\">fabricate.js</a> web framework\n(including this blog!), but one of the challenges even for me is to remember\nall the chainable methods available on components, and which parameters appear\nin which order for all the callbacks. I put some effort into making all of these\nfully documented in the project <code>README.md</code> but more often than not\nI default to reading the source code. But that's a whole browser tab away from\nmy IDE - can it be easier?"
+    },
+    {
+      "type": "paragraph",
+      "text": "The answer was not far away - we have been using TypeScript everywhere in new\nprojects at work recently, so I've been getting much more up to speed on it.\nAside from challenges reconciling React components with huge props definitions\nand auto-generated GraphQL types for database interactions, I had fun defining\nthe types for project-specific data structures and then enjoying the full\nautocompletion provided as a consequence by VS Code."
+    },
+    {
+      "type": "paragraph",
+      "text": "Naturally, I can make fabricate.js easier to use by providing a types file. How\nhard could it be?"
+    },
+    {
+      "type": "header",
+      "level": 3,
+      "text": "Getting Started"
+    },
+    {
+      "type": "paragraph",
+      "text": "The first step was to define new types for all the methods and properties\nactually in use in some example project, to fill in the blanks so to speak. With\na simple <code>ts-config.json</code> file including the strict <code>noImplicitAny</code>\noption, the IDE filled with red squigglies and I could begin fixing them by\ndefining types."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"include\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"_string\">\"src/**/*\"</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"exclude\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"_string\">\"src/types.ts\"</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"compilerOptions\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    <span class=\"_string\">\"target\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"ES2016\"</span><span class=\"js-syntax\">,</span>\n    <span class=\"_string\">\"module\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"ES2015\"</span><span class=\"js-syntax\">,</span>\n    <span class=\"_string\">\"outDir\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"./dist\"</span><span class=\"js-syntax\">,</span>\n    <span class=\"_string\">\"esModuleInterop\"</span><span class=\"js-syntax\">: </span>true<span class=\"js-syntax\">,</span>\n    <span class=\"_string\">\"forceConsistentCasingInFileNames\"</span><span class=\"js-syntax\">: </span>true<span class=\"js-syntax\">,</span>\n    <span class=\"_string\">\"strict\"</span><span class=\"js-syntax\">: </span>true<span class=\"js-syntax\">,</span>\n    <span class=\"_string\">\"noImplicitAny\"</span><span class=\"js-syntax\">: </span>true<span class=\"js-syntax\">,</span>\n    <span class=\"_string\">\"skipLibCheck\"</span><span class=\"js-syntax\">: </span>true\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The easiest things to type were the chainable method available to fabricate.js\ncomponents, beginning with the ones actually in use:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-typescript\">TypeScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Fabricate component extends HTMLElement - and uses shape of app's state.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-keyword\">export </span><span class=\"js-blueword\">interface </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-keyword\"> extends</span> <span class=\"js-blueword\">HTMLElement</span> <span class=\"js-syntax\">{</span>\n  setStyles<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>styles<span class=\"js-syntax\">:</span><span class=\"js-blueword\"> object</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n  setChildren<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>children<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">[</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n  setText<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>text<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">string</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n\n  onUpdate<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n    cb<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n      el<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">,</span>\n      state<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">StateShape</span><span class=\"js-syntax\">,</span>\n      keysChanged<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">string</span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>void<span class=\"js-syntax\">,</span>\n    watchKeys<span class=\"js-keyword\">?</span><span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">string</span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n  onHover<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n    cb<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n      el<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">,</span>\n      state<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">StateShape</span><span class=\"js-syntax\">,</span>\n      isHovered<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">boolean</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>void<span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n  onClick<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n    cb<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n      el<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">,</span>\n      state<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">StateShape</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>void<span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n\n  when<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n    cb<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>state<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">StateShape</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">boolean</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As well as methods on the main library variable itself:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-ts\">TypeScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/** Fabricate.js library */</span>\n<span class=\"js-keyword\">export </span><span class=\"js-blueword\">type </span>Fabricate<<span class=\"js-blueword\">StateShape</span>><span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-syntax\">(</span>componentName<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">string</span><span class=\"js-syntax\">,</span> props<span class=\"js-keyword\">?</span><span class=\"js-syntax\">:</span><span class=\"js-blueword\"> object</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n\n  app<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n    root<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">,</span>\n    initialState<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">StateShape</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n  update<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n    param1<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">string</span> |<span class=\"js-blueword\"> object</span><span class=\"js-syntax\">,</span>\n    param2<span class=\"js-keyword\">?</span><span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">Function</span> |<span class=\"js-blueword\"> object</span><span class=\"js-syntax\"> | </span><span class=\"js-blueword\">undefined</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>void<span class=\"js-syntax\">;</span>\n  isNarrow<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">boolean</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The trickiest part of this was allowing the types definition to work with the\nsomewhat arbirtary shape of the global state object that is how fabricate.js\nperforms state management. After some research into generics, I found I was able\nto pass in <code>StateShape</code> and it all fell into place wherever this\ntype was required, such as callbacks where state was a parameter."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-ts\">TypeScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/** Defined app-specific state shape */</span>\n<span class=\"js-blueword\">type </span>AppState<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n  counter<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">integer</span><span class=\"js-syntax\">;</span>\n  isActive<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">boolean</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">/** Initial app state */</span>\n<span class=\"js-blueword\">const </span>initialState<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span>AppState<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n  counter<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span>0<span class=\"js-syntax\">,</span>\n  isActive<span class=\"js-syntax\">:</span><span class=\"js-blueword\"> false</span><span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * App component that uses state shape.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @returns {FabricateComponent} The app component.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const </span>App<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_<span class=\"js-blueword\">string</span>\"><span class=\"js-syntax\">'</span>button<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>onClick<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>el<span class=\"js-syntax\">,</span> state<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">console</span>.log<span class=\"js-syntax\">(</span>state.isActive<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\nfabricate.app<span class=\"js-syntax\">(</span>App<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> initialState<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 3,
+      "text": "Formal Types"
+    },
+    {
+      "type": "paragraph",
+      "text": "After making all this work, I went back to the fabricate.js repository, copied\nin the initial types, and expanded them to include all available methods and\nprops from the source file. I also added a mini compilable TypeScript project\nto act as an example and double-check things compiled after a new type was\nadded."
+    },
+    {
+      "type": "paragraph",
+      "text": "The full types file exists in the <code>types/fabricate.d.ts</code> file, and\nincludes full JSDoc code comment documentation:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-ts\">TypeScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * When a fabricate.js state update occurs.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {function(el, state, updatedKeys)} cb - Callback when update occurs.</span>\n<span class=\"comment\"> * @param {string[]} watchKeys - Keys in state to watch.</span>\n<span class=\"comment\"> * @returns {FabricateComponent<StateShape>} This component.</span>\n<span class=\"comment\"> */</span>\nonUpdate<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n  cb<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-syntax\">(</span>\n    el<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">,</span>\n    state<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">StateShape</span><span class=\"js-syntax\">,</span>\n    keysChanged<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">string</span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>void<span class=\"js-syntax\">,</span>\n  watchKeys<span class=\"js-keyword\">?</span><span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span><span class=\"js-blueword\">string</span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-blueword\">FabricateComponent</span><<span class=\"js-blueword\">StateShape</span>><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Thus, VS Code shows maximal information to allow easy use of the method:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/04/fabricate-ts-docs.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "There is one more step I could not avoid - declaring the library global as\navailable after <code>script</code> tag import. This seemed the best solution\nbut I feel it could be improved:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-ts\">TypeScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">declare</span> <span class=\"js-blueword\">const </span>fabricate<span class=\"js-syntax\"><span class=\"js-syntax\">:</span> </span>Fabricate<AppState><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 3,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "I think the effort was worth it - while not all my projects that use\nfabricate.js use TypeScript more and more will in the future. And while it was\nnot of the same complexity as the React component types in libraries used at\nwork, I did gain more familiarity with the basics of type definitions, generics,\netc. which is a better base to build upon."
+    },
+    {
+      "type": "paragraph",
+      "text": "If you're interested, check out the entire new\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/fabricate.js/blob/main/types/fabricate.d.ts\">types file</a>\nand try to use or break it! I'm sure there's something I missed..."
+    }
+  ]
+}

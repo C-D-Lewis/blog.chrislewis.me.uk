@@ -94,3 +94,8 @@ pre {
   background-color: rgb(202, 0, 84);
   color: white;
 }
+
+.lang-typescript, .lang-ts {
+  background-color: #0060df;
+  color: white;
+}
