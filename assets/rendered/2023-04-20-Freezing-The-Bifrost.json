@@ -142,11 +142,11 @@
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>HTTP works just fine for low volume messages, and WebSockets would not have significantly increased speed.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>HTTP works just fine for low volume messages, and WebSockets would not have significantly increased speed or fixed any reliability problems, which I did not have.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>I already have a good-enough method of inter-device communication, simply forwarding HTTP requests that can be easily <code>awaited</code></td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>I already have a good-enough method of inter-device communication, simply forwarding HTTP requests that can be easily <code>awaited</code>.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",
