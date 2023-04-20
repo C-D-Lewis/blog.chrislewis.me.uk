@@ -14,7 +14,9 @@ const TERRAFORM_KEYWORDS = [
 const JAVASCRIPT_SYNTAX = ['{', '}', ',', '\'', '(', ')', ';', '[', ']', ': ', ' .'];
 const JAVASCRIPT_KEYWORDS = [
   'new ', 'if ', 'for ', 'else ', 'throws ', 'async ', 'await ', 'return ', 'break', '&&', '||', 'try ',
-  'catch ', ' = ', ' => ', '!==', '===', 'export ', ' ? ', ' : ', ' + ', ' - ', ' / ', '!',
+  'catch ', ' = ', ' => ', '!==', '===', 'export ', ' ? ', ' : ', ' + ', ' - ', ' / ', '!', 'throw ',
+  // Interferes with: mocha test case names
+  // 'return',
 ];
 const JAVASCRIPT_BLUEWORDS = [
   'const ', 'let ', ' Object', 'exports', 'function', 'console', 'window', 'process', 'var ',

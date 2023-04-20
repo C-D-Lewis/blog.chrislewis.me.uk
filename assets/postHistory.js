@@ -943,6 +943,11 @@ window.postHistory = {
         "title": "Fabricate Faster With Types",
         "file": "assets/rendered/2023-04-07-Fabricate-Faster-With-Types.json",
         "fileName": "2023-04-07-Fabricate-Faster-With-Types"
+      },
+      {
+        "title": "Freezing The Bifrost",
+        "file": "assets/rendered/2023-04-20-Freezing-The-Bifrost.json",
+        "fileName": "2023-04-20-Freezing-The-Bifrost"
       }
     ]
   }

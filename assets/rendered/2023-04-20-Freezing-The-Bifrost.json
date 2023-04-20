@@ -1,0 +1,176 @@
+{
+  "fileName": "2023-04-20-Freezing-The-Bifrost.md",
+  "title": "Freezing The Bifrost",
+  "dateTime": "2023-04-20 19:23",
+  "tags": [
+    "Integration"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Time for something a bit different: a project that did not pan out and I\ndecided to put back on the shelf. Anyone familiar with the sunk cost fallacy\nwill know that it's hard to stop doing something when you have already invested\na lot of time or money into something, but it may be wisest to actually stop."
+    },
+    {
+      "type": "paragraph",
+      "text": "It makes sense on the surface - so much is spent, how far can the end really be?"
+    },
+    {
+      "type": "paragraph",
+      "text": "It's something I've been familiar with on more than one occasion and have found\nmyself on both sides of the fence at different times. In this case, it's a new\napp in the <code>node-microservices</code> project aimed to replace the way apps\ncommunicate with each other and apps on remote devices - from HTTP to\nWebSockets. The reasons seemed good:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Real-time communication.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Knowledge of current connected state.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Ability to communicate with a device on a home network without needing to know the address or configure firewall rules.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Upgrading something that's been in place for at least five year, which should be fun.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This almost came true with a new app called <code>bifrost</code>. It fully\nachieved all this for local apps, and had a cool bifrost-like randomly generated\ngraphic whenever it started!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/04/bifrost.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "So why didn't I finish it?"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Open the Bifrost!"
+    },
+    {
+      "type": "paragraph",
+      "text": "The concept behind <code>bifrost</code> was derived from the addition of an\nexisting app called <code>clacks</code> which simply allows apps to subscribe\nto a global set of topics and be notified. I had a problem with it sort-of\nduplicating the role of <code>conduit</code> which is to be the way all apps\ncommunicate."
+    },
+    {
+      "type": "paragraph",
+      "text": "Using WebSockets worked well instead of sending request to a local instance\nof <code>conduit</code> and then forwarding it to another remote instance\n(requiring knowledge of the IP address and assuming it is reachable) which made\nit an attractive method for all apps to communicate no matter their location.\nCurrently, all apps on all devices that care about such topics (currently just\nactuation of some smart lighting) connect to one central <code>clacks</code>\nbut what if it could be made to do all app communication?"
+    },
+    {
+      "type": "paragraph",
+      "text": "The major obstacle to achieving this was to ensure it would be very easy to\nupdate apps to use the new communication method. The nice thing about HTTP was\nthe ability to <code>POST</code> data and <code>await</code> the response data.\nBut with WebSockets, messages are sent and it's almost impossible to have such a\nwait at the language level. To solve this, all messages sent had an\n<code>id</code> in addition to the usual <code>to</code>, <code>from</code>,\n<code>topic</code> etc. that <code>conduit</code> packets have always had. This\nID is used to register the Promise callback when a response is sent with the\nsame ID - the callback is called and <code>await</code> can be used."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Send a packet to the server for another application.</span>\n<span class=\"comment\"> * ID is attached to allow awaiting of other app response data, so it can be</span>\n<span class=\"comment\"> * used in the same way as HTTP.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const </span>send<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span>data<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span><span class=\"js-keyword\">!</span>connected<span class=\"js-syntax\">)</span> <span class=\"js-keyword\">throw </span><span class=\"js-keyword\">new </span>Error<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>bifrost.js<span class=\"js-syntax\">: </span>not yet connected<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Send this message to the chosen app</span>\n  <span class=\"js-blueword\">const </span><span class=\"js-syntax\">{</span>\n    to<span class=\"js-syntax\">,</span> from<span class=\"js-syntax\">,</span> topic<span class=\"js-syntax\">,</span> message<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span><span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span> token<span class=\"js-keyword\"> = </span>TOKEN<span class=\"js-syntax\">,</span> toHostname<span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>data<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">const </span>id<span class=\"js-keyword\"> = </span>generateId<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">const </span>packet<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">    // System generated</span>\n    id<span class=\"js-syntax\">,</span>\n    fromHostname<span class=\"js-syntax\">: </span>hostname<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n\n<span class=\"comment\">    // User data</span>\n    to<span class=\"js-syntax\">,</span>\n    from<span class=\"js-syntax\">,</span>\n    topic<span class=\"js-syntax\">,</span>\n    message<span class=\"js-syntax\">,</span>\n    token<span class=\"js-syntax\">,</span>\n    toHostname<span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n  localHostSocket.send<span class=\"js-syntax\">(</span>stringifyPacket<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>>><span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> packet<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Allow awaiting the response - handled in onSocketMessage</span>\n  <span class=\"js-keyword\">return </span><span class=\"js-keyword\">new </span>Promise<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>resolve<span class=\"js-syntax\">,</span> reject<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">    // Reject if no response message arrives soon</span>\n    <span class=\"js-blueword\">const </span>timeoutHandle<span class=\"js-keyword\"> = </span>setTimeout<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n      delete pending<span class=\"js-syntax\">[</span>id<span class=\"js-syntax\">]</span><span class=\"js-syntax\">;</span>\n      reject<span class=\"js-syntax\">(</span><span class=\"js-keyword\">new </span>Error<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>No response<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span> SEND_TIMEOUT_MS<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">    /**</span>\n<span class=\"comment\">     * Callback when a message is received with this outgoing ID.</span>\n<span class=\"comment\">     *</span>\n<span class=\"comment\">     * @param {object} response - Response data from app who answered.</span>\n<span class=\"comment\">     */</span>\n    pending<span class=\"js-syntax\">[</span>id<span class=\"js-syntax\">]</span><span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span>response<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n      clearTimeout<span class=\"js-syntax\">(</span>timeoutHandle<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n      <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>response.error<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n        delete pending<span class=\"js-syntax\">[</span>id<span class=\"js-syntax\">]</span><span class=\"js-syntax\">;</span>\n        reject<span class=\"js-syntax\">(</span><span class=\"js-keyword\">new </span>Error<span class=\"js-syntax\">(</span>response.error<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n        return<span class=\"js-syntax\">;</span>\n      <span class=\"js-syntax\">}</span>\n\n      resolve<span class=\"js-syntax\">(</span>response<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And when a message had the right ID, the Promise callback was called and the\napp could just <code>await</code> it:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * When the localHostSocket receives a message.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {*} buffer - Data buffer.</span>\n<span class=\"comment\"> * @returns {Promise<void>}</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const </span>onSocketMessage<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">async </span><span class=\"js-syntax\">(</span>buffer<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">const </span>packetStr<span class=\"js-keyword\"> = </span>buffer.toString<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">const </span>packet<span class=\"js-keyword\"> = </span>JSON.parse<span class=\"js-syntax\">(</span>packetStr<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">const </span><span class=\"js-syntax\">{</span>\n    replyId<span class=\"js-syntax\">,</span> topic<span class=\"js-syntax\">,</span> message<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span><span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>packet<span class=\"js-syntax\">;</span>\n  log.debug<span class=\"js-syntax\">(</span><span class=\"_string\">`bifrost.js << $<span class=\"js-syntax\">{</span>formatPacket<span class=\"js-syntax\">(</span>packet<span class=\"js-syntax\">)</span><span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Did we request this message response? Resolve the send()!</span>\n<span class=\"comment\">  // If we were't expecting this reply, ignore</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>replyId<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>pending<span class=\"js-syntax\">[</span>replyId<span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      pending<span class=\"js-syntax\">[</span>replyId<span class=\"js-syntax\">]</span><span class=\"js-syntax\">(</span>message<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      delete pending<span class=\"js-syntax\">[</span>replyId<span class=\"js-syntax\">]</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n    return<span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">  // Topic does not exist in the app</span>\n  <span class=\"js-blueword\">const </span>found<span class=\"js-keyword\"> = </span>topics<span class=\"js-syntax\">[</span>topic<span class=\"js-syntax\">]</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span><span class=\"js-keyword\">!</span>found<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    log.error<span class=\"js-syntax\">(</span><span class=\"_string\">`bifrost.js<span class=\"js-syntax\">: </span>No topic registered <span class=\"js-keyword\">for </span>$<span class=\"js-syntax\">{</span>topic<span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    return<span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">  // Check topic schema</span>\n  <span class=\"js-blueword\">const </span><span class=\"js-syntax\">{</span> topicSchema<span class=\"js-syntax\">,</span> cb <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>found<span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span><span class=\"js-keyword\">!</span>schema<span class=\"js-syntax\">(</span>message<span class=\"js-syntax\">,</span> topicSchema<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    log.error<span class=\"js-syntax\">(</span><span class=\"_string\">`bifrost.js<span class=\"js-syntax\">: </span>Schema failed:\\n$<span class=\"js-syntax\">{</span>JSON.stringify<span class=\"js-syntax\">(</span>topicSchema<span class=\"js-syntax\">)</span><span class=\"js-syntax\">}</span>\\n$<span class=\"js-syntax\">{</span>JSON.stringify<span class=\"js-syntax\">(</span>message<span class=\"js-syntax\">)</span><span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    return<span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">  // Pass to the application and allow it to return a response for this ID</span>\n  <span class=\"js-blueword\">const </span>response<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-keyword\">await </span>cb<span class=\"js-syntax\">(</span>packet<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">||</span> <span class=\"js-syntax\">{</span> ok<span class=\"js-syntax\">: </span>true <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n  reply<span class=\"js-syntax\">(</span>packet<span class=\"js-syntax\">,</span> response<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This made the upgrade for all apps virtually find-and-replaceable and I was\nquite pleased with it. But soon the complexities grew..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Completing the Upgrade"
+    },
+    {
+      "type": "paragraph",
+      "text": "After creating the WebSocket app, updating all other apps and their tests to\nuse it, I moved onto the two dashboards in the same project - one for smart\nlighting control, and another the allowed more complex interrogation and control\nof all apps running on all devices in the fleet. This required two things:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Ability to connect to all devices.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Ability to send packets to a remote app and device, and receive the response to each.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "I thought this would be fairy easy - just do the same as <code>conduit</code>\nand configure the app to send packets with a host identifier to that host,\nprovided it was connected to the instance receiving the initial request."
+    },
+    {
+      "type": "paragraph",
+      "text": "However, I had made the mistake of writing much of the application with the same\nlibrary of functions and functionality in the <code>node-common</code> set of\ncommon modules. I thought this was smart - things like creating packets, sending\nthem and attaching IDs and registering Promise callbacks, receiving and\nvalidating responses and handing them back to the calling app were all things\nthe server app needed."
+    },
+    {
+      "type": "paragraph",
+      "text": "But only once I got all the way to updating the\n<code>service-dashboard</code> to try and discover apps running on a remote\ndevice via a local and remote instance of <code>bifrost</code> did I realise\nthat the process was silently acting as if each server-server connection was\na client app, <i>not</i> another server. I also had a nightmare trying to unpick\nthe logic deciding if a packet was for the local or another host, and\nmarshalling all the fields in a packet for this purpose. A packet would be\nforwarded to another device's <code>bifrost</code> okay, but the response was\narriving via the library and being treated as a client app packet - no topic\nfound!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/04/whathaveidone.jpg"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Putting a Pin In It"
+    },
+    {
+      "type": "paragraph",
+      "text": "After several nights with many terminal windows open I decided I'd had enough\nand tried creating a special additional WebSocket connection for all servers\na local <code>bifrost</code> may want to send/receive packets from, but this\nrequired advance knowledge of who they are and what they might send - not ideal\nor scalable."
+    },
+    {
+      "type": "paragraph",
+      "text": "This was the final messy nail in the coffin and I stopped trying to get 5+\nprocesses to work nicely together. Perhaps some TypeScript would have helped\nunderstand the data flow, but when messages dissapear into the ether and never\nreceive responses, I ran out of energy."
+    },
+    {
+      "type": "paragraph",
+      "text": "For about two months one of the Raspberry Pis in the rack lay forlorn and bereft\nof a purpose - it had been my test ground and taken out of automation. It was\na constant reminder I had either yet to finish the puzzle or to decide to\nswallow the sunk time cost and give up. It bothers me when unfinished projects\nare just hanging around as yet another unresolved problem in my mind."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Letting Sunk Cost Sink"
+    },
+    {
+      "type": "paragraph",
+      "text": "About a week ago I made a decision to give in - and I had some surprisingly\nagreeable reasons for doing so:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>HTTP works just fine for low volume messages, and WebSockets would not have significantly increased speed.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>I already have a good-enough method of inter-device communication, simply forwarding HTTP requests that can be easily <code>awaited</code></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Extra moving parts with establishing and housekeeping WebSocket connections increased risk and I was not confident my code would catch and handle all close and error events.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Lots of code duplication between server and client dashboard meant I had to basically write half the <code>bifrost</code> library in each dashboard application.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Some clear thinking on sunk costs told me I was better off immediately redirecting my energy (and precious off-work hours) now instead of another few months from now.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The end result would have been functionally idential </td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "So it's shelved - the finished application can be found in the\n<code>unused</code> directory in the project, but all app upgrades will just\nlive in the <code>bifrost-ify</code> git branch just in case I have a brainwave\nsolution or a more definite need for that kind of communication protocol."
+    },
+    {
+      "type": "paragraph",
+      "text": "Now I've restored the Pi stack and mentally freed myself of the unresolved\nproject burdern I can look to the next in my list of projects and feel that bit\nmore energised in doing so..."
+    }
+  ]
+}
