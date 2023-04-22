@@ -18,6 +18,8 @@ BUCKET="s3://$SITE_DOMAIN"
 # Current commit
 COMMIT=$(git rev-parse --short HEAD)
 
+echo "Using prfile $AWS_PROFILE in $AWS_DEFAULT_REGION" 
+
 ############################################### Build ##############################################
 
 echo ""
