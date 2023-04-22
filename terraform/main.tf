@@ -1,13 +1,3 @@
-module "main" {
-  source          = "./infrastructure"
-  region          = var.region
-  project_name    = var.project_name
-  vpc_id          = var.vpc_id
-  zone_id         = var.zone_id
-  domain_name     = var.domain_name
-  certificate_arn = var.certificate_arn
-}
-
 provider "aws" {
   region = var.region
 }
@@ -27,4 +17,15 @@ terraform {
     key    = "blog"
     region = "us-east-1"
   }
+}
+
+module "main" {
+  source = "github.com/c-d-lewis/terraform-s3-cloudfront-website?ref=master"
+
+  region          = "us-east-1"
+  project_name    = "blog"
+  zone_id         = "Z05682866H59A0KFT8S"
+  domain_name     = "blog.chrislewis.me.uk"
+  alt_domain_name = "www.blog.chrislewis.me.uk"
+  certificate_arn = "arn:aws:acm:us-east-1:617929423658:certificate/a69e6906-579e-431d-9e4c-707877d325b7"
 }
