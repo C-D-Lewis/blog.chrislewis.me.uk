@@ -7,7 +7,7 @@
     "url": "git+https://github.com/c-d-lewis/blog.git"
   },
   "scripts": {
-    "build": "./pipeline/build-site.sh",
+    "build": "./build.sh",
     "start": "npm run build && http-server"
   },
   "keywords": [],
