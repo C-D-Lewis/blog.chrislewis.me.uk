@@ -30,4 +30,4 @@ jobs:
         run: npm ci
       
       - name: Build and deploy
-        run: ./deploy.sh
+        run: ./deploy.sh ${{ vars.SITE_DOMAIN }}
