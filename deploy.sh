@@ -4,23 +4,20 @@
 #
 #   - Using C-D-Lewis/terraform-s3-cloudfront-website
 #   - Using COMMIT in index.html
-#   - Standardized Node/AWS/Terraform/Build GitHub workflow with variables:
+#   - Standardized Node/AWS/Terraform/Build GitHub workflow
+#   - Environment variables:
 #     - SITE_DOMAIN
 #
-# Usage: ./deploy.sh $SITE_DOMAIN
+# Usage: ./deploy.sh
 
 set -eu
 
 export AWS_DEFAULT_REGION=us-east-1
 
-# Website URL
-SITE_DOMAIN=$1
 # Bucket to create and deploy site into
 BUCKET="s3://$SITE_DOMAIN"
 # Current commit
 COMMIT=$(git rev-parse --short HEAD)
-
-echo "Using profile $AWS_PROFILE in $AWS_DEFAULT_REGION" 
 
 ############################################### Build ##############################################
 
