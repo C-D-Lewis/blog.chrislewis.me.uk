@@ -47,15 +47,14 @@ sed -i.bak "s/COMMIT/$COMMIT/g" index.html
 
 printf "\n\n>>> Pushing files\n\n"
 
-# Push files (required)
+# Push files (from multiple projects)
 aws s3 cp index.html $BUCKET
 aws s3 sync src $BUCKET/src
-aws s3 sync assets $BUCKET/assets
-aws s3 sync styles $BUCKET/styles
-
-# Push files (optional)
-aws s3 sync feed $BUCKET/feed || exit 0
-aws s3 cp favicon.ico $BUCKET || exit 0
+aws s3 sync assets $BUCKET/assets || true
+aws s3 sync styles $BUCKET/styles || true
+aws s3 sync feed $BUCKET/feed || true
+aws s3 sync dist $BUCKET/dist || true
+aws s3 cp favicon.ico $BUCKET || true
 
 # Restore template
 mv index.html.bak index.html
