@@ -69,7 +69,7 @@ echo "Updating infrastructure"
 
 # Update infrastructure
 cd terraform
-terraform init
+terraform init -reconfigure
 terraform apply -auto-approve
 cd -
 
