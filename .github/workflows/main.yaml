@@ -29,5 +29,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Build
-        run: ./build.sh
+      - name: Build and deploy
+        run: ./deploy.sh
