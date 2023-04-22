@@ -28,12 +28,12 @@ printf "\n\n>>> Building site\n\n"
 HAS_BUILD=$(cat package.json | jq -r '.scripts.build')
 if [[ "$HAS_BUILD" != 'null' ]]; then
   npm run build
+fi
   
-  # Check no changes resulted
-  if [[ ! -z $(git status -s) ]]; then
-    echo "There are uncommitted changes after build!"
-    exit 1
-  fi
+# Check no changes resulted
+if [[ ! -z $(git status -s) ]]; then
+  echo "There are uncommitted changes after build!"
+  exit 1
 fi
 
 # Check template variable is ready and replace it for cache update
