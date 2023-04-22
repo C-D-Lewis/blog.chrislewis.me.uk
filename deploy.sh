@@ -23,7 +23,7 @@ echo "Using prfile $AWS_PROFILE in $AWS_DEFAULT_REGION"
 ############################################### Build ##############################################
 
 echo ""
-echo "Building site"
+echo ">>> Building site"
 
 # Build, if required
 HAS_BUILD=$(cat package.json | jq -r '.scripts.build')
@@ -47,7 +47,7 @@ sed -i.bak "s/COMMIT/$COMMIT/g" index.html
 ############################################### Push ###############################################
 
 echo ""
-echo "Pushing files"
+echo ">>> Pushing files"
 
 # Push files (required)
 aws s3 cp index.html $BUCKET
@@ -65,7 +65,7 @@ mv index.html.bak index.html
 ########################################## Infrastructure ##########################################
 
 echo ""
-echo "Updating infrastructure"
+echo ">>> Updating infrastructure"
 
 # Update infrastructure
 cd terraform
@@ -89,7 +89,7 @@ echo "Invalidation completed"
 ############################################## Verify ##############################################
 
 echo ""
-echo "Checking deployment"
+echo ">>> Checking deployment"
 
 RES=""
 while [[ ! "$RES" =~ "$COMMIT" ]]; do
