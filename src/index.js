@@ -122,6 +122,9 @@ const App = () => {
       fabricate('LeftColumnItem')
         .setText('Old WordPress Blog')
         .onClick(() => window.open('https://ninedof.wordpress.com/', '_blank')),
+      fabricate('LeftColumnItem')
+        .setText('Who\'s at Paddy\'s?')
+        .onClick(() => window.open('https://whosatpaddys.pub/', '_blank')),
     ]);
 
   // Post list in the middle, socials first on mobile
