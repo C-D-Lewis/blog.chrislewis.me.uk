@@ -42,7 +42,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\ncurl -X GET https://api.evrythng.io/v2/products/Utqn3nTHsRfCwtarDSkf9nRe?withScopes=true \\\n  -H Authorization:$OPERATOR_API_KEY\n</div></pre>"
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\ncurl -X GET https://api.evrythng.io/v2/products/Utqn3nTHsRfCwtarDSkf9nRe?withScopes=<span class=\"js-keyword\">true</span> \\\n  -H Authorization:$OPERATOR_API_KEY\n</div></pre>"
     },
     {
       "type": "paragraph",

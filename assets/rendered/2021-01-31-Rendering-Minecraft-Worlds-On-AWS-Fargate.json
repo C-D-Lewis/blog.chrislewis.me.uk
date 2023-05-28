@@ -39,7 +39,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\njava \\\n  --module-path <span class=\"_string\">\"/usr/share/maven-repo/org/openjfx/javafx-controls/11/:/usr/share/maven-repo/org/openjfx/javafx-base/11/:/usr/share/maven-repo/org/openjfx/javafx-graphics/11/:/usr/share/maven-repo/org/openjfx/javafx-fxml/11/\"</span> \\\n  --add-modules=javafx.controls,javafx.base,javafx.graphics,javafx.fxml \\\n  -Dchunky.home=<span class=\"_string\">\"$(pwd)\"</span> \\\n  -jar ChunkyLauncher.jar \\\n  -f \\\n  -target $TARGET_SPP \\\n  -render $SCENE_NAME\n</div></pre>"
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\njava \\\n  --module-path <span class=\"_string\">\"/usr/share/maven-repo/org/openjfx/javafx-controls/11/:/usr/share/maven-repo/org/openjfx/javafx-base/11/:/usr/share/maven-repo/org/openjfx/javafx-graphics/11/:/usr/share/maven-repo/org/openjfx/javafx-fxml/11/\"</span> \\\n  --add-modules=javafx.controls,javafx.base,javafx.graphics,javafx.fxml \\\n  -Dchunky.home=<span class=\"_string\">\"<span class=\"js-syntax\">$(</span>pwd<span class=\"js-syntax\">)</span>\"</span> \\\n  -jar ChunkyLauncher.jar \\\n  -f \\\n  -target $TARGET_SPP \\\n  -render $SCENE_NAME\n</div></pre>"
     },
     {
       "type": "paragraph",

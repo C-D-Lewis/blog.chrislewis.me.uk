@@ -60,6 +60,10 @@ const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void 
 // Java
 const JAVA_KEYWORDS = ['public', 'static', 'final', 'private', 'void'];
 
+// Shell/bash
+const SHELL_KEYWORDS = ['set ', 'export ', ' then', ' do', 'if ', 'fi', ' || ', 'true', 'while ', 'done', '! '];
+const SHELL_SYNTAX = ['[[', ']];', '];', ']]', '$(', ')', ' [']; // Order matters here a bit, which is annoying
+
 /**
  * Highlight strings in code blocks.
  *
@@ -247,6 +251,13 @@ const toHighlightedLine = (line, language) => {
 
     // Strings
     line = highlightStrings(line);
+
+    SHELL_KEYWORDS.forEach((keyword) => {
+      line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+    });
+    SHELL_SYNTAX.forEach((syntax) => {
+      line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);
+    });
   }
 
   // Dockerfile

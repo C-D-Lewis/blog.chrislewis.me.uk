@@ -293,7 +293,8 @@ window.tagIndex = {
     "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
     "2023-02-12-Keeping-Pis-Neat-And-Tidy.json",
     "2023-03-26-Customising-a-Pi-Pico-Keypad.json",
-    "2023-04-20-Freezing-The-Bifrost.json"
+    "2023-04-20-Freezing-The-Bifrost.json",
+    "2023-05-28-Simpler-Site-Pipelines.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",

@@ -1,0 +1,129 @@
+{
+  "fileName": "2023-05-28-Simpler-Site-Pipelines.md",
+  "title": "Simpler Site Pipelines",
+  "dateTime": "2023-05-28 17:06",
+  "tags": [
+    "Integration"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "After the initial setup of deploying this blog to an AWS S3 bucket behind a\nCloudFront distribution, a number of other sites have all had the same\ntreatment. It's a simple, cheap, and effective way to host them and can be\nreplicated to more in the future. Running Terrform to update these resources,\nand the AWS CLI to synchronise bucket contents with local site files is also\npart of this simple pattern."
+    },
+    {
+      "type": "paragraph",
+      "text": "Since late last year I've used GitHub actions to perform this build / push /\nTerraform / invalidate process fully automatically whenever a new version is\npushed to each repository's <code>main</code>/<code>master</code> branch, which\nmakes it a joy to continue to work on them without worrying about finishing up\neach session with deployment issues."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/05/deployment.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "So what's the issue? Well, now that there are several sites working this way,\nthe issue of DRY has come up as it always was going to - each repository has\nan almost exact copy of:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Build scripts</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Terraform code for CloudFront / S3 / Route53 resources</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Asset push scripts for AWS CLI</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>CloudFront invalidation script.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>GitHub Actions workflow files.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Because the essense of the process is identical, but the minutia details of\nwhich build steps are required, which site name and Route53 details to use,\nwhich files need to be pushed, are different it means that slight drift in\nstyle or convention means that I need to be careful about which sites are\ntotally up to date or are in an older style, and before long I'm back to\nworrying about deployment success after an update to the site itself."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The Solution"
+    },
+    {
+      "type": "paragraph",
+      "text": "The solution was something I should have done as soon as the whole end-to-end\nprocess was settled on - put some time into reusability! Because each site is\ndeployed with the same technologies they can be moved to use shared parts of\nthe whole process."
+    },
+    {
+      "type": "paragraph",
+      "text": "Therefore, I now have reduced each part down to one file - with each site\nrepo having identical copies that are much easier to keep up to date. The\ncombination of all three means a new site can also be deployed very easily."
+    },
+    {
+      "type": "paragraph",
+      "text": "Each part is shown in full, showing all steps and reusability details where\nthings are generalised or parameterised for slightly different file layouts\nor build steps etc."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": ".github/workflows/main.yaml"
+    },
+    {
+      "type": "paragraph",
+      "text": "GitHub actions steps that can be run for every site identically. It sets up\nNode.js, Terraform, and then simply calls the repo's copy of the reusable\n<code>deploy.sh</code> (below)."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> build</span>\n<span class=\"js-keyword\">on</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">  push</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">    branches</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n      - master\n      - main\n<span class=\"js-keyword\">jobs</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">  build-and-deploy</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">    runs-on</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ubuntu-latest</span>\n<span class=\"js-keyword\">    steps</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">      - uses</span><span class=\"comment_regular\">:</span><span class=\"_string\"> actions/checkout@v3</span>\n      \n<span class=\"js-keyword\">      - uses</span><span class=\"comment_regular\">:</span><span class=\"_string\"> actions/setup-node@v3</span>\n<span class=\"js-keyword\">        with</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">          node-version</span><span class=\"comment_regular\">:</span><span class=\"_string\"> '16'</span>\n\n<span class=\"js-keyword\">      - name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Set up Terraform</span>\n<span class=\"js-keyword\">        uses</span><span class=\"comment_regular\">:</span><span class=\"_string\"> hashicorp/setup-terraform@v2</span>\n<span class=\"js-keyword\">        with</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"comment\">          # Must match version in terraform required_version</span>\n<span class=\"js-keyword\">          terraform_version</span><span class=\"comment_regular\">:</span><span class=\"_string\"> 1.2.9</span>\n\n<span class=\"js-keyword\">      - name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Configure AWS Credentials</span>\n<span class=\"js-keyword\">        uses</span><span class=\"comment_regular\">:</span><span class=\"_string\"> aws-actions/configure-aws-credentials@v1</span>\n<span class=\"js-keyword\">        with</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">          aws-access-key-id</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ${{ secrets.AWS_ACCESS_KEY_ID }}</span>\n<span class=\"js-keyword\">          aws-secret-access-key</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ${{ secrets.AWS_SECRET_ACCESS_KEY }}</span>\n<span class=\"js-keyword\">          aws-region</span><span class=\"comment_regular\">:</span><span class=\"_string\"> us-east-1</span>\n\n<span class=\"js-keyword\">      - name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Install dependencies</span>\n<span class=\"js-keyword\">        run</span><span class=\"comment_regular\">:</span><span class=\"_string\"> npm ci</span>\n      \n<span class=\"js-keyword\">      - name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Build and deploy</span>\n<span class=\"js-keyword\">        run</span><span class=\"comment_regular\">:</span><span class=\"_string\"> ./deploy.sh ${{ vars.SITE_DOMAIN }}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "All that remains are the one-time step of adding a few environment variables\nin GitHub for the actions themselves."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "deploy.sh"
+    },
+    {
+      "type": "paragraph",
+      "text": "Script that invokes <code>npm run build</code> if it exists, checks for new\nuncommitted git changes as a result, replaces any commit references for\ncache-busting, pushes assets to the S3 bucket, runs Terraform, and finally\ncreates a CloudFront cache invalidation to make the new version truly live."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">#!/bin/bash</span>\n\n<span class=\"comment\"># This script is intended to be a complete build assuming:</span>\n<span class=\"comment\">#</span>\n<span class=\"comment\">#   - Using C-D-Lewis/terraform-s3-cloudfront-website</span>\n<span class=\"comment\">#   - Using COMMIT in index.html</span>\n<span class=\"comment\">#   - Standardized Node/AWS/Terraform/Build GitHub workflow with variables:</span>\n<span class=\"comment\">#     - SITE_DOMAIN</span>\n<span class=\"comment\">#</span>\n<span class=\"comment\"># Usage: ./deploy.sh $SITE_DOMAIN</span>\n\n<span class=\"js-keyword\">set </span>-eu\n\n<span class=\"js-keyword\">export </span>AWS_DEFAULT_REGION=us-east-1\n\n<span class=\"comment\"># Website domain</span>\nSITE_DOMAIN=$1\n<span class=\"comment\"># Bucket to create and deploy site into</span>\nBUCKET=<span class=\"_string\">\"s3://$SITE_DOMAIN\"</span>\n<span class=\"comment\"># Current commit</span>\nCOMMIT=<span class=\"js-syntax\">$(</span>git rev-parse --short HEAD<span class=\"js-syntax\">)</span>\n\n<span class=\"comment\">############################################### Build ##############################################</span>\n\nprintf <span class=\"_string\">\"\\n\\n>>> Building site\\n\\n\"</span>\n\n<span class=\"comment\"># Build, if required</span>\nHAS_BUILD=<span class=\"js-syntax\">$(</span>cat package.json | jq -r <span class=\"_string\">'.scripts.build'</span><span class=\"js-syntax\">)</span>\n<span class=\"js-keyword\">if </span><span class=\"js-syntax\">[[</span> <span class=\"_string\">\"$HAS_BUILD\"</span> != <span class=\"_string\">'null'</span> <span class=\"js-syntax\">]<span class=\"js-syntax\">];</span></span><span class=\"js-keyword\"> then</span>\n  npm run build\n<span class=\"js-keyword\">fi</span>\n  \n<span class=\"comment\"># Check no changes resulted</span>\n<span class=\"js-keyword\">if </span><span class=\"js-syntax\">[[</span> <span class=\"js-keyword\">! </span>-z <span class=\"js-syntax\">$(</span>git status -s<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">]<span class=\"js-syntax\">];</span></span><span class=\"js-keyword\"> then</span>\n  echo <span class=\"_string\">\"There are uncommitted changes after build!\"</span>\n  exit 1\n<span class=\"js-keyword\">fi</span>\n\n<span class=\"comment\"># Check template variable is ready and replace it for cache update</span>\n<span class=\"js-keyword\">if </span>[ <span class=\"js-keyword\">! </span><span class=\"_string\">\"<span class=\"js-syntax\">$(</span>cat index.html | grep COMMIT<span class=\"js-syntax\">)</span>\"</span> <span class=\"js-syntax\">];</span><span class=\"js-keyword\"> then</span>\n  echo <span class=\"_string\">\"COMMIT not found in index.html\"</span>\n  exit 1\n<span class=\"js-keyword\">fi</span>\nsed -i.bak <span class=\"_string\">\"s/COMMIT/$COMMIT/g\"</span> index.html\n\n<span class=\"comment\">############################################### Push ###############################################</span>\n\nprintf <span class=\"_string\">\"\\n\\n>>> Pushing <span class=\"js-keyword\">fi</span>les\\n\\n\"</span>\n\n<span class=\"comment\"># Push files (from multiple projects)</span>\naws s3 cp index.html $BUCKET\naws s3 sync src $BUCKET/src\naws s3 sync assets $BUCKET/assets<span class=\"js-keyword\"> || </span><span class=\"js-keyword\">true</span>\naws s3 sync styles $BUCKET/styles<span class=\"js-keyword\"> || </span><span class=\"js-keyword\">true</span>\naws s3 sync feed $BUCKET/feed<span class=\"js-keyword\"> || </span><span class=\"js-keyword\">true</span>\naws s3 sync dist $BUCKET/dist<span class=\"js-keyword\"> || </span><span class=\"js-keyword\">true</span>\naws s3 cp favicon.ico $BUCKET<span class=\"js-keyword\"> || </span><span class=\"js-keyword\">true</span>\n\n<span class=\"comment\"># Restore template</span>\nmv index.html.bak index.html\n\n<span class=\"comment\">########################################## Infrastructure ##########################################</span>\n\nprintf <span class=\"_string\">\"\\n\\n>>> Updating infrastructure\\n\\n\"</span>\n\n<span class=\"comment\"># Update infrastructure</span>\ncd terraform\nterraform init -recon<span class=\"js-keyword\">fi</span>gure\nterraform apply -auto-approve\ncd -\n\n<span class=\"comment\"># Get CloudFront distribution ID</span>\nCF_DIST_ID=<span class=\"js-syntax\">$(</span>aws cloudfront list-distributions | jq -r <span class=\"_string\">\".DistributionList.Items[] | select(.Aliases.Items[0] == \\\"</span>$SITE_DOMAIN\\<span class=\"_string\">\"<span class=\"js-syntax\">)</span> | .Id\"</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Create new invalidation</span>\nRES=<span class=\"js-syntax\">$(</span>aws cloudfront create-invalidation --distribution-id $CF_DIST_ID --paths <span class=\"_string\">\"/*\"</span><span class=\"js-syntax\">)</span>\nINVALIDATION_ID=<span class=\"js-syntax\">$(</span>echo $RES | jq -r <span class=\"_string\">'.Invalidation.Id'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Wait for invalidation complete</span>\necho <span class=\"_string\">\"Waiting for invalidation-completed for $INVALIDATION_ID...\"</span>\naws cloudfront wait invalidation-completed --distribution-id $CF_DIST_ID --id $INVALIDATION_ID\n\necho <span class=\"_string\">\"Invalidation completed\"</span>\n\n<span class=\"comment\">############################################## Verify ##############################################</span>\n\nprintf <span class=\"_string\">\"\\n\\n>>> Checking deployment\\n\\n\"</span>\n\nRES=<span class=\"_string\">\"\"</span>\n<span class=\"js-keyword\">while </span><span class=\"js-syntax\">[[</span> <span class=\"js-keyword\">! </span><span class=\"_string\">\"$RES\"</span> =~ <span class=\"_string\">\"$COMMIT\"</span> <span class=\"js-syntax\">]<span class=\"js-syntax\">];</span></span><span class=\"js-keyword\"> do</span>\n  sleep 5\n  URL=<span class=\"_string\">\"https://$SITE_DOMAIN?t=<span class=\"js-syntax\">$(</span>date +%s<span class=\"js-syntax\">)</span>\"</span>\n  echo $URL\n  RES=<span class=\"js-syntax\">$(</span>curl -s $URL<span class=\"js-syntax\">)</span>\n<span class=\"js-keyword\">done</span>\necho <span class=\"_string\">\"Commit $COMMIT found in live site\"</span>\n\nprintf <span class=\"_string\">\"\\n\\n>>> Deployment complete!\\n\\n\"</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "terraform-s3-cloudfront-website"
+    },
+    {
+      "type": "paragraph",
+      "text": "A shared Terraform module that completely wraps all the S3, CloudFront, Route53\netc AWS resources for the site. This means each repo's Terraform configuration\nis just one file:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-terraform\">Terraform</div>\n<pre class=\"\"><div class=\"code-block\">\nprovider <span class=\"_string\">\"aws\"</span> <span class=\"js-syntax\">{</span>\n  region = <span class=\"tf-keyword\">var</span>.region\n<span class=\"js-syntax\">}</span>\n\nterraform <span class=\"js-syntax\">{</span>\n  required_version = <span class=\"_string\">\"= 1.2.9\"</span>\n\n  required_providers <span class=\"js-syntax\">{</span>\n    aws = <span class=\"js-syntax\">{</span>\n      source  = <span class=\"_string\">\"hashicorp/aws\"</span>\n      version = <span class=\"_string\">\"= 4.31.0\"</span>\n    <span class=\"js-syntax\">}</span>\n  <span class=\"js-syntax\">}</span>\n\n  backend <span class=\"_string\">\"s3\"</span> <span class=\"js-syntax\">{</span>\n    bucket = <span class=\"_string\">\"chrislewis-tfstate\"</span>\n    key    = <span class=\"_string\">\"blog\"</span>\n    region = <span class=\"_string\">\"us-east-1\"</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span>\n\nmodule <span class=\"_string\">\"main\"</span> <span class=\"js-syntax\">{</span>\n  source = <span class=\"_string\">\"github.com/c-d-lewis/terraform-s3-cloudfront-website?ref=master\"</span>\n\n  region          = <span class=\"_string\">\"us-east-1\"</span>\n  project_name    = <span class=\"_string\">\"blog\"</span>\n  zone_id         = <span class=\"_string\">\"Z05682866H59A0KFT8S\"</span>\n  domain_name     = <span class=\"_string\">\"blog.chrislewis.me.uk\"</span>\n  certificate_arn = <span class=\"_string\">\"arn:aws:acm:us-east-1:617929423658:certificate/a69e6906-579e-431d-9e4c-707877d325b7\"</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "The benefits are immediate - I can forget about build and deploy and focus on\nadding new functionality or fixes to each site. In the event any of the build,\ndeploy, Terraform changes I can quickly also update all the other sites. The\nshared Terraform module alone demonstrates the power of Terraform modules, which\nyou can\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/terraform-s3-cloudfront-website\">check out here</a>."
+    },
+    {
+      "type": "paragraph",
+      "text": "While I know I need only read the logs if I get an email in case of failure, it\nis also quite rewarding to watch the whole thing turn green!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/05/success.png"
+    }
+  ]
+}

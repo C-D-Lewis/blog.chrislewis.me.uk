@@ -949,6 +949,13 @@ window.postHistory = {
         "file": "assets/rendered/2023-04-20-Freezing-The-Bifrost.json",
         "fileName": "2023-04-20-Freezing-The-Bifrost"
       }
+    ],
+    "05": [
+      {
+        "title": "Simpler Site Pipelines",
+        "file": "assets/rendered/2023-05-28-Simpler-Site-Pipelines.json",
+        "fileName": "2023-05-28-Simpler-Site-Pipelines"
+      }
     ]
   }
 }
