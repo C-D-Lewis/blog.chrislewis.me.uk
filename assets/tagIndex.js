@@ -406,6 +406,7 @@ window.tagIndex = {
   ],
   "TypeScript": [
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
-    "2023-04-07-Fabricate-Faster-With-Types.json"
+    "2023-04-07-Fabricate-Faster-With-Types.json",
+    "2023-08-10-Xeno-Simple-Reddit-Webapp.json"
   ]
 }

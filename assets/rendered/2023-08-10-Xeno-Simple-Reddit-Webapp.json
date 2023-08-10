@@ -1,0 +1,109 @@
+{
+  "fileName": "2023-08-10-Xeno-Simple-Reddit-Webapp.md",
+  "title": "Xeno: Simple Reddit Webapp",
+  "dateTime": "2023-08-10 20:27",
+  "tags": [
+    "TypeScript"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "It's been several weeks since the changes to Reddit's API that forced several\ntop third party apps to shut down, and while I miss my app of choice (RIF!) it\ndid present an opportunity to take my typical home-grown approach for a solution\nand create my own simplified version. My favourite thing about RIF was the\nminimal stripped down interfact that escewed complex design for functionality -\nlists are simple, pages are focussed on content, and comments are easily read\nand collapsed to get the most out of the conversation."
+    },
+    {
+      "type": "paragraph",
+      "text": "So, what is the new free rate limit? Oh, that much? I'm sure we can work with\nthat..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Getting Started"
+    },
+    {
+      "type": "paragraph",
+      "text": "This part took the longest. I knew I wanted to take the chance to give\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/fabricate.js\">fabricate.js</a> another run around,\nand probably in its most complex application yet. And, as a result I did end\nup adding a few minor features and fixing some previously undiscovered bugs.\nThe end result is fast and snappy, so I'd call it a success once again for\nFabricate!"
+    },
+    {
+      "type": "paragraph",
+      "text": "First, data must be read from the Reddit API. While the\n<a class=\"link\" target=\"_blank\" href=\"https://www.reddit.com/dev/api/\">documentation</a> is detailed but not very\neasy to get started with and in a few places contradictory, I eventually\nsuceeded in getting post data. You need to get an access token, and then use it\nin subsequent API requests."
+    },
+    {
+      "type": "paragraph",
+      "text": "This took me a good while to get working, so hopefully the example below can\nhelp others..."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Fetch a user-less access token.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {string} clientId - Saved client ID.</span>\n<span class=\"comment\"> * @param {string} clientSecret - Saved client secret.</span>\n<span class=\"comment\"> * @returns {Promise<string>} The access token.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const </span>fetchAppToken<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">async </span><span class=\"js-syntax\">(</span>clientId<span class=\"js-syntax\">: </span>string<span class=\"js-syntax\">,</span> clientSecret<span class=\"js-syntax\">: </span>string<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">const </span>res<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>fetch<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>https://www.reddit.com/api/v1/access_token<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span>\n    method<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>POST<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    headers<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n      <span class=\"_string\"><span class=\"js-syntax\">'</span>Content-Type<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>application/x-www-form-urlencoded<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      Authorization<span class=\"js-syntax\">: </span><span class=\"_string\">`Basic $<span class=\"js-syntax\">{</span>btoa<span class=\"js-syntax\">(</span>`</span>$<span class=\"js-syntax\">{</span>clientId<span class=\"js-syntax\">}</span>:$<span class=\"js-syntax\">{</span>clientSecret<span class=\"js-syntax\">}</span><span class=\"_string\">`<span class=\"js-syntax\">)</span><span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    body<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>grant_type=client_credentials<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>res.status >= 400<span class=\"js-syntax\">)</span> <span class=\"js-keyword\">throw </span><span class=\"js-keyword\">new </span>Error<span class=\"js-syntax\">(</span>\n    <span class=\"_string\">`fetchAppToken failed<span class=\"js-syntax\">: </span>$<span class=\"js-syntax\">{</span>res.status<span class=\"js-syntax\">}</span> $<span class=\"js-syntax\">{</span><span class=\"js-syntax\">(</span><span class=\"js-keyword\">await </span>res.text<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span>.slice<span class=\"js-syntax\">(</span>0<span class=\"js-syntax\">,</span> 256<span class=\"js-syntax\">)</span><span class=\"js-syntax\">}</span>`</span>\n  <span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n  <span class=\"js-blueword\">const </span>json<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>res.json<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"comment\">  // console.log(json);</span>\n  <span class=\"js-keyword\">return </span>json.access_token<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Oh, did I not mention? The application is built (and a lot easier to refactor\nand improve) with TypeScript and Fabricate.js' new TypeScript type definitions,\nwhich made creating components and applying styles and event handlers a breeze."
+    },
+    {
+      "type": "paragraph",
+      "text": "The core structure of the webapp is based on three pages - <code>ListPage</code>\nfor a list of posts, <code>PostPage</code> for a detailed view of a post and\ncomments, and <code>SettingsPage</code> for entry of the user's credentials.\nUntil credentials are entered, nothing else can be done."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Walkthrough"
+    },
+    {
+      "type": "paragraph",
+      "text": "Once entered and tested, the user is shown the list page on the default\nsubreddit '/r/all'."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/08/gallerypost.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Cats are cuter than the chaos of the front page though, so you are getting that."
+    },
+    {
+      "type": "paragraph",
+      "text": "From here the user can scroll through posts, clicking each for a detailed view\nand a view of the comments. This is a collapsible tree of comments that tries\nto emulate the minimalist and functional style of RIF."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/08/comments.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Pressing the back button in the top left, the user goes back to the list page.\nIn its place is the drawer toggle button, revealing a list of subreddits the\nuser has saved for convenience, as well as two quick toggles - display mode and\nsort (hot, new, top) modes."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/08/drawer.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "\nAfter a second reload, posts that were created since the last app load are\nshown with an orange flash at the top, and subreddits saved that have new posts\nare shown in the drawer with a 'new' badge icon."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2023/08/listpage.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "While it took a few weeks, this one was quite fun to put together; putting\nfabricate.js to the test again, fixing bugs and missing types, getting\nTypeScript playing nicely with eslint, etc. "
+    },
+    {
+      "type": "paragraph",
+      "text": "And the goal has been realised - I've been using the webapp exclusively to use\nReddit (mostly lurking anyway) for a couple of weeks, and it completely meets\nmy needs. As usual, the best part is that if there is something I don't like\nor I have new ideas nothing stops me from implementing them."
+    },
+    {
+      "type": "paragraph",
+      "text": "The code is all\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/xeno\">available on GitHub</a>, so check it out if you\nwant to give it a try - the instructions are quite simple!"
+    }
+  ]
+}

@@ -956,6 +956,13 @@ window.postHistory = {
         "file": "assets/rendered/2023-05-28-Simpler-Site-Pipelines.json",
         "fileName": "2023-05-28-Simpler-Site-Pipelines"
       }
+    ],
+    "08": [
+      {
+        "title": "Xeno: Simple Reddit Webapp",
+        "file": "assets/rendered/2023-08-10-Xeno-Simple-Reddit-Webapp.json",
+        "fileName": "2023-08-10-Xeno-Simple-Reddit-Webapp"
+      }
     ]
   }
 }
