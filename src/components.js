@@ -56,16 +56,16 @@ const Fader = (children) => {
  * SiteHeader component.
  */
 fabricate.declare('SiteHeader', () => fabricate('Row')
-  .setStyles({
+  .setStyles(({ palette }) => ({
     width: '100vw',
     minHeight: '80px',
     padding: 15,
     cursor: 'default',
     borderBottom: '1px solid #111',
-    backgroundColor: Theme.syntax.background,
+    backgroundColor: palette.syntax.background,
     position: 'fixed',
     zIndex: 999,
-  }));
+  })));
 
 /**
  * SiteTitleWord component.
@@ -86,27 +86,45 @@ const SiteTitleWord = () => fabricate('h2')
  * SiteTitle component.
  */
 fabricate.declare('SiteTitle', () => {
-  const { syntax } = Theme;
-
   const siteMainTitle = fabricate('div')
     .asFlex('row')
     .setStyles({ marginLeft: '8px' })
     .setChildren([
-      SiteTitleWord().setText('try').setStyles({ color: syntax.keyword }),
-      SiteTitleWord().setText('{').setStyles({ color: syntax.comment }),
-      SiteTitleWord().setText('work').setStyles({ color: syntax.function }),
-      SiteTitleWord().setText('();').setStyles({ color: syntax.comment, marginLeft: '0px' }),
-      SiteTitleWord().setText('}').setStyles({ color: syntax.comment }),
-      SiteTitleWord().setText('finally').setStyles({ color: syntax.keyword }),
-      SiteTitleWord().setText('{').setStyles({ color: syntax.comment }),
-      SiteTitleWord().setText('code').setStyles({ color: syntax.function }),
-      SiteTitleWord().setText('();').setStyles({ color: syntax.comment, marginLeft: '0px' }),
-      SiteTitleWord().setText('}').setStyles({ color: syntax.comment }),
+      SiteTitleWord()
+        .setText('try')
+        .setStyles(({ palette }) => ({ color: palette.syntax.keyword })),
+      SiteTitleWord()
+        .setText('{')
+        .setStyles(({ palette }) => ({ color: palette.syntax.comment })),
+      SiteTitleWord()
+        .setText('work')
+        .setStyles(({ palette }) => ({ color: palette.syntax.function })),
+      SiteTitleWord()
+        .setText('();')
+        .setStyles(({ palette }) => ({ color: palette.syntax.comment, marginLeft: '0px' })),
+      SiteTitleWord()
+        .setText('}')
+        .setStyles(({ palette }) => ({ color: palette.syntax.comment })),
+      SiteTitleWord()
+        .setText('finally')
+        .setStyles(({ palette }) => ({ color: palette.syntax.keyword })),
+      SiteTitleWord()
+        .setText('{')
+        .setStyles(({ palette }) => ({ color: palette.syntax.comment })),
+      SiteTitleWord()
+        .setText('code')
+        .setStyles(({ palette }) => ({ color: palette.syntax.function })),
+      SiteTitleWord()
+        .setText('();')
+        .setStyles(({ palette }) => ({ color: palette.syntax.comment, marginLeft: '0px' })),
+      SiteTitleWord()
+        .setText('}')
+        .setStyles(({ palette }) => ({ color: palette.syntax.comment })),
     ]);
 
   const siteTitleComment = SiteTitleWord()
     .setText('// A blog by Chris Lewis')
-    .setStyles({ color: syntax.comment, marginLeft: '18px' });
+    .setStyles(({ palette }) => ({ color: palette.syntax.comment, marginLeft: '18px' }));
 
   const titleWrapper = fabricate('div')
     .asFlex('column')
@@ -136,14 +154,14 @@ fabricate.declare('ContentContainer', () => fabricate('div')
  * LeftColumn component.
  */
 fabricate.declare('LeftColumn', () => fabricate('Column')
-  .setStyles({
-    backgroundColor: Theme.leftColumnBackground,
+  .setStyles(({ palette }) => ({
+    backgroundColor: palette.leftColumnBackground,
     flex: fabricate.isNarrow() ? '1' : '0 0 275px',
     maxWidth: fabricate.isNarrow() ? '100%' : '280px',
     justifyContent: 'start',
     padding: `${fabricate.isNarrow() ? '15px' : '90px'} 15px 30px 15px`,
     borderRight: '1px solid #111',
-  }));
+  })));
 
 /**
  * LeftColumnHeader component.
@@ -182,10 +200,10 @@ fabricate.declare('LeftColumnItem', ({ year } = {}) => fabricate('a')
   .onHover((el, state, hovering) => el.setStyles({ marginLeft: hovering ? '10px' : '2px' }))
   .onUpdate((el, { selectedYear }) => {
     const isSelected = selectedYear === year;
-    el.setStyles({
-      color: isSelected ? Theme.syntax.function : '#ccc',
+    el.setStyles(({ palette }) => ({
+      color: isSelected ? palette.syntax.function : '#ccc',
       fontWeight: isSelected ? 'bold' : 'initial',
-    });
+    }));
   }, ['selectedYear']));
 
 /**
@@ -428,19 +446,19 @@ const PostTagPill = ({ tag, quantity }) => {
 
   const container = fabricate('div')
     .asFlex('row')
-    .setStyles({
+    .setStyles(({ palette }) => ({
       alignItems: 'center',
-      border: `solid 2px ${Theme.syntax.function}`,
-      backgroundColor: quantity ? 'none' : Theme.syntax.function,
+      border: `solid 2px ${palette.syntax.function}`,
+      backgroundColor: quantity ? 'none' : palette.syntax.function,
       cursor: 'pointer',
       borderRadius: '20px',
       padding: '4px 6px',
       margin: '2px',
-    })
+    }))
     .setChildren([img, label])
     .onHover((el, state, hovering) => {
       if (quantity) {
-        el.setStyles({ background: hovering ? Theme.syntax.function : 'none' });
+        el.setStyles(({ palette }) => ({ background: hovering ? palette.syntax.function : 'none' }));
       } else {
         el.setStyles({ filter: hovering ? 'brightness(1.1)' : 'brightness(1)' });
       }

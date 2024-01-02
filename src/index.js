@@ -147,11 +147,14 @@ const App = () => {
           : [leftColumn, centralColumn]),
       fabricate('Footer'),
     ])
-    .onCreate(() => loadSelectionFromQuery());
+    .onUpdate(loadSelectionFromQuery, ['fabricate:created']);
 };
 
 const initialState = {
-  selectedYear: undefined,
+  selectedYear: null,
   postListItems: [],
 };
-fabricate.app(App(), initialState);
+const options = {
+  theme: Theme,
+};
+fabricate.app(App, initialState, options);
