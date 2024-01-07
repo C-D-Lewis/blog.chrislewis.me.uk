@@ -88,7 +88,8 @@ window.tagIndex = {
     "2016-07-20-Dash-API-For-Easy-Pebble-and-Android-Integration.json",
     "2021-09-23-Fabricate-A-Fluent-And-Convenient-Web-Framework.json",
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
-    "2023-04-07-Fabricate-Faster-With-Types.json"
+    "2023-04-07-Fabricate-Faster-With-Types.json",
+    "2024-01-07-Fabricate-3-0-0.json"
   ],
   "Games": [
     "2013-03-27-A-Brief-Overview-of-dungeons-so-far.json",
@@ -375,7 +376,8 @@ window.tagIndex = {
     "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
     "2022-05-30-New-Fitbit-Clock-Deep-Rock.json",
     "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json",
-    "2023-04-07-Fabricate-Faster-With-Types.json"
+    "2023-04-07-Fabricate-Faster-With-Types.json",
+    "2024-01-07-Fabricate-3-0-0.json"
   ],
   "Fitbit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
@@ -407,6 +409,7 @@ window.tagIndex = {
   "TypeScript": [
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
     "2023-04-07-Fabricate-Faster-With-Types.json",
-    "2023-08-10-Xeno-Simple-Reddit-Webapp.json"
+    "2023-08-10-Xeno-Simple-Reddit-Webapp.json",
+    "2024-01-07-Fabricate-3-0-0.json"
   ]
 }

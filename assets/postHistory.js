@@ -964,5 +964,14 @@ window.postHistory = {
         "fileName": "2023-08-10-Xeno-Simple-Reddit-Webapp"
       }
     ]
+  },
+  "2024": {
+    "01": [
+      {
+        "title": "Fabricate.js 3.0.0",
+        "file": "assets/rendered/2024-01-07-Fabricate-3-0-0.json",
+        "fileName": "2024-01-07-Fabricate-3-0-0"
+      }
+    ]
   }
 }

@@ -1,0 +1,141 @@
+{
+  "fileName": "2024-01-07-Fabricate-3-0-0.md",
+  "title": "Fabricate.js 3.0.0",
+  "dateTime": "2024-01-07 17:28",
+  "tags": [
+    "JavaScript",
+    "TypeScript",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A new version of <a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/fabricate.js\">fabricate.js</a> is\navailable (has been for some weeks, it's just taken me a bit of a while to get\naround to writing about it). It's the second major release, with some breaking\nchanges, but also some benefits that should make creating simple web apps easier\nthan before, in line with the core goal of the library. Let's go though them!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "App builder function"
+    },
+    {
+      "type": "paragraph",
+      "text": "When starting an app, it is now required to provide a builder function to\n<code>fabricate.app()</code> instead of a component - this helps prevent cases\nwhere apps try to do something on creation before the rest of the app is ready\nto make and receive state updates."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>App<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Column<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>setChildren<span class=\"js-syntax\">(</span><span class=\"js-syntax\">[</span>\n    fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Text<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>.setText<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Hello world<span class=\"js-keyword\">!</span><span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\nfabricate.app<span class=\"js-syntax\">(</span>App<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Support for providing a theme"
+    },
+    {
+      "type": "paragraph",
+      "text": "I often find myself importing a Theme from another file quite often when setting\ncomponent styles. I figured it would be easier to have access to the theme at\nthat time and not require importing it, potentially also avoiding some\ncircular dependency problems."
+    },
+    {
+      "type": "paragraph",
+      "text": "Make sure the theme has the required shape with a palette and styles:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>theme<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n  palette<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    primary<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>green<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    secondary<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>lightgrey<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  styles<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    cardBorder<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>solid 2px lightgrey<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    dropShadow<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>2px 2px 3px 1px #0009<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const </span>options<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n  logStateUpdates<span class=\"js-syntax\">: </span>true<span class=\"js-syntax\">,</span>\n  theme<span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n\nfabricate.app<span class=\"js-syntax\">(</span>App<span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span><span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span> options<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Then use it when setting styles:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>Button<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Button<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>setStyles<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> palette<span class=\"js-syntax\">,</span> styles <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n    border<span class=\"js-syntax\">: </span>styles.cardBorder<span class=\"js-syntax\">,</span>\n    backgroundColor<span class=\"js-syntax\">: </span>palette.secondary<span class=\"js-syntax\">,</span>\n    \n    /* etc */\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Set narrow styles"
+    },
+    {
+      "type": "paragraph",
+      "text": "Quite often I'd write styles using the <code>isNarrow()</code> helper in one set\nof styles. I think it's easier and more obvious the new way:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>Header<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Text<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>setStyles<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> fontSize<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>1.2rem<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>setNarrowStyles<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> fontSize<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>1rem<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Removing onCreate"
+    },
+    {
+      "type": "paragraph",
+      "text": "I seemed quite often to be using the same code for <code>onCreate</code> as\n<code>onUpdate</code> for setting layouts based on state data. To reduce\nrepetition they have been combined, and apps should use the new built-in key\n<code>fabricate:created</code> key:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>View<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Text<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>onUpdate<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>el<span class=\"js-syntax\">,</span> state<span class=\"js-syntax\">,</span> keys<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">    // This element created</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>keys.includes<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>fabricate:created<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      el.setText<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Creation complete<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      return<span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">    // An update</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Removing the strict option"
+    },
+    {
+      "type": "paragraph",
+      "text": "The `strict` option existed before to allow opt-in checking of state keys\nbeing updated and a few other things which after some time seem like all-round\ngood ideas. So, I removed it and the strict settings are always enforced. For\nexample, accidentally updating unexpected state will throw an error:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>initialState<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n  counter<span class=\"js-syntax\">: </span>0<span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const </span>App<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Button<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>onClick<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">    // Error: 'clicks' is not some expected state</span>\n    fabricate.update<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> clicks<span class=\"js-syntax\">: </span>1 <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>\n\nfabricate.app<span class=\"js-syntax\">(</span>App<span class=\"js-syntax\">,</span> initialState<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "In cases where state keys are not known ahead of time, this can be bypassed with\n<code>buildKey()</code>."
+    },
+    {
+      "type": "paragraph",
+      "text": "This also means that a list of state keys to watch for <code>onUpdate</code> is\nnow mandatory, since elements that do things on every state update are very rare\nand can be an easy way to degrade performance invisibly."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Text size"
+    },
+    {
+      "type": "paragraph",
+      "text": "The default font size for the built-in <code>Text</code> is now just 1\n<code>rem</code> unit."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Performance for lots of children"
+    },
+    {
+      "type": "paragraph",
+      "text": "When adding a very large number of child elements (50) in cases like loading\nitems from an API, they will be added in groups of 50 using `setTimeout`. This\nseems to greatly improve responsiveness in such cases, and it's rare for such\na number to be on screen at once."
+    },
+    {
+      "type": "paragraph",
+      "text": "Similarly, when using `.empty()` items, a warning is logged when there are more\nthan 50 - however, I wasn't easily able to find an equivalent solution here as\nremoving groups from the top would look like rapid scrolling, and from the\nbottom would appear as no change until the top items are reached..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Validating options"
+    },
+    {
+      "type": "paragraph",
+      "text": "For those not using the TypeScript types, the options passed to\n<code>app()</code> are now manually validated, handling cases where I forget\nwhat some options are called or other mistakes that are possible."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "That's it! As always, it's easier to make improvements to this library after\ngaining more hours of experience with the challenges and requirements discovered\nwhile using it to implement various apps and websites. Long may it continue!"
+    }
+  ]
+}
