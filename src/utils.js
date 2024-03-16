@@ -2,10 +2,13 @@ const Utils = {};
 
 /**
  * Get a query param value.
+ *
+ * @param {string} name - Param name.
+ * @returns {string|undefined} Param value, if specified.
  */
 Utils.getQueryParam = (name) => new URLSearchParams(window.location.search).get(name);
 
-/*
+/**
  * Sort by date in descending order.
  *
  * @param {string} a - fileName A.
@@ -18,7 +21,7 @@ Utils.descendingDateSort = (a, b) => {
   return dateA < dateB ? 1 : -1;
 };
 
-/*
+/**
  * Sort by post date in fileName in descending order.
  *
  * @param {string} a - post A.
@@ -33,6 +36,10 @@ Utils.descendingPostSort = (a, b) => {
 
 /**
  * Integer item sort in descending order.
+ *
+ * @param {number} a - First integer.
+ * @param {number} b - Second integer.
+ * @returns {number} Sort order.
  */
 Utils.integerItemSort = (a, b) => (parseInt(a, 10) > parseInt(b, 10) ? -1 : 1);
 

@@ -125,6 +125,9 @@ const App = () => {
       fabricate('LeftColumnItem')
         .setText('Who\'s at Paddy\'s?')
         .onClick(() => window.open('https://whosatpaddys.pub/', '_blank')),
+      fabricate('LeftColumnItem')
+        .setText('Xeno Reddit Client')
+        .onClick(() => window.open('https://xeno.chrislewis.me.uk/', '_blank')),
     ]);
 
   // Post list in the middle, socials first on mobile
@@ -147,7 +150,7 @@ const App = () => {
           : [leftColumn, centralColumn]),
       fabricate('Footer'),
     ])
-    .onUpdate(loadSelectionFromQuery, ['fabricate:created']);
+    .onUpdate(loadSelectionFromQuery, [fabricate.StateKeys.Created]);
 };
 
 const initialState = {

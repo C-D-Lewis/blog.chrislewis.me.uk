@@ -1,0 +1,108 @@
+{
+  "fileName": "2024-03-16-Fabricate-3-3-1-With-Router.md",
+  "title": "Fabricate.js 3.3.1 With Router",
+  "dateTime": "2024-03-16 16:23",
+  "tags": [
+    "JavaScript",
+    "TypeScript",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A new version of <a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/fabricate.js\">fabricate.js</a> is\navailable - v3.3.1. This one centers around a large new feature - introduction\nof a <code>router</code> component. As some of the apps that use fabricate now\nrequire multiple pages, instead of re-inventing the wheel it's a good indicator\nthat the library itself should support this feature, inspired of course by my\nuse of other frameworks."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Router instead of Pages"
+    },
+    {
+      "type": "paragraph",
+      "text": "The <code>router</code> component accepts an object that describes some routes\nand the builder functions / components that present those pages. One route is\nessential - <code>'/'</code> for an initial page."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>App<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate.router<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n  <span class=\"_string\"><span class=\"js-syntax\">'</span>/<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>HomePage<span class=\"js-syntax\">,</span>\n  <span class=\"_string\"><span class=\"js-syntax\">'</span>/settings<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>SettingsPage<span class=\"js-syntax\">,</span>\n  <span class=\"_string\"><span class=\"js-syntax\">'</span>/status<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>StatusPage<span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "In <a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/xeno\">Xeno</a> for example, this allows a quite\nverbose collection of conditional components to be reduced syntactically and\nbe a lot nicer to work with. Before, it looked like this:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>App<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Column<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>setChildren<span class=\"js-syntax\">(</span><span class=\"js-syntax\">[</span>\n    AppNavBar<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    Drawer<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    fabricate.conditional<span class=\"js-syntax\">(</span>\n      <span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> page <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>page <span class=\"js-keyword\">===</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>InitPage<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      InitPage<span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    fabricate.conditional<span class=\"js-syntax\">(</span>\n      <span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> page <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>page <span class=\"js-keyword\">===</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>LoginPage<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      LoginPage<span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    fabricate.conditional<span class=\"js-syntax\">(</span>\n      <span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> page <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>page <span class=\"js-keyword\">===</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>ListPage<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      ListPage<span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    fabricate.conditional<span class=\"js-syntax\">(</span>\n      <span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> page <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>page <span class=\"js-keyword\">===</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>FeedPage<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      FeedPage<span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    fabricate.conditional<span class=\"js-syntax\">(</span>\n      <span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> page <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>page <span class=\"js-keyword\">===</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>PostPage<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      PostPage<span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    fabricate.conditional<span class=\"js-syntax\">(</span>\n      <span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> page <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>page <span class=\"js-keyword\">===</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>SettingsPage<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      SettingsPage<span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "With the router, this is a lot more succinct, and as a bonus the plumbing of\n<code>page</code> can be removed completely from the app:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>App<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Column<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>setChildren<span class=\"js-syntax\">(</span><span class=\"js-syntax\">[</span>\n    AppNavBar<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    Drawer<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    fabricate.router<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n      <span class=\"_string\"><span class=\"js-syntax\">'</span>/<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>InitPage<span class=\"js-syntax\">,</span>\n      <span class=\"_string\"><span class=\"js-syntax\">'</span>/login<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>LoginPage<span class=\"js-syntax\">,</span>\n      <span class=\"_string\"><span class=\"js-syntax\">'</span>/list<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>ListPage<span class=\"js-syntax\">,</span>\n      <span class=\"_string\"><span class=\"js-syntax\">'</span>/feed<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>FeedPage<span class=\"js-syntax\">,</span>\n      <span class=\"_string\"><span class=\"js-syntax\">'</span>/post<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>PostPage<span class=\"js-syntax\">,</span>\n      <span class=\"_string\"><span class=\"js-syntax\">'</span>/settings<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">: </span>SettingsPage<span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The keen-eyed will notice that the router does not have to be at the top level\nof an app - it can be within the heirarchy of another component and present\nmultiple views alongside other components above. Right now there can be only\none router per app."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Working with components"
+    },
+    {
+      "type": "paragraph",
+      "text": "Of course, some components need to know which route is currently in effect. For\nthis, I finally got around to exporting constants for the build-in state keys."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span><span class=\"js-syntax\">{</span> StateKeys <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> = </span>fabricate<span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const </span>RouteView<span class=\"js-keyword\"> = </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Text<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>onUpdate<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>el<span class=\"js-syntax\">,</span> state<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n    <span class=\"js-blueword\">const </span>route<span class=\"js-keyword\"> = </span>state<span class=\"js-syntax\">[</span>StateKeys.Route<span class=\"js-syntax\">]</span><span class=\"js-syntax\">;</span>\n    el.setText<span class=\"js-syntax\">(</span><span class=\"_string\">`Current route is<span class=\"js-syntax\">: </span>$<span class=\"js-syntax\">{</span>route<span class=\"js-syntax\">}</span>`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span> <span class=\"js-syntax\">[</span>StateKeys.Route<span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "I might make this nicer to work with in the future, but it fits in line with\nthe other two cases when components need to know library-wide events, including\n<code>fabricate.StateKeys.Init</code> (<code>'fabricate:init'</code>) when the\napp is started, and\n<code>fabricate.StateKeys.Created</code> (<code>'fabricate:created'</code>) when\na given component has been created and might want to do something straight away."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Navigating further"
+    },
+    {
+      "type": "paragraph",
+      "text": "To go from one page to another, simply <code>navigate()</code>:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>HomeButton<span class=\"js-keyword\"> = </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Button<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span> text<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Go Home<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>onClick<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate.navigate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>/home<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "In addition, there are two other new methods for use with the router. First, the\nability to go back one navigation step:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>BackButton<span class=\"js-keyword\"> = </span>fabricate<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>Button<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span> text<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Go Back<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>onClick<span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>fabricate.goBack<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And the ability to examine the navigation history:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>history<span class=\"js-keyword\"> = </span>fabricate.getRouteHistory<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-blueword\">const </span>currentRoute<span class=\"js-keyword\"> = </span>history.slice<span class=\"js-syntax\">(</span>-1<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-blueword\">const </span>previousRoute<span class=\"js-keyword\"> = </span>history.slice<span class=\"js-syntax\">(</span>-2<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Again, I may make this nicer in the future, but for now the rarity of this\nrequirement makes it okay for now."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "What's next"
+    },
+    {
+      "type": "paragraph",
+      "text": "As opposed to some like <code>react-router</code>, this doesn't actually update\nthe URL. I curerntly have no need for that. When it does, it'll also need to\naccomodate a lot more things, like hash, query params, etc. I'll save that\nfor another day!"
+    }
+  ]
+}

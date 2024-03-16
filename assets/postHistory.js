@@ -972,6 +972,13 @@ window.postHistory = {
         "file": "assets/rendered/2024-01-07-Fabricate-3-0-0.json",
         "fileName": "2024-01-07-Fabricate-3-0-0"
       }
+    ],
+    "03": [
+      {
+        "title": "Fabricate.js 3.3.1 With Router",
+        "file": "assets/rendered/2024-03-16-Fabricate-3-3-1-With-Router.json",
+        "fileName": "2024-03-16-Fabricate-3-3-1-With-Router"
+      }
     ]
   }
 }
