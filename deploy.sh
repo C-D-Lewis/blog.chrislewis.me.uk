@@ -55,6 +55,7 @@ aws s3 sync styles $BUCKET/styles || true
 aws s3 sync feed $BUCKET/feed || true
 aws s3 sync dist $BUCKET/dist || true
 aws s3 cp favicon.ico $BUCKET || true
+aws s3 cp sw.js $BUCKET || true # custom
 
 # Restore template
 mv index.html.bak index.html
