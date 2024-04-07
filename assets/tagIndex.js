@@ -379,7 +379,8 @@ window.tagIndex = {
     "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json",
     "2023-04-07-Fabricate-Faster-With-Types.json",
     "2024-01-07-Fabricate-3-0-0.json",
-    "2024-03-16-Fabricate-3-3-1-With-Router.json"
+    "2024-03-16-Fabricate-3-3-1-With-Router.json",
+    "2024-04-07-Xeno-As-A-PWA.json"
   ],
   "Fitbit": [
     "2018-03-30-FitBit-Development-Round-1-Review-and-Future-Plans.json",
@@ -413,6 +414,7 @@ window.tagIndex = {
     "2023-04-07-Fabricate-Faster-With-Types.json",
     "2023-08-10-Xeno-Simple-Reddit-Webapp.json",
     "2024-01-07-Fabricate-3-0-0.json",
-    "2024-03-16-Fabricate-3-3-1-With-Router.json"
+    "2024-03-16-Fabricate-3-3-1-With-Router.json",
+    "2024-04-07-Xeno-As-A-PWA.json"
   ]
 }

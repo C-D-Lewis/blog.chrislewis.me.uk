@@ -1,0 +1,100 @@
+{
+  "fileName": "2024-04-07-Xeno-As-A-PWA.md",
+  "title": "Xeno As A PWA",
+  "dateTime": "2024-04-07 11:35",
+  "tags": [
+    "JavaScript",
+    "TypeScript"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "My lightweight Reddit client <a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/xeno\">xeno</a> has\nreceived some much needed upgrades, and now more closely reselmbles the tidy\nbloat-free content-focused 3rd party browsers that used to be available. As\never, it continues to be my daily driver and help field test the more complex\napplication of Fabricate.js and driving new features."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Improved Drawer"
+    },
+    {
+      "type": "paragraph",
+      "text": "The app drawer has been improved - it used to fixed at the top of the page and\nrely on the page length to show all the user's subscribed subreddits. Now,\nit follows the user as they scroll and doesn't require scroll to top as the list\nof subreddit names and colors is itself scrollable."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/04/drawer.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Faster Feed"
+    },
+    {
+      "type": "paragraph",
+      "text": "The feed page takes all the user's subreddits, fetches the top 100 new posts,\nand throws them together for relevant content viewing. In the past, it fetched\nin groups of ten, which could take a long time if the user has 100+\nsubscriptions. Since the free rate limit is 600 requests per minute per client,\nI made it fetch them all at once, and it's a lot faster!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Edit Susbcriptions"
+    },
+    {
+      "type": "paragraph",
+      "text": "The list page for a given subreddit now allows the user to subscribe or\nunsubscribe. This is the only non-read-only feature, but it feels appropritate\nas an app designed for content consumption that a new discovery can be kept\nand not require going to a PC or another client to add it to the subscription\nlist."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/04/subscribe.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Extra Settings"
+    },
+    {
+      "type": "paragraph",
+      "text": "A new settings item has been added - landing page. You can now choose whether\nto show the last viewed subreddit or the feed back each time the app is\nloaded. Saves a few repetitive taps for a regular feed user."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/04/settings.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "The existing components for these settings made this extra trivial and\nsatisfying - simply add the new state, use it during app load, and a few new\nSettings components:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * LandingPageSetting component.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @returns {FabricateComponent} LandingPageSetting comment.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const </span>LandingPageSetting<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>SettingsWrapper<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n  title<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Landing page<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  children<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span>\n    Option<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n      label<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Last subreddit<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      setting<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>landingPage<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      value<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>/list<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    Option<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n      label<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Feed<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      setting<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>landingPage<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n      value<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>/feed<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * SettingsCard component.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @returns {FabricateComponent} SettingsCard component.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const </span>SettingsCard<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span>Card<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>setStyles<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span> padding<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>8px<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>\n <span class=\"js-syntax\"> .</span>setChildren<span class=\"js-syntax\">(</span><span class=\"js-syntax\">[</span>\n    ViewModeSetting<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    SortModeSetting<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    LandingPageSetting<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Install as PWA"
+    },
+    {
+      "type": "paragraph",
+      "text": "Since the web app is designed to be a lightweight alternative to classic 3rd\nparty Reddit apps that were available in app stores, the last step to making\nthe transition is to add a\n<a class=\"link\" target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/Manifest\">web manifest</a> that\nallows browsers to suggest the user install the app to their homescreen, provide\ntheme colors and icons, and open with no browser chrome or toolbars at all,\nmaking it feel very much like a native application."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"name\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Xeno\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"short_name\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"Xeno\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"start_url\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\".\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"display\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"standalone\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"background_color\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"#333\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"description\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"A minimal Reddit web client\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"icons\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span>\n    <span class=\"js-syntax\">{</span>\n      <span class=\"_string\">\"src\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"assets/icons/app_icon_256.png\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"_string\">\"sizes\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"256x256\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"_string\">\"type\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"image/png\"</span>\n    <span class=\"js-syntax\">}</span>\n  <span class=\"js-syntax\">]</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Of course, proper PWAs also maintain local databases of content to be\n'offline first' as well as other offline and accessability features. Since each\napp load the content is different, that feels a little less important. For now!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/04/install.png"
+    }
+  ]
+}

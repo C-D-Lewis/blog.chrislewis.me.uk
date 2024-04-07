@@ -979,6 +979,13 @@ window.postHistory = {
         "file": "assets/rendered/2024-03-16-Fabricate-3-3-1-With-Router.json",
         "fileName": "2024-03-16-Fabricate-3-3-1-With-Router"
       }
+    ],
+    "04": [
+      {
+        "title": "Xeno As A PWA",
+        "file": "assets/rendered/2024-04-07-Xeno-As-A-PWA.json",
+        "fileName": "2024-04-07-Xeno-As-A-PWA"
+      }
     ]
   }
 }
