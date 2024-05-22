@@ -1,0 +1,143 @@
+{
+  "fileName": "2024-05-22-Pi-Rack-v4.md",
+  "title": "Pi Rack v4",
+  "dateTime": "2024-05-22 20:32",
+  "tags": [
+    "Integration",
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "For the last couple of years, the Raspberry Pis that make up my house services\n(lighting, dashboard, PiHole, DNS entry updater), network drive, and gaming\ngroup Minecraft server have been running in a 3D printed rack of my own design\nhappily in the corner of my 'office' room. But, being my own design, it has\nflaws of my own too."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v3.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "The intention was that it allowed easy access to individual shelves for upgrades,\ndebugging, and other maintenance. As you can see, it looks cool, but there are a\ncouple of minor problems that were bothering me:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>It doesn't have room for the newly added Minecraft server (Pi 5 + NVMe Base), which is seen in the foreground.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Warping from the 3D printing process means that shelves easily fall down onto others. It is also wobbly.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Unless you're taking out the top Pi, you have to unplug all the others above the one being removed.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, eventually I gave in and thought about ways to improve it. Initially I opted\nfor thickening all the parts and trying to route all cabled directly to the left\nhand side of each shelf to solve the unplugging problem, but it was not smooth\nsailing."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Putting everything on one side"
+    },
+    {
+      "type": "paragraph",
+      "text": "Once evening I had a brainwave - why not put the whole thing on its side, but\nstill have cables run top to bottom? This way individual shelves\n(I would need a new name for those) can be easily removed without needing to\nturn the whole lot off."
+    },
+    {
+      "type": "paragraph",
+      "text": "So I got back into TinkerCAD and after a few evenings of iteration had a basic\ndesign. The 6 port USB power supply and Netgear switch would still be at the\nbottom, but side by side. All power and network cables would then go up to meet\nthe individual Pis in their 'sleds' on the same level."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-initial.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "I was quite pleased with this outcome, and once again TinkerCAD's system of\ngrouping objects and shapes allowed me to play around with the virtual pieces to\nmake sure they fit together correctly, allowing for printing tolerances."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Trying it out"
+    },
+    {
+      "type": "paragraph",
+      "text": "I borrowed my brother's 3D printer (Crealty Ender Pro 3) and learned a great\ndeal from him about how it worked and how to maintain it. Most of it sunk in.\nI printed the parts and filed off the brim burrs etc. and found that the result\nwas pretty good!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-partial.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "It was satisfying to slide each sled into place and see the whole come together.\nAgain I was unable to find a simple enough way to mount the OLED displays, so it\nwas glue a second time. But, they are cheap and can be reused."
+    },
+    {
+      "type": "paragraph",
+      "text": "Once problem I found was that somewhere between or in TinkerCAD or Cura slicing\nsoftware a certain interface between shapes produced crazy travel paths that\nresulted in excess plastic on one layer and the hotend crashing into the part\nand ruining the print."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-travel.png"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-failed.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Thankfully moving the hole a bit solved it."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-travel2.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Eventually it was all printed and assembled but I found cable management was a\nproblem - it was a mess!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-messy.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "This was solved by printing an additional layer that allowed all the power\nand accessory cables for the network drive SSD adapters to be sanely routed to\nthe back."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The final result"
+    },
+    {
+      "type": "paragraph",
+      "text": "After some color-appropriate reprints (red for Cirroc network drive as always, green for Minecraft server)\nand gluing the displays down, I'm quite proud of the final result. And in doing\nthe final stages I already enjoyed the much more convenience maintenance of\nremoving one sled at a time, so I'm confident that without a good reason this\ncould be the final form of this cluster's housing for quite some time."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-final.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Rather than design a complex press-fitting mechanism to join layers, or once\nmore mess around with fiddly nuts and bolts, I opted to just keep it in line\nwith some strong bulldog clips - simple, yet effective."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-final2.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "The final part was a short version of the main rack to use as a top retainer to\nkeep all the sleds tight in a line, but it turned out not to be required.\nStill, it does tie it all together quite pleasingly."
+    }
+  ]
+}

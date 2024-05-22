@@ -296,7 +296,8 @@ window.tagIndex = {
     "2023-02-12-Keeping-Pis-Neat-And-Tidy.json",
     "2023-03-26-Customising-a-Pi-Pico-Keypad.json",
     "2023-04-20-Freezing-The-Bifrost.json",
-    "2023-05-28-Simpler-Site-Pipelines.json"
+    "2023-05-28-Simpler-Site-Pipelines.json",
+    "2024-05-22-Pi-Rack-v4.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -330,7 +331,8 @@ window.tagIndex = {
     "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
     "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json",
     "2023-02-12-Keeping-Pis-Neat-And-Tidy.json",
-    "2023-03-26-Customising-a-Pi-Pico-Keypad.json"
+    "2023-03-26-Customising-a-Pi-Pico-Keypad.json",
+    "2024-05-22-Pi-Rack-v4.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",

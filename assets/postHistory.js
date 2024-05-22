@@ -986,6 +986,13 @@ window.postHistory = {
         "file": "assets/rendered/2024-04-07-Xeno-As-A-PWA.json",
         "fileName": "2024-04-07-Xeno-As-A-PWA"
       }
+    ],
+    "05": [
+      {
+        "title": "Pi Rack v4",
+        "file": "assets/rendered/2024-05-22-Pi-Rack-v4.json",
+        "fileName": "2024-05-22-Pi-Rack-v4"
+      }
     ]
   }
 }
