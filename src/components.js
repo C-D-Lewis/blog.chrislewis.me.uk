@@ -357,9 +357,9 @@ fabricate.declare('PostList', () => fabricate('Column')
 const PostTitle = ({ model, startExpanded = true }) => {
   const { title, fileName } = model;
 
-  const postExpandedKey = Utils.postExpandedKey(fileName);
+  const postExpandedKey = fabricate.buildKey('isExpanded', fileName);
+  fabricate.update(postExpandedKey, startExpanded);
 
-  let expanded = startExpanded;
   const expandIcon = fabricate('img')
     .setStyles({
       width: '38px',
@@ -371,13 +371,14 @@ const PostTitle = ({ model, startExpanded = true }) => {
       cursor: 'pointer',
     })
     .setAttributes({ src: 'assets/icons/chevron-right.png' })
-    .onClick((el) => {
+    .onClick((el, state) => {
+      const newState = !state[postExpandedKey];
+
       // Click to toggle expanded state
-      expanded = !expanded;
-      el.setStyles({ transform: expanded ? 'rotateZ(90deg)' : 'initial' });
+      el.setStyles({ transform: newState ? 'rotateZ(90deg)' : 'initial' });
 
       // Notify the body component
-      fabricate.update(postExpandedKey, expanded);
+      fabricate.update(postExpandedKey, newState);
     });
 
   const linkAnchor = fabricate('span')
@@ -533,7 +534,7 @@ const PostDateAndTags = ({ dateTime, tags }) => {
  * @returns {HTMLElement} Fabricate component.
  */
 const PostBody = ({ model, startExpanded = true }) => {
-  const postExpandedKey = Utils.postExpandedKey(model.fileName);
+  const postExpandedKey = fabricate.buildKey('isExpanded', model.fileName);
 
   const container = fabricate('div')
     .setStyles({

@@ -91,11 +91,3 @@ Utils.showPostsForTag = async (tag) => {
   const models = await Promise.all(promises);
   fabricate.update({ postListItems: models });
 };
-
-/**
- * Key for fileName expanded states.
- *
- * @param {string} fileName - File name of the post.
- * @returns {string} State key.
- */
-Utils.postExpandedKey = (fileName) => `expanded:${fileName}`;
