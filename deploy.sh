@@ -71,7 +71,7 @@ terraform apply -auto-approve
 cd -
 
 # Get CloudFront distribution ID
-CF_DIST_ID=$(aws cloudfront list-distributions | jq -r ".DistributionList.Items[] | select(.Aliases.Items[0] == \"$SITE_DOMAIN\") | .Id")
+CF_DIST_ID=$(aws cloudfront list-distributions | jq -r ".DistributionList.Items[] | select(.Aliases.Items | tostring | contains(\"$SITE_DOMAIN\")) | .Id")
 
 # Create new invalidation
 RES=$(aws cloudfront create-invalidation --distribution-id $CF_DIST_ID --paths "/*")
