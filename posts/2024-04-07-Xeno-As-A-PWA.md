@@ -23,8 +23,8 @@ of subreddit names and colors is itself scrollable.
 The feed page takes all the user's subreddits, fetches the top 100 new posts,
 and throws them together for relevant content viewing. In the past, it fetched
 in groups of ten, which could take a long time if the user has 100+
-subscriptions. Since the free rate limit is 600 requests per minute per client,
-I made it fetch them all at once, and it's a lot faster!
+subscriptions. Since the free rate limit is 600 requests per 10 minutes per
+client, I made it fetch them all at once, and it's a lot faster!
 
 ## Edit Susbcriptions
 

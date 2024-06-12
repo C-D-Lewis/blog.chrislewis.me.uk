@@ -32,7 +32,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The feed page takes all the user's subreddits, fetches the top 100 new posts,\nand throws them together for relevant content viewing. In the past, it fetched\nin groups of ten, which could take a long time if the user has 100+\nsubscriptions. Since the free rate limit is 600 requests per minute per client,\nI made it fetch them all at once, and it's a lot faster!"
+      "text": "The feed page takes all the user's subreddits, fetches the top 100 new posts,\nand throws them together for relevant content viewing. In the past, it fetched\nin groups of ten, which could take a long time if the user has 100+\nsubscriptions. Since the free rate limit is 600 requests per 10 minutes per\nclient, I made it fetch them all at once, and it's a lot faster!"
     },
     {
       "type": "header",

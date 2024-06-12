@@ -87,7 +87,7 @@
     },
     {
       "type": "paragraph",
-      "text": "The `strict` option existed before to allow opt-in checking of state keys\nbeing updated and a few other things which after some time seem like all-round\ngood ideas. So, I removed it and the strict settings are always enforced. For\nexample, accidentally updating unexpected state will throw an error:"
+      "text": "The <code>strict</code> option existed before to allow opt-in checking of state keys\nbeing updated and a few other things which after some time seem like all-round\ngood ideas. So, I removed it and the strict settings are always enforced. For\nexample, accidentally updating unexpected state will throw an error:"
     },
     {
       "type": "paragraph",
@@ -117,11 +117,11 @@
     },
     {
       "type": "paragraph",
-      "text": "When adding a very large number of child elements (50) in cases like loading\nitems from an API, they will be added in groups of 50 using `setTimeout`. This\nseems to greatly improve responsiveness in such cases, and it's rare for such\na number to be on screen at once."
+      "text": "When adding a very large number of child elements (50) in cases like loading\nitems from an API, they will be added in groups of 50 using\n<code>setTimeout()</code>. This seems to greatly improve responsiveness in such\ncases, and it's rare for such a number to be on screen at once."
     },
     {
       "type": "paragraph",
-      "text": "Similarly, when using `.empty()` items, a warning is logged when there are more\nthan 50 - however, I wasn't easily able to find an equivalent solution here as\nremoving groups from the top would look like rapid scrolling, and from the\nbottom would appear as no change until the top items are reached..."
+      "text": "Similarly, when using <code>.empty()</code> items, a warning is logged when there are more\nthan 50 - however, I wasn't easily able to find an equivalent solution here as\nremoving groups from the top would look like rapid scrolling, and from the\nbottom would appear as no change until the top items are reached..."
     },
     {
       "type": "header",

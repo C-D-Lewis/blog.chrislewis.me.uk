@@ -138,6 +138,6 @@ requirement makes it okay for now.
 ## What's next
 
 As opposed to some like <code>react-router</code>, this doesn't actually update
-the URL. I curerntly have no need for that. When it does, it'll also need to
+the URL. I currently have no need for that. When it does, it'll also need to
 accomodate a lot more things, like hash, query params, etc. I'll save that
 for another day!
