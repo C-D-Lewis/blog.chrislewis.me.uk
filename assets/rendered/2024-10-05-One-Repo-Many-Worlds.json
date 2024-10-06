@@ -36,7 +36,7 @@
     },
     {
       "type": "paragraph",
-      "text": "In doing this, I hosted the work on a Raspberry Pi 4 8GB with a SATA SSD over\nUSB, later moving to a Raspberry Pi 5 8GB with a Pimoroni nVME BASE, which\nworked like a charm. This had some distinct advantages over paying a hosting\nprovider (given I was okay with the burden on maintenance):"
+      "text": "In doing this, I hosted the world on a Raspberry Pi 4 8GB with a SATA SSD over\nUSB, later moving to a Raspberry Pi 5 8GB with a Pimoroni nVME BASE, which\nworked like a charm. This had some distinct advantages over paying a hosting\nprovider (given I was okay with the burden on maintenance):"
     },
     {
       "type": "paragraph",
@@ -95,7 +95,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"SERVER_NAME\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"JAR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"minecraft-server_1.21.1.jar\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"MEMORY\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"2G\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"LOCAL_BACKUP_DIR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"/home/chrislewis/backups\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"S3_BACKUP_DIR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"s3://public-files.chrislewis.me.uk/chunky-fargate/worlds\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"DNS_SUBDOMAIN\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"PORT\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"25565\"</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"SERVER_NAME\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"JAR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"minecraft-server_1.21.1.jar\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"MEMORY\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"2G\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"LOCAL_BACKUP_DIR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"/home/chrislewis/backups\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"S3_BACKUP_DIR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"s3://chrislewis-files/worlds\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"DNS_SUBDOMAIN\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"PORT\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"25565\"</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -123,7 +123,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>DNS_SUBDOMAIN</code>: Subdomain to `chrislewis.me.uk` for maintaining an easy way to connect if IP addresses change.</td>\n      </tr>\n    </table>"
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>DNS_SUBDOMAIN</code>: Subdomain to <code>chrislewis.me.uk</code> for maintaining an easy way to connect if IP addresses change.</td>\n      </tr>\n    </table>"
     },
     {
       "type": "paragraph",

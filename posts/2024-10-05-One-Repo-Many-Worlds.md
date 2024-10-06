@@ -33,7 +33,7 @@ backup from the friend who originally paid for the server) near a Villager
 village and set some tasks to build the North Pole, Santa's Workshop, and bring
 some gifts to the village. It was a success and we had a lot of fun.
 
-In doing this, I hosted the work on a Raspberry Pi 4 8GB with a SATA SSD over
+In doing this, I hosted the world on a Raspberry Pi 4 8GB with a SATA SSD over
 USB, later moving to a Raspberry Pi 5 8GB with a Pimoroni nVME BASE, which
 worked like a charm. This had some distinct advantages over paying a hosting
 provider (given I was okay with the burden on maintenance):
@@ -88,7 +88,7 @@ associated processes. For example:
   "JAR": "minecraft-server_1.21.1.jar",
   "MEMORY": "2G",
   "LOCAL_BACKUP_DIR": "/home/chrislewis/backups",
-  "S3_BACKUP_DIR": "s3://public-files.chrislewis.me.uk/chunky-fargate/worlds",
+  "S3_BACKUP_DIR": "s3://chrislewis-files/worlds",
   "DNS_SUBDOMAIN": "test",
   "PORT": "25565"
 }
@@ -106,7 +106,7 @@ In this example:
 
 - <code>S3_BACKUP_DIR</code>: Location to store backups in AWS S3.
 
-- <code>DNS_SUBDOMAIN</code>: Subdomain to `chrislewis.me.uk` for maintaining an easy way to connect if IP addresses change.
+- <code>DNS_SUBDOMAIN</code>: Subdomain to <code>chrislewis.me.uk</code> for maintaining an easy way to connect if IP addresses change.
 
 - <code>PORT</code>: Port to run the Minecraft server on, if a location hosts more than one.
 
