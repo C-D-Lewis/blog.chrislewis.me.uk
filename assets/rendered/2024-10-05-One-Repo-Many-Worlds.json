@@ -1,0 +1,174 @@
+{
+  "fileName": "2024-10-05-One-Repo-Many-Worlds.md",
+  "title": "One Repo, Many Worlds",
+  "dateTime": "2024-10-05 17:53",
+  "tags": [
+    "Integration",
+    "Raspberry Pi",
+    " AWS"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Christmas 2020 was an unusual one, for obvious reasons. To help break up the\nstream of Zoom quizzes a group of friends and I decided to start a new world\non a Minecraft server. It was to be Christmas themed and a way to keep us all\na bit more sane together and have some social fun at the same time. We ended\nup creating a wonderful winter village and a few years later it's fun to go\nback and see it again."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2021/01/chunky-fargate-village.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Summer of 2021 we migrated in the same world to make a Wild West town, and\nChristmas 2021 we moved again to work on a deep underground Dwarven town. All\nduring this time we were paying a hosting provider (I forget which one) a\nmonthly subscription fee and could save by pausing the server when no one was\ncurrently playing, and eventually we forgot about it. Of course, it made sense\nnot to cost them money when nobody or even one person wanted to play."
+    },
+    {
+      "type": "paragraph",
+      "text": "To anyone who has considered using virtual servers on a service such as AWS ECS,\nthis will evoke the line of thinking of renting vs buying hardware. If you buy,\nthe upfront cost is fixed, but there is no monthly fee potentially indefinitely\nthereafter. However, the burden of maintenance is on you. For the time being\nit made sense."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The Revival"
+    },
+    {
+      "type": "paragraph",
+      "text": "Last Christmas, I wanted to bring that same group back together once again in\nthe seasonal spirit, and so devised a new area on the world (after obtaining a\nbackup from the friend who originally paid for the server) near a Villager\nvillage and set some tasks to build the North Pole, Santa's Workshop, and bring\nsome gifts to the village. It was a success and we had a lot of fun."
+    },
+    {
+      "type": "paragraph",
+      "text": "In doing this, I hosted the work on a Raspberry Pi 4 8GB with a SATA SSD over\nUSB, later moving to a Raspberry Pi 5 8GB with a Pimoroni nVME BASE, which\nworked like a charm. This had some distinct advantages over paying a hosting\nprovider (given I was okay with the burden on maintenance):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Direct access to the filesystem and world files.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>As much monitoring as I wanted (I wrote Monitor plugin to email me if the <code>java</code> process stopped, for example)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Ability to schedule local backups to a USB drive, and upload backups to AWS S3.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Fun!</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As an added bonus, I took advantage of Polaris' regular monitoring of an AWS\nRoute53 DNS record pointing at my house to make sure access was not interrupted\nwhen my public IP address was changed."
+    },
+    {
+      "type": "paragraph",
+      "text": "To facilitate a robust server setup, I utilized Docker to build an image with\nthe correct version of Java and the Minecraft server, mounted the world as a\nDocker volume, and used <code>crontab</code> to run the local and uploaded\nbackups. "
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "More Servers"
+    },
+    {
+      "type": "paragraph",
+      "text": "To this day, that server is still up, and this summer just passed we created\nyet another communal area - a desert island getaway! This one was very different\nand a lot of fun."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/10/desert-island.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "I anticipate we've not seen the last of activity in this world, and so when a\nnew group of friends (who have a history of playing a single night LAN party\nonce every other year or so) wanted a long term world to share, I had a template\nto use for this new server. But it needed some work before it could run both of\nthem."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Enter docker-minecraft"
+    },
+    {
+      "type": "paragraph",
+      "text": "The solution is <a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/docker-minecraft\">docker-minecraft</a>.\nThis project is a single repository that allows setup and running of any number\nof Minecraft servers. Each can have their own configuration, memory allocation,\nand even customized server JARs if required."
+    },
+    {
+      "type": "paragraph",
+      "text": "Each server to be run installs the repository and uses a named set of\nconfiguration files in <code>/config</code>. Aside from the regular Minecraft\nserver files such as <code>server.properties</code> is a <code>config.json</code>\nfile that contains settings related to the server process itself and other\nassociated processes. For example:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"SERVER_NAME\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"JAR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"minecraft-server_1.21.1.jar\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"MEMORY\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"2G\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"LOCAL_BACKUP_DIR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"/home/chrislewis/backups\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"S3_BACKUP_DIR\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"s3://public-files.chrislewis.me.uk/chunky-fargate/worlds\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"DNS_SUBDOMAIN\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"test\"</span><span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"PORT\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"25565\"</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "In this example:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>SERVER_NAME</code>: The server's identifier around the repo and for use in scripts.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>JAR</code>: Server JAR to use in the Docker image, from my S3 bucket.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>MEMORY</code>: Values for the JVM min/max memory arguments.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>LOCAL_BACKUP_DIR</code>: Location to store local backups.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>S3_BACKUP_DIR</code>: Location to store backups in AWS S3.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>DNS_SUBDOMAIN</code>: Subdomain to `chrislewis.me.uk` for maintaining an easy way to connect if IP addresses change.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>PORT</code>: Port to run the Minecraft server on, if a location hosts more than one.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This config file is used in many places, such as the <code>start-docker.sh</code>\nscript:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n#!/bin/bash\n\nset -eu\n\nSERVER_NAME=$1\n\nif [ ! -d \"./config/$SERVER_NAME\" ]; then\n  echo \"Invalid SERVER_NAME\"\n  exit 1\nfi\nPORT=$(cat ./config/$SERVER_NAME/config.json | jq -r \".PORT\")\n\n# Build the image\ndocker build -t $SERVER_NAME . --build-arg CONFIG=$SERVER_NAME\n\n# Make sure the world directory exists to mount and persist to\nmkdir -p world\n\n# Run the image with exposed:\n# - Minecraft server port\n# - Dynmap port\n# - Mounted world directory (some for Spigot servers too)\n# - Any spigot plugins and associated data\ndocker run --rm \\\n  -p $PORT:$PORT \\\n  -p 8123:8123 \\\n  -v ./world:/server/world \\\n  -v ./world_nether:/server/world_nether \\\n  -v ./world_the_end:/server/world_the_end \\\n  -v ./config/$SERVER_NAME/plugins:/server/plugins \\\n  -t $SERVER_NAME\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "It's also used when running the backup scripts:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n#!/bin/bash\n\nset -eu\n\nSERVER_NAME=$1\nUSR=$2\n\nif [ ! -d \"./config/$SERVER_NAME\" ]; then\n  echo \"Invalid SERVER_NAME\"\n  exit 1\nfi\nS3_BACKUP_DIR=$(cat ./config/$SERVER_NAME/config.json | jq -r \".S3_BACKUP_DIR\")\n\nDATE=$(TZ=GMT date +\"%Y%m%d\")\nOUTPUT_FILE=\"$SERVER_NAME-$DATE.zip\"\n\n# Allow sudo crontab to find ~/.aws/\nexport HOME=\"${HOME:=/home/$USR}\"\n\n./scripts/create-zip.sh $USR\nmv \"backup.zip\" \"$OUTPUT_FILE\"\n\necho \">>> Uploading to $S3_BACKUP_DIR\"\n/usr/local/bin/aws s3 cp $OUTPUT_FILE \"$S3_BACKUP_DIR/\"\n\necho \">>> Copying to latest\"\n/usr/local/bin/aws s3 cp \"$S3_BACKUP_DIR/$OUTPUT_FILE\" \"$S3_BACKUP_DIR/$SERVER_NAME-latest.zip\"\n\necho \">>> Cleaning up\"\nrm -rf $OUTPUT_FILE\n\necho \"$(date)\" >> upload-backup.log\necho \">>> Complete\"\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And so on. In each case, the crontab is updated to run the specific server\non boot, as well as the various supporting scripts:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\"># Specific user</span>\nAWS_ACCESS_KEY_ID=\nAWS_SECRET_ACCESS_KEY=\n\n<span class=\"comment\"># docker-minecraft test</span>\n@reboot sleep 15 && /mnt/ssd/docker-minecraft && ./scripts/start-docker.sh test >> /home/pi/docker-minecraft.log 2>&1\n<span class=\"comment\"># Local backup</span>\n0 3 * * * cd /mnt/ssd/docker-minecraft && ./scripts/local-backup.sh test pi > /home/pi/local-backup.log 2>&1\n<span class=\"comment\"># AWS backup</span>\n0 4 * * 1 cd /mnt/ssd/docker-minecraft && ./scripts/upload-backup.sh test pi > /home/pi/upload-backup.log 2>&1\n<span class=\"comment\"># DNS check</span>\n@reboot sleep 15 && cd /mnt/ssd/docker-minecraft && ./scripts/update-dns.sh test > /home/pi/update-dns.log 2>&1\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lastly, the <code>Dockerfile</code> itself uses the <code>SERVER_NAME</code> to\nlocate and copy in the configuration for the server specified."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\nFROM ubuntu:jammy AS platform\n\nRUN apt update --fix-missing && apt upgrade -y\nRUN apt install -y curl jq\n\n# Install java 22 for MC 1.21.1+\nWORKDIR /opt\nADD ./scripts/install-platform-java.sh .\nRUN ./install-platform-java.sh\nRUN java --version || (echo \"java was not found\" && false)\n\n################################################################\n\nFROM platform\n\nARG CONFIG\nRUN test -n \"$CONFIG\" || (echo \"CONFIG  not set\" && false)\n\n# Primary port\nEXPOSE 25565/tcp\n# Alternative port\nEXPOSE 25566/tcp\n# Dynmap\nEXPOSE 8123/tcp\n\nWORKDIR /server\n\n# Copy always\nADD ./scripts ./scripts\n\n# Copy server-specific config first\nADD ./config/${CONFIG}/config.json .\n\n# Download required minecraft server\nRUN ./scripts/fetch-server.sh\n\n# Then all other files for optimal layering\nADD ./config/${CONFIG} .\n\nCMD [\"/server/scripts/start.sh\"]\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "And there we have it. I'm using this already to run both aforementioned friend\ngroup's servers and have not had any issues. It's nice to know that any new\nfeature or other improvement can be shared amongst all the servers with a\n<code>git pull</code>, and it's easy to tweak things like updating a JAR or\nincreasing memory allocated."
+    }
+  ]
+}

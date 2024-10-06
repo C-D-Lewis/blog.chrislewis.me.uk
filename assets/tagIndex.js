@@ -297,7 +297,8 @@ window.tagIndex = {
     "2023-03-26-Customising-a-Pi-Pico-Keypad.json",
     "2023-04-20-Freezing-The-Bifrost.json",
     "2023-05-28-Simpler-Site-Pipelines.json",
-    "2024-05-22-Pi-Rack-v4.json"
+    "2024-05-22-Pi-Rack-v4.json",
+    "2024-10-05-One-Repo-Many-Worlds.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -332,7 +333,8 @@ window.tagIndex = {
     "2022-10-22-Meet-Norren-The-Tame-Discord-Bot.json",
     "2023-02-12-Keeping-Pis-Neat-And-Tidy.json",
     "2023-03-26-Customising-a-Pi-Pico-Keypad.json",
-    "2024-05-22-Pi-Rack-v4.json"
+    "2024-05-22-Pi-Rack-v4.json",
+    "2024-10-05-One-Repo-Many-Worlds.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -418,5 +420,8 @@ window.tagIndex = {
     "2024-01-07-Fabricate-3-0-0.json",
     "2024-03-16-Fabricate-3-3-1-With-Router.json",
     "2024-04-07-Xeno-As-A-PWA.json"
+  ],
+  " AWS": [
+    "2024-10-05-One-Repo-Many-Worlds.json"
   ]
 }
