@@ -34,7 +34,7 @@ village and set some tasks to build the North Pole, Santa's Workshop, and bring
 some gifts to the village. It was a success and we had a lot of fun.
 
 In doing this, I hosted the world on a Raspberry Pi 4 8GB with a SATA SSD over
-USB, later moving to a Raspberry Pi 5 8GB with a Pimoroni nVME BASE, which
+USB, later moving to a Raspberry Pi 5 8GB with a Pimoroni NVMe BASE, which
 worked like a charm. This had some distinct advantages over paying a hosting
 provider (given I was okay with the burden on maintenance):
 

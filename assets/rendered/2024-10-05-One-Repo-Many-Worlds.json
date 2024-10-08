@@ -36,7 +36,7 @@
     },
     {
       "type": "paragraph",
-      "text": "In doing this, I hosted the world on a Raspberry Pi 4 8GB with a SATA SSD over\nUSB, later moving to a Raspberry Pi 5 8GB with a Pimoroni nVME BASE, which\nworked like a charm. This had some distinct advantages over paying a hosting\nprovider (given I was okay with the burden on maintenance):"
+      "text": "In doing this, I hosted the world on a Raspberry Pi 4 8GB with a SATA SSD over\nUSB, later moving to a Raspberry Pi 5 8GB with a Pimoroni NVMe BASE, which\nworked like a charm. This had some distinct advantages over paying a hosting\nprovider (given I was okay with the burden on maintenance):"
     },
     {
       "type": "paragraph",
