@@ -973,6 +973,13 @@ window.postHistory = {
         "fileName": "2024-10-05-One-Repo-Many-Worlds"
       }
     ],
+    "12": [
+      {
+        "title": "Node Microservices Dashboard v3",
+        "file": "assets/rendered/2024-12-02-Node-Microservices-Dashboard-v3.json",
+        "fileName": "2024-12-02-Node-Microservices-Dashboard-v3"
+      }
+    ],
     "01": [
       {
         "title": "Fabricate.js 3.0.0",

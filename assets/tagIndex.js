@@ -298,7 +298,8 @@ window.tagIndex = {
     "2023-04-20-Freezing-The-Bifrost.json",
     "2023-05-28-Simpler-Site-Pipelines.json",
     "2024-05-22-Pi-Rack-v4.json",
-    "2024-10-05-One-Repo-Many-Worlds.json"
+    "2024-10-05-One-Repo-Many-Worlds.json",
+    "2024-12-02-Node-Microservices-Dashboard-v3.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -334,7 +335,8 @@ window.tagIndex = {
     "2023-02-12-Keeping-Pis-Neat-And-Tidy.json",
     "2023-03-26-Customising-a-Pi-Pico-Keypad.json",
     "2024-05-22-Pi-Rack-v4.json",
-    "2024-10-05-One-Repo-Many-Worlds.json"
+    "2024-10-05-One-Repo-Many-Worlds.json",
+    "2024-12-02-Node-Microservices-Dashboard-v3.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -406,7 +408,8 @@ window.tagIndex = {
     "2021-01-18-Stack-Chat-A-Simple-Chat-Webapp.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
     "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
-    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
+    "2024-10-05-One-Repo-Many-Worlds.json"
   ],
   "Terraform": [
     "2020-10-04-Deploying-With-Terraform.json",
@@ -419,9 +422,7 @@ window.tagIndex = {
     "2023-08-10-Xeno-Simple-Reddit-Webapp.json",
     "2024-01-07-Fabricate-3-0-0.json",
     "2024-03-16-Fabricate-3-3-1-With-Router.json",
-    "2024-04-07-Xeno-As-A-PWA.json"
-  ],
-  " AWS": [
-    "2024-10-05-One-Repo-Many-Worlds.json"
+    "2024-04-07-Xeno-As-A-PWA.json",
+    "2024-12-02-Node-Microservices-Dashboard-v3.json"
   ]
 }

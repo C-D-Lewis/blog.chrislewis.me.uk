@@ -23,15 +23,14 @@ const renderMarkdownText = (para) => {
     const locationEnd = para.indexOf(')', locationStart);
     const location = para.substring(locationStart, locationEnd);
 
-    para = para.substring(0, labelStart)
-      + `<a class="link" target="_blank" href="${location}">${label}</a>`
-      + para.substring(locationEnd + 1);
+    // eslint-disable-next-line no-param-reassign
+    para = `${para.substring(0, labelStart)}<a class="link" target="_blank" href="${location}">${label}</a>${para.substring(locationEnd + 1)}`;
   }
 
   // Lists
   if (para.startsWith('- ')) {
     const [, text] = para.split('- ');
-    
+
     return `<table>
       <tr>
         <td style="padding-right:10px; vertical-align: baseline;">•</td>
@@ -47,12 +46,12 @@ const renderMarkdownText = (para) => {
  * Process the pseudomarkdown file into component model.
  *
  * @param {string} fileName - File name.
- * @returns {Object} Model of the post.
+ * @returns {object} Model of the post.
  */
 const postToModel = (fileName) => {
   const text = readFileSync(`${POSTS_DIR}/${fileName}`, 'utf8');
 
-  const [title, dateTime, tags] = text.split('\n').map(p => p.trim());
+  const [title, dateTime, tags] = text.split('\n').map((p) => p.trim());
   if (!title.length) {
     throw new Error(`${fileName} Metadata error: missing title`);
   }
@@ -81,14 +80,14 @@ const postToModel = (fileName) => {
   sections.forEach((section) => {
     // Image
     if (section.startsWith('![')) {
-      const description = section.substring( section.indexOf('[') + 1, section.indexOf(']'));
+      const description = section.substring(section.indexOf('[') + 1, section.indexOf(']'));
       const srcStr = section.substring(section.indexOf('(') + 1, section.indexOf(')'));
 
       // Options?
       let type = 'image';
       const [src, opts] = srcStr.split(' ');
       if (opts) {
-        if(opts.includes('no-shadow')) {
+        if (opts.includes('no-shadow')) {
           type = 'image-no-shadow';
         }
       }
@@ -100,8 +99,8 @@ const postToModel = (fileName) => {
     // H3, H2, H1...
     if (section.startsWith('#')) {
       const level = section.split('#').length - 1;
-      const text = section.split('# ')[1];
-      model.components.push({ type: 'header', level, text });
+      const hText = section.split('# ')[1];
+      model.components.push({ type: 'header', level, text: hText });
       return;
     }
 
@@ -133,7 +132,7 @@ const main = () => {
     const renderPath = `${__dirname}/../assets/rendered/${fileName}.json`;
     const [year, month] = model.dateTime.split('-');
     writeFileSync(renderPath, JSON.stringify(model, null, 2), 'utf8');
-    numRendered++;
+    numRendered += 1;
 
     // Update history file
     if (!history[year]) {
@@ -144,7 +143,7 @@ const main = () => {
     }
 
     const filePath = `assets/rendered/${fileName}.json`;
-    history[year][month].push({ title: model.title, file: filePath, fileName: fileName });
+    history[year][month].push({ title: model.title, file: filePath, fileName });
   });
   console.log(`Rendered ${numRendered} posts`);
 
