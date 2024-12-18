@@ -978,6 +978,11 @@ window.postHistory = {
         "title": "Node Microservices Dashboard v3",
         "file": "assets/rendered/2024-12-02-Node-Microservices-Dashboard-v3.json",
         "fileName": "2024-12-02-Node-Microservices-Dashboard-v3"
+      },
+      {
+        "title": "Swapping Webpack for Vite",
+        "file": "assets/rendered/2024-12-18-Swapping-Webpack-For-Vite.json",
+        "fileName": "2024-12-18-Swapping-Webpack-For-Vite"
       }
     ],
     "01": [

@@ -299,7 +299,8 @@ window.tagIndex = {
     "2023-05-28-Simpler-Site-Pipelines.json",
     "2024-05-22-Pi-Rack-v4.json",
     "2024-10-05-One-Repo-Many-Worlds.json",
-    "2024-12-02-Node-Microservices-Dashboard-v3.json"
+    "2024-12-02-Node-Microservices-Dashboard-v3.json",
+    "2024-12-18-Swapping-Webpack-For-Vite.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -414,7 +415,8 @@ window.tagIndex = {
   "Terraform": [
     "2020-10-04-Deploying-With-Terraform.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
-    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json"
+    "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
+    "2024-12-18-Swapping-Webpack-For-Vite.json"
   ],
   "TypeScript": [
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
@@ -423,6 +425,7 @@ window.tagIndex = {
     "2024-01-07-Fabricate-3-0-0.json",
     "2024-03-16-Fabricate-3-3-1-With-Router.json",
     "2024-04-07-Xeno-As-A-PWA.json",
-    "2024-12-02-Node-Microservices-Dashboard-v3.json"
+    "2024-12-02-Node-Microservices-Dashboard-v3.json",
+    "2024-12-18-Swapping-Webpack-For-Vite.json"
   ]
 }

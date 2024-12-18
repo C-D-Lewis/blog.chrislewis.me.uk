@@ -1,0 +1,144 @@
+{
+  "fileName": "2024-12-18-Swapping-Webpack-For-Vite.md",
+  "title": "Swapping Webpack for Vite",
+  "dateTime": "2024-12-18 13:04",
+  "tags": [
+    "Integration",
+    "TypeScript",
+    "Terraform"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Ah, Christmas holidays. A good time for catching up on things I meant to do\nbefore, which includes write this blog post (and not just so that the post total\nis 6 for a third year running!)."
+    },
+    {
+      "type": "paragraph",
+      "text": "For a long time I have had many static site projects use Webpack to take\ncare of build and running a dev server. It's one of the many useful skills and\nexamples gleaned from things I experience at work. Webpack's main strength\nis its flexibility, including detailed configuration for many different setups\nand use-cases, and a large ecosystem of plugins for even more functionality."
+    },
+    {
+      "type": "paragraph",
+      "text": "Lately, we discovered that the work-based use-case didn't call for as many of\nthe features Webpack offers as we originally thought, and in fact in some manners\nthe complex configuration and resource usage put us at a disadvantage."
+    },
+    {
+      "type": "paragraph",
+      "text": "While my site projects aren't nearly as complex as the work ones, my own goal\nin using it is to simply compile a static site, ideally as quickly as possible.\nWith this in mind, when some new projects started using\n<a class=\"link\" target=\"_blank\" href=\"https://vite.dev/\">Vite</a>, I took notice."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Enter Vite"
+    },
+    {
+      "type": "paragraph",
+      "text": "Vite is similar to Webpack in many regards, but has some differences. For a\nstart, it is more opinionated about how a static site build should run, which\nmeans for a large majority of use-case it can work in the correct manner out\nof the box without complex configuration. For my simple projects, this is just\nabout ideal. So, I set about updating them to move from Webpack to Vite."
+    },
+    {
+      "type": "paragraph",
+      "text": "But what were the exact changes required? I thought it might be useful to\nchronicle them here."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Case Study: Who's At Paddy's?"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/12/paddys.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "As an example, one project that has been updated is\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/whosatpaddys.pub\">Who's At Paddy's?</a>, a novelty\nsite that allows you to search episodes of It's Always Sunny in Philadelphia. I\nused it as a test project to discover exactly what would be entailed."
+    },
+    {
+      "type": "paragraph",
+      "text": "The first step is updating dependencies:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\nnpm uninstall webpack webpack-cli http-server\n\nnpm install --save vite vite-plugin-static-copy\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Next, changing the project configuration by removing the\n<code>webpack.config.js</code>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">const </span>path<span class=\"js-keyword\"> = </span>require<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>path<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\nmodule.<span class=\"js-blueword\">exports</span><span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n  entry<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>./src/index.ts<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  module<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    rules<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span>\n      <span class=\"js-syntax\">{</span>\n        test<span class=\"js-syntax\">: </span>/\\.ts?$/<span class=\"js-syntax\">,</span>\n        use<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>ts-loader<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n        exclude<span class=\"js-syntax\">: </span>/node_modules/<span class=\"js-syntax\">,</span>\n      <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  resolve<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    extensions<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"_string\"><span class=\"js-syntax\">'</span>.tsx<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>.ts<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>.js<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  output<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    filename<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>bundle.js<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n    path<span class=\"js-syntax\">: </span>path.resolve<span class=\"js-syntax\">(</span>__dirname<span class=\"js-syntax\">,</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>dist<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n  devServer<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    static<span class=\"js-syntax\">: </span>path.join<span class=\"js-syntax\">(</span>__dirname<span class=\"js-syntax\">,</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>dist<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n    compress<span class=\"js-syntax\">: </span>true<span class=\"js-syntax\">,</span>\n    port<span class=\"js-syntax\">: </span>8080<span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "and replacing with one for Vite called <code>vite.config.ts</code>:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\nimport <span class=\"js-syntax\">{</span> viteStaticCopy <span class=\"js-syntax\">}</span> from <span class=\"_string\"><span class=\"js-syntax\">'</span>vite-plugin-static-copy<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// Set by Vite during 'build'</span>\n<span class=\"js-blueword\">const </span>isDev<span class=\"js-keyword\"> = </span><span class=\"js-blueword\">process</span>.env.NODE_ENV <span class=\"js-keyword\"><span class=\"js-keyword\">!</span>==</span> <span class=\"_string\"><span class=\"js-syntax\">'</span>production<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n\n<span class=\"js-keyword\">export </span>default <span class=\"js-syntax\">{</span>\n<span class=\"comment\">  // For terraform-modules/s3-cloudfront-website serving of dist/index.html</span>\n  base<span class=\"js-syntax\">: </span>isDev<span class=\"js-keyword\"> ? </span><span class=\"_string\"><span class=\"js-syntax\">'</span>/<span class=\"js-syntax\">'</span></span><span class=\"js-keyword\"> <span class=\"js-syntax\">: </span></span><span class=\"_string\"><span class=\"js-syntax\">'</span>/dist<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span>\n  plugins<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span>\n    viteStaticCopy<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>\n      targets<span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span><span class=\"js-syntax\">{</span> src<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>assets<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> dest<span class=\"js-syntax\">: </span><span class=\"_string\"><span class=\"js-syntax\">'</span>.<span class=\"js-syntax\">'</span></span> <span class=\"js-syntax\">}</span><span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span>\n  server<span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n    port<span class=\"js-syntax\">: </span>8080<span class=\"js-syntax\">,</span>\n  <span class=\"js-syntax\">}</span><span class=\"js-syntax\">,</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Though it could be reduced, this final configuration file includes some extras:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Allowing the base path to be set depending on whether it is running locally or being served in an S3 CloudFront setup in AWS, which most of these sites are.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Copying assets to the build folder with the correct paths.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Running a dev server with default options and a selected port.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Note that Vite did not need separate configuration or plugins to handle the\nfact it was a TypeScript project - this is supported out of the box!"
+    },
+    {
+      "type": "paragraph",
+      "text": "In the code itself, the application code doesn't need to change at all. However,\nwe have a new entrypoint for the main <code>script</code> tag:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n-    <... type=\"text/javascript\" src=\"dist/bundle.js?v=COMMIT\">\n+    <... type=\"module\" src=\"./src/index.ts\">\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Vite builds have different names on each build, removing the need for the\ncache-busting parameter to be added to files like <code>bundle.js</code>."
+    },
+    {
+      "type": "paragraph",
+      "text": "The next step is to update the Terrform for the project to specify the new\nindex file for CloudFront - this is because Vite builds start with and include\nthe <code>index.html</codd> file:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-terraform\">Terraform</div>\n<pre class=\"\"><div class=\"code-block\">\nmodule <span class=\"_string\">\"main\"</span> <span class=\"js-syntax\">{</span>\n  source = <span class=\"_string\">\"github.com/c-d-lewis/terraform-modules//s3-cloudfront-website?ref=master\"</span>\n\n  region               = <span class=\"_string\">\"us-east-1\"</span>\n  project_name         = <span class=\"_string\">\"whosatpaddys.pub\"</span>\n  zone_id              = <span class=\"_string\">\"Z0366509V094HMD6CEGE\"</span>\n  domain_name          = <span class=\"_string\">\"whosatpaddys.pub\"</span>\n  alt_domain_name      = <span class=\"_string\">\"www.whosatpaddys.pub\"</span>\n  certificate_arn      = <span class=\"_string\">\"arn:aws:acm:us-east-1:617929423658:certificate/72e3a39b-e701-4269-b429-af2a6a312db9\"</span>\n  default_root_object  = <span class=\"_string\">\"dist/index.html\"</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The new variable <code>default_root_object</code> allows this to be set only\nfor projects that are migrated to Vite, which is more flexible."
+    },
+    {
+      "type": "paragraph",
+      "text": "Lastly, we just need to update the npm scripts:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n-    \"build\": \"npm run clean && webpack --mode production\",\n-    \"start\": \"npm run build:dev && http-server\"\n+    \"build\": \"npm run clean && vite build\",\n+    \"start\": \"vite\"\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "So, it took a little trial and error to get this process all working (what good\nproject doesn't?) with build and deployments, but I think it's worth it. Vite\nis much quicker to start (milliseconds!) and simplifies the project structure.\nIn a small project like this the difference is not so large, but with the larger\nprojects at work the benefits are quite significant. I'm excited to see if there\nare any other ways this could be streamlined even further in the future..."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n$ npm start\n\n> whosatpaddys.pub@1.0.0 start\n> vite\n\nPort 8080 is in use, trying another one...\n[vite-plugin-static-copy] Collected 1 items.\n\n  VITE v5.4.11  ready in 261 ms\n\n  ➜  Local:   http://localhost:8081/\n  ➜  Network: use --host to expose\n  ➜  press h + enter to show help\n</div></pre>"
+    }
+  ]
+}
