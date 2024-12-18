@@ -105,7 +105,7 @@
     },
     {
       "type": "paragraph",
-      "text": "Vite builds have different names on each build, removing the need for the\ncache-busting parameter to be added to files like <code>bundle.js</code>."
+      "text": "Vite builds have different names on each build, removing the need for the\ncache-busting parameter to be added to files like <code>bundle.js</code>. It\nis this new reference to the index file in the application that tells Vite to\nbuild it."
     },
     {
       "type": "paragraph",
