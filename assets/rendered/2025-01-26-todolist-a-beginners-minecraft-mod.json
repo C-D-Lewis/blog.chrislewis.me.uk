@@ -1,0 +1,188 @@
+{
+  "fileName": "2025-01-26-todolist-a-beginners-minecraft-mod.md",
+  "title": "todolist: A Beginner's Minecraft Mod",
+  "dateTime": "2025-01-26 10:45",
+  "tags": [
+    "Java"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "For a while I've had a back-burner goal to create some kind of mod for\nMinecraft - I've played a lot of it with friends and now more than ever the\nvariety and potential for what mods add to the game is amazing. Obviously some\nof the best are produced by large teams or very dedicated and talented\nindividuals but as one who enjoyed coding as a hobby, it seems a natural good\nfit. "
+    },
+    {
+      "type": "paragraph",
+      "text": "In fact, I did try several years ago - at the time I think the process involved\nusing some tool to decompile a JAR of Minecraft and using Forge to write code\nagainst it... I can't remember the details. The thing I produced was a block\nthat once a second examined the block below it and removed it, dropping the same\nblock as an entity out the top. I called it a drill and it had no sound or\ntextures, and was not particularly useful."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Trying again later"
+    },
+    {
+      "type": "paragraph",
+      "text": "Late last year, I finally sat down and did some research to see exactly what\nwould be involved to get started making a moden Minecraft mod. Given that I'm\nmaintaining two Paper servers it seemed obvious to see what was involved making\na mod for Paper or Bukkit (though I think Forge and Fabric are still options)."
+    },
+    {
+      "type": "paragraph",
+      "text": "Luckily for me, there is pretty great\n<a class=\"link\" target=\"_blank\" href=\"https://docs.papermc.io/paper/dev/getting-started\">documentation</a> and of course\nthere was more documentation nowadays. A most crucial difference is that with\nthe libraries installed by Gradle including\n<code>io.papermc.paper:paper-api</code> means that decompiling Minecraft myself\nis not required and code smply makes use of classes exposed by the Paper\nAPI - much easier!"
+    },
+    {
+      "type": "paragraph",
+      "text": "After creating a barebones project from one of the examples, I stripped it back\nso that it contained as few files and lines as possible to give a clean base to\nlearn when adding my own code. After a little debugging of my Gradle setup\n(I never had a firm grasp of Gradle from Android dev years ago anyway) I was\nrewarded with:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n$ ./gradlew build\nReusing configuration cache.\n\nBUILD SUCCESSFUL in 1s\n3 actionable tasks: 2 executed, 1 up-to-date\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Now I just needed an idea. I didn't want to go all-in and make a mod with a\ndozen game-breaking convenience blocks or new mobs, and after some recent work\non a Discord bot the idea of something that uses only in-game commands seemed\nlike an attainable goal. A classic first project for a new language or platform\nis the to-do list, and it was something at least myself would use (instead\nof editing in-game signposts and have to travel to read), so I settled on that."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Yet another to-do list mod"
+    },
+    {
+      "type": "paragraph",
+      "text": "Taking a quick look at various mod sites, seems there are already a plethora of\nto-do list mods with more features and more expert support, but that wasn't the\npoint of the project - I was on a learning adventure!"
+    },
+    {
+      "type": "paragraph",
+      "text": "Following the Paper tutorials and some associated Googling, I determined the\nfirst thing to update was the <code>plugin.yml</code> that describes the mod to\nthe server:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-yaml\">YAML</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">name</span><span class=\"comment_regular\">:</span><span class=\"_string\"> TodoList</span>\n<span class=\"js-keyword\">version</span><span class=\"comment_regular\">:</span><span class=\"_string\"> 1.0.0</span>\n<span class=\"js-keyword\">main</span><span class=\"comment_regular\">:</span><span class=\"_string\"> uk.me.chrislewis.todolist.TodoList</span>\n<span class=\"js-keyword\">description</span><span class=\"comment_regular\">:</span><span class=\"_string\"> A simple plugin to manage player TODOs</span>\n<span class=\"js-keyword\">author</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Chris Lewis</span>\n<span class=\"js-keyword\">website</span><span class=\"comment_regular\">:</span><span class=\"_string\"> https://papermc.io</span>\n<span class=\"js-keyword\">api-version</span><span class=\"comment_regular\">:</span><span class=\"_string\"> '1.21.1'</span>\n<span class=\"js-keyword\">commands</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">  todo</span><span class=\"comment_regular\">:</span><span class=\"_string\"></span>\n<span class=\"js-keyword\">    description</span><span class=\"comment_regular\">:</span><span class=\"_string\"> Use the todolist plugin</span>\n<span class=\"js-keyword\">    usage</span><span class=\"comment_regular\">:</span><span class=\"_string\"> /todo help</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The <code>main</code> property describes the class where the mod entrypoint is.\nTo make use of the events provided by the Paper API, the general outline looks\nlike this:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-java\">Java</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">package </span>uk.me.chrislewis.todolist<span class=\"js-syntax\">;</span>\n\n<span class=\"js-keyword\">import </span>java.io.File<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>java.util.ArrayList<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>java.util.logging.Logger<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>org.bukkit.Bukkit<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>org.bukkit.command.Command<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>org.bukkit.command.CommandSender<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>org.bukkit.entity.Player<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>org.bukkit.event.EventHandler<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>org.bukkit.event.Listener<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>org.bukkit.event.player.PlayerJoinEvent<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>org.bukkit.plugin.java.JavaPlugin<span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">import </span>net.kyori.adventure.text.Component<span class=\"js-syntax\">;</span>\n\n<span class=\"js-keyword\">public</span><span class=\"js-blueword\"> class </span>TodoList<span class=\"js-keyword\"> extends </span>JavaPlugin<span class=\"js-keyword\"> implements </span>Listener <span class=\"js-syntax\">{</span>\n\n  <span class=\"js-keyword\">private</span> Logger logger<span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">private</span> Data data<span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">private</span> File dataFolder<span class=\"js-syntax\">;</span>\n  \n  <span class=\"js-blueword\">@Override</span>\n  <span class=\"js-keyword\">public</span> <span class=\"js-keyword\">void</span> onEnable<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    Bukkit.getPluginManager<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>.registerEvents<span class=\"js-syntax\">(</span>this<span class=\"js-syntax\">,</span> this<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    logger = getLogger<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">    // Init plugin folder</span>\n    dataFolder = getDataFolder<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>!dataFolder.exists<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>!dataFolder.mkdirs<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n        logger.severe<span class=\"js-syntax\">(</span><span class=\"_string\">\"Could not create plugin directory!\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n        getServer<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>.getPluginManager<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span>.disablePlugin<span class=\"js-syntax\">(</span>this<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n        return<span class=\"js-syntax\">;</span>\n      <span class=\"js-syntax\">}</span>\n    <span class=\"js-syntax\">}</span>\n\n    data =<span class=\"js-keyword\"> new </span>Data<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    data.load<span class=\"js-syntax\">(</span>dataFolder<span class=\"js-syntax\">,</span> logger<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n  \n  <span class=\"js-blueword\">@EventHandler</span>\n  <span class=\"js-keyword\">public</span> <span class=\"js-keyword\">void</span> onPlayerJoin<span class=\"js-syntax\">(</span>PlayerJoinEvent event<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">    // ...</span>\n  <span class=\"js-syntax\">}</span>\n  \n  <span class=\"js-blueword\">@Override</span>\n  <span class=\"js-keyword\">public</span> boolean onCommand<span class=\"js-syntax\">(</span>CommandSender sender<span class=\"js-syntax\">,</span> Command command<span class=\"js-syntax\">,</span> <span class=\"js-blueword\">String </span>label<span class=\"js-syntax\">,</span> String<span class=\"js-syntax\">[</span><span class=\"js-syntax\">]</span> args<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>args.length == 0<span class=\"js-keyword\"> || </span>args<span class=\"js-syntax\">[</span>0<span class=\"js-syntax\">]</span>.equals<span class=\"js-syntax\">(</span><span class=\"_string\">\"help\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      sender.sendMessage<span class=\"js-syntax\">(</span>Component.text<span class=\"js-syntax\">(</span><span class=\"_string\">\"================ todolist help ==============\"</span><span class=\"js-syntax\">)</span>.color<span class=\"js-syntax\">(</span>Colors.GREY<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      sender.sendMessage<span class=\"js-syntax\">(</span>Component.text<span class=\"js-syntax\">(</span><span class=\"_string\">\"  /todo help - show this help\"</span><span class=\"js-syntax\">)</span>.color<span class=\"js-syntax\">(</span>Colors.GREY<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"comment\">      // ...</span>\n      <span class=\"js-keyword\">return </span>true<span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n\n    <span class=\"js-blueword\">String </span>subcmd = args<span class=\"js-syntax\">[</span>0<span class=\"js-syntax\">]</span><span class=\"js-syntax\">;</span>\n    \n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>!<span class=\"js-syntax\">(</span>sender instanceof Player<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      logger.info<span class=\"js-syntax\">(</span><span class=\"_string\">\"todolist<span class=\"js-syntax\">: </span>Ignored command \"</span> + subcmd + <span class=\"_string\">\" as you are not a Player\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      <span class=\"js-keyword\">return </span>true<span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n    \n    Player player = <span class=\"js-syntax\">(</span>Player<span class=\"js-syntax\">)</span> sender<span class=\"js-syntax\">;</span>\n    <span class=\"js-blueword\">String </span>playerName = sender.getName<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    \n<span class=\"comment\">    // Add a new item to a player's list</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>subcmd.equals<span class=\"js-syntax\">(</span><span class=\"_string\">\"add\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">      // ...</span>\n      <span class=\"js-keyword\">return </span>true<span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n    \n<span class=\"comment\">    // List player's list</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>subcmd.equals<span class=\"js-syntax\">(</span><span class=\"_string\">\"list\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">      // ...</span>\n      <span class=\"js-keyword\">return </span>true<span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">    // ...</span>\n\n<span class=\"comment\">    // Not handled by todolist</span>\n    <span class=\"js-keyword\">return </span>false<span class=\"js-syntax\">;</span> \n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As can be seen, the key events I was using were:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>onEnable()</code> </td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>onPlayerJoin()</code> </td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>onCommand()</code> </td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Using the Bukkit <code>registerEvents()</code> allows my class to respond to\nthese events. Eventually I settled on sending the player their outstanding\nto-do items when they join so that they are reminded (this works quite well\nfor me!). If a command doesn't match one I expect, I return <code>false</code>\nin <code>onCommand()</code> to tell the game to show the standard error for an\ninvalid command."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The real work"
+    },
+    {
+      "type": "paragraph",
+      "text": "The most difficult part of the project was figuring out how to reliably store\nand reload the players' to-do items. In Node this would be trivial - use\n<code>JSON.stringify/parse</code> and <code>read/writeFileSync</code>. This\nwould allow the data storage format to match how it is used in code."
+    },
+    {
+      "type": "paragraph",
+      "text": "But in Javaland, things aren't so simple. Everything is a class, and there is\nno built-in support for things like JSON or YAML. A tutorial I found described\nhow to write a Java class that is serializable - meaning it can read and write\nit's own state to a file, but in a non-human-readable binary format. This wasn't\nideal. I struggled for a few hours to find a JSON or YAML Java library that I\ncould easily add to the project and figure out how to use in code. The ones I\nfound were either designed for very high performance streaming data applications\nor I just could not get to install/compile/run."
+    },
+    {
+      "type": "paragraph",
+      "text": "So eventually I gave up for the sake of completing the project and chose an easy\ncop-out - writing a single file per player and one to-do per line. It was simple\nbut effective and meant the project didn't die an early death."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-java\">Java</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Save data to the file.</span>\n<span class=\"comment\"> * One file per player (because Java and any kind of JSON/YAML loading).</span>\n<span class=\"comment\"> * First line is name.</span>\n<span class=\"comment\"> * One line per todo.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param dataFolder Data File to save to.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-keyword\">public</span> <span class=\"js-keyword\">void</span> save <span class=\"js-syntax\">(</span><span class=\"js-keyword\">final</span> File dataFolder<span class=\"js-syntax\">,</span> <span class=\"js-keyword\">final</span> Player player<span class=\"js-syntax\">,</span> <span class=\"js-keyword\">final</span> Logger logger<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  try <span class=\"js-syntax\">{</span>\n    <span class=\"js-blueword\">String </span>name = player.getName<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    UUID uuid = player.getUniqueId<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-blueword\">String </span>filename = dataFolder.getAbsolutePath<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> + <span class=\"_string\">\"/\"</span> + uuid.toString<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> + <span class=\"_string\">\".txt\"</span><span class=\"js-syntax\">;</span>\n\n    FileWriter fw =<span class=\"js-keyword\"> new </span>FileWriter<span class=\"js-syntax\">(</span>filename<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    fw.write<span class=\"js-syntax\">(</span>name + <span class=\"_string\"><span class=\"js-syntax\">'</span>\\n<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n    ArrayList<String> items = todos.get<span class=\"js-syntax\">(</span>name<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>items != null<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      for<span class=\"js-syntax\">(</span><span class=\"js-blueword\">String </span>i <span class=\"js-syntax\">: </span>items<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n        fw.write<span class=\"js-syntax\">(</span>i + <span class=\"_string\">\"\\n\"</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      <span class=\"js-syntax\">}</span>\n    <span class=\"js-syntax\">}</span>\n    \n    fw.close<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    logger.info<span class=\"js-syntax\">(</span><span class=\"_string\">\"Saved data file for \"</span> + name<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span> catch <span class=\"js-syntax\">(</span>IOException e<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    e.printStackTrace<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The converse process or loading players' data when the server is restarted\nlooks quite similar - reading each file line-by-line and placing the data into\nnative data structures."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-java\">Java</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Load data from the file.</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param dataFolder Data File to load from.</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-keyword\">public</span> <span class=\"js-keyword\">void</span> load <span class=\"js-syntax\">(</span><span class=\"js-keyword\">final</span> File dataFolder<span class=\"js-syntax\">,</span> <span class=\"js-keyword\">final</span> Logger logger<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  File<span class=\"js-syntax\">[</span><span class=\"js-syntax\">]</span> files = dataFolder.listFiles<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n  try <span class=\"js-syntax\">{</span>\n    for <span class=\"js-syntax\">(</span>File file <span class=\"js-syntax\">: </span>files<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n      <span class=\"js-blueword\">String </span>fileName = file.getName<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>!file.isFile<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n        logger.warning<span class=\"js-syntax\">(</span><span class=\"_string\">\"Ignoring non-file \"</span> + fileName<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n        continue<span class=\"js-syntax\">;</span>\n      <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">      // Name is player name</span>\n      FileReader fr =<span class=\"js-keyword\"> new </span>FileReader<span class=\"js-syntax\">(</span>file.getAbsolutePath<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      BufferedReader br =<span class=\"js-keyword\"> new </span>BufferedReader<span class=\"js-syntax\">(</span>fr<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      <span class=\"js-blueword\">String </span>playerName = br.readLine<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n      ArrayList<String> items =<span class=\"js-keyword\"> new </span>ArrayList<><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      <span class=\"js-blueword\">String </span>line = <span class=\"_string\">\"\"</span><span class=\"js-syntax\">;</span>\n      while <span class=\"js-syntax\">(</span><span class=\"js-syntax\">(</span>line = br.readLine<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> != null<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n        items.add<span class=\"js-syntax\">(</span>line<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">      // Restore data</span>\n      todos.put<span class=\"js-syntax\">(</span>playerName<span class=\"js-syntax\">,</span> items<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n      br.close<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      logger.info<span class=\"js-syntax\">(</span><span class=\"_string\">\"Loaded data file \"</span> + fileName<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n  <span class=\"js-syntax\">}</span> catch <span class=\"js-syntax\">(</span>Exception e<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    e.printStackTrace<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Is there a better approach? Absolutely! Did I want to spend all that extra time\non it for no functional benefit? Not this time."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Seeing it in action"
+    },
+    {
+      "type": "paragraph",
+      "text": "Installation of the output JAR is simple - placing into the Paper server's\n<code>plugins</code> directory. You can tell if this is successful by seeing\nsome tell-tale log entries:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n[11:30:46 INFO]: [bootstrap] Loading Paper 1.21.1-128-master@d348cb8 (2024-10-21T16:23:24Z) for Minecraft 1.21.1\n[11:30:46 INFO]: [PluginInitializerManager] Initializing plugins...\n[11:30:47 INFO]: [PluginInitializerManager] Initialized 1 plugin\n[11:30:47 INFO]: [PluginInitializerManager] Bukkit plugins (1):\n - TodoList (1.0.0)\n\n...\n\n[11:30:57 INFO]: [TodoList] Loading server plugin TodoList v1.0.0\n[11:30:57 INFO]: Preparing level \"world\"\n\n...\n\n[11:30:59 INFO]: [TodoList] Enabling TodoList v1.0.0\n[11:30:59 INFO]: [TodoList] Loaded data file data\n\n...\n\n[11:30:59 INFO]: Done preparing level \"world\" (2.345s)\n[11:30:59 INFO]: Running delayed init tasks\n[11:30:59 INFO]: Done (14.567s)! For help, type \"help\"\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "So what does this look like in game?"
+    },
+    {
+      "type": "paragraph",
+      "text": "When logging in, you see the list of current to-do items for your player:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/01/todolist-list.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "And use the <code>add</code> command to add a new item:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/01/todolist-add.png"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/01/todolist-added.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "When you complete a task, use the <code>delete</code> command to remove it from\nthe list:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/01/todo-delete.png"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/01/todo-deleted.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "So there it is - one 'complete' mod for Minecraft. It's not published, but it\nis in use on the server I maintain and I use it a lot, so I consider it a\nsuccessful project!"
+    },
+    {
+      "type": "paragraph",
+      "text": "You can find the code\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/mc-dev/tree/main/todolist\">here</a>, including a\nbuilt JAR for 1.21.1."
+    }
+  ]
+}

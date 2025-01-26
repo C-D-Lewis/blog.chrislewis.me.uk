@@ -35,7 +35,8 @@ window.tagIndex = {
     "2016-07-20-Dash-API-For-Easy-Pebble-and-Android-Integration.json",
     "2016-11-20-Dynamic-PC-Backlight-with-Raspberry-Pi-and-Blinkt.json",
     "2016-12-18-Dashboard-Now-Open-source.json",
-    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json"
+    "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
+    "2025-01-26-todolist-a-beginners-minecraft-mod.json"
   ],
   "Releases": [
     "2013-03-25-Filing-Cabinet-Initial-Release.json",

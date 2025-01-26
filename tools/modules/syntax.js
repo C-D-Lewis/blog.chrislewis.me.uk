@@ -58,7 +58,8 @@ const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';'];
 const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void ', 'bool ', ' true', ' false'];
 
 // Java
-const JAVA_KEYWORDS = ['public', 'static', 'final', 'private', 'void'];
+const JAVA_KEYWORDS = ['public', 'static', 'final', 'private', 'void', ' extends ', 'import ', 'package ', ' implements ', 'if ', 'return ', ' new ', ' || ', ' && '];
+const JAVA_BLUEWORDS = ['@Override', '@EventHandler', 'String ', ' class ', ' true', ' false'];
 
 // Shell/bash
 const SHELL_KEYWORDS = ['set ', 'export ', ' then', ' do', 'if ', 'fi', ' || ', 'true', 'while ', 'done', '! '];
@@ -239,6 +240,9 @@ const toHighlightedLine = (line, language) => {
     });
     JAVA_KEYWORDS.forEach((keyword) => {
       line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+    });
+    JAVA_BLUEWORDS.forEach((blueword) => {
+      line = line.split(blueword).join(`<span class="js-blueword">${blueword}</span>`);
     });
   }
 
