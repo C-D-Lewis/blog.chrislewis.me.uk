@@ -115,7 +115,7 @@ const App = () => {
         .onClick(() => window.open('https://gallery.fitbit.com/search?terms=chris%20lewis', '_blank')),
       fabricate('LeftColumnItem')
         .setText('Pebble Apps')
-        .onClick(() => window.open('https://github.com/C-D-Lewis/pebble', '_blank')),
+        .onClick(() => window.open('https://apps.rebble.io/en_US/developer/5299cd30e627ce1147000099/1?native=false&query=Chris%252520Lewis', '_blank')),
       fabricate('LeftColumnItem')
         .setText('Pixels With Friends')
         .onClick(() => window.open('https://github.com/c-d-lewis/pixels-with-friends', '_blank')),
