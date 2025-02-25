@@ -91,3 +91,33 @@ Utils.showPostsForTag = async (tag) => {
   const models = await Promise.all(promises);
   fabricate.update({ postListItems: models });
 };
+
+/**
+ * Search posts for a term.
+ *
+ * @param {string} searchTerm - Term to search for.
+ * @returns {Promise<void>} Promise for search results.
+ */
+Utils.searchPosts = async (searchTerm) => {
+  if (!searchTerm || searchTerm.length < 3) {
+    fabricate.update({ postListItems: [] });
+    return;
+  }
+
+  const results = Object
+    .values(window.tagIndex)
+    .reduce((acc, posts) => {
+      const found = posts.filter((p) => p.toLowerCase().includes(searchTerm.toLowerCase()));
+      return [...acc, ...found];
+    }, []);
+
+  // Limit to 30 results
+  const promises = results
+    .slice(0, 30)
+    .sort(Utils.descendingDateSort)
+    .filter((fileName, i, arr) => arr.indexOf(fileName) === i)
+    .map((fileName) => fetch(`assets/rendered/${fileName}`).then((r) => r.json()));
+
+  const models = await Promise.all(promises);
+  fabricate.update({ postListItems: models });
+};

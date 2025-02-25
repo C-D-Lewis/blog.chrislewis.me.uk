@@ -82,6 +82,44 @@ const goToRandomPost = () => {
 };
 
 /**
+ * Search box component.
+ *
+ * @returns {HTMLElement} The search box.
+ */
+const SearchBox = () => fabricate('input')
+  .setStyles({
+    width: '256px',
+    backgroundColor: '#0004',
+    border: 'none',
+    color: 'white',
+    padding: '4px',
+    borderRadius: '4px',
+    margin: 'auto 16px',
+    height: '32px',
+    fontSize: '1rem',
+  })
+  .setNarrowStyles({
+    width: '95%',
+    margin: '12px 0px',
+  })
+  .setAttributes({
+    type: 'text',
+    placeholder: 'Search posts',
+    /**
+     * Search posts when the user hits Enter.
+     *
+     * @param {KeyboardEvent} e - The keydown event.
+     * @returns {void}
+     */
+    onkeydown: (e) => {
+      console.log(e.keyCode);
+      if (e.key !== 'Enter') return;
+
+      Utils.searchPosts(e.target.value);
+    },
+  });
+
+/**
  * Main App component.
  *
  * @returns {HTMLElement} The App component.
@@ -99,6 +137,8 @@ const App = () => {
       fabricate('LeftColumnItem')
         .setText('Random Post')
         .onClick(goToRandomPost),
+
+      ...(fabricate.isNarrow() ? [SearchBox()] : []),
 
       // Posts by tag
       fabricate('LeftColumnHeader').setText('Tags'),
@@ -141,6 +181,7 @@ const App = () => {
       fabricate('SiteHeader')
         .setChildren([
           fabricate('SiteTitle'),
+          ...(fabricate.isNarrow() ? [] : [SearchBox()]),
           fabricate.isNarrow() ? fabricate('div') : fabricate('SiteSocials'),
         ]),
       fabricate('ContentContainer')
