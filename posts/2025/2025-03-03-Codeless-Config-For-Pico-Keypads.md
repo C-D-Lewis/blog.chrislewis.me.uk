@@ -1,4 +1,4 @@
-Codelss Config For Pico Keypads
+Codeless Config For Pico Keypads
 2025-03-03 14:01
 Raspberry Pi
 ---
