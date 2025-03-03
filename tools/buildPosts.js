@@ -49,7 +49,8 @@ const renderMarkdownText = (para) => {
  * @returns {object} Model of the post.
  */
 const postToModel = (fileName) => {
-  const text = readFileSync(`${POSTS_DIR}/${fileName}`, 'utf8');
+  const [year] = fileName.split('-');
+  const text = readFileSync(`${POSTS_DIR}/${year}/${fileName}`, 'utf8');
 
   const [title, dateTime, tags] = text.split('\n').map((p) => p.trim());
   if (!title.length) {
@@ -122,8 +123,9 @@ const postToModel = (fileName) => {
  */
 const main = () => {
   // Build post models
-  const files = readdirSync(POSTS_DIR);
-  const models = files.map(postToModel);
+  const years = readdirSync(POSTS_DIR);
+  const fileNames = years.reduce((acc, year) => acc.concat(...readdirSync(`${POSTS_DIR}/${year}`)), []);
+  const models = fileNames.map(postToModel);
 
   const history = {};
   models.forEach((model) => {
