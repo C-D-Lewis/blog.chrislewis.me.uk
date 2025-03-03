@@ -36,7 +36,7 @@ window.tagIndex = {
     "2016-11-20-Dynamic-PC-Backlight-with-Raspberry-Pi-and-Blinkt.json",
     "2016-12-18-Dashboard-Now-Open-source.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
-    "2025-01-26-todolist-a-beginners-minecraft-mod.json"
+    "2025-01-26-Todolist-A-Beginners-Minecraft-Mod.json"
   ],
   "Releases": [
     "2013-03-25-Filing-Cabinet-Initial-Release.json",
@@ -338,7 +338,8 @@ window.tagIndex = {
     "2023-03-26-Customising-a-Pi-Pico-Keypad.json",
     "2024-05-22-Pi-Rack-v4.json",
     "2024-10-05-One-Repo-Many-Worlds.json",
-    "2024-12-02-Node-Microservices-Dashboard-v3.json"
+    "2024-12-02-Node-Microservices-Dashboard-v3.json",
+    "2025-03-03-Codeless-Config-For-Pico-Keypads.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",

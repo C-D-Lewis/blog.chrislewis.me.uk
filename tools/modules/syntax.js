@@ -44,7 +44,7 @@ const DOCKERFILE_KEYWORDS = [
 const PYTHON_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', '@', ' / ', '.'];
 const PYTHON_KEYWORDS = [
   'if ', ' else', ' = ', 'import ', 'not ', ' in ', 'for ', 'from ', '*', 'global ', ' == ',
-  ' continue', ' as ', ' >= ', ' <= ', ' and ', ' return ', ' != ',
+  ' continue', ' as ', ' >= ', ' <= ', ' and ', ' return ', ' != ', ' try:', ' except ', ' with ',
 ];
 const PYTHON_GREENWORDS = [
   ' print',
