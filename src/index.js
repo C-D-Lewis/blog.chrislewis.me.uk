@@ -112,10 +112,18 @@ const SearchBox = () => fabricate('input')
      * @returns {void}
      */
     onkeydown: (e) => {
-      console.log(e.keyCode);
       if (e.key !== 'Enter') return;
 
       Utils.searchPosts(e.target.value);
+
+      setTimeout(() => {
+        e.target.blur();
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }, 300);
     },
   });
 
