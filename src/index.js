@@ -104,7 +104,7 @@ const SearchBox = () => fabricate('input')
   })
   .setAttributes({
     type: 'text',
-    placeholder: 'Search posts',
+    placeholder: 'Search posts by title',
     /**
      * Search posts when the user hits Enter.
      *

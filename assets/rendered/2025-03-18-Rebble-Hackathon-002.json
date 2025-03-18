@@ -1,0 +1,176 @@
+{
+  "fileName": "2025-03-18-Rebble-Hackathon-002.md",
+  "title": "Rebble Hackathon 002",
+  "dateTime": "2025-03-03 14:01",
+  "tags": [
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "At the start of March I took part in the second\n<a class=\"link\" target=\"_blank\" href=\"https://rebble.io/hackathon-002/\">Rebble Hackathon</a> amidst the excitement of\n<a class=\"link\" target=\"_blank\" href=\"https://repebble.com/\">RePebble</a> and a resurgence of interest in the Pebble\ndeveloper platform."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/hackathon.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "It was an awesome week hanging out in the <a class=\"link\" target=\"_blank\" href=\"https://rebble.io/discord\">Discord</a>\nseeing names old and new go past, and seeing all the awesome new projects being\nworked on - new watchfaces with bold new designs, new apps and integrations\nwith modern platforms, work on the recently open-sourced\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/google/pebble\">Pebble firmware</a>, and even a new assistant app reminiscent of Snowy!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Contributions"
+    },
+    {
+      "type": "paragraph",
+      "text": "For my part I had a few main ideas:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Resurrect old watchfaces from the <a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/pebble-dev\">repository</a>.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Port some watchfaces from the FitBit era to Pebble (in a fit of irony!).</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>See what the developer documentation would look like with a more modern, documentation-focused static site builder than the original Jekyll one.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Resurrections"
+    },
+    {
+      "type": "paragraph",
+      "text": "I reworked my <a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev\">pebble-dev</a> repository\nto clearly sort the projects by type, and updated the README file to show which\nare buildable, with known issues, and link to freshly built PBW files for\ninstallation."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/resurrections.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "In total I reckon about 8 projects were fixed up - involving SDK layout updates,\nupdating build scripts, converting manifests, and fixing references to old SDK\nsymbols where necessary. I will continue to add new projects here and to try and\nresurrect more in the future!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Re-imaginings"
+    },
+    {
+      "type": "paragraph",
+      "text": "Since the original demise of Pebble Inc, I made a\n<a class=\"link\" target=\"_blank\" href=\"https://gallery.fitbit.com/search?terms=chris%20lewis\">decent number</a> of\nwatchfaces (sorry, clocks) and moved big apps like News Headlines\nand Tube Status to the FitBit platform, though it was a significantly different\nenvironment - JS only, little device accessory support, XML and SVG for layouts\netc."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/fitbit.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "After some pleasant effort back in the Pebble SDK world (of windows, layers,\nsubscriptions!) I moved across the Pseudotime, Dayring, and Hollywatch."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/pseudotime.jpg"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/dayring.jpg"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/hollywatch.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "One last watchface - Deep Rock - is in progress though, so another will make it\nacross eventually."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/deeprock.jpg"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Documentation"
+    },
+    {
+      "type": "paragraph",
+      "text": "Thanks for effort by other participants, it is now possible to build and run\nthe original <code>developers.getpebble.com</code> repository (ah, memories!)\nused for the Rebble documentation\n<a class=\"link\" target=\"_blank\" href=\"https://developer.rebble.io/developer.pebble.com/guides/index.html\">mirror</a>."
+    },
+    {
+      "type": "paragraph",
+      "text": "At least now it will be possible to add forgotten details, remove inaccuracies\nand mistakes (my bad!) and even new examples and references for any upcoming\nnew devices or platforms."
+    },
+    {
+      "type": "paragraph",
+      "text": "However, I wondered if it would be easier to take the content and move it to\na new static site builder (before the above was possible again) since there\nwas a lot of special handlebars and Ruby magic that went into making it build,\nsuch as platform-specific paragraphs, code snippets, images, as well as a\ncustom way to link pages and the C docs, which were built from the Pebble\nfirmware repository."
+    },
+    {
+      "type": "paragraph",
+      "text": "I selected <a class=\"link\" target=\"_blank\" href=\"https://www.mkdocs.org/\">mkdocs</a> given the focus on documentation\nand a wide ecosystem of plugins, themes, and extentions. A project that had\na thin configuration and then just plain old Markdown content would be easy\nfor anyone to edit and contribute, and should be searchable and easy to build\nand deploy as well."
+    },
+    {
+      "type": "paragraph",
+      "text": "Though I had to go away half-way through the week, I managed to prove out\nsomething using the App Resources section of the guides and a Rebble-esque\ncolor palette on the Material theme:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/rebble-docs.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "It built fast, was easy to customize, and looked reasonably neat and tidy! I\nalso added the tutorials as a way to test moving across the more complex sets\nof pages, which was relatively painless with some good use of multi-find and\nreplace."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/03/tutorial.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Late in the day, I tried including the <code>mkdoxy</code> plugin to generate\npages from the Doxygen docs included in the firmware, in the <code>applib</code>\ndirectory that has most of the SDK exposed methods, although the initial results\nwere promising, far too much content was output. Maybe in time it can be\nrefined."
+    },
+    {
+      "type": "paragraph",
+      "text": "If there's demand, it can be a starting point for a new effort, but ultimately\nserved its purpose to find out how hard it would be - not very!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "So there it is - a fun week and hopefully a lot more fun to come! You can find\nthe projects involved with the links below:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/google/pebble/tree/main\">Pebble open-source firmware</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/google/pebble/tree/main/devsite\">Devsite source code</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/pebble-dev/\">My pebble-dev repo</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/rebble-docs\">Experimental new devsite</a></td>\n      </tr>\n    </table>"
+    }
+  ]
+}

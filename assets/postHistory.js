@@ -1027,6 +1027,11 @@ window.postHistory = {
         "title": "Codeless Config For Pico Keypads",
         "file": "assets/rendered/2025-03-03-Codeless-Config-For-Pico-Keypads.json",
         "fileName": "2025-03-03-Codeless-Config-For-Pico-Keypads"
+      },
+      {
+        "title": "Rebble Hackathon 002",
+        "file": "assets/rendered/2025-03-18-Rebble-Hackathon-002.json",
+        "fileName": "2025-03-18-Rebble-Hackathon-002"
       }
     ]
   }

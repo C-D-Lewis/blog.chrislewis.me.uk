@@ -339,7 +339,8 @@ window.tagIndex = {
     "2024-05-22-Pi-Rack-v4.json",
     "2024-10-05-One-Repo-Many-Worlds.json",
     "2024-12-02-Node-Microservices-Dashboard-v3.json",
-    "2025-03-03-Codeless-Config-For-Pico-Keypads.json"
+    "2025-03-03-Codeless-Config-For-Pico-Keypads.json",
+    "2025-03-18-Rebble-Hackathon-002.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
