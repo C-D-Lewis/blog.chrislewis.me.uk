@@ -91,7 +91,8 @@ window.tagIndex = {
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
     "2023-04-07-Fabricate-Faster-With-Types.json",
     "2024-01-07-Fabricate-3-0-0.json",
-    "2024-03-16-Fabricate-3-3-1-With-Router.json"
+    "2024-03-16-Fabricate-3-3-1-With-Router.json",
+    "2025-03-18-Rebble-Hackathon-002.json"
   ],
   "Games": [
     "2013-03-27-A-Brief-Overview-of-dungeons-so-far.json",
@@ -252,7 +253,8 @@ window.tagIndex = {
     "2018-05-19-FitBit-Development-Round-2.json",
     "2020-03-08-FitBit-Development-Round-3.json",
     "2020-08-15-Block-World-Lives-On.json",
-    "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json"
+    "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
+    "2025-03-18-Rebble-Hackathon-002.json"
   ],
   "Integration": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -339,8 +341,7 @@ window.tagIndex = {
     "2024-05-22-Pi-Rack-v4.json",
     "2024-10-05-One-Repo-Many-Worlds.json",
     "2024-12-02-Node-Microservices-Dashboard-v3.json",
-    "2025-03-03-Codeless-Config-For-Pico-Keypads.json",
-    "2025-03-18-Rebble-Hackathon-002.json"
+    "2025-03-03-Codeless-Config-For-Pico-Keypads.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",

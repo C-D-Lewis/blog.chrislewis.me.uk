@@ -1,6 +1,6 @@
 Rebble Hackathon 002
 2025-03-03 14:01
-Raspberry Pi
+Pebble,Releases
 ---
 
 At the start of March I took part in the second
