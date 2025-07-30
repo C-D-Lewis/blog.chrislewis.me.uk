@@ -1,0 +1,197 @@
+{
+  "fileName": "2025-07-30-More-Terraform-Modules.md",
+  "title": "More Terraform Modules",
+  "dateTime": "2025-07-30 11:32",
+  "tags": [
+    "Terraform",
+    "AWS"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "For a couple of years now, I've had multiple websites and site-like projects\nhave their infrastructure in AWS S3 and CloudFront deployed via Terraform. This\nhas a few key benefits - the ownership of these resources is automated, updates\ncan be applied with a simple <code>terraform apply</code>, and they all share\nthe exact same configuration. So I can deploy them, and forget them. Updates\nto the sites themselves are done with a GitHub Actions script that runs on each\npush to master and run very well."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Existing Modules"
+    },
+    {
+      "type": "paragraph",
+      "text": "When I create a new site-like project that needs storage in S3, a CloudFront\npublic CDN distribution, and a Route53 record to <code>chrislewis.me.uk</code>\nit is easy to duplicate this configuration thanks to Terraform's module system.\nThis allows you to specify some set of resources, some input variables, and\nsome output attributes to be used by the module consumer."
+    },
+    {
+      "type": "paragraph",
+      "text": "The prime example I have of this is the <code>s3-cloudfront-website</code>\nmodule in my <a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/terraform-modules\">terraform-modules</a>\nrepository. It manages a number of resources that together store, serve, and\nroute to the website itself:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_s3_bucket</code>, the bucket storing the website files and assets.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_cloudfront_distribution</code>, the distribution making the files locally available around the world, increasing speed over the S3 bucket website feature.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_route53_record</code>, the DNS record pointing to the site, such as this blog!</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2020/10/infra.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "The second module is a similar one that is designed to allow public storage\nof files and assets that are extraneous to the website itself, such as large\nvideos or many photos that shouldn't necessarily be in a GitHub repository. This\none is called <code>s3-cloudfront-storage</code> and has a similar set of\nmanaged resources:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_s3_bucket</code>, the bucket storing the larger files and assets.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_cloudfront_distribution</code>, the distribution making the files available around the world.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "An example project that contains both of these re-usable modules in its own\nTerraform configuration might look like this:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-terraform\">Terraform</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"tf-keyword\">provider </span><span class=\"_string\">\"aws\"</span> <span class=\"js-syntax\">{</span><span class=\"js-syntax\">}</span>\n\n<span class=\"tf-keyword\">terraform </span><span class=\"js-syntax\">{</span>\n  required_version = <span class=\"_string\">\"= 1.2.9\"</span>\n\n  <span class=\"tf-keyword\">required_providers </span><span class=\"js-syntax\">{</span>\n    aws = <span class=\"js-syntax\">{</span>\n      source  = <span class=\"_string\">\"hashicorp/aws\"</span>\n      version = <span class=\"_string\">\"= 4.31.0\"</span>\n    <span class=\"js-syntax\">}</span>\n  <span class=\"js-syntax\">}</span>\n\n  <span class=\"tf-keyword\">backend </span><span class=\"_string\">\"s3\"</span> <span class=\"js-syntax\">{</span>\n    bucket = <span class=\"_string\">\"chrislewis-tfstate\"</span>\n    key    = <span class=\"_string\">\"examplemedia\"</span>\n    region = <span class=\"_string\">\"us-east-1\"</span>\n  <span class=\"js-syntax\">}</span>\n<span class=\"js-syntax\">}</span>\n\n<span class=\"tf-keyword\">module </span><span class=\"_string\">\"main\"</span> <span class=\"js-syntax\">{</span>\n  source = <span class=\"_string\">\"github.com/c-d-lewis/terraform-modules//s3-cloudfront-website?ref=master\"</span>\n\n  region              = <span class=\"_string\">\"us-east-1\"</span>\n  project_name        = <span class=\"_string\">\"examplemedia\"</span>\n  zone_id             = <span class=\"_string\">\"Z02325229T1MW94OQ7L4\"</span>\n  domain_name         = <span class=\"_string\">\"examplemedia.com\"</span>\n  alt_domain_name     = <span class=\"_string\">\"www.examplemedia.com\"</span>\n  certificate_arn     = <span class=\"_string\">\"arn:aws:acm:us-east-1:117020423158:certificate/0110f87f-1fc4-4404-be45-1b17a7181234\"</span>\n  default_root_object = <span class=\"_string\">\"dist/index.html\"</span>\n<span class=\"js-syntax\">}</span>\n\n<span class=\"tf-keyword\">module </span><span class=\"_string\">\"assets\"</span> <span class=\"js-syntax\">{</span>\n  source = <span class=\"_string\">\"github.com/c-d-lewis/terraform-modules//s3-cloudfront-storage?ref=master\"</span>\n\n  region        = <span class=\"_string\">\"us-east-1\"</span>\n  bucket_name   = <span class=\"_string\">\"examplemedia.com-assets\"</span>\n  cache_forever = <span class=\"tf-keyword\">true</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "That's it! The outputs provide the storage, availability, routing, and extra\nlarge file storage for the rest of the project to push files to and retrieve\nthem when needed."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "A New Module"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lately, I had a need to be able to create an API service accessible from AWS.\nPrevious experience pointed me to a simple Docker container running in Fargate.\nSince I'd done so well out of the Terraform modules for the websites, I thought\nit would be a good time to exercise these muscules again and create a re-usable\nmodule for such a service. "
+    },
+    {
+      "type": "paragraph",
+      "text": "The result is a new module called <code>ecs-fargate-service</code> and it is\nalready used in two places. In summary it manages the resources required to\nrun a Fargate service in AWS that is available to the public internet. It\nrequires a few more resources than the other modules but is quite\nself-sufficient:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_ecr_repository</code>, an ECR repository to push the Docker image to.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_ecs_cluster</code>, a cluster in ECS to contain the service.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_ecs_service</code>, the service itself.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_ecs_task_definition</code>, the definition of the task to run in Fargate in the service.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_iam_role</code>, IAM role for the task.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_iam_role_policy</code>, policy listing permissions for the task.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_lb</code>, Application load balancer to expose the service.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_lb_listener</code>, a listener on HTTPS to connect traffic to the task.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_lb_target_group</code>, group of targets containing the task and health checks.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_security_group</code>, security group allowing inbound port and outbound port access.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><code>aws_route53_record</code>, a DNS record for applications of the service API to connect to.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/07/fargate-infra.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "An example of this is shown below for the <code>node-microservices</code>\nproject that manages tasks running on my Raspberry Pis. A large instance size\nis not required for this type of application but any other size could be used."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-terraform\">Terraform</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"tf-keyword\">module </span><span class=\"_string\">\"infrastructure\"</span> <span class=\"js-syntax\">{</span>\n  source = <span class=\"_string\">\"github.com/c-d-lewis/terraform-modules//ecs-fargate-service?ref=master\"</span>\n\n  region              = <span class=\"_string\">\"us-east-1\"</span>\n  service_name        = <span class=\"_string\">\"node-microservices\"</span>\n  container_cpu       = 512\n  container_memory    = 1024\n  port                = 5959\n  vpc_id              = <span class=\"_string\">\"vpc-c3b70bb9\"</span>\n  certificate_arn     = <span class=\"_string\">\"arn:aws:acm:us-east-1:117020423158:certificate/0110f87f-1fc4-4404-be45-1b17a7181234\"</span>\n  route53_zone_id     = <span class=\"_string\">\"Z02325229T1MW94OQ7L4\"</span>\n  route53_domain_name = <span class=\"_string\">\"chrislewis.me.uk\"</span>\n<span class=\"js-syntax\">}</span>\n\n<span class=\"tf-keyword\">output </span><span class=\"_string\">\"dns_address\"</span> <span class=\"js-syntax\">{</span>\n  value = module.infrastructure.service_dns\n<span class=\"js-syntax\">}</span>\n\n<span class=\"tf-keyword\">output </span><span class=\"_string\">\"ecr_name\"</span> <span class=\"js-syntax\">{</span>\n  value = module.infrastructure.ecr_name\n<span class=\"js-syntax\">}</span>\n\n<span class=\"tf-keyword\">output </span><span class=\"_string\">\"ecr_uri\"</span> <span class=\"js-syntax\">{</span>\n  value = module.infrastructure.ecr_uri\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Once applied, the Terraform output contains useful information:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n...\n\nmodule.infrastructure.aws_route53_record.server_record: Still creating... [10s elapsed]\nmodule.infrastructure.aws_route53_record.server_record: Still creating... [20s elapsed]\nmodule.infrastructure.aws_route53_record.server_record: Still creating... [30s elapsed]\nmodule.infrastructure.aws_route53_record.server_record: Still creating... [40s elapsed]\nmodule.infrastructure.aws_route53_record.server_record: Creation complete after 45s [id=Z02325229T1MW94OQ7L4_node-microservices-api.chrislewis.me.uk_A]\n\nApply complete! Resources: 14 added, 0 changed, 0 destroyed.\n\nOutputs:\n\ndns_address = \"node-microservices-api.chrislewis.me.uk\"\necr_name = \"node-microservices-ecr\"\necr_uri = \"617929423658.dkr.ecr.us-east-1.amazonaws.com/node-microservices-ecr\"\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The AWS console confirms the task is launched:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/07/fargate.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Once the task is up and running, it can be contacted!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\n$ curl -X POST https://node-microservices-api.chrislewis.me.uk/conduit \\\n  -H Content-Type:application/json \\\n  -d <span class=\"_string\">'{<span class=\"_string\">\"to\"</span>:<span class=\"_string\">\"attic\"</span>,<span class=\"_string\">\"topic\"</span>:<span class=\"_string\">\"listApps\"</span>}'</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n{\n  \"status\": 200,\n  \"message\": {\n    \"appNames\": [\n      \"conduit\"\n    ]\n  }\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Another benefit of the encapsulated module is that the entire application can\nbe destroyed with one command too:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n...\n\nmodule.infrastructure.aws_security_group.security_group: Destroying... [id=sg-0d9db5b23e1caafae]\nmodule.infrastructure.aws_security_group.security_group: Still destroying... [id=sg-0d9db5b23e1caafae, 10s elapsed]\nmodule.infrastructure.aws_security_group.security_group: Still destroying... [id=sg-0d9db5b23e1caafae, 20s elapsed]\nmodule.infrastructure.aws_security_group.security_group: Destruction complete after 21s\n\nDestroy complete! Resources: 14 destroyed.\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "What's Next"
+    },
+    {
+      "type": "paragraph",
+      "text": "Useful as this is to get a couple of services up and running quickly, there are\na few usability points to address:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>IAM permissions, there should be a way to pipe in permission policies into the Terraform run instead of them being fixed.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Any additional routing or ports should be configurable in the inputs.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As usual, in making use of this I will find obstacles and ways to overcome them!"
+    }
+  ]
+}

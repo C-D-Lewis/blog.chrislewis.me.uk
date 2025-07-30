@@ -7,7 +7,8 @@ const STRING_DELIMITERS = ['"', '\'', '`'];
 const TERRAFORM_KEYWORDS = [
   'resource', 'var', 'origin ', 'launch_template ', 'website ', 'default_cache_behavior ',
   'forwarded_values ', 'cookies ', 'restrictions ', 'geo_restriction ', 'viewer_certificate ',
-  'alias ',
+  'alias ', 'true', 'false', 'module ', 'terraform ', 'provider ', 'required_providers ',
+  'backend ', 'output ',
 ];
 
 // JavaScript

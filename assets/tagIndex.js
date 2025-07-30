@@ -414,13 +414,15 @@ window.tagIndex = {
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
     "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
     "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
-    "2024-10-05-One-Repo-Many-Worlds.json"
+    "2024-10-05-One-Repo-Many-Worlds.json",
+    "2025-07-30-More-Terraform-Modules.json"
   ],
   "Terraform": [
     "2020-10-04-Deploying-With-Terraform.json",
     "2021-01-31-Rendering-Minecraft-Worlds-On-AWS-Fargate.json",
     "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
-    "2024-12-18-Swapping-Webpack-For-Vite.json"
+    "2024-12-18-Swapping-Webpack-For-Vite.json",
+    "2025-07-30-More-Terraform-Modules.json"
   ],
   "TypeScript": [
     "2021-12-20-Reminders-As-You-Code-With-todo-cli.json",
