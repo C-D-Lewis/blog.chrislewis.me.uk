@@ -1,0 +1,207 @@
+{
+  "fileName": "2025-09-01-Ready-For-The-Next-Pebble-Chapter.md",
+  "title": "Ready For The Next Pebble Chapter",
+  "dateTime": "2025-09-01 15:18",
+  "tags": [
+    "Pebble"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Back in March, the RePebble (Core Devices) announcement gave way to the second\nRebble hackathon, and much fun was had in digging out old code and porting some\nnewer watchfaces from Fitbit to Pebble."
+    },
+    {
+      "type": "paragraph",
+      "text": "During that time, I re-purposed my <code>pebble-archive</code> repository to\nbecome a one-stop location for all my Pebble projects, old and new, including\nwatchfaces, watchapps, and libraries. Thus it became\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev\">pebble-dev</a>!"
+    },
+    {
+      "type": "paragraph",
+      "text": "After the week was out, I had accomplished a lot, but there was still a lot to\nbe done to achieve that goal. For one, there were still a majority of projects\nthat were in an unknown state, did not compile at all, or were otherwise\nunusable. Very few projects had survived the last 9 years!"
+    },
+    {
+      "type": "paragraph",
+      "text": "As I wait to begin a new job, I appropriately had a lot of time on my hands..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "It's All In One"
+    },
+    {
+      "type": "paragraph",
+      "text": "After some additional work (read: fun!) I have now realized this goal. The only\nprojects that were not included in <code>pebble-dev</code> were\n<code>thin</code>, <code>beam-up</code>, <code>dashboard</code>, and\n<code>pge</code>. But now they are! Admittedly, I think this was mostly due to\nthe more high-profile nature of them. Viewing my GitHub repo list is not a huge\nleap for anyone who ends up looking for the code in the old locations."
+    },
+    {
+      "type": "paragraph",
+      "text": "The <code>README.md</code> file for the repository shows a nice table of every\none of my published watchfaces, watchapps, and libraries, with screenshots where\nappropriate as well as a list of compatible watch platforms and a link to the\nlatest built PBW file. I also aim to include a launcher icon for each one in\ndue course."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/09/watchface-list.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "The list of watchapps uses the same format:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/09/watchapp-list.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lastly, for libraries I aim to provide a test app within each one to verify\nthat it is working correctly, although currently that process is slightly\nawkward as the currently available Pebble SDK tool does not correctly build\n<a class=\"link\" target=\"_blank\" href=\"https://developer.rebble.io/guides/pebble-packages/\">pebble packages</a>."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Resurrections"
+    },
+    {
+      "type": "paragraph",
+      "text": "As part of this latest round of work, quite a number of projects were brought\nback to life so they would compile and even be structured in the same way as\nlatter projects. In the process, I made use of some handy libraries I had also\nfixed and made useful once more:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/libraries/InverterLayerCompat\">InverterLayerCompat</a>, a new type of <code>Layer</code> that provides the same functionality of the old <code>InverterLayer</code> before it was removed in SDK 3. Especially useful for watchfaces that expected SDK 2!</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/libraries/pebble-universal-fb\">pebble-universal-fb</a>, which allows a universal get/set set of methods for working with the Pebble framebuffer, no matter the watch platform or color mode of the display.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/libraries/pebble-isometric\">pebble-isometric</a>, which provides many easy to use methods for drawing rects and boxes in an isometric perspective. It was used\nchiefly in the <a class=\"link\" target=\"_blank\" href=\"https://apps.rebble.io/en_US/application/554574943bbdc6c8560000bf?native=false&query=isotime&section=watchfaces\">Isotime</a> watchface, and also in a new one (see below!)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "In total, nine watchfaces were resurrected! They are:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/brackets\">Brackets</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/cards\">Cards</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/cmd-time\">CMD Time</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/cmd-time-typed\">CMD Time Typed</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/events\">Events</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/index\">Index</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/past-present-future\">Past Present Future</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/potential-divider\">Potential Divider</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td><a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/split-horizon\">Split Horizon</a></td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Some of these go back to the very earliest watchfaces I published, and it's so\ngreat to see them compile and live on my wrist once more! Some of them had some\ndelightful animations I'd forgotten, and some had old HTML config pages that I\nmigrated to Clay which should enhance their longevity even more!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Some New Faces?"
+    },
+    {
+      "type": "paragraph",
+      "text": "One of the activities I found most fun and enjoyable back in 2016 when I was not\nworking on the Pebble devrel team was coming up with new and striking watchfaces.\nI am not a designed by any definition at all, so they mostly rely on minimal\nconcepts, animations, and clean lines. During the Rebble hackathon 002 I brought\nsome Fitbit watchfaces to Pebble and they very much were iterations on that\ntheme."
+    },
+    {
+      "type": "paragraph",
+      "text": "So, I made it a mission to create a brand new watchface to bring back a little\nof that feeling and mark the occasion that such a large majority of my Pebble\nprojects are back and working once more. In particular I enjoyed working with\nthe isometric library, so I came up with another way to use it similar to\nIsotime, but with upright statues instead of laying down digits."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/09/void-statues.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "The result is\n<a class=\"link\" target=\"_blank\" href=\"https://apps.rebble.io/en_US/application/68a492f024908f00096bb0b2?native=false&query=void&section=watchfaces\">Void Statues</a>!\nIn addition to the digits (and the novel way to describe each one in code) it\nalso shows the corresponding 'shadow' on the ground from some unseen light\nsource. It inverts the color scheme during night hours, and switches to a cool\nwireframe rendering mode when the watch is disconnected."
+    },
+    {
+      "type": "paragraph",
+      "text": "Drawing the digits required a good bit of abstraction, since each digit had a\nposition, a value, and 15 segments within it that needed to be 'on' or 'off'.\nI eventually came up with a neat way to do this."
+    },
+    {
+      "type": "paragraph",
+      "text": "The first step is to translate each number into an array representing the\ncells that need to be visible:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">void </span>drawing_draw_number<span class=\"js-syntax\">(</span><span class=\"js-blueword\">int </span>number<span class=\"js-syntax\">,</span> GPo<span class=\"js-blueword\">int </span>pos<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n <span class=\"js-keyword\"> switch</span> <span class=\"js-syntax\">(</span>number<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n   <span class=\"js-keyword\"> case</span> 0<span class=\"js-syntax\">:</span> <span class=\"js-syntax\">{</span>\n      <span class=\"js-blueword\">int </span>cells<span class=\"js-syntax\">[</span>15<span class=\"js-syntax\">]</span><span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n        1<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span>\n        1<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span>\n        1<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span>\n        1<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span>\n        1<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span> 1\n      <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n      draw_digit_shadow<span class=\"js-syntax\">(</span>pos<span class=\"js-syntax\">,</span> cells<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      draw_digit_blocks<span class=\"js-syntax\">(</span>pos<span class=\"js-syntax\">,</span> cells<span class=\"js-syntax\">,</span> number<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n     <span class=\"js-keyword\"> break</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n   <span class=\"js-keyword\"> case</span> 1<span class=\"js-syntax\">:</span> <span class=\"js-syntax\">{</span>\n      <span class=\"js-blueword\">int </span>cells<span class=\"js-syntax\">[</span>15<span class=\"js-syntax\">]</span><span class=\"js-keyword\"> = </span><span class=\"js-syntax\">{</span>\n        0<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span>\n        0<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span>\n        0<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span>\n        0<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1<span class=\"js-syntax\">,</span>\n        0<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">,</span> 1\n      <span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n      draw_digit_shadow<span class=\"js-syntax\">(</span>pos<span class=\"js-syntax\">,</span> cells<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n      draw_digit_blocks<span class=\"js-syntax\">(</span>pos<span class=\"js-syntax\">,</span> cells<span class=\"js-syntax\">,</span> number<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n     <span class=\"js-keyword\"> break</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">    // etc...</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Two other functions shown above then translate that into a series of drawing\ncalls for the blocks and the shadow respectively, making use of\n<code>pebble-universal-fb</code> functions where needed. They're nothing special\nbut made the leap from drawing a single cell to whole digits much easier indeed."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">static</span> <span class=\"js-blueword\">void </span>draw_digit_shadow<span class=\"js-syntax\">(</span>GPo<span class=\"js-blueword\">int </span>pos<span class=\"js-syntax\">,</span> <span class=\"js-blueword\">int </span>cells<span class=\"js-syntax\">[</span>15<span class=\"js-syntax\">]</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>0<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_shadow<span class=\"js-syntax\">(</span>Vec3<span class=\"js-syntax\">(</span>pos.x + <span class=\"js-syntax\">(</span>5 * B_W<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> pos.y + <span class=\"js-syntax\">(</span>2 * B_W<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>1<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_shadow<span class=\"js-syntax\">(</span>Vec3<span class=\"js-syntax\">(</span>pos.x + <span class=\"js-syntax\">(</span>5 * B_W<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> pos.y + B_W<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>2<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_shadow<span class=\"js-syntax\">(</span>Vec3<span class=\"js-syntax\">(</span>pos.x + <span class=\"js-syntax\">(</span>5 * B_W<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> pos.y<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>3<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_shadow<span class=\"js-syntax\">(</span>Vec3<span class=\"js-syntax\">(</span>pos.x + <span class=\"js-syntax\">(</span>4 * B_W<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> pos.y + <span class=\"js-syntax\">(</span>2 * B_W<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>4<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_shadow<span class=\"js-syntax\">(</span>Vec3<span class=\"js-syntax\">(</span>pos.x + <span class=\"js-syntax\">(</span>4 * B_W<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> pos.y + B_W<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>5<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_shadow<span class=\"js-syntax\">(</span>Vec3<span class=\"js-syntax\">(</span>pos.x + <span class=\"js-syntax\">(</span>4 * B_W<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> pos.y<span class=\"js-syntax\">,</span> 0<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // etc...</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">static</span> <span class=\"js-blueword\">void </span>draw_digit_blocks<span class=\"js-syntax\">(</span>GPo<span class=\"js-blueword\">int </span>pos<span class=\"js-syntax\">,</span> <span class=\"js-blueword\">int </span>cells<span class=\"js-syntax\">[</span>15<span class=\"js-syntax\">]</span><span class=\"js-syntax\">,</span> <span class=\"js-blueword\">int </span>number<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">  // Must be drawn bottom right to top left</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>14<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>14<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>13<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>13<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>12<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>12<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>11<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>11<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>10<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>10<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>number <span class=\"js-keyword\">== </span>0 <span class=\"js-keyword\">||</span> number <span class=\"js-keyword\">== </span>6 <span class=\"js-keyword\">||</span> number <span class=\"js-keyword\">== </span>8<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    isometric_fill_box_faces<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>10<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> BOX_SIZE<span class=\"js-syntax\">,</span> B_H<span class=\"js-syntax\">,</span> s_clarity_color<span class=\"js-syntax\">,</span><span class=\"js-blueword\"> false</span><span class=\"js-syntax\">,</span><span class=\"js-blueword\"> true</span><span class=\"js-syntax\">,</span><span class=\"js-blueword\"> false</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    isometric_draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>10<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> BOX_SIZE<span class=\"js-syntax\">,</span> B_H<span class=\"js-syntax\">,</span> s_box_color<span class=\"js-syntax\">,</span><span class=\"js-blueword\"> true</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>9<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>9<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>8<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>8<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>cells<span class=\"js-syntax\">[</span>7<span class=\"js-syntax\">]</span> <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>7<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if</span> <span class=\"js-syntax\">(</span>number <span class=\"js-keyword\">== </span>0<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    isometric_fill_box_faces<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>7<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> BOX_SIZE<span class=\"js-syntax\">,</span> B_H<span class=\"js-syntax\">,</span> s_clarity_color<span class=\"js-syntax\">,</span><span class=\"js-blueword\"> false</span><span class=\"js-syntax\">,</span><span class=\"js-blueword\"> true</span><span class=\"js-syntax\">,</span><span class=\"js-blueword\"> false</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    isometric_draw_box<span class=\"js-syntax\">(</span>get_block_position<span class=\"js-syntax\">(</span>7<span class=\"js-syntax\">,</span> pos<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span> BOX_SIZE<span class=\"js-syntax\">,</span> B_H<span class=\"js-syntax\">,</span> s_box_color<span class=\"js-syntax\">,</span><span class=\"js-blueword\"> true</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">  // etc...</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "What's special about <code>draw_digit_blocks</code> is that the nature of the\nisometric rendering from bottom-right to top-left matters a lot. Some digits\nthat have holes in them (6, 8, 9, 0) are very hard to read, so there are a few\nspecial draw calls to draw inverted wireframe boxes to make them more legible."
+    },
+    {
+      "type": "paragraph",
+      "text": "And with the excitement around the Pebble Time 2 coming soon, it was a great\nopportunity to make my first watchface with support for 'Emery' built in..."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/09/vs-emery.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "More Documentation Contributions"
+    },
+    {
+      "type": "paragraph",
+      "text": "Another long post but we're almost there! The last thing to report on is that\nafter nine years I've had the pleasure of beginning to make contributions to\nthe Pebble developer documentation once more. The fact it was kindly\nopen-sourced and has a community-created build and deploy process greatly adds\nto the incentive!"
+    },
+    {
+      "type": "paragraph",
+      "text": "I've raised PRs in the new\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/pebble-dev/developer.rebble.io\">developer.rebble.io</a> repo\nto address a number of things, including fixing up the tutorials (let's not\ntalk about the errors and broken things that got left there for all these years!),\nupdating the mobile navigation, removing the references to CloudPebble\n(although a new solution is just starting to emerge), and more."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusions"
+    },
+    {
+      "type": "paragraph",
+      "text": "I hope to continue these contributions into the future to help developers old\nand new once more, especially those that are enthused by the new watches! As\nI've always said, the ability to relatively easily create anything you want for\na watchface or watchapp is something Pebble does with a unique level of\nflexibility and forethought, so I encourage everyone to try it!"
+    },
+    {
+      "type": "paragraph",
+      "text": "That link again to the complete repository: <a class=\"link\" target=\"_blank\" href=\"https://github.com/c-d-lewis/pebble-dev\">here</a>."
+    }
+  ]
+}

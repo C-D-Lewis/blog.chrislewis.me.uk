@@ -53,10 +53,12 @@ const PYTHON_GREENWORDS = [
 
 // C/C++
 const C_KEYWORDS = [
-  'define', 'include ', 'static', 'const', ' = ', 'return ', '->', 'if', ' else', 'while ', '+= ', '&', ' else ', '== ', ' break',
+  'define', 'include ', 'static', 'const', ' = ', 'return ', '->', 'if', ' else', 'while ', '+= ',
+  '&', ' else ', '== ', ' break', ' switch', ' case', '||',
 ];
 const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';'];
-const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void ', 'bool ', ' true', ' false'];
+const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void ', 'bool ', ' true',
+  ' false'];
 
 // Java
 const JAVA_KEYWORDS = ['public', 'static', 'final', 'private', 'void', ' extends ', 'import ', 'package ', ' implements ', 'if ', 'return ', ' new ', ' || ', ' && '];

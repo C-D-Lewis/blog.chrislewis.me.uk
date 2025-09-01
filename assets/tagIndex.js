@@ -254,7 +254,9 @@ window.tagIndex = {
     "2020-03-08-FitBit-Development-Round-3.json",
     "2020-08-15-Block-World-Lives-On.json",
     "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
-    "2025-03-18-Rebble-Hackathon-002.json"
+    "2025-03-18-Rebble-Hackathon-002.json",
+    "2025-09-01-More-Pebble-Resurrections.json",
+    "2025-09-01-Ready-For-The-Next-Pebble-Chapter.json"
   ],
   "Integration": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
