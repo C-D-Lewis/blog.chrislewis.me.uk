@@ -31,7 +31,7 @@
     },
     {
       "type": "paragraph",
-      "text": "As can be seen, the module includes inputs for specifying healthchecks - which\nis required for the ALB load balancer to keep the instance registered to it\nalive. As a quick solution the server is launched with a basic Python HTTP\nserver on port 80 since introspection into a Minecraft server with rcon is\nrelatively non-trivial. An NLB (Network Load Balancer) is configurable instead\nof an Application Load Balancer to support customized port numbers, rather than\njust HTTP/S that a web application would be using."
+      "text": "As can be seen, the module includes inputs for specifying healthchecks - which\nis required for the load balancer to keep the instance registered to it alive.\nAs a quick solution the server is launched with a basic Python HTTP server on\nport 80 since introspection into a Minecraft server with rcon is relatively\nnon-trivial. An NLB (Network Load Balancer) is configurable instead of an\nApplication Load Balancer to support customized port numbers and protocols,\nrather than just HTTP/S that a web application would be using. It also includes\nan EFS... more on that below."
     },
     {
       "type": "paragraph",
@@ -39,7 +39,7 @@
     },
     {
       "type": "paragraph",
-      "text": "With the infrastructure created, all that remains is to upload a Docker image\nfor the server itself:"
+      "text": "With the infrastructure created, all that remains is to upload a Docker image\nfor the server itself to the recently created ECR:"
     },
     {
       "type": "paragraph",
@@ -61,7 +61,7 @@
     },
     {
       "type": "paragraph",
-      "text": "But that's jsut half the battle. In this scenario, the players will expect their\ndata (inventory, achievements, configuration etc.) as well as the existing\nMinecraft world to be seamlessly transferred to the new AWS instance from the\nRaspberry Pi. Handily, the project already includes scripts that perform\nnightly local and weekly S3 backups which can be used for this purpose."
+      "text": "But that's just half the battle. In this scenario, the players will expect their\ndata (inventory, achievements, configuration etc.) as well as the existing\nMinecraft world to be seamlessly transferred to the new AWS instance from the\nRaspberry Pi. Handily, the project already includes scripts that perform\nnightly local and weekly S3 backups which can be used for this purpose."
     },
     {
       "type": "paragraph",

@@ -48,12 +48,13 @@ module "infrastructure" {
 ```
 
 As can be seen, the module includes inputs for specifying healthchecks - which
-is required for the ALB load balancer to keep the instance registered to it
-alive. As a quick solution the server is launched with a basic Python HTTP
-server on port 80 since introspection into a Minecraft server with rcon is
-relatively non-trivial. An NLB (Network Load Balancer) is configurable instead
-of an Application Load Balancer to support customized port numbers, rather than
-just HTTP/S that a web application would be using.
+is required for the load balancer to keep the instance registered to it alive.
+As a quick solution the server is launched with a basic Python HTTP server on
+port 80 since introspection into a Minecraft server with rcon is relatively
+non-trivial. An NLB (Network Load Balancer) is configurable instead of an
+Application Load Balancer to support customized port numbers and protocols,
+rather than just HTTP/S that a web application would be using. It also includes
+an EFS... more on that below.
 
 ```text
 module.infrastructure.aws_lb_listener.server_nlb_listener[0]: Creating...
@@ -74,7 +75,7 @@ ecr_uri = "617929423658.dkr.ecr.eu-west-2.amazonaws.com/dkr-mc-test-ecr"
 ```
 
 With the infrastructure created, all that remains is to upload a Docker image
-for the server itself:
+for the server itself to the recently created ECR:
 
 ```text
 [+] Building 87.2s (21/21) FINISHED                                                                    docker:default
@@ -107,7 +108,7 @@ And voila, it's up and running!
 
 ## Seamless Migrations
 
-But that's jsut half the battle. In this scenario, the players will expect their
+But that's just half the battle. In this scenario, the players will expect their
 data (inventory, achievements, configuration etc.) as well as the existing
 Minecraft world to be seamlessly transferred to the new AWS instance from the
 Raspberry Pi. Handily, the project already includes scripts that perform
