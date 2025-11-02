@@ -81,11 +81,13 @@ const highlightStrings = (line) => {
     // Gather stings
     // Note - a single quote inside double quoted string causes an infinite loop
     let strStart = line.indexOf(d);
-    while (strStart >= 0) {
+    let attempts = 0;
+    while (strStart >= 0 && attempts < 10) {
       const strEnd = line.indexOf(d, strStart + 1) + 1;  // Include ending delimiter
       strings.push(line.substring(strStart, strEnd));
 
       strStart = line.indexOf(d, strEnd + 1);
+      attempts += 1;
     }
 
     // Replace with classes
@@ -260,7 +262,15 @@ const toHighlightedLine = (line, language) => {
     line = highlightStrings(line);
 
     SHELL_KEYWORDS.forEach((keyword) => {
-      line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+      // HACK, need better way to do this
+      if (keyword === 'fi') {
+        // Only match 'fi' at end of line
+        if (line.trim().startsWith('fi')) {
+          line = line.split('fi').join('<span class="js-keyword">fi</span>');
+        }
+      } else {
+        line = line.split(keyword).join(`<span class="js-keyword">${keyword}</span>`);
+      }
     });
     SHELL_SYNTAX.forEach((syntax) => {
       line = line.split(syntax).join(`<span class="js-syntax">${syntax}</span>`);

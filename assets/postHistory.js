@@ -1015,6 +1015,13 @@ window.postHistory = {
     ]
   },
   "2025": {
+    "11": [
+      {
+        "title": "Fully Automated Cloud Minecraft",
+        "file": "assets/rendered/2025-11-02-Fully-Automated-Cloud-Minecraft.json",
+        "fileName": "2025-11-02-Fully-Automated-Cloud-Minecraft"
+      }
+    ],
     "01": [
       {
         "title": "todolist: A Beginner's Minecraft Mod",

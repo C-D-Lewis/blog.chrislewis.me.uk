@@ -304,7 +304,8 @@ window.tagIndex = {
     "2024-05-22-Pi-Rack-v4.json",
     "2024-10-05-One-Repo-Many-Worlds.json",
     "2024-12-02-Node-Microservices-Dashboard-v3.json",
-    "2024-12-18-Swapping-Webpack-For-Vite.json"
+    "2024-12-18-Swapping-Webpack-For-Vite.json",
+    "2025-11-02-Fully-Automated-Cloud-Minecraft.json"
   ],
   "C++": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
@@ -342,7 +343,8 @@ window.tagIndex = {
     "2024-05-22-Pi-Rack-v4.json",
     "2024-10-05-One-Repo-Many-Worlds.json",
     "2024-12-02-Node-Microservices-Dashboard-v3.json",
-    "2025-03-03-Codeless-Config-For-Pico-Keypads.json"
+    "2025-03-03-Codeless-Config-For-Pico-Keypads.json",
+    "2025-11-02-Fully-Automated-Cloud-Minecraft.json"
   ],
   "Python": [
     "2013-07-13-Raspberry-Pi-IP-Address-to-LCD-Display.json",
@@ -416,7 +418,8 @@ window.tagIndex = {
     "2022-08-13-Ditching-Dropbox-With-Cirroc-A-Tiny-Cloud.json",
     "2022-09-17-Continuous-Deployment-With-GitHub-Actions.json",
     "2024-10-05-One-Repo-Many-Worlds.json",
-    "2025-07-30-More-Terraform-Modules.json"
+    "2025-07-30-More-Terraform-Modules.json",
+    "2025-11-02-Fully-Automated-Cloud-Minecraft.json"
   ],
   "Terraform": [
     "2020-10-04-Deploying-With-Terraform.json",

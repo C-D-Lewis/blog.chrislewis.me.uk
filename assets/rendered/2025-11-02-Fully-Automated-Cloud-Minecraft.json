@@ -1,0 +1,101 @@
+{
+  "fileName": "2025-11-02-Fully-Automated-Cloud-Minecraft.md",
+  "title": "Fully Automated Cloud Minecraft",
+  "dateTime": "2025-11-02 21:07",
+  "tags": [
+    "AWS",
+    "Integration",
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "A while ago (last year!) I blogged about a project to wrap the Minecraft server\nsoftware in scripts to make it easy to administer many servers with a single\nrepository. That has been a success for a year or so, running in Docker and\nbased on a JSON-based configuration on a per-server basic, both for vanilla and\nmore complex Forge-based servers."
+    },
+    {
+      "type": "paragraph",
+      "text": "But there was more to do, a natural extension from Docker to ECS and to be able\nto at a moment's (or a few minutes') notice be able to scale up from a local\nRaspberry Pi to an instance of arbitrary size in AWS. If a large number of\nplayers or a particularly large modpack was expected it should be easy to move\nan existing server to an AWS instance, including the world files. Thus the\nlimitation of the Pi 5 8GB is not necessarily all I can offer."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Terraform Apply"
+    },
+    {
+      "type": "paragraph",
+      "text": "Of course, the first step is to get a server running. For this I extended my\nexisting Terraform module project\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/terraform-modules\">terraform-modules</a> to include\na module for running a Fargate ECS instance with an image from an ECR\nrepository. This was easy enough to achieve, using code from the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/chunky-fargate\">chunky-fargate</a> and\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pixels-with-friends\">pixels-with-friends</a>\nprojects."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-terraform\">Terraform</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"tf-keyword\">module </span><span class=\"_string\">\"infrastructure\"</span> <span class=\"js-syntax\">{</span>\n  source = <span class=\"_string\">\"github.com/c-d-lewis/terraform-modules//ecs-fargate-service?ref=master\"</span>\n\n  region              = <span class=\"_string\">\"eu-west-2\"</span>\n  service_name        = <span class=\"_string\">\"dkr-mc-$<span class=\"js-syntax\">{</span><span class=\"tf-keyword\">var</span>.server_name<span class=\"js-syntax\">}</span>\"</span>\n  container_cpu       = 4096\n  container_memory    = 8192\n  port                = local.config.PORT\n  vpc_id              = <span class=\"_string\">\"vpc-b1f181d9\"</span>\n  certificate_arn     = <span class=\"_string\">\"arn:aws:acm:us-east-1:617929423658:certificate/a69e6906-579e-431d-9e4c-707877d325b7\"</span>\n  route53_zone_id     = <span class=\"_string\">\"Z05682866H59A0KFT8S\"</span>\n  route53_domain_name = <span class=\"_string\">\"chrislewis.me.uk\"</span>\n  create_efs          = <span class=\"tf-keyword\">true</span>\n  health_check_port   = 80\n  create_alb          = <span class=\"tf-keyword\">false</span>\n  create_nlb          = <span class=\"tf-keyword\">true</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As can be seen, the module includes inputs for specifying healthchecks - which\nis required for the ALB load balancer to keep the instance registered to it\nalive. As a quick solution the server is launched with a basic Python HTTP\nserver on port 80 since introspection into a Minecraft server with rcon is\nrelatively non-trivial. An NLB (Network Load Balancer) is configurable instead\nof an Application Load Balancer to support customized port numbers, rather than\njust HTTP/S that a web application would be using."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\nmodule.infrastructure.aws_lb_listener.server_nlb_listener[0]: Creating...\nmodule.infrastructure.aws_ecs_service.ecs_service: Creating...\nmodule.infrastructure.aws_lb_listener.server_nlb_listener[0]: Creation complete after 1s [id=arn:aws:elasticloadbalancing:eu-west-2:617929423658:listener/net/dkr-mc-test-nlb/c003d33060dd7b87/472da2a3b477d114]\nmodule.infrastructure.aws_ecs_service.ecs_service: Creation complete after 2s [id=arn:aws:ecs:eu-west-2:617929423658:service/dkr-mc-test-cluster/dkr-mc-test-ecs-service]\nmodule.infrastructure.aws_route53_record.server_record: Still creating... [10s elapsed]\nmodule.infrastructure.aws_route53_record.server_record: Still creating... [20s elapsed]\nmodule.infrastructure.aws_route53_record.server_record: Creation complete after 30s [id=Z05682866H59A0KFT8S_dkr-mc-test-api.chrislewis.me.uk_A]\n\nApply complete! Resources: 21 added, 0 changed, 0 destroyed.\n\nOutputs:\n\ndns_address = \"dkr-mc-test-api.chrislewis.me.uk\"\necr_name = \"dkr-mc-test-ecr\"\necr_uri = \"617929423658.dkr.ecr.eu-west-2.amazonaws.com/dkr-mc-test-ecr\"\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "With the infrastructure created, all that remains is to upload a Docker image\nfor the server itself:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n[+] Building 87.2s (21/21) FINISHED                                                                    docker:default\n => [internal] load build definition from Dockerfile                                                             0.0s\n => => transferring dockerfile: 1.69kB                                                                           0.0s\n => [internal] load metadata for docker.io/library/debian:bookworm-slim                                          0.6s\n => [internal] load .dockerignore                                                                                0.0s\n => => transferring context: 121B                                                                                0.0s\n\n...\n\n => exporting to image                                                                                           2.7s\n => => exporting layers                                                                                          2.7s\n => => writing image sha256:ba186da54db6cfc9cde51e9dca47abcc980a6d25e28afdf9eb0e315e6494c304                     0.0s\n => => naming to docker.io/library/docker-minecraft                                                              0.0s\n\nLogin Succeeded\nThe push refers to repository [617929423658.dkr.ecr.eu-west-2.amazonaws.com/dkr-mc-test-ecr]\n860b8d08aa58: Pushed \n\n...\n\nd6d0586ce802: Pushed \nlatest: digest: sha256:c4d4c08cf3fb0e86caca868d7fdf83357868b985735bae8d17ccf09263ca868c size: 3657\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "And voila, it's up and running!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/11/task.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Seamless Migrations"
+    },
+    {
+      "type": "paragraph",
+      "text": "But that's jsut half the battle. In this scenario, the players will expect their\ndata (inventory, achievements, configuration etc.) as well as the existing\nMinecraft world to be seamlessly transferred to the new AWS instance from the\nRaspberry Pi. Handily, the project already includes scripts that perform\nnightly local and weekly S3 backups which can be used for this purpose."
+    },
+    {
+      "type": "paragraph",
+      "text": "By attaching an EFS (Elastic File System) to the Fargate instance, it can have\na storage device that exists after the instance is terminated or dies, unlike\nthe default ECS attached EBS volumes. To use this, a server config in the\nproject sets the <code>ON_AWS</code> property to <code>true</code> in its\n<code>config.json</code>, which signals the start script to call\n<code>fetch-latest-world.sh</code> to download the latest S3 backup to the EFS.\nOn first launch this gets the latest world (which would be uploaded before the\nmigration) and can carry on where the Pi left off. "
+    },
+    {
+      "type": "paragraph",
+      "text": "The diagram below shows the components and lifecycle of the world data in and\nout:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/11/dm-aws.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Likewise, if the event or reason for the larger AWS instance is over then it's\npossible to easily continue on the Raspberry Pi again - using a pattern from\n<code>chunky-fargate</code> I modified the script to upload a backup to work\nfrom a temporary Fargate task launched specifically for this purpose. Using the\n<code>RunTask</code> call it launches with a command to run\n<code>upload-backup.sh</code> and then exit when upload to S3 is complete."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-shell\">Shell</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">#!/bin/bash</span>\n\n<span class=\"js-keyword\">set </span>-eu\n\nSERVER_NAME=$1\n\n<span class=\"comment\"># Project name</span>\nPROJECT_NAME=<span class=\"_string\">\"dkr-mc-$SERVER_NAME\"</span>\n\n<span class=\"comment\"># Must match the main.tf region</span>\n<span class=\"js-keyword\">export </span>AWS_DEFAULT_REGION=eu-west-2\n\necho <span class=\"_string\">\">>> Fetching required resources...\"</span>\n\n<span class=\"comment\"># Get security group</span>\nRES=<span class=\"js-syntax\">$(</span>aws ec2 describe-security-groups --filters <span class=\"_string\">\"Name=group-name,Values=$PROJECT_NAME-sg\"</span><span class=\"js-syntax\">)</span>\nSECURITY_GROUP_ID=<span class=\"js-syntax\">$(</span>echo $RES | jq -r <span class=\"_string\">'.SecurityGroups[0].GroupId'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Get VPC (assuming only one)</span>\nRES=<span class=\"js-syntax\">$(</span>aws ec2 describe-vpcs<span class=\"js-syntax\">)</span>\nVPC_ID=<span class=\"js-syntax\">$(</span>echo $RES | jq -r <span class=\"_string\">'.Vpcs[0].VpcId'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Get subnets (assume all are public)</span>\nRES=<span class=\"js-syntax\">$(</span>aws ec2 describe-subnets --filters <span class=\"_string\">\"Name=vpc-id,Values=$VPC_ID\"</span><span class=\"js-syntax\">)</span>\nSUBNET_ID=<span class=\"js-syntax\">$(</span>echo $RES | jq -r <span class=\"_string\">'.Subnets[0].SubnetId'</span><span class=\"js-syntax\">)</span>\n\n<span class=\"comment\"># Create a Fargate task</span>\necho <span class=\"_string\">\">>> Creating task...\"</span>\nRES=<span class=\"js-syntax\">$(</span>aws ecs run-task \\\n  --cluster $PROJECT_NAME-cluster \\\n  --task-definition $PROJECT_NAME-td \\\n  --count 1 \\\n  --launch-type FARGATE \\\n<span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\">  --network-configuration </span></span></span></span></span></span></span></span></span></span>\"{\n    \\<span class=\"_string\">\"awsvpcConfiguration\\\"</span>: {\n      \\<span class=\"_string\">\"subnets\\\"</span>:<span class=\"js-syntax\"> [</span>\\<span class=\"_string\">\"$SUBNET_ID\\\"</span>],\n      \\<span class=\"_string\">\"securityGroups\\\"</span>:<span class=\"js-syntax\"> [</span>\\<span class=\"_string\">\"$SECURITY_GROUP_ID\\\"</span>],\n      \\<span class=\"_string\">\"assignPublicIp\\\"</span>: \\<span class=\"_string\">\"ENABLED\\\"</span>\n    }\n<span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\">  }</span></span></span></span></span></span></span></span></span></span>\" \\\n<span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\">  --overrides </span></span></span></span></span></span></span></span></span></span>\"{\n    \\<span class=\"_string\">\"containerOverrides\\\"</span>:<span class=\"js-syntax\"> [</span>{\n      \\<span class=\"_string\">\"name\\\"</span>: \\<span class=\"_string\">\"$PROJECT_NAME-container\\\"</span>,\n      \\<span class=\"_string\">\"command\\\"</span>:<span class=\"js-syntax\"> [</span>\\<span class=\"_string\">\"/bin/sh\\\"</span>, \\<span class=\"_string\">\"-c\\\"</span>, \\<span class=\"_string\">\"/server/scripts/upload-backup.sh $SERVER_NAME root <span class=\"js-keyword\">true</span>\\\"</span>]\n    }]\n<span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\"><span class=\"_string\">  }</span></span></span></span></span></span></span></span></span></span>\" \\\n<span class=\"js-syntax\">)</span>\n\nTASK_ID=<span class=\"js-syntax\">$(</span>echo $RES | jq -r <span class=\"_string\">'.tasks[0].taskArn'</span><span class=\"js-syntax\">)</span>\necho <span class=\"_string\">\">>> Started: $TASK_ID\"</span>\necho <span class=\"_string\">\"\"</span>\n\nwatch ./scripts/aws/get-tasks.sh $SERVER_NAME\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Once done, the backup is ready to download with the same scripts to the Pi\nand it can take over from the expensive virtual instance."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "Thus the project can be said to be truly complete! It solves the problems\nof configuration and management of many local servers with common configuration\noptions and the use of Docker, and adds a seamless journey to running on AWS\nwith an instance of arbitrary capabilities!"
+    }
+  ]
+}
