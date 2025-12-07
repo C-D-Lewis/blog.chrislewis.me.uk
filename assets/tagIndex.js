@@ -92,7 +92,8 @@ window.tagIndex = {
     "2023-04-07-Fabricate-Faster-With-Types.json",
     "2024-01-07-Fabricate-3-0-0.json",
     "2024-03-16-Fabricate-3-3-1-With-Router.json",
-    "2025-03-18-Rebble-Hackathon-002.json"
+    "2025-03-18-Rebble-Hackathon-002.json",
+    "2025-12-07-Muninn-Battery-Wisdom.json"
   ],
   "Games": [
     "2013-03-27-A-Brief-Overview-of-dungeons-so-far.json",
@@ -255,7 +256,8 @@ window.tagIndex = {
     "2020-08-15-Block-World-Lives-On.json",
     "2022-05-07-Home-Is-Where-The-DNS-Record-Points.json",
     "2025-03-18-Rebble-Hackathon-002.json",
-    "2025-09-01-Ready-For-The-Next-Pebble-Chapter.json"
+    "2025-09-01-Ready-For-The-Next-Pebble-Chapter.json",
+    "2025-12-07-Muninn-Battery-Wisdom.json"
   ],
   "Integration": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",

@@ -1022,6 +1022,13 @@ window.postHistory = {
         "fileName": "2025-11-02-Fully-Automated-Cloud-Minecraft"
       }
     ],
+    "12": [
+      {
+        "title": "Muninn: Battery Wisdom",
+        "file": "assets/rendered/2025-12-07-Muninn-Battery-Wisdom.json",
+        "fileName": "2025-12-07-Muninn-Battery-Wisdom"
+      }
+    ],
     "01": [
       {
         "title": "todolist: A Beginner's Minecraft Mod",

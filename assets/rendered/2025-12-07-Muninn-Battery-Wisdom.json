@@ -1,0 +1,192 @@
+{
+  "fileName": "2025-12-07-Muninn-Battery-Wisdom.md",
+  "title": "Muninn: Battery Wisdom",
+  "dateTime": "2025-12-07 16:33",
+  "tags": [
+    "Pebble",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/12/muninn-banner.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "It's been a very long time since I've created a brand new watchapp for Pebble.\nSure, in the last year or so I've done plenty of work on resurrecting old\nprojects and porting watchfaces from Fitbit, but aside from the usual suspects\nof News Headlines and Tube Status (Dashboard is away at the moment) I had an\nitch to create something new, something useful."
+    },
+    {
+      "type": "paragraph",
+      "text": "I'm aware that now more than ever the goal of estimating battery life for a\nPebble watch was something only a handful of apps had tried to solve, each with\ntheir own pros and cons. The vast majority limit their scope to current values\nor raw event reporting only."
+    },
+    {
+      "type": "paragraph",
+      "text": "As older Pebbles continue to age (although some get\nnew batteries for a new lease of battery life) and the new Core devices add a\nnew category of super long-lived watches, there are a lot of users who have a\nvery different experience and might need some help knowing if they can forget\ntheir charging cable on that four day weekend, or week (two weeks? three!?)\nholiday."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Pebble firmware does show system uptime, and the current battery level, but\nthat is just about it. Even for app developers the\n<code>BatteryStateService</code> in the SDK provides only the same instantaneous\nsnapshot of current battery level and if it is plugged in. There's no historical\ndata or anything that can be directly used to advise the user on when they may\nneed to charge."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "A Loan From Odin"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/12/muninn.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Enter Muninn! As described in old Norse mythological song, Odin has a pair of\nravens that represent 'thought' and 'mind', or sometimes 'memory', named Huginn\nand Muninn. On the hunt for naming concepts that weren't as bland as 'battery\nmonitor' etc. I came across a number of mythological or legendary figures\nassociated with watching, observing, or remembering. The idea of using a passive\nobserver as a metaphor for how the app operates with infrequent observations of\nchanges in battery level was very appealing."
+    },
+    {
+      "type": "paragraph",
+      "text": "In short, the app uses the\n<a class=\"link\" target=\"_blank\" href=\"https://developer.rebble.io/guides/events-and-services/wakeups/\">Wakeup API</a>\ninstead of the more ongoing\n<a class=\"link\" target=\"_blank\" href=\"https://developer.rebble.io/guides/events-and-services/background-worker/\">Background Worker API</a>\nto take a different approach to tracking battery discharge and estimating\nremaining battery life. The goal here is to drastically reduce the incidental\nimpact on the battery by having the app run as little as possible which still\nachieving its aims. The irony of this task is not lost on me or others."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Looking Deeper"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table style=\"margin: auto;\">\n  <tr>\n    <td><img src=\"assets/media/2025/12/asleep.png\" style=\"margin-right: 30px;\" /></td>\n    <td><img src=\"assets/media/2025/12/awaiting.png\"/></td>\n  </tr>\n</table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "After installation, the user is asked to wake Muninn up, so that he may perform\nhis task. The app itself wakes up every six hours to note the battery level, and\nif appropriate make a comparison with the previous observation. The change in\ncharge and time since the last observed change are stored in a data log along\nwith a few other pieces of data, and after three seconds the app closes itself\nagain, pausing only to request another wakeup from the firmware at the next\nsix-hourly interval."
+    },
+    {
+      "type": "paragraph",
+      "text": "During the wakeup, the estimation of battery discharge for a whole day is\ncalculated. The formula for this is quite simple:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>result<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span>charge_diff<span class=\"js-syntax\"> * </span>SECONDS_PER_DAY<span class=\"js-syntax\">)</span><span class=\"js-syntax\"> / </span>time_diff_s<span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The data structure for a full sample has all the items needed to calculate\nthe change, as well as more items that are usesul for debugging:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">// A full wakeup sample</span>\n<span class=\"js-keyword\">typedef </span><span class=\"js-blueword\">struct </span><span class=\"js-syntax\">{</span>\n<span class=\"comment\">  // This sample</span>\n  <span class=\"js-blueword\">int </span>timestamp<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">int </span>charge_perc<span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Previous values used in the calculation</span>\n  <span class=\"js-blueword\">int </span>last_sample_time<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">int </span>last_charge_perc<span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Comparison values</span>\n  <span class=\"js-blueword\">int </span>time_diff<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">int </span>charge_diff<span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Result - or special status!</span>\n  <span class=\"js-blueword\">int </span>result<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span> Sample<span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// History of discharge rate values used for averaging</span>\n<span class=\"js-keyword\">typedef </span><span class=\"js-blueword\">struct </span><span class=\"js-syntax\">{</span>\n  Sample samples<span class=\"js-syntax\">[</span>NUM_SAMPLES<span class=\"js-syntax\">]</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span> SampleData<span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "When at least two full samples (at the third wakeup; after the first reading,\nand two full comparisons) are gathered, it becomes possible to start averaging\nthese estimations. At any time, the app has a data log window that can be used\nto check each estimation and the change in time and charge level that led to\neach result. The log also shows entries for periods where the charge increased\n(i.e.: the watch was charged partially or fully) or remained constant if power\nuse was extremely low on newer watches, or reported only in 10% increments\non older ones."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/12/data-log.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "To balance the need for a stable estimate that doesn't vary wildly after each\nobservation with the need for a more realistic estimation if the rate of change\ntrends upwards sharply is a system of weighting different estimates depending\non their age. In summary:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The most recent estimate has a 3x weight.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The three next recent estimates have a 2x weight.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The oldest four estimates have a 1x weight. </td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The code for this is shown below, edited a little for brevity:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">int </span>data_calculate_avg_discharge_rate<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  SampleData *data<span class=\"js-keyword\"> = </span>data_get_sample_data<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>count<span class=\"js-keyword\"> = </span>data_get_valid_samples_count<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Not enough samples yet</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>count < MIN_SAMPLES<span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span>STATUS_EMPTY<span class=\"js-syntax\">;</span>\n\n  <span class=\"js-blueword\">int </span>result_x3<span class=\"js-keyword\"> = </span>0<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">int </span>weight_x3<span class=\"js-keyword\"> = </span>0<span class=\"js-syntax\">;</span>\n  <span class=\"js-blueword\">int </span>seen<span class=\"js-keyword\"> = </span>0<span class=\"js-syntax\">;</span>\n\n  <span class=\"js-keyword\">for </span><span class=\"js-syntax\">(</span><span class=\"js-blueword\">int </span>i<span class=\"js-keyword\"> = </span>0<span class=\"js-syntax\">;</span> i < NUM_SAMPLES<span class=\"js-syntax\">;</span> i++<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    <span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>v<span class=\"js-keyword\"> = </span>data<span class=\"js-keyword\">-></span>samples<span class=\"js-syntax\">[</span>i<span class=\"js-syntax\">]</span>.result<span class=\"js-syntax\">;</span>\n<span class=\"comment\">    // No discharge in this sample</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>!util_is_valid<span class=\"js-syntax\">(</span>v<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> continue</span><span class=\"js-syntax\">;</span>\n\n    seen++<span class=\"js-syntax\">;</span>\n    <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>seen <span class=\"js-keyword\">== </span>1<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">      // first item -> 3x weight</span>\n      result_x3 <span class=\"js-keyword\">+= </span>v<span class=\"js-syntax\"> * </span>3<span class=\"js-syntax\">;</span>\n      weight_x3 <span class=\"js-keyword\">+= </span>3<span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> else</span> <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>seen<span class=\"js-keyword\"> <=</span> 4<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">      // next three -> 2x weight</span>\n      result_x3 <span class=\"js-keyword\">+= </span>v<span class=\"js-syntax\"> * </span>2<span class=\"js-syntax\">;</span>\n      weight_x3 <span class=\"js-keyword\">+= </span>2<span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span><span class=\"js-keyword\"> else</span> <span class=\"js-syntax\">{</span>\n<span class=\"comment\">      // rest -> 1x weight</span>\n      result_x3 <span class=\"js-keyword\">+= </span>v<span class=\"js-syntax\"> * </span>1<span class=\"js-syntax\">;</span>\n      weight_x3 <span class=\"js-keyword\">+= </span>1<span class=\"js-syntax\">;</span>\n    <span class=\"js-syntax\">}</span>\n  <span class=\"js-syntax\">}</span>\n\n<span class=\"comment\">  // Nothing was counted</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>weight_x3 <span class=\"js-keyword\">== </span>0<span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span>STATUS_EMPTY<span class=\"js-syntax\">;</span>\n\n  <span class=\"js-keyword\">return </span>result_x3<span class=\"js-syntax\"> / </span>weight_x3<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Using these log entries the app can make a simple calculation of how many days\nremain, and the average rate of discharge, relying on the log data and length\nof the history to provide a decent level of accuracy:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-blueword\">int </span>data_calculate_days_remaining<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  <span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>rate<span class=\"js-keyword\"> = </span>data_calculate_avg_discharge_rate<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>charge_perc<span class=\"js-keyword\"> = </span>data_get_last_charge_perc<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>!util_is_valid<span class=\"js-syntax\">(</span>rate<span class=\"js-syntax\">)</span> <span class=\"js-keyword\">||</span> !util_is_valid<span class=\"js-syntax\">(</span>charge_perc<span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span>STATUS_EMPTY<span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Given a <span class=\"_string\">'valid'</span> log entry is only one with a discharging change</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>rate<span class=\"js-keyword\"> <=</span> 0<span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n    APP_LOG<span class=\"js-syntax\">(</span>APP_LOG_LEVEL_INFO<span class=\"js-syntax\">,</span> <span class=\"_string\">\"zero or negative rate<span class=\"js-syntax\">:</span> %d charge_perc<span class=\"js-syntax\">:</span> %d\"</span><span class=\"js-syntax\">,</span> rate<span class=\"js-syntax\">,</span> charge_perc<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n    <span class=\"js-keyword\">return </span>STATUS_EMPTY<span class=\"js-syntax\">;</span>\n  <span class=\"js-syntax\">}</span>\n\n  <span class=\"js-keyword\">return </span>charge_perc<span class=\"js-syntax\"> / </span>rate<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "All this combined - after leaving Muninn overnight and half of one day, he can\nbegin his task of observing and remembering how your Pebble's battery behaves,\ngiven your typical and changing usage, and help you plan your next charge with\nconfidence!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Always Some Gotchas"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/12/missed.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "As with usual in software engineering, there are a few small things to bear in\nmind when using Muninn, though I've thought hard with solutions, some are not\nalways perfect:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>If the watch actually dies, or is off precisely at the next wakeup time, it will be missed. In this case the system provides no call to the app, but the user may receive a UI alert. When they next open the app, the wakeup sheduling will begin once more.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>If the battery is so old that it exhibits extreme behavior (such as 100% for two days, then drains to 0 in a few hours) then the estimates will be less accurate, but over time may still produce a number that is believeable.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>There's a chance that a wakeup scheduled will already be reserved for another app. In this case it will retry with another extra minute added, up to a maximum of ten. It feels unlikely that there will be ten more consecutive wakeups...</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "More Features!"
+    },
+    {
+      "type": "paragraph",
+      "text": "In addition to telling how many days are left, there are a few other small extra\nfeatures that the user may wish to use:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Vibrate on sample, if they want to take a glance when Muninn does his work.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Custom threshold, if they want to be told when the battery is approaching some value other than the default firmware definition of 'low'.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Timeline pins, which will put a timeline pin in the future at noon on the day when Muninn thinks they will run out of charge. This works locally with the Core app's new feature to intercept the call to the timeline API. Else, the Rebble URL is used.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table style=\"margin: auto;\">\n  <tr>\n    <td><img src=\"assets/media/2025/12/pin1.png\" style=\"margin-right: 30px;\" /></td>\n    <td><img src=\"assets/media/2025/12/pin2.png\"/></td>\n  </tr>\n</table>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "There we have it! It lived for a couple of weeks before even the UI was begun,\nI wanted to be sure the value was there and somewhat reliable before comitting\nto building the whole thing. Happily it seems to be doing a good job on a few\nother wrists (thank you to those who helped test in the Rebble discord!), and\nthe bug reports and odd behaviors were invaluable for me to find and fix."
+    },
+    {
+      "type": "paragraph",
+      "text": "As for the future, I will think of possible new features (such as a fancy graph,\nalthough with the current density of data it would not provide much useful\nvalue) although the core concept is still based on minimalism. I wouldn't want\nto bloat it up without reason."
+    },
+    {
+      "type": "paragraph",
+      "text": "Please give it a try on the\n<a class=\"link\" target=\"_blank\" href=\"https://apps.rebble.io/en_US/application/692b3821d7dcba000a809ba5\">appstore</a>\nand take a look at the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchapps/muninn\">source code</a>\nif you are interested!"
+    }
+  ]
+}
