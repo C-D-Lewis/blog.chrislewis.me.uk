@@ -1027,6 +1027,11 @@ window.postHistory = {
         "title": "Muninn: Battery Wisdom",
         "file": "assets/rendered/2025-12-07-Muninn-Battery-Wisdom.json",
         "fileName": "2025-12-07-Muninn-Battery-Wisdom"
+      },
+      {
+        "title": "Pi Rack v5",
+        "file": "assets/rendered/2025-12-30-Pi-Rack-v5.json",
+        "fileName": "2025-12-30-Pi-Rack-v5"
       }
     ],
     "01": [

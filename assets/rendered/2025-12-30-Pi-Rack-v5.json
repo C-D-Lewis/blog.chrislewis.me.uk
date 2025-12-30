@@ -1,0 +1,103 @@
+{
+  "fileName": "2025-12-30-Pi-Rack-v5.md",
+  "title": "Pi Rack v5",
+  "dateTime": "2025-12-30 15:54",
+  "tags": [
+    "Integration",
+    "Raspberry Pi"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "In the 18 months since the last revision of my Raspberry Pi rack, I've had very\nfew problems with it. As expected, it made it trivial to unplug one Pi and\nextract it for maintenance or debugging, and had great passive cooling\nperformance."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2024/05/rack-v4-final2.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "However, there were a few main issues I did find:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Too many cables! Each Pi has at least power, network, and perhaps an accessory. It looked messy! The network drive needed a whole other powered USB hub, which had a terrible USB controller inside that was weak during very large transfers.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The extra cables and power supplies (not to mention the Anker power brick soldiering on in its seventh year) add more points of failure.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>The tiny OLED displays (while cool!) were beginning to fade, and had to be glued on. I get better info from the node-microservices dashboard, so they are pretty much redundant and add to the print time/complexity.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "More development"
+    },
+    {
+      "type": "paragraph",
+      "text": "I learned about PoE+ - a version of the Power over Ethernet standard that allows\ndevices to be powered purely through their Ethernet cable, and the 'plus'\nversion increases the power budget sigificantly to the point where it can be\nused to power a more power hungry Pi 5 as well as a single (or perhaps more)\nattached SSD. I found that all the Pi versions I used (3, 2x 4, and a 5) had\nPoE or PoE+ hat accessories available, so I decided to give it a try!"
+    },
+    {
+      "type": "paragraph",
+      "text": "The first stage was to revisit the 3D print design in TinkerCAD, and come up\nwith a version that eliminated the OLED displays to become more compact,\nreplace the needless RAID 1 pair of drives for my network share (one SSD is\nenough, really) to reduce it down to just four slots. The middle cable\nmanagement layer is removed, and the entire bottom is resized just for the PoE+\n5 port unmanaged switch from Netgear."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/12/rack-v5-cad.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Printing out"
+    },
+    {
+      "type": "paragraph",
+      "text": "With my learnings from last time, I was a lot more judicious about how much PLA\nplastic to spend on each part, how large bridges could be, which orientation\nmade most sense to be on the print bed, etc. and I could watch out for\nsituations where Ultimaker Cura would make the printer go back to single spot\non a layer while printing surfaces (something to do with very small spaces and\nan odd number of paths converging there)."
+    },
+    {
+      "type": "paragraph",
+      "text": "So the print went as smoothly as could be hoped, hindered only by the fact that\nmy 1.5mm tolerances for the slots was invalidated when the bed warping made the\nvertical slot holders bend outwards slightly. The weight of all the gear loads\nit down and they behave afterall. As always, the network drive parts are in the\nsame red color to keep the style of that project alive."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/12/rack-v5-loaded.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "After all assembly of the PoE hats on the Pis on their new rack 'sleds' was\ncompleted, I was left with a large number of redundant parts, cables, etc. that\nI will try and find other uses for in the future."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/12/rack-v5-parts.jpg"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "The final result"
+    },
+    {
+      "type": "paragraph",
+      "text": "A quicker turn-around this time, and buying the somewhat pricey PoE+ gear made\nme get a move on, resulting in a very pleasing build and only one cable per Pi -\nwith the network share being an exception with a single looped USB C cable\nconnecting to the NVMe SSD in an enclosure on top. I will find a shorter cable\nfor it to make it even more compact."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2025/12/rack-v5-final.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "The Minecraft server Pi 5 is now in the middle due to the aforementioned minor\nissue with tolerances, but the fan (replaced with a semi-silent fan) inside\nthe PoE+ hat more than makes up for any consequent rise in temperatures, which\nare still in the acceptable 38 - 45 degree ranges across the board. Under full\nload the Pi 5 goes to around 72 degrees, which it should never need to approach\nin regular usage, so I am happy!"
+    },
+    {
+      "type": "paragraph",
+      "text": "If only I could find a better way to join the top and bottom than the bulldog\nclips... but at least they are very solid."
+    }
+  ]
+}
