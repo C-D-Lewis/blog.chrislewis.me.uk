@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
@@ -18,7 +18,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           # Must match version in terraform required_version
-          terraform_version: 1.2.9
+          terraform_version: 1.5.7
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -34,6 +34,6 @@ jobs:
         run: |
           curl https://s3.amazonaws.com/public-files.chrislewis.me.uk/infra/deploy.sh >> ./deploy.sh
           sudo chmod +x ./deploy.sh
-      
+
       - name: Build and deploy
         run: ./deploy.sh ${{ vars.SITE_DOMAIN }}
