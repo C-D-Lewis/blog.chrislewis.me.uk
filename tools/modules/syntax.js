@@ -53,10 +53,11 @@ const PYTHON_GREENWORDS = [
 
 // C/C++
 const C_KEYWORDS = [
-  'define', 'include ', 'static', 'const', ' = ', 'return ', '->', 'if ', ' else', 'while ', '+= ',
-  '&', ' else ', '== ', ' break', ' switch', ' case', '||', ' continue', 'for ', ' <=', 'typedef ',
+  ' defined', 'define', 'include ', 'static', 'const', ' = ', 'return ', '->', 'if ', ' else',
+  'while ', '+= ', '&', ' else ', '== ', ' break', ' switch', ' case', '||', ' continue', 'for ',
+  ' <=', 'typedef ', 'endif',
 ];
-const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';', ' * ', ' / '];
+const C_SYNTAX = [',', '(', ')', '[', ']', ':', '{', '}', ';', ' * ', ' / ', '#'];
 const C_BLUEWORDS = ['float', 'NUM_NOTES', 'struct ', 'int ', 'uint64_t', 'void ', 'bool ', ' true',
   ' false'];
 

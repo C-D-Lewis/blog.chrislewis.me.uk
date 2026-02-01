@@ -1,0 +1,197 @@
+{
+  "fileName": "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.md",
+  "title": "Fast Emery Upgrades With pebble-scalable",
+  "dateTime": "2026-02-01 11:24",
+  "tags": [
+    "Pebble",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "It's been a while since the push to upgrade Pebble watchfaces and watchapps for\nPebble Time 2 in 2016, but with the imminent shipping of Core Device's virtually\nplatform-identical Pebble Time 2 it was time for me to finally get serious. The\ntask: ensure all watchface/watchapp layouts scale up for the larger 200x228\ndisplay while at the same time preserving the existing layout for the original\ndisplay size of 144x168."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/02/scalable-tube-status.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "I had actually done some (but not a lot!) of these in 2016 before I left Pebble\nand the company wound up, but since then I had create a lot of new apps, some\nof which have quite complex layouts. I had also taken a few divergent approaches\nto creating layouts, not always the encouraged best practice:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Hard-coded coordinates (the worst way!)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Constants at the top of the file that had values on a per-platform basis (better!)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Used the <code>Window</code>'s width and height to place layers based on a percentage of each (the best!)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As the documentation writing guy I really should have known better.\nUnfortunately this mix of techniques made it almost impossible to quickly and\neasily ensure the dozens of apps were ready for Emery without needing to\nhand-craft each and every one."
+    },
+    {
+      "type": "paragraph",
+      "text": "I <i>certainly</i> wanted to avoid doing this for every single project, which\nwould grow so much larger when new platforms came around:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-syntax\">#</span>if<span class=\"js-keyword\"> <span class=\"js-keyword\">define</span>d</span><span class=\"js-syntax\">(</span>PBL_PLATFORM_EMERY<span class=\"js-syntax\">)</span>\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> CLASS_ICON_SIZE 56\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> STATUS_ICON_SIZE 22\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> X_ROOT 6\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> TIME_Y_ROOT 88\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> DATE_Y_ROOT 155\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> STATUS_Y_ROOT 4\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> DATE_TIME_BG_WIDTH 185\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> LABEL_BG_HEIGHT 18\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> STATUS_BG_HEIGHT 66\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> PROGRESS_BAR_WIDTH 102\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> SHIELD_BAR_HEIGHT 16\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> HEALTH_BAR_HEIGHT 19\n<span class=\"js-syntax\">#</span>else\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> CLASS_ICON_SIZE 40\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> STATUS_ICON_SIZE 16\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> X_ROOT 5\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> TIME_Y_ROOT 74\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> DATE_Y_ROOT 135\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> STATUS_Y_ROOT 2\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> DATE_TIME_BG_WIDTH 135\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> LABEL_BG_HEIGHT 15\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> STATUS_BG_HEIGHT 53\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> PROGRESS_BAR_WIDTH 78\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> SHIELD_BAR_HEIGHT 10\n  <span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> HEALTH_BAR_HEIGHT 12\n<span class=\"js-syntax\">#</span><span class=\"js-keyword\">endif</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Solution: Make a Library"
+    },
+    {
+      "type": "paragraph",
+      "text": "Of course, a systematic problem requires a systematic solution. So, I created\na new library (Pebble package) to do the heavy lifting. The idea: make it easy\nand repeatable to <i>always</i> use the best technique and use a percentage\nof screen dimensions. It should also be easy to adopt and update layouts that\nwere created with those nasty hard-coded coordinates or already using screen\nsize percentages."
+    },
+    {
+      "type": "paragraph",
+      "text": "Thus,\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/libraries/pebble-scalable\">pebble-scalable</a>\nwas born - it knows the size of each platform's display and that never changes.\nIt accepts percentage values of the dimensions and spits of the pixel-perfect\nequivalent. To allow very precise specification down to the pixel, the library\noperates with thousandths instead of hundredths. Here's an example:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">// Get a percentage (thousands) of the display width and height</span>\n<span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>half_w<span class=\"js-keyword\"> = </span>scl_x<span class=\"js-syntax\">(</span>500<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>half_h<span class=\"js-keyword\"> = </span>scl_y<span class=\"js-syntax\">(</span>500<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Of course, in practice nothing is so easily solved, and especially with font\ndrawing quirks, I found I needed to shift text or shapes just a few pixels on\nsome platforms but not others. The library supports this with a familiar object\nsyntax supported by a bit of macro magic. Supposing I wanted 50% width on basalt\n(the original screen size) but 52.5% on Emery:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>half_w<span class=\"js-keyword\"> = </span>scl_x_pp<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>.o<span class=\"js-keyword\"> = </span>500<span class=\"js-syntax\">,</span> .e<span class=\"js-keyword\"> = </span>525<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The syntax is <code>o</code> for the original (Aplite, Basalt, Diorite, Flint)\nscreen size, <code>e</code> for Emery, <code>c</code> for Chalk, etc. The neat\npart about this syntax is it becomes possible to add support for new platforms\n<i>without breaking existing code</i>! A previous version simply added more\nparameters to functions, and was clearly not scalable:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">// Adding Gabbro would require ALL of these to be updated! Bad!</span>\n<span class=\"js-keyword\">const</span> <span class=\"js-blueword\">int </span>half_w<span class=\"js-keyword\"> = </span>scl_x_pp<span class=\"js-syntax\">(</span>500<span class=\"js-syntax\">,</span> 525<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Where this really shines is placing shapes in drawing routines and text in a\nvery precise manner which usually deal in <code>GRect</code>s. This can be done\nwith a native <code>GRect</code> and specifying with the library only those\nvalues that need to differ (i.e: 'per platform'):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">// Larger only on Emery!</span>\n<span class=\"js-keyword\">const</span> GRect logo_rect<span class=\"js-keyword\"> = </span>GRect<span class=\"js-syntax\">(</span>\n  scl_x<span class=\"js-syntax\">(</span>250<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  scl_y<span class=\"js-syntax\">(</span>330<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  scl_x_pp<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>.o<span class=\"js-keyword\"> = </span>200<span class=\"js-syntax\">,</span> .e<span class=\"js-keyword\"> = </span>250<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  scl_y_pp<span class=\"js-syntax\">(</span><span class=\"js-syntax\">{</span>.o<span class=\"js-keyword\"> = </span>200<span class=\"js-syntax\">,</span> .e<span class=\"js-keyword\"> = </span>280<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span>\n<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Only Half The Battle"
+    },
+    {
+      "type": "paragraph",
+      "text": "As alluded to above, simply placing layers in proportionally-correct locations\nand sizes on a larger display doesn't get you all the way to a nice-looking,\nreadable and usuable Emery upgrade - fonts also need scaling!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/02/scalable-no-fonts.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Another problem that would be coming up often was ripe for trying to solve with\nthe library - but how? System font size choices are very limited\n(18, 24, 28, etc.) and custom fonts are specified by the developer in the\npackage file with unpredictable code symbols IDs."
+    },
+    {
+      "type": "paragraph",
+      "text": "After some trial and error, I used a similar syntax but give developers the\nopportunity to specify which fonts they want used in the <i>same situation</i>,\nidentifiable using some constant ID which they can choose. Thus, they load the\nfonts they want to use and tell the library which one to use on which platform\nwith their ID."
+    },
+    {
+      "type": "paragraph",
+      "text": "In this example, choosing between different system fonts, although custom font\nsizes can be estimated by increasing the point size by the increase in screen\narea as a percentage (for Emery this is about 30%):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">// Choose IDs for each font category (such as t-shirt size or use-case)</span>\n<span class=\"js-keyword\">typedef </span>enum <span class=\"js-syntax\">{</span>\n  FID_Small<span class=\"js-keyword\"> = </span>0<span class=\"js-syntax\">,</span>\n  FID_Medium<span class=\"js-syntax\">,</span>\n  FID_Large\n<span class=\"js-syntax\">}</span> FontIds<span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// Load fonts to use in each case</span>\n<span class=\"js-keyword\">static</span> GFont s_gothic_14<span class=\"js-syntax\">,</span> s_gothic_18<span class=\"js-syntax\">,</span> s_gothic_24<span class=\"js-syntax\">,</span> s_gothic_28<span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">// During init()</span>\n<span class=\"js-keyword\">static</span> <span class=\"js-blueword\">void </span>init_scalable_fonts<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span> <span class=\"js-syntax\">{</span>\n  s_gothic_14<span class=\"js-keyword\"> = </span>fonts_get_system_font<span class=\"js-syntax\">(</span>FONT_KEY_GOTHIC_14<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  s_gothic_18<span class=\"js-keyword\"> = </span>fonts_get_system_font<span class=\"js-syntax\">(</span>FONT_KEY_GOTHIC_18<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  s_gothic_24<span class=\"js-keyword\"> = </span>fonts_get_system_font<span class=\"js-syntax\">(</span>FONT_KEY_GOTHIC_24<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  s_gothic_28<span class=\"js-keyword\"> = </span>fonts_get_system_font<span class=\"js-syntax\">(</span>FONT_KEY_GOTHIC_28<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // The small font - regular screens use Gothic 14, Emery uses Gothic 18</span>\n  scl_set_fonts<span class=\"js-syntax\">(</span>FID_Small<span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span>.o<span class=\"js-keyword\"> = </span>s_gothic_14<span class=\"js-syntax\">,</span> .e<span class=\"js-keyword\"> = </span>s_gothic_18<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Same with other categories</span>\n  scl_set_fonts<span class=\"js-syntax\">(</span>FID_Medium<span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span>.o<span class=\"js-keyword\"> = </span>s_gothic_18<span class=\"js-syntax\">,</span> .e<span class=\"js-keyword\"> = </span>s_gothic_24<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n  scl_set_fonts<span class=\"js-syntax\">(</span>FID_Large<span class=\"js-syntax\">,</span> <span class=\"js-syntax\">{</span>.o<span class=\"js-keyword\"> = </span>s_gothic_24<span class=\"js-syntax\">,</span> .e<span class=\"js-keyword\"> = </span>s_gothic_28<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Then, when you need to reach for a font, simply ask the library to give you\nthe right one:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-c\">C</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">// Choose size ID, font is selected automatically</span>\ngraphics_context_set_text_color<span class=\"js-syntax\">(</span>ctx<span class=\"js-syntax\">,</span> GColorBlack<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\ngraphics_draw_text<span class=\"js-syntax\">(</span>\n  ctx<span class=\"js-syntax\">,</span>\n  <span class=\"_string\">\"This is example text in a scalable position with a scalable font!\"</span><span class=\"js-syntax\">,</span>\n  scl_get_font<span class=\"js-syntax\">(</span>FID_Medium<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  scl_grect<span class=\"js-syntax\">(</span>0<span class=\"js-syntax\">,</span> 330<span class=\"js-syntax\">,</span> 1000<span class=\"js-syntax\">,</span> 330<span class=\"js-syntax\">)</span><span class=\"js-syntax\">,</span>\n  GTextOverflowModeWordWrap<span class=\"js-syntax\">,</span>\n  GTextAlignmentCenter<span class=\"js-syntax\">,</span>\n  NULL\n<span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Of course, this means that some fonts get loaded always but never used - this is\na future problem I want to solve with some more brain power application..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Images..."
+    },
+    {
+      "type": "paragraph",
+      "text": "Image scaling is a slightly harder problem to solve since they are not generally\ncreated at run-time. The developer needs to create them at a size appropriate\nfor each display size beforehand."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Pebble SDK (as usualy demonstrating its incredible foresight) allows the\ndeveloper to tag files for use on each platform after defining it just once\nin the package file and correctly naming the alternatives:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-json\">JSON</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"_string\">\"resources\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">{</span>\n  <span class=\"_string\">\"media\"</span><span class=\"js-syntax\">: </span><span class=\"js-syntax\">[</span>\n    <span class=\"js-syntax\">{</span>\n      <span class=\"_string\">\"type\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"bitmap\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"_string\">\"name\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"IMAGE_RATE\"</span><span class=\"js-syntax\">,</span>\n      <span class=\"_string\">\"file\"</span><span class=\"js-syntax\">: </span><span class=\"_string\">\"images/rate.png\"</span>\n    <span class=\"js-syntax\">}</span>\n  <span class=\"js-syntax\">]</span>\n<span class=\"js-syntax\">}</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Thus, you supply <code>rate.png</code> for all platforms, but\n<code>rate~emery.png</code> that is selected automatically for Emery builds."
+    },
+    {
+      "type": "paragraph",
+      "text": "By combining this with positions and sizes using <code>pebble-scalable</code>\nfunctions, you can ensure the right image with the right size is shown in the\nright position."
+    },
+    {
+      "type": "paragraph",
+      "text": "Yes, I was glad that this SDK capability played so well into my hands!"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "There we have it - a quick tour of <code>pebble-scalable</code> and the features\nit offers. Since creating it, I've found updating older apps a breeze - usually\nby simply converting hard-coded positions and sizes into original display\npercentages and throwing them into the library!"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here's a gallery of comparisons of what is possible and already out there ready\nfor when users receive their PT2 units:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/02/scalable-news-headlines.png"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/02/scalable-thin.png"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/02/scalable-muninn.png"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/02/scalable-beam-up.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "If you're interested, please give it a try! You can find it on NPM, and the\nsource code\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/libraries/pebble-scalable\">here</a>."
+    }
+  ]
+}

@@ -94,7 +94,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-cpp\">C++</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">//Include files from SDK</span>\n#<span class=\"js-keyword\">include </span><span class=\"_string\">\"pebble_os.h\"</span>\n#<span class=\"js-keyword\">include </span><span class=\"_string\">\"pebble_app.h\"</span>\n#<span class=\"js-keyword\">include </span><span class=\"_string\">\"pebble_fonts.h\"</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-cpp\">C++</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">//Include files from SDK</span>\n<span class=\"js-syntax\">#</span><span class=\"js-keyword\">include </span><span class=\"_string\">\"pebble_os.h\"</span>\n<span class=\"js-syntax\">#</span><span class=\"js-keyword\">include </span><span class=\"_string\">\"pebble_app.h\"</span>\n<span class=\"js-syntax\">#</span><span class=\"js-keyword\">include </span><span class=\"_string\">\"pebble_fonts.h\"</span>\n</div></pre>"
     },
     {
       "type": "paragraph",
@@ -102,7 +102,7 @@
     },
     {
       "type": "paragraph",
-      "text": "<div class=\"lang-label lang-cpp\">C++</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">//Define Universally Unique Identifier</span>\n<span class=\"comment\">//    88a97cfd-2377-463a-84bd-b85eb4964063</span>\n#<span class=\"js-keyword\">define</span> UUID <span class=\"js-syntax\">{</span> 0x88<span class=\"js-syntax\">,</span> 0xa9<span class=\"js-syntax\">,</span> 0x7c<span class=\"js-syntax\">,</span> 0xfd<span class=\"js-syntax\">,</span> 0x23<span class=\"js-syntax\">,</span> 0x77<span class=\"js-syntax\">,</span> 0x46<span class=\"js-syntax\">,</span> 0x3a<span class=\"js-syntax\">,</span> 0x84<span class=\"js-syntax\">,</span> 0xbd<span class=\"js-syntax\">,</span> 0xb8<span class=\"js-syntax\">,</span> 0x5e<span class=\"js-syntax\">,</span> 0xb4<span class=\"js-syntax\">,</span> 0x96<span class=\"js-syntax\">,</span> 0x40<span class=\"js-syntax\">,</span> 0x63 <span class=\"js-syntax\">}</span>\n</div></pre>"
+      "text": "<div class=\"lang-label lang-cpp\">C++</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">//Define Universally Unique Identifier</span>\n<span class=\"comment\">//    88a97cfd-2377-463a-84bd-b85eb4964063</span>\n<span class=\"js-syntax\">#</span><span class=\"js-keyword\">define</span> UUID <span class=\"js-syntax\">{</span> 0x88<span class=\"js-syntax\">,</span> 0xa9<span class=\"js-syntax\">,</span> 0x7c<span class=\"js-syntax\">,</span> 0xfd<span class=\"js-syntax\">,</span> 0x23<span class=\"js-syntax\">,</span> 0x77<span class=\"js-syntax\">,</span> 0x46<span class=\"js-syntax\">,</span> 0x3a<span class=\"js-syntax\">,</span> 0x84<span class=\"js-syntax\">,</span> 0xbd<span class=\"js-syntax\">,</span> 0xb8<span class=\"js-syntax\">,</span> 0x5e<span class=\"js-syntax\">,</span> 0xb4<span class=\"js-syntax\">,</span> 0x96<span class=\"js-syntax\">,</span> 0x40<span class=\"js-syntax\">,</span> 0x63 <span class=\"js-syntax\">}</span>\n</div></pre>"
     },
     {
       "type": "paragraph",

@@ -1067,5 +1067,14 @@ window.postHistory = {
         "fileName": "2025-09-01-Ready-For-The-Next-Pebble-Chapter"
       }
     ]
+  },
+  "2026": {
+    "02": [
+      {
+        "title": "Fast Emery Upgrades With pebble-scalable",
+        "file": "assets/rendered/2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.json",
+        "fileName": "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable"
+      }
+    ]
   }
 }
