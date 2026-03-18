@@ -12,13 +12,14 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '24'
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           # Must match version in terraform required_version
           terraform_version: 1.14.6
+          terraform_wrapper: false # This prevents the wrapper from injecting ::debug:: into your variables
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
