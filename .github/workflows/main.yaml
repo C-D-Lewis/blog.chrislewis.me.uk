@@ -19,7 +19,7 @@ jobs:
         with:
           # Must match version in terraform required_version
           terraform_version: 1.14.6
-          terraform_wrapper: false # This prevents the wrapper from injecting ::debug:: into your variables
+          terraform_wrapper: false # Prevent injecting ::debug:: etc
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
