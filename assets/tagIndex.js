@@ -94,7 +94,8 @@ window.tagIndex = {
     "2024-03-16-Fabricate-3-3-1-With-Router.json",
     "2025-03-18-Rebble-Hackathon-002.json",
     "2025-12-07-Muninn-Battery-Wisdom.json",
-    "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.json"
+    "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.json",
+    "2026-04-06-Muninn-Web-Statistics.json"
   ],
   "Games": [
     "2013-03-27-A-Brief-Overview-of-dungeons-so-far.json",
@@ -259,7 +260,8 @@ window.tagIndex = {
     "2025-03-18-Rebble-Hackathon-002.json",
     "2025-09-01-Ready-For-The-Next-Pebble-Chapter.json",
     "2025-12-07-Muninn-Battery-Wisdom.json",
-    "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.json"
+    "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.json",
+    "2026-04-06-Muninn-Web-Statistics.json"
   ],
   "Integration": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",

@@ -1075,6 +1075,13 @@ window.postHistory = {
         "file": "assets/rendered/2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.json",
         "fileName": "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable"
       }
+    ],
+    "04": [
+      {
+        "title": "Muninn: Web Statistics",
+        "file": "assets/rendered/2026-04-06-Muninn-Web-Statistics.json",
+        "fileName": "2026-04-06-Muninn-Web-Statistics"
+      }
     ]
   }
 }

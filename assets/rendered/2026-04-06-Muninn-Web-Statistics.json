@@ -1,0 +1,262 @@
+{
+  "fileName": "2026-04-06-Muninn-Web-Statistics.md",
+  "title": "Muninn: Web Statistics",
+  "dateTime": "2026-04-06 15:32",
+  "tags": [
+    "Pebble",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Late last year I posted about my latest major Pebble watchapp project - Muninn.\nThis was an attempt to create a minimal application that can track watch\nbattery drain and produce reasonable estimates for battery life. The goal was to\nprovide meaningful insight into how long a watch lasts, how much it has to go,\nand if it is changing vs the general trend."
+    },
+    {
+      "type": "paragraph",
+      "text": "It seems to have been a success! Since the last blog post about it, I've had\ngreat feedback in the Discord project chat and lots of help from others who\nhave provided feedback, recommendations, bug reports, tested new builds etc. and\nit would not have been possible to make it as polished as it is today without\nthat input. In addition, I've seen Muninn recommended between users discussing\nbattery life and tracking on Reddit, Discord, and Facebook, which means he's\ndoing something right!"
+    },
+    {
+      "type": "paragraph",
+      "text": "In total, as of writing this post, Muninn has gathered over 250+ hearts!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/muninn-rebble.png"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/muninn-repebble.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "What's New?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Since last year, new features have included:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Much higher precision on days remaining and daily rate calculations.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Tracking the last observed charge and next predicted charge date helping to guide when to charge.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>A navigable graph on the watch that has helped users know when trends have changed vs the expected change between samples.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Expanded storage on the phone means trends over weeks and months are possible.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Using said extra data (up to 4 months) to give insight into time between charges and overall expected battery life.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/muninn-screenshots.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "What Now?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Mission accomplished, right? Well one could say that. As far as the original\ngoal is concerned, the minimal-impact Wakeup API powered app is still the same,\nit's just a lot more information in charts and stats is available based on the\ndata collected."
+    },
+    {
+      "type": "paragraph",
+      "text": "Then, about two months ago, I thought what more observable and actionable\ninsights could be obtained if the user was not limited to the small size of the\nwatch screen and storage. Additionally, there were more requests for a graph\nof all the data collected, not just the last four days."
+    },
+    {
+      "type": "paragraph",
+      "text": "I had a thought - what if the data could be shown on the web? A production-ready\nchart library and the full dataset available would mean all that could be shown\nas well as much more. There would be space for all the stats on the watch, plus\nother features like sharing with friends, even more detailed insights, and data\nexport possibilities. Anyone already into tracking data for Muninn would get\neven more out of it."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Configuration Abuse"
+    },
+    {
+      "type": "paragraph",
+      "text": "My first attempts to do this involved diving into the world of\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/pebble-dev/clay?tab=readme-ov-file#custom-components\">custom Clay components</a>\n(still a mystery to me) and finding out how to send all the data to such a web\npage using the URL. After some hours on each, it became clear that Clay\ncomponents are geared towards providing inputs in new formats for configuring\nsettings and not actual display components, and that the density of fields and\ntheir potential huge number meant that URL parameters would not be a possible\noption either."
+    },
+    {
+      "type": "paragraph",
+      "text": "Being an AWS infrastructure engineer by trade, my next thought was 'ooh goodie,\na REST API!'. I assembled the tools at my disposal and within a weekend\nafternoon I had something rudimentary that the PebbleKit JS side could send\nthe watch data to. It consisted of the following components:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>A DynamoDB table for storing samples.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>A Lambda function for handling API requests to send and retrieve data.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>An API Gateway to expose endpoints and marshall requests towards Lambda.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>A Route53 domain to allow a stable address to be used.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/MuninnWeb.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Showtime"
+    },
+    {
+      "type": "paragraph",
+      "text": "Thus followed several more nights and weekend afternoons creating the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchapps/muninn/backend/terraform\">Terraform configuration</a>\n(an opportunity to create and update my re-usable modules!) and the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchapps/muninn/backend/lambda\">Lambda code</a>\nin TypeScript. The AWS SDK makes it incredibly easy to use DynamoDB tables and\nto handle HTTP requests from API Gateway. After some testing and creation of a\ngood set of unit and E2E tests, the API was ready to be integrated into the\nwatchapp."
+    },
+    {
+      "type": "paragraph",
+      "text": "This was quite simple - use the <code>fetch</code> exposed by the excellent\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/jccit/PebbleKit.ts\">pkts</a> project to make a\n<code>POST</code> request to the new <code>POST /history</code> endpoint."
+    },
+    {
+      "type": "paragraph",
+      "text": "Simple enough. It became apparent that in order to allow a user to share their\ndata, the URL should be something short and easy to enter on a mobile device\nkeyboard. A short-code scheme came to mind, and so the first step to obtain this\nis to exchange the unique watch token provided by PebbleKit JS for a 6-character\nID that is then used when uploading the sample history."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n7756f890b23348169165684742e971d2 -> C74FAA\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/blob/master/watchapps/muninn/backend/lambda/src/handlers.ts#L46\">logic</a>\nis simple - if the watch token has been seen, return the ID already allocated.\nIf not, generate a new one while it doesn't already appear in the DynamoDB\ntable."
+    },
+    {
+      "type": "paragraph",
+      "text": "Once the JS side has this ID, it can proceed to make the request to upload\nthe sample history. Since this is done on a per-watch basis, it automatically\nsupports users who own multiple watches!"
+    },
+    {
+      "type": "paragraph",
+      "text": "The URL ends up being similar to this (my watch!):"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\nhttps://muninn.chrislewis.me.uk?id=C74FAA\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The first version of this showed a QR code on the watch after upload, but as it\nis difficult to generate dynamic QR code images on Pebble, the user would have\nto enter their code when opening the URL:"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/muninn-enter-code.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "I thought this was good enough, but I receieved a great idea for enhancement -\nwhy not show the page as the watchapps's settings page <i>inside the Pebble mobile app?</i>\nIt makes total sense! And brings the project back to it's first ideas. This\nis very easily achieved:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\nPebble.addEventListener<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>showConfiguration<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">,</span> <span class=\"js-keyword\">async </span><span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-blueword\">const </span>id<span class=\"js-keyword\"> = </span><span class=\"js-keyword\">await </span>ensureUploadId<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // Try and upload freshest data for the user</span>\n  <span class=\"js-keyword\">await </span>uploadHistory<span class=\"js-syntax\">(</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n\n<span class=\"comment\">  // isAppConfigPage hides some elements that can't be clicked in the config page webview</span>\n  Pebble.openURL<span class=\"js-syntax\">(</span><span class=\"_string\">`https://muninn.chrislewis.me.uk?id=$<span class=\"js-syntax\">{</span>id<span class=\"js-syntax\">}</span>&isAppConfigPage=true`</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "The latest version makes the upload just before opening the page - and this\nseems to be allowed and working! The <code>isAppConfigPage</code> parameter\nis used to hide the chart image and CSV data export buttons because they aren't\nfunctional within the Pebble mobile app webview."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Using the Data"
+    },
+    {
+      "type": "paragraph",
+      "text": "What good is uploading the data if it cannot be viewed, shared, and learned\nfrom? The last piece of this puzzle was then the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchapps/muninn/backend/client\">web application</a>\nitself. As a relatively simple webapp it could be very quickly built using my\nminimal web framework called\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/fabricate.js\">fabricate.js</a> as it consists of\na few cards with rows or columns of components. "
+    },
+    {
+      "type": "paragraph",
+      "text": "If the URL opened already has the upload ID, the webapp loads the data and shows\nthe chart (using chart.js!) and the same long-term insights shown on that page\ninside the watchapp but with the additional initial statistics for overall\nestimated battery life."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/muninn-webapp.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "This example doesn't show the charge interval statistic well - but a watch\nhistory with at least two charges would be able to show this value and let the\nuser know how often they may need to charge their watch on average."
+    },
+    {
+      "type": "paragraph",
+      "text": "And there we have it - the user can update their uploaded data as often as they\nwish (it's opt-in), or use the new settings menu item to have it automatically\ndone at noon each day, as long as the watch is connected to the phone."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Taking It Even Further"
+    },
+    {
+      "type": "paragraph",
+      "text": "After a while it occured to me that if a large number of users opted to share\ntheir sample histories, and the accuracy of each was reasonable (I wouldn't\nexpect perfection!) it would be possible to begin to glean some even more\ninteresting insights into the population of Pebble watches as a whole."
+    },
+    {
+      "type": "paragraph",
+      "text": "With this in mind, I added a scheduled EventBridge event at midnight each day\nto call a new Lambda endpoint to perform some\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/blob/master/watchapps/muninn/backend/lambda/src/aggregations.ts#L102\">simple aggregations</a>:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>For all watch models, bucket them accordingly, and calculate the overall average battery life and drain rate.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>For all SDK platforms (less meaningful but still interesting), do the same calculations.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Since Pebble watch model values are things like `pebble_time_charcoal_gray`, it\nis neccessary to bucket them into more broad groups:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-js\">JavaScript</div>\n<pre class=\"\"><div class=\"code-block\">\n<span class=\"comment\">/**</span>\n<span class=\"comment\"> * Groups: pebble_2_duo, pebble_2, pebble_time_steel, pebble_time_2, pebble_time_round, pebble_time</span>\n<span class=\"comment\"> *</span>\n<span class=\"comment\"> * @param {string} name - Name to map and group.</span>\n<span class=\"comment\"> * @returns {string} Mapped group name</span>\n<span class=\"comment\"> */</span>\n<span class=\"js-blueword\">const </span>getGroupName<span class=\"js-keyword\"> = </span><span class=\"js-syntax\">(</span>name<span class=\"js-syntax\">)</span><span class=\"js-keyword\"> => </span><span class=\"js-syntax\">{</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>name.includes<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>pebble_2_duo<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Pebble 2 Duo<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>name.includes<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>pebble_2_hr<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Pebble 2 HR<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>name.includes<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>pebble_2<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Pebble 2<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>name.includes<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>pebble_time_steel<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Pebble Time Steel<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>name.includes<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>pebble_time_2<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Pebble Time 2<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>name.includes<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>pebble_time_round<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Pebble Time Round<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n  <span class=\"js-keyword\">if </span><span class=\"js-syntax\">(</span>name.includes<span class=\"js-syntax\">(</span><span class=\"_string\"><span class=\"js-syntax\">'</span>pebble_time<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">)</span><span class=\"js-syntax\">)</span> <span class=\"js-keyword\">return </span><span class=\"_string\"><span class=\"js-syntax\">'</span>Pebble Time<span class=\"js-syntax\">'</span></span><span class=\"js-syntax\">;</span>\n\n  <span class=\"js-keyword\">return </span>name<span class=\"js-syntax\">;</span>\n<span class=\"js-syntax\">}</span><span class=\"js-syntax\">;</span>\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "After running this at least once, I could immediately see which watch models\ntended to last longer than others. But it's important to bear in mind the huge\nrange of ages of batteries, and it's impossible to know which have had the\nbattery replacement procedure done with an equivalent or slightly larger\nbattery than the original."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/muninn-global.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "But even all this aside, the last piece of value the user can get is to know\nwhere the place in the collection of all watches of the model they are wearing.\nThis is shown as an annotation on the battery life and drain rate components,\nwhich brings it all back around to something they can relate to on a personal\nlevel, which is quite fitting given the whole process started with their own\nwatch."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/muninn-compare.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "Whew! Another long post! But it was overdue and I had a lot to cover. I'm quite\npleased with how easily this came together, how much individual value it adds\nfor Muninn users, and also how it unlocks a much bigger picture about Pebble\nbattery life as a whole across a larger population. As more users hopefully\nchoose to share their sample histories, the accuracy should increase!"
+    },
+    {
+      "type": "paragraph",
+      "text": "As usual check out all the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchapps/muninn\">watchapp</a>\nand\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchapps/muninn/backend\">backend platform</a>\nsource code for yourself and enjoy using Muninn!"
+    }
+  ]
+}
