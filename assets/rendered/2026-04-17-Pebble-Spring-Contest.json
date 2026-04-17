@@ -1,0 +1,197 @@
+{
+  "fileName": "2026-04-17-Pebble-Spring-Contest.md",
+  "title": "Pebble Spring Contest",
+  "dateTime": "2026-04-17 19:08",
+  "tags": [
+    "Pebble",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "On April 2nd, Pebble\n<a class=\"link\" target=\"_blank\" href=\"https://repebble.com/blog/spring-2026-pebble-app-contest\">announced</a> the launch\nof a springtime developer contest to celebrate Pebble Time 2 entering mass\nproduction (a large milestone from what I can remember) and it's been a lot of\nfun. And of course, many prizes are up for grabs!"
+    },
+    {
+      "type": "paragraph",
+      "text": "In the same way I remember the in-person hackathons I attended in San Francisco,\nMountain View, and over at Yale (for that fateful night I discovered why coffee\nis so great), the sense of speed, fun, creativity, and experimentation is alive\nand well, with hundreds of developers entering their new watchfaces and\nwatchapps."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Joining In"
+    },
+    {
+      "type": "paragraph",
+      "text": "That includes me! There have been two rounds - week one and week two. I was\nquite late to the party (four days in). I didn't expect to win this time but it\nwas a good opportunity to try an idea I had for a while - using the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/libraries/pebble-isometric\">pebble-isometric</a>\nlibrary (once again!) for a watchface with a moving, multi-level background of\nblocks on a much larger scale than Isotime or Void Statues."
+    },
+    {
+      "type": "paragraph",
+      "text": "The result was\n<a class=\"link\" target=\"_blank\" href=\"https://apps.repebble.com/patchwork_4b5cfd6f43024c438591c2c7\">Patchwork</a>! It\nwas relatively simple to achieve and add a time/date display to, but I found\nthat the sheer amount of line drawing that was required meant the animation was\nextremely slow. So, instead I focused on making it look good and making it\ncustomizable, so there are a range of themes to choose from!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/patchwork.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "So that was a fun and decent entry for week one. But week two loomed..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Getting Serious"
+    },
+    {
+      "type": "paragraph",
+      "text": "As of writing week two is still ongoing! And competition is fierce. I would not\nbe surprised if it came down to alphabetical sorting if many top-5 positions\ntied."
+    },
+    {
+      "type": "paragraph",
+      "text": "That said, my position is favorable, but I don't know if I can last another two\ndays - so if you want to help (and earn my great appreciation!) you can give my\nentry <a class=\"link\" target=\"_blank\" href=\"https://apps.repebble.com/cac3689b5691473da9e3410b\">Skyarc</a> a heart, and\nshare it with your friends and connections!"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/please.gif"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/leaderboard.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Now that's out of the way, I can speak a bit more about it. The idea was to make\na design that was round-first - meaning the upcoming Pebble Round 2 and Pebble\nTime Round from back in the day. It's something I haven't really done very\nseriously. I had an idea that the arcs could show a whole day of weather (which\nI know has been done before a few times) but with a twist - try and show many\nlevels of data at a glance <i>without</i> over-cluttering the display."
+    },
+    {
+      "type": "paragraph",
+      "text": "After downloading data from <a class=\"link\" target=\"_blank\" href=\"https://open-meteo.com/\">OpenMeteo</a> and playing\naround with which data I wanted (made easier once again with PKTS!), I worked\non drawing arc segments according to the following schemes:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Outer ring showing general weather conditions (grays for cloud, blues for rain, white for fog and snow etc.) or clear if clear</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Inner ring showing relative temperatures with deeper colors for the extreme min/max, and a couple of lighter shades for temperatures within one and two degrees of those.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Markers in pink and orange for sunrise and sunset times respectively.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "In addition, general things you need to have:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Clear time and date in the middle</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Battery life meter in green on gray</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Above meter changes to gray if the watch becomes disconnected.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/skyarc1.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "So far, so good. Another thing watches can do is react to a tap or shake, so I\nopted to use this state to show more things:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Rain chance for the day, using the thickness of the outer arc segments that increases with chance.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Current conditions (high/low, wind speed, humidity, current conditions) in the middle.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/skyarc2.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "The first version of that had whole segments with gradations of blue but after a\nuser suggestion, thickness of the arc feels a lot more expressive."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Enhancements"
+    },
+    {
+      "type": "paragraph",
+      "text": "After a couple of initial releases and more late nights, I added more new\nfeatures and settings including:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Option to enable/disable animations.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Choice of units for temperature and wind speed.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Choice of a number of deep shades for a background color.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "This last one really helps the watchface pop! While I was at it, I found that it\nwould not be too impossible to support black and white watches, with some\nguidance needed - as color would be limited to three (white, black, dithered\ngray)."
+    },
+    {
+      "type": "paragraph",
+      "text": "The new rules for black and white:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Outer arc shows grey for cloud, black for clear, and white for anything interesting (rain, snow, storm, fog etc.)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Inner arc still shows gradations for temperatures close to the min/max for the\n  day, but with the knowledge that the coldest extreme is probably earlier in\n  the day than the hottest one, so it can be worked out.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>On shake/tap, the thickness of the rain arc speaks for itself as it did before</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/04/collection.png"
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "I'm quite proud of this one! Thanks to the fun, spirit, interactivity of the\nongoing contest, it has grown from the seeds of an idea to a well fleshed-out\nwatchface, and there is still more scope for more settings, showing more data\n(angled lines for wind speed?) and more."
+    },
+    {
+      "type": "paragraph",
+      "text": "But for now, I'm left wondering if sheer momentum can carry me to the end and\nremain in the top five, or if I'll spend so long in the running and be squeezed\nout right at the end. But it will have been for a good reason because all the\nsubmissions near the top deserve their spots as they are fun, creative, and\nwell executed."
+    },
+    {
+      "type": "paragraph",
+      "text": "So once again I will ask for a heart if you like this watchface and/or enjoyed\nthis post about it! I hope for more such contests/hackathons in the future as\nthey are great for enthusing the Pebble developer community!"
+    },
+    {
+      "type": "paragraph",
+      "text": "<a class=\"link\" target=\"_blank\" href=\"https://apps.repebble.com/cac3689b5691473da9e3410b\">Skyarc</a> can be tried (and\nhearted!) for all Pebble watches. Your support is appreciated!"
+    },
+    {
+      "type": "paragraph",
+      "text": "As always, the <a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchfaces/skyarc\">souce\ncode</a> is\nalso available."
+    }
+  ]
+}

@@ -1081,6 +1081,11 @@ window.postHistory = {
         "title": "Muninn: Web Statistics",
         "file": "assets/rendered/2026-04-06-Muninn-Web-Statistics.json",
         "fileName": "2026-04-06-Muninn-Web-Statistics"
+      },
+      {
+        "title": "Pebble Spring Contest",
+        "file": "assets/rendered/2026-04-17-Pebble-Spring-Contest.json",
+        "fileName": "2026-04-17-Pebble-Spring-Contest"
       }
     ]
   }
