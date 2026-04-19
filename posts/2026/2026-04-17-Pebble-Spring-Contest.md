@@ -37,9 +37,11 @@ So that was a fun and decent entry for week one. But week two loomed...
 
 ## Getting Serious
 
+```callout
 As of writing week two is still ongoing! And competition is fierce. I would not
 be surprised if it came down to alphabetical sorting if many top-5 positions
 tied.
+```
 
 That said, my position is favorable, but I don't know if I can last another two
 days - so if you want to help (and earn my great appreciation!) you can give my

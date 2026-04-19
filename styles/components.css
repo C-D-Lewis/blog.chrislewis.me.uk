@@ -16,6 +16,28 @@ a:hover {
   overflow: scroll;
 }
 
+.callout-label {
+  background-color: rgb(71, 122, 31);
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 0.9rem;
+  padding: 4px 4px 2px 10px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.callout-body {
+  font-size: 1rem;
+  background-color: rgb(139, 252, 135);
+  color: black;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  overflow: scroll;
+}
+
 code {
   background-color: #ddd;
   color: black;

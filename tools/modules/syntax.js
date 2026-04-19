@@ -417,7 +417,7 @@ const highlightCodeParagraphs = (sections) => {
     if (section.startsWith('```') && !isCodeBlock) {
       isCodeBlock = true;
 
-      // Check the language and remove tag
+      // Extract the language
       language = section.slice(3, section.indexOf('\n'));
     }
 
@@ -434,13 +434,24 @@ const highlightCodeParagraphs = (sections) => {
 
       // If contains ``` unset isCodeBlock - could be the same section if just one paragraph
       if (section.endsWith('```')) {
-        // Add styling and store
-        const preClass = language === 'textwrap' ? 'wrap' : '';
-        const highlightedSnippet = `<div class="lang-label lang-${language}">${friendlyLangName(language)}</div>
+        if (language === 'callout') {
+          const calloutSection = `<div class="callout-label">Note</div>
+  <div class="callout-body">
+  ${snippetSections
+    .map((p) => p.split('\n').filter((q) => !q.includes('```')).join('\n'))
+    .join('\n\n')
+    .trim()}
+  </div></pre>`;
+          resultSections.push(calloutSection);
+        } else {
+          // Add styling and store
+          const preClass = language === 'textwrap' ? 'wrap' : '';
+          const highlightedSnippet = `<div class="lang-label lang-${language}">${friendlyLangName(language)}</div>
 <pre class="${preClass}"><div class="code-block">
 ${highlight(snippetSections.join('\n\n'), language).trim()}
 </div></pre>`;
-        resultSections.push(highlightedSnippet);
+          resultSections.push(highlightedSnippet);
+        }
 
         // Reset for next code block
         isCodeBlock = false;

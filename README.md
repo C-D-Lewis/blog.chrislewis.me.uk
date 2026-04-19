@@ -28,7 +28,7 @@ later converted into JSON objects that can be rendered as components:
 
 * Lines starting with '- ' are converted to bullet lists using tables.
 
-* Code highlighting uses Markdown triple backticks followed by the language name.
+* Code highlighting uses Markdown triple backticks followed by the language name. Special options include 'callout'.
 
 
 ## Building the blog
