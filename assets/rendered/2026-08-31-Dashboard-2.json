@@ -1,0 +1,169 @@
+{
+  "fileName": "2026-08-31-Dashboard-2.md",
+  "title": "Dashboard 2",
+  "dateTime": "2026-08-31 16:58",
+  "tags": [
+    "Pebble",
+    "Releases"
+  ],
+  "components": [
+    {
+      "type": "paragraph",
+      "text": "Today I finally got to releasing the first version of Dashboard 2 - the\nsuccessor to one of my most popular apps back in 2016 called\n<a class=\"link\" target=\"_blank\" href=\"https://apps.rebble.io/en_US/application/53ec8d840c3036447e000109\">Dashboard</a>\nwhich allowed toggling things like WiFi and mobile data on or off, viewing phone\nbattery level and connected networks, activating a loud sound to help find the\nphone, lock the phone, and much more."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/08/dashboard1.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "Sadly in the years since, security changes, API deprecations, background app\nexecution restrictions, minimum Android API requirements and Play Store red tape\nhave all conspired to kill the original app."
+    },
+    {
+      "type": "paragraph",
+      "text": "It can still be sideloaded and installed by bypassing several Android checks and\nfeatures (as far as I'm aware) but the code is old (Java!), complicated, and the\nmajority of the features won't work on modern Android platforms, which are\nfairly strictly required. Interested parties can still find the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchapps/dashboard\">source code</a>\non GitHub."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "A Modern Alternative"
+    },
+    {
+      "type": "paragraph",
+      "text": "With the resurrection of Pebble, new devices, and now a new version of\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/pebble-dev/PebbleKitAndroid2\">PebbleKit Android 2</a>\navailable, it became possible to either update the existing app or create a new\none for the modern Android and Pebble landscape. It seemed sad to rip out most\nof the existing app's UI, features, plumbing etc and try and squeeze the old\nJava codebase into modern Android Studio, so I opted to create something new."
+    },
+    {
+      "type": "paragraph",
+      "text": "Sadly, job and personal commitments meant that development was slow to start and\nprogressed at a snail's pace, but after doing plenty of experimentation and\ndiving deep into Kotlin and Jetpack Compose UI, I finally arrived at something\nthat contained at least a few bits of phone data and a couple of useful\nactionable features:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Device name</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Battery level (and charging status)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Free storage space</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Next Android alarm time</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Find Phone with loud sound</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Cycle ringer modes (requires additional permission grant)</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "More features should hopefully come after, but I wanted to draw the line\nsomewhere or the first version would never get released. I have created a\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/issues/18\">GitHub Issue</a> to track\nfuture features and feature requests. As expected, some are impossible nowadays,\nor require special access or workarounds such as\n<a class=\"link\" target=\"_blank\" href=\"https://shizuku.rikka.app/\">Shizuku</a> which I am hesitent to rely upon too\nstrongly."
+    },
+    {
+      "type": "paragraph",
+      "text": "So, what does it look like? Quite similar and yet different. Since there are\nmore items of data available than actionable toggles/tools (not settled on the\ncorrect term yet), it made sense to make the primary UI focused on data, and\npull down the toggles instead of the reverse as the old app had it."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/08/dashboard2-sbs.jpg"
+    },
+    {
+      "type": "paragraph",
+      "text": "The toggles slide into view when the Up button is pressed and retracts when\nit is pressed again and the first toggle is selected. Pressing Select will\nactivate a toggle (or currently do nothing if the feature requires additional\npermissions, a better UX for this is on the TODO list)."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Android app UI is similarly as simple, since mostly all it has to do is\nlisten to and response to messages when the screen is off. It contains\ninformation as well the the opportunity to grant additional required permissions\nif the user wants to enable them."
+    },
+    {
+      "type": "image",
+      "description": "",
+      "src": "assets/media/2026/08/dashboard2-android.png"
+    },
+    {
+      "type": "paragraph",
+      "text": "Currently the Android app is installed from a link to S3, or from source code.\nI have no appetite to get back into the Google Play Store web of policies and\nred tape..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Into the Weeds"
+    },
+    {
+      "type": "paragraph",
+      "text": "This time around, I wanted to keep the UI and communication protocol as simple\nto maintain and extend as possible. This means that it should be relatively\neasy to add new features and data sources without too much work, or to remove\nthem if they are killed by Google (there is precedent!)."
+    },
+    {
+      "type": "paragraph",
+      "text": "When the app launches, it sends an <code>AppMessage</code> to the phone with\nthe expected protocol version (a simple integer this time around instead of\nre-implementing semver) and the phone assembles the response as a dictionary\nof data items and the compatible protocol version. If there is a mis-match,\nan error is displayed and the user needs to check either of both of the watchapp\nand Android companion app are up to date. This single response has all the data\nrequired so the sync is nice and fast and extensible."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n/**\n * Respond to a sync request with current state.\n */\nsuspend fun handleSyncRequest(): ReceiveResult {\n    // Assemble all sync data\n    val dict = mapOf(\n        Constants.MESSAGE_KEY_COMPAT_PROTOCOL_VERSION to PebbleDictionaryItem.Int32(Constants.COMPATIBLE_PROTOCOL_VERSION),\n        Constants.MESSAGE_KEY_SYNC_TOGGLE_ORDER to PebbleDictionaryItem.Text(getToggleOrderString(this)),\n        Constants.MESSAGE_KEY_SYNC_DEVICE_NAME to PebbleDictionaryItem.Text(Device.getDeviceName(this)),\n        Constants.MESSAGE_KEY_SYNC_BATTERY_PERC to PebbleDictionaryItem.Text(Battery.getBatteryLevel(this).toString()),\n        Constants.MESSAGE_KEY_SYNC_FREE_SPACE to PebbleDictionaryItem.Text(Device.getFreeDiskSpace()),\n        Constants.MESSAGE_KEY_SYNC_FREE_SPACE_PERC to PebbleDictionaryItem.Text(Device.getFreeDiskSpacePercentage().toString()),\n        Constants.MESSAGE_KEY_SYNC_NEXT_ALARM to PebbleDictionaryItem.Text(Alarms.getNextAlarmTime(this)),\n        Constants.MESSAGE_KEY_SYNC_IS_CHARGING to PebbleDictionaryItem.Int32(if (Battery.isCharging(this)) 1 else 0),\n    )\n\n    val result = sender.sendDataToPebble(Constants.APP_UUID, dict)\n    Log.d(TAG, \"Send $dict: $result\")\n    return ReceiveResult.Ack\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "As before, the current state of toggles takes the form of a single\n<code>AppMessage</code> tuple as a string. The format is <code>xy</code> for\neach toggle that exists, where <code>x</code> is an integer signifying the\ntoggle type, and <code>y</code> represents the state. States can include 'on',\n'off', 'loud', 'vibrate', 'silent' and more in the future. For example, with\nFind Phone off and the ringer set to loud:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n0112\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Every response to actioning a toggle includes this tuple, so the state is always\nreflected on the watch automatically after each action. Unfortunately with my\ncurreny Kotlin level of experience (just this project!) this string construction\nis very verbose..."
+    },
+    {
+      "type": "paragraph",
+      "text": "<div class=\"lang-label lang-text\">Text</div>\n<pre class=\"\"><div class=\"code-block\">\n/**\n * Get toggle order as a string. Constructed based on current state.\n *\n * Format: 2 chars per toggle - [TYPE,STATE] with defined toggle types and state values.\n */\nfun getToggleOrderString(context: Context): String {\n    return \"${Constants.TOGGLE_TYPE_FIND_PHONE}\" + (if (FindPhone.isPlaying()) Constants.TOGGLE_STATE_ON else Constants.TOGGLE_STATE_OFF) +\n            \"${Constants.TOGGLE_TYPE_CYCLE_RINGER}\" + Ringer.getRingerModeProtocolValue(context)\n}\n</div></pre>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Perhaps there is a better way I can discover in the future..."
+    },
+    {
+      "type": "header",
+      "level": 2,
+      "text": "Conclusion"
+    },
+    {
+      "type": "paragraph",
+      "text": "That's pretty much all there is to this MVP version of Dashboard 2! The ball is\nrolling, the initial version is out, and hopefully in future I can restore a few\nmore of the old features, check out Shizuku, or explore new capabilities such as\nsummoning other Android apps or activities. How about a toggle that launches the\nGoogle Pay app for the next time you unlock your phone? Something to save some\ntime."
+    },
+    {
+      "type": "paragraph",
+      "text": "As usual, the\n<a class=\"link\" target=\"_blank\" href=\"https://github.com/C-D-Lewis/pebble-dev/tree/master/watchapps/dashboard2\">source code</a>\nis available and documented to a basic level - and if any more competent Android\ndevelopers feel they can add useful new items of data or toggles, PRs are\nwelcome!"
+    },
+    {
+      "type": "paragraph",
+      "text": "For the near future, some items include:"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>More UI polish on both sides, such as handling missing permissions.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>A scroll view for the data list to allow many more items.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Fewer disparate enums/constants/places to add new data or features.</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "<table>\n      <tr>\n        <td style=\"padding-right:10px; vertical-align: baseline;\">•</td>\n        <td>Driving the data list and toggle pane based on the received protocol string, potentially allowing Android-only changes to be made (aside from showing strings and icons on the Pebble side).</td>\n      </tr>\n    </table>"
+    },
+    {
+      "type": "paragraph",
+      "text": "So,\n<a class=\"link\" target=\"_blank\" href=\"https://apps.rebble.io/en_US/application/6a9583177739b6000ad225eb\">give it a try</a>\nand let me know what you think in the\n<a class=\"link\" target=\"_blank\" href=\"https://discordapp.com/channels/221364737269694464/1478019710187470888\">Discord channel</a>!"
+    }
+  ]
+}

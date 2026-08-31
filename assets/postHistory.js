@@ -1087,6 +1087,13 @@ window.postHistory = {
         "file": "assets/rendered/2026-04-17-Pebble-Spring-Contest.json",
         "fileName": "2026-04-17-Pebble-Spring-Contest"
       }
+    ],
+    "08": [
+      {
+        "title": "Dashboard 2",
+        "file": "assets/rendered/2026-08-31-Dashboard-2.json",
+        "fileName": "2026-08-31-Dashboard-2"
+      }
     ]
   }
 }

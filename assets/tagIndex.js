@@ -96,7 +96,8 @@ window.tagIndex = {
     "2025-12-07-Muninn-Battery-Wisdom.json",
     "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.json",
     "2026-04-06-Muninn-Web-Statistics.json",
-    "2026-04-17-Pebble-Spring-Contest.json"
+    "2026-04-17-Pebble-Spring-Contest.json",
+    "2026-08-31-Dashboard-2.json"
   ],
   "Games": [
     "2013-03-27-A-Brief-Overview-of-dungeons-so-far.json",
@@ -263,7 +264,8 @@ window.tagIndex = {
     "2025-12-07-Muninn-Battery-Wisdom.json",
     "2026-02-01-Fast-Emery-Upgrades-With-Pebble-Scalable.json",
     "2026-04-06-Muninn-Web-Statistics.json",
-    "2026-04-17-Pebble-Spring-Contest.json"
+    "2026-04-17-Pebble-Spring-Contest.json",
+    "2026-08-31-Dashboard-2.json"
   ],
   "Integration": [
     "2013-05-22-Java-to-Arduino-LCD-Output.json",
